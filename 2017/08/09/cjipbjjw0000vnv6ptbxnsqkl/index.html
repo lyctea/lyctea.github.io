@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Nodejs,Express," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Getting started安装新建一个目录, 初始化项目 123mkdir myappcd myappnpm init  //可以手动输入入口文件,如entry point: (index.js) 安装express依赖 12npm install express --savenpm install express --no-save   //也可以不将express添加到依赖中 新建一个He">
+<meta name="keywords" content="Nodejs,Express">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Express Getting Started实践">
+<meta property="og:url" content="https://lyctea.github.io/2017/08/09/cjipbjjw0000vnv6ptbxnsqkl/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="Getting started安装新建一个目录, 初始化项目 123mkdir myappcd myappnpm init  //可以手动输入入口文件,如entry point: (index.js) 安装express依赖 12npm install express --savenpm install express --no-save   //也可以不将express添加到依赖中 新建一个He">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-09T15:41:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Express Getting Started实践">
+<meta name="twitter:description" content="Getting started安装新建一个目录, 初始化项目 123mkdir myappcd myappnpm init  //可以手动输入入口文件,如entry point: (index.js) 安装express依赖 12npm install express --savenpm install express --no-save   //也可以不将express添加到依赖中 新建一个He">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lyctea.github.io/2017/08/09/cjipbjjw0000vnv6ptbxnsqkl/"/>
+
+
+
+
+
+  <title>Express Getting Started实践 | 孤丶晴的网络日志</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孤丶晴的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lyctea.github.io/2017/08/09/cjipbjjw0000vnv6ptbxnsqkl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="罗业聪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤丶晴的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Express Getting Started实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T06:43:10+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">Nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/09/cjipbjjw0000vnv6ptbxnsqkl/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/08/09/cjipbjjw0000vnv6ptbxnsqkl/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,126
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Getting-started"><a href="#Getting-started" class="headerlink" title="Getting started"></a>Getting started</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>新建一个目录, 初始化项目</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir myapp</span><br><span class="line">cd myapp</span><br><span class="line">npm init  <span class="comment">//可以手动输入入口文件,如entry point: (index.js)</span></span><br></pre></td></tr></table></figure>
+<p>安装express依赖</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install express --save</span><br><span class="line">npm install express --no-save   <span class="comment">//也可以不将express添加到依赖中</span></span><br></pre></td></tr></table></figure>
+<h2 id="新建一个Hello-World-示例"><a href="#新建一个Hello-World-示例" class="headerlink" title="新建一个Hello World 示例"></a>新建一个Hello World 示例</h2><p>修改目录下index.js文件如下:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>)</span><br><span class="line">const app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>, function (req, res) &#123;</span><br><span class="line">  res.send(<span class="string">'Hello World!'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>, function () &#123;</span><br><span class="line">  console.log(<span class="string">'Example app listening on port 3000!'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>运行这个应用用一下命令:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node index.js</span><br></pre></td></tr></table></figure>
+<p>打开浏览器 <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000/</a> , 就能看到输入 ‘Hello World!’</p>
+<h2 id="使用Express-的脚手架构建项目"><a href="#使用Express-的脚手架构建项目" class="headerlink" title="使用Express 的脚手架构建项目"></a>使用Express 的脚手架构建项目</h2><p>使用脚手架工具, 可以快速的创建项目骨架,<br>全局安装express-generator</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express-generator -g</span><br></pre></td></tr></table></figure>
+<p>-h命令参数 可以看到打印的信息</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$express</span> -h</span><br><span class="line">Usage: express [options] [dir]</span><br><span class="line"></span><br><span class="line">  Options:</span><br><span class="line"></span><br><span class="line">    -h, --help           output usage information</span><br><span class="line">        --version        output the version number</span><br><span class="line">    -e, --ejs            add ejs engine support</span><br><span class="line">        --pug            add pug engine support</span><br><span class="line">        --hbs            add handlebars engine support</span><br><span class="line">    -H, --hogan          add hogan<span class="selector-class">.js</span> engine support</span><br><span class="line">    -v, --view &lt;engine&gt;  add view &lt;engine&gt; support (dust|ejs|hbs|hjs|jade|pug|twig|vash) (defaults to jade)</span><br><span class="line">    -c, --css &lt;engine&gt;   add stylesheet &lt;engine&gt; support (less|stylus|compass|sass) (defaults to plain css)</span><br><span class="line">        --git            add .gitignore</span><br><span class="line">    -f, --force          force on non-empty directory</span><br></pre></td></tr></table></figure>
+<p>使用一下命令可以快速构建指定项目名的应用, 并且可以同时指定模板引擎</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">express --view=pug myapp</span><br><span class="line"></span><br><span class="line">   create : myapp</span><br><span class="line">   create : myapp/package.json</span><br><span class="line">   create : myapp/app.js</span><br><span class="line">   create : myapp/public</span><br><span class="line">   create : myapp/public/javascripts</span><br><span class="line">   create : myapp/public/images</span><br><span class="line">   create : myapp/routes</span><br><span class="line">   create : myapp/routes/index.js</span><br><span class="line">   create : myapp/routes/users.js</span><br><span class="line">   create : myapp/public/stylesheets</span><br><span class="line">   create : myapp/public/stylesheets/style.css</span><br><span class="line">   create : myapp/views</span><br><span class="line">   create : myapp/views/index.pug</span><br><span class="line">   create : myapp/views/layout.pug</span><br><span class="line">   create : myapp/views/error.pug</span><br><span class="line">   create : myapp/bin</span><br><span class="line">   create : myapp/bin/www</span><br></pre></td></tr></table></figure>
+<p>进到工作目录中,安装依赖, 并运行项目</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd myapp</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>On MacOS or Linux系统,执行以下命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> DEBUG=myapp:* npm start</span><br></pre></td></tr></table></figure>
+<p>On Windows系统, 执行以下命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> set DEBUG=myapp:* &amp; npm start</span><br></pre></td></tr></table></figure>
+<p>同样打开浏览器 <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000/</a></p>
+<p>通过脚手架创建的项目,  目录结构如下</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── app.js</span><br><span class="line">├── bin</span><br><span class="line">│   └── www</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">│   ├── images</span><br><span class="line">│   ├── javascripts</span><br><span class="line">│   └── stylesheets</span><br><span class="line">│       └── style.css</span><br><span class="line">├── routes</span><br><span class="line">│   ├── index.js</span><br><span class="line">│   └── users.js</span><br><span class="line">└── views</span><br><span class="line">    ├── error.pug</span><br><span class="line">    ├── index.pug</span><br><span class="line">    └── layout.pug</span><br><span class="line"></span><br><span class="line"><span class="number">7</span> directories, <span class="number">9</span> files</span><br></pre></td></tr></table></figure>
+<h2 id="基础路由"><a href="#基础路由" class="headerlink" title="基础路由"></a>基础路由</h2><p>应用的路由处理客户端通过URL或路径等特定的http请求方法(GET POST …)的请求<br>每一个路由当被匹配的时候, 都由一个或者多个的处理函数<br>定义路由的方法</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.METHOD(PATH, HANDLER)</span><br></pre></td></tr></table></figure>
+<p>这里需要注意的几个点</p>
+<ul>
+<li>app是express的实例</li>
+<li>METHOD是HTTP请求方方法, 小写</li>
+<li>PATH是服务器路径</li>
+<li>HANDLER是当路由匹配的时候执行的方法</li>
+</ul>
+<h3 id="路由简单实例"><a href="#路由简单实例" class="headerlink" title="路由简单实例"></a>路由简单实例</h3><p>相应’Hello World!’字符串在主页上</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/'</span>, function(req,res)&#123;</span><br><span class="line">	res.send(<span class="string">'Hello World!'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>相应一个post方法的请求</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.post(<span class="string">'/'</span>, function (req, res) &#123;</span><br><span class="line">  res.send(<span class="string">'Got a POST request'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相应PUT方法的请求, 匹配/user 路由</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.put(<span class="string">'/user'</span>, function(req, res)&#123;</span><br><span class="line">	res.send(<span class="string">'Got a PUT request a /user'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>相应DELETE方法的请求, 匹配/user 路由</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.delete(<span class="string">'/user'</span>, function (req, res) &#123;</span><br><span class="line">  res.send(<span class="string">'Got a DELETE request at /user'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="在express中的静态文件"><a href="#在express中的静态文件" class="headerlink" title="在express中的静态文件"></a>在express中的静态文件</h2><p>静态文件, 图片 css javascript等,  使用express内置的中间件express.static处理. </p>
+<p>通过命名的目录包含这些静态资源文件, express.static中间件函数开始直接为这些文件提供支持.<br>例如:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.user(express.static(<span class="string">'public'</span>))</span><br></pre></td></tr></table></figure>
+<p>现在可以加载这些文件了  ps:使用的是相对路径</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//localhost:3000/images/kitten.jpg</span></span><br><span class="line">http:<span class="comment">//localhost:3000/css/style.css</span></span><br><span class="line">http:<span class="comment">//localhost:3000/js/app.js</span></span><br><span class="line">http:<span class="comment">//localhost:3000/images/bg.png</span></span><br><span class="line">http:<span class="comment">//localhost:3000/hello.html</span></span><br></pre></td></tr></table></figure>
+<p>如果有多个静态资源目录, 调用express.static中间件多次即可</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app.use(express.static(<span class="string">'public'</span>))</span><br><span class="line">app.use(express.static(<span class="string">'files'</span>))</span><br></pre></td></tr></table></figure>
+<p>express会按顺序设置这些静态文件</p>
+<h3 id="虚拟前缀"><a href="#虚拟前缀" class="headerlink" title="虚拟前缀"></a>虚拟前缀</h3><p>创建一个虚拟的前缀(这个前缀并不存在与服务器的文件系统中)</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">'/static'</span>, express.static(<span class="string">'public'</span>))</span><br></pre></td></tr></table></figure>
+<p>现在可以通过这个虚拟的前缀访问到静态资源文件</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//localhost:3000/static/images/kitten.jpg</span></span><br><span class="line">http:<span class="comment">//localhost:3000/static/css/style.css</span></span><br><span class="line">http:<span class="comment">//localhost:3000/static/js/app.js</span></span><br><span class="line">http:<span class="comment">//localhost:3000/static/images/bg.png</span></span><br><span class="line">http:<span class="comment">//localhost:3000/static/hello.html</span></span><br></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>express.static使用相对路径加载静态文件当你加载你的node程序, 如果你从其他路径运行的express 应用,<br>一个更安全的策略是使用绝对路径</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">'/static'</span>, express.static(path.join(__dirname, <span class="string">'public'</span>)))</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nodejs/" rel="tag"># Nodejs</a>
+          
+            <a href="/tags/Express/" rel="tag"># Express</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/09/cjipbjjxq0050nv6ped7gyyxx/" rel="next" title="socket.io入门实践">
+                <i class="fa fa-chevron-left"></i> socket.io入门实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/09/cjipbjjy80065nv6pyhra558t/" rel="prev" title="代码整洁之道三:函数">
+                代码整洁之道三:函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpeg"
+                alt="罗业聪" />
+            
+              <p class="site-author-name" itemprop="name">罗业聪</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
+                      
+                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Getting-started"><span class="nav-number">1.</span> <span class="nav-text">Getting started</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建一个Hello-World-示例"><span class="nav-number">1.2.</span> <span class="nav-text">新建一个Hello World 示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Express-的脚手架构建项目"><span class="nav-number">1.3.</span> <span class="nav-text">使用Express 的脚手架构建项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础路由"><span class="nav-number">1.4.</span> <span class="nav-text">基础路由</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由简单实例"><span class="nav-number">1.4.1.</span> <span class="nav-text">路由简单实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在express中的静态文件"><span class="nav-number">1.5.</span> <span class="nav-text">在express中的静态文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟前缀"><span class="nav-number">1.5.1.</span> <span class="nav-text">虚拟前缀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">1.5.2.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">罗业聪</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">121.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="50" alpha="0.6"  zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'lyctea',
+            repo: 'lyctea.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '70a5af9699aa09c449e4eabc62b0a3ddc0529594',
+            
+                client_id: 'b2cd2b1da89eab81af71'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>

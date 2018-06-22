@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="原型链,委托," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="[[Prototype]] 机制就是指对象中的一个内部链接引用 另一个对象。JavaScript 中这个机制的本质就是对象之间的关联关系  面向委托的设计模式为了更好地学习如何更直观地使用 [[Prototype]]，我们必须认识到它代表的是一种不同于类(参见第 4 章)的设计模式。 类理论类设计模式鼓励你在继承时使用方法重写(和多态) 委托理论1234567891011121314151617">
+<meta name="keywords" content="原型链,委托">
+<meta property="og:type" content="article">
+<meta property="og:title" content="行为委托">
+<meta property="og:url" content="https://lyctea.github.io/2017/10/08/cjipbjjzf008env6pv096eqxm/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="[[Prototype]] 机制就是指对象中的一个内部链接引用 另一个对象。JavaScript 中这个机制的本质就是对象之间的关联关系  面向委托的设计模式为了更好地学习如何更直观地使用 [[Prototype]]，我们必须认识到它代表的是一种不同于类(参见第 4 章)的设计模式。 类理论类设计模式鼓励你在继承时使用方法重写(和多态) 委托理论1234567891011121314151617">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1507445889858.jpg">
+<meta property="og:updated_time" content="2017-10-08T07:10:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="行为委托">
+<meta name="twitter:description" content="[[Prototype]] 机制就是指对象中的一个内部链接引用 另一个对象。JavaScript 中这个机制的本质就是对象之间的关联关系  面向委托的设计模式为了更好地学习如何更直观地使用 [[Prototype]]，我们必须认识到它代表的是一种不同于类(参见第 4 章)的设计模式。 类理论类设计模式鼓励你在继承时使用方法重写(和多态) 委托理论1234567891011121314151617">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1507445889858.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lyctea.github.io/2017/10/08/cjipbjjzf008env6pv096eqxm/"/>
+
+
+
+
+
+  <title>行为委托 | 孤丶晴的网络日志</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孤丶晴的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lyctea.github.io/2017/10/08/cjipbjjzf008env6pv096eqxm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="罗业聪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤丶晴的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">行为委托</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-08T15:10:13+08:00">
+                2017-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/你不知道的JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">你不知道的JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/08/cjipbjjzf008env6pv096eqxm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/10/08/cjipbjjzf008env6pv096eqxm/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  997
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>[[Prototype]] 机制就是指对象中的一个内部链接引用 另一个对象。JavaScript 中这个机制的本质就是对象之间的关联关系</p>
+</blockquote>
+<h1 id="面向委托的设计模式"><a href="#面向委托的设计模式" class="headerlink" title="面向委托的设计模式"></a>面向委托的设计模式</h1><p>为了更好地学习如何更直观地使用 [[Prototype]]，我们必须认识到它代表的是一种不同<br>于类(参见第 4 章)的设计模式。</p>
+<h2 id="类理论"><a href="#类理论" class="headerlink" title="类理论"></a>类理论</h2><p>类设计模式鼓励你在继承时使用方法重写(和多态)</p>
+<h2 id="委托理论"><a href="#委托理论" class="headerlink" title="委托理论"></a>委托理论</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Task = &#123;</span><br><span class="line">	setID: <span class="function"><span class="keyword">function</span>(<span class="params">ID</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = ID</span><br><span class="line">	&#125;,</span><br><span class="line">	outputID: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.id)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//让XYZ委托Task</span></span><br><span class="line">XYZ = <span class="built_in">Object</span>.create(Task)</span><br><span class="line">XYZ.prepareTask = <span class="function"><span class="keyword">function</span>(<span class="params">ID, Label</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.setID(ID)</span><br><span class="line">	<span class="keyword">this</span>.lable = Label</span><br><span class="line">&#125;</span><br><span class="line">XYZ.outputTaskDetails = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.outputID()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.lable)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">XYZ.prepareTask(<span class="number">1222</span>, <span class="string">'hh'</span>)</span><br><span class="line">XYZ.outputTaskDetails()</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1222</span></span><br><span class="line"><span class="comment"> * hh</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>将XYZ委托给Task， 当XYZ对象执行setID方式时，该对象本身并没有该方法，会沿着原型链查找到Task对象上，</p>
+<p>this.id = ID其实是隐式绑定。当前的this绑定这XYZ并不是Task</p>
+<p>打印XYZ与Task对象的属性，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">prepareTask</span>: [<span class="built_in">Function</span>],</span><br><span class="line">  outputTaskDetails: [<span class="built_in">Function</span>],</span><br><span class="line">  id: <span class="number">1222</span>,</span><br><span class="line">  lable: <span class="string">'hh'</span> &#125;</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">&#123; <span class="attr">setID</span>: [<span class="built_in">Function</span>: setID], <span class="attr">outputID</span>: [<span class="built_in">Function</span>: outputID] &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>委托行为意味着某些对象(XYZ)在找不到属性或者方法引用时会把这个请求委托给另一<br>个对象(Task)。</p>
+</blockquote>
+<p>这种设计模式需要注意的几个问题：</p>
+<ul>
+<li><p>委托中最好把状态保存在委托者(XYZ、ABC)而不是委托目标(Task)上。如上例子中，id与label都属于对象XYZ</p>
+</li>
+<li><p>进行避免在不同级别中使用相同的方法或属性命名，提倡更有描述性的方法名，尤其是要写清相应对象行为的类型。</p>
+</li>
+<li><p>使用this的隐式绑定，将需要的属性绑定到委托者身上，尤其是对于一些私有的数据属性，这并不需要保存在委托目标上。</p>
+</li>
+</ul>
+<h2 id="互相委托（禁止）"><a href="#互相委托（禁止）" class="headerlink" title="互相委托（禁止）"></a>互相委托（禁止）</h2><p>你无法在两个或两个以上互相(双向)委托的对象之间创建循环委托。如果你把 B 关联到 A 然后试着把 A 关联到 B，就会出错。</p>
+<p>之所以要禁止互相委托，是因为引擎的开发者们发现在设置时检查(并禁止!)一次无限 循环引用要更加高效，否则每次从对象中查找属性时都需要进行检查。</p>
+<h2 id="比较思维模型"><a href="#比较思维模型" class="headerlink" title="比较思维模型"></a>比较思维模型</h2><p>对比JavaScript中面向对象与对象关联两种设计模式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params">who</span>) </span>&#123; <span class="keyword">this</span>.me = who;</span><br><span class="line">&#125;</span><br><span class="line">Foo.prototype.identify = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="string">"I am "</span> + <span class="keyword">this</span>.me; &#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params">who</span>) </span>&#123; Foo.call( <span class="keyword">this</span>, who );</span><br><span class="line">     &#125;</span><br><span class="line">     Bar.prototype = <span class="built_in">Object</span>.create( Foo.prototype );</span><br><span class="line">Bar.prototype.speak = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">alert( <span class="string">"Hello, "</span> + <span class="keyword">this</span>.identify() + <span class="string">"."</span> );</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> b1 = <span class="keyword">new</span> Bar( <span class="string">"b1"</span> );</span><br><span class="line"><span class="keyword">var</span> b2 = <span class="keyword">new</span> Bar( <span class="string">"b2"</span> ); b1.speak();</span><br><span class="line">b2.speak();</span><br></pre></td></tr></table></figure>
+<p>子类 Bar 继承了父类 Foo，然后生成了 b1 和 b2 两个实例。b1 委托了 Bar.prototype，后者<br>委托了 Foo.prototype。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Foo = &#123;</span><br><span class="line">	init: <span class="function"><span class="keyword">function</span>(<span class="params">who</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.me = who; &#125;,</span><br><span class="line">	identify: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"I am "</span> + <span class="keyword">this</span>.me;</span><br><span class="line">&#125; &#125;;</span><br><span class="line"></span><br><span class="line">Bar = <span class="built_in">Object</span>.create( Foo );</span><br><span class="line">Bar.speak = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert( <span class="string">"Hello, "</span> + <span class="keyword">this</span>.identify() + <span class="string">"."</span> );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b1 = <span class="built_in">Object</span>.create( Bar );</span><br><span class="line">b1.init( <span class="string">"b1"</span> );</span><br><span class="line"><span class="keyword">var</span> b2 = <span class="built_in">Object</span>.create( Bar );</span><br><span class="line"></span><br><span class="line">b2.init( <span class="string">"b2"</span> );</span><br><span class="line">b1.speak();</span><br><span class="line">b2.speak();</span><br></pre></td></tr></table></figure>
+<h3 id="对象关联风格代码的思维模型"><a href="#对象关联风格代码的思维模型" class="headerlink" title="对象关联风格代码的思维模型"></a>对象关联风格代码的思维模型</h3><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1507445889858.jpg" alt=""></p>
+<blockquote>
+<p>对象之间的关联关系。</p>
+</blockquote>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>行为委托认为对象之间是兄弟关系，互相委托，而不是父类和子类的关系。JavaScript 的 [[Prototype]] 机制本质上就是行为委托机制。也就是说，我们可以选择在 JavaScript 中努 力实现类机制(参见第 4 和第 5 章)，也可以拥抱更自然的 [[Prototype]] 委托机制。</p>
+<p>当你只用对象来设计代码时，不仅可以让语法更加简洁，而且可以让代码结构更加清晰。 </p>
+<p>对象关联(对象之前互相关联)是一种编码风格，它倡导的是直接创建和关联对象，不把<br>它们抽象成类。对象关联可以用基于 [[Prototype]] 的行为委托非常自然地实现。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原型链/" rel="tag"># 原型链</a>
+          
+            <a href="/tags/委托/" rel="tag"># 委托</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/08/cjipbjjyq0072nv6p70bus3kb/" rel="next" title="原型">
+                <i class="fa fa-chevron-left"></i> 原型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/10/cjipbjjwv002unv6pxmrycwlu/" rel="prev" title="JavaScript类型">
+                JavaScript类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpeg"
+                alt="罗业聪" />
+            
+              <p class="site-author-name" itemprop="name">罗业聪</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
+                      
+                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#面向委托的设计模式"><span class="nav-number">1.</span> <span class="nav-text">面向委托的设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类理论"><span class="nav-number">1.1.</span> <span class="nav-text">类理论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#委托理论"><span class="nav-number">1.2.</span> <span class="nav-text">委托理论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互相委托（禁止）"><span class="nav-number">1.3.</span> <span class="nav-text">互相委托（禁止）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较思维模型"><span class="nav-number">1.4.</span> <span class="nav-text">比较思维模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象关联风格代码的思维模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">对象关联风格代码的思维模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">2.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">罗业聪</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">121.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="50" alpha="0.6"  zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'lyctea',
+            repo: 'lyctea.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '70a5af9699aa09c449e4eabc62b0a3ddc0529594',
+            
+                client_id: 'b2cd2b1da89eab81af71'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>

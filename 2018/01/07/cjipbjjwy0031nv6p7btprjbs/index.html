@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,脚本文档化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript脚本化文档下属性HTML 元素由一个标签和一组称为属性（attribute）的键值对组成。例如 a 标签的 href 属性，img 标签 src 属性 HTML 属性作为 Element 的属性表示 HTML 文档元素的 HTML Element 对象定义了读\写属性，它们映射了元素的 HTML 属性。 HTMLElement 定义了通用的 HTTP 属性（如 id、标题 la">
+<meta name="keywords" content="JavaScript,脚本文档化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript脚本化文档下">
+<meta property="og:url" content="https://lyctea.github.io/2018/01/07/cjipbjjwy0031nv6p7btprjbs/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="JavaScript脚本化文档下属性HTML 元素由一个标签和一组称为属性（attribute）的键值对组成。例如 a 标签的 href 属性，img 标签 src 属性 HTML 属性作为 Element 的属性表示 HTML 文档元素的 HTML Element 对象定义了读\写属性，它们映射了元素的 HTML 属性。 HTMLElement 定义了通用的 HTTP 属性（如 id、标题 la">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515333839746.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515333852350.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515333866340.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515333877334.jpg">
+<meta property="og:updated_time" content="2018-01-07T14:32:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript脚本化文档下">
+<meta name="twitter:description" content="JavaScript脚本化文档下属性HTML 元素由一个标签和一组称为属性（attribute）的键值对组成。例如 a 标签的 href 属性，img 标签 src 属性 HTML 属性作为 Element 的属性表示 HTML 文档元素的 HTML Element 对象定义了读\写属性，它们映射了元素的 HTML 属性。 HTMLElement 定义了通用的 HTTP 属性（如 id、标题 la">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515333839746.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lyctea.github.io/2018/01/07/cjipbjjwy0031nv6p7btprjbs/"/>
+
+
+
+
+
+  <title>JavaScript脚本化文档下 | 孤丶晴的网络日志</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孤丶晴的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lyctea.github.io/2018/01/07/cjipbjjwy0031nv6p7btprjbs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="罗业聪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤丶晴的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript脚本化文档下</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T22:31:53+08:00">
+                2018-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/07/cjipbjjwy0031nv6p7btprjbs/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/01/07/cjipbjjwy0031nv6p7btprjbs/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,147
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript脚本化文档下"><a href="#JavaScript脚本化文档下" class="headerlink" title="JavaScript脚本化文档下"></a>JavaScript脚本化文档下</h1><h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p><code>HTML</code> 元素由一个标签和一组称为属性<code>（attribute）</code>的键值对组成。例如 <code>a</code> 标签的 <code>href</code> 属性，<code>img</code> 标签 <code>src</code> 属性</p>
+<h3 id="HTML-属性作为-Element-的属性"><a href="#HTML-属性作为-Element-的属性" class="headerlink" title="HTML 属性作为 Element 的属性"></a>HTML 属性作为 Element 的属性</h3><p>表示 <code>HTML</code> 文档元素的 <code>HTML Element</code> 对象定义了读\写属性，它们映射了元素的 <code>HTML</code> 属性。</p>
+<p><code>HTMLElement</code> 定义了通用的 <code>HTTP</code> 属性（如 <code>id</code>、标题 <code>lang</code> 和 <code>dir</code>）等属性，以及事件处理程序属性（如 <code>onclick</code>）。并且特定的类型元素定义了特定的属性。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> image = documment.getElementById(<span class="string">"myiamge"</span>)</span><br><span class="line"><span class="keyword">var</span> imgurl = images.src	<span class="comment">//src属性是图片的URL</span></span><br><span class="line">image.id === <span class="string">"myimage"</span>  <span class="comment">//判定是否是要查找的图片id</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 类似的，也可以设定表单提交的URL */</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="built_in">document</span>.forms[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">f.action = <span class="string">"http://XXX"</span></span><br></pre></td></tr></table></figure>
+<p>表示 <code>HTML</code> 属性的值通常是字符串，如 <code>input</code> 输出文本的值。 需要注意的是，这个属性是通过 <code>API</code>  来获取和设置的，并不能删除该属性。设想一下，没有有输入值的输出框。</p>
+<h3 id="非标准的HTML属性"><a href="#非标准的HTML属性" class="headerlink" title="非标准的HTML属性"></a>非标准的HTML属性</h3><p> <code>Element</code> 类型定义了 <code>getAttribute()</code>和<code>setAttribute()</code> 方法来查询和设置非标准的 <code>HTML</code> 属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> image = <span class="built_in">document</span>.images[<span class="number">0</span>]</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">var</span> witth = <span class="built_in">parseInt</span>(image.getAttribute(<span class="string">'WIDTH'</span>))</span><br><span class="line"></span><br><span class="line">image.和setAttribute(<span class="string">'class'</span>, <span class="string">'thumbnail'</span>)</span><br></pre></td></tr></table></figure>
+<p>通常情况下<code>getAttribute()</code> 返回字符串，并不会返回数值、布尔值、对象。对于 <code>HTML</code> 元素来说，属性名字不会区分大小写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test1111.getAttribute(<span class="string">'class'</span>)</span><br><span class="line"><span class="string">"xxx"</span></span><br><span class="line">test1111.getAttribute(<span class="string">'CLASS'</span>)</span><br><span class="line"><span class="string">"xxx"</span></span><br></pre></td></tr></table></figure>
+<p> <code>Element</code> 类型 定了其他两个相关方法，<code>hasAttribute()</code> 和  <code>remove Attribute()</code> ，用来检查命名属性是否存在和完全删除。</p>
+<h2 id="元素的内容"><a href="#元素的内容" class="headerlink" title="元素的内容"></a>元素的内容</h2><h3 id="inerHTML-与-outerHTML-⚠️"><a href="#inerHTML-与-outerHTML-⚠️" class="headerlink" title="inerHTML 与 outerHTML ⚠️"></a>inerHTML 与 outerHTML ⚠️</h3><ul>
+<li><p><code>inerHTML</code><br>  在元素上设置该属性，用新字符串内容替换元素当前内容</p>
+</li>
+<li><p><code>outerHTML</code></p>
+<ul>
+<li>查询 <code>outerHTML</code> 时，返回的字符串包含被查询元素的开头和结尾标签</li>
+<li>在设置 <code>outerHTML</code> 时，元素本身将会被新内容替换</li>
+</ul>
+</li>
+</ul>
+<h3 id="作为纯文本"><a href="#作为纯文本" class="headerlink" title="作为纯文本"></a>作为纯文本</h3><p>在文档中插入纯文本，标准的方法是用 <code>Node</code> 的 <code>textContent</code> 属性来实现。</p>
+<blockquote>
+<p>⚠️ IE的兼容性 <code>&gt;= IE9</code>，在 <code>IE</code> 中，可以用 <code>innerText</code> 属性替代</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> para = <span class="built_in">document</span>.getElementByTagName(<span class="string">"p"</span>)[<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> text = para.textContent</span><br><span class="line"></span><br><span class="line">para.textContent = <span class="string">"Hello World!"</span></span><br></pre></td></tr></table></figure>
+<h3 id="作为Text节点的元素内容"><a href="#作为Text节点的元素内容" class="headerlink" title="作为Text节点的元素内容"></a>作为Text节点的元素内容</h3><blockquote>
+<p>❓ 作用不是很明确，<code>详见犀牛书p381</code></p>
+</blockquote>
+<h2 id="创建、插入和删除节点"><a href="#创建、插入和删除节点" class="headerlink" title="创建、插入和删除节点"></a>创建、插入和删除节点</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从指定的URL，异步加载和执行脚本</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadsync</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> head = <span class="built_in">document</span>.getElementByTagName(<span class="string">"head"</span>)[<span class="number">0</span>]</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> s = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>)</span><br><span class="line">	</span><br><span class="line">	s.src = url</span><br><span class="line">	</span><br><span class="line">	head.appendChild(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建节节点"><a href="#创建节节点" class="headerlink" title="创建节节点"></a>创建节节点</h3><ul>
+<li><p><code>createElement()</code></p>
+<ul>
+<li>创建新的 <code>Element</code> 节点可以使用 <code>Document</code> 对象的 <code>createElement()</code> 方法。</li>
+<li>给方法传递元素的标签名：对 <code>HTML</code> 文档来说该名字不区分大小写，对 <code>XML</code> 文档来说则需要区分大小写。</li>
+</ul>
+</li>
+<li><p>创建 <code>Text</code> 节点</p>
+<ul>
+<li><code>var newnode = document.createTextNode(&quot;text node content&quot;)</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h3><p>一旦有了一个新节点，可以用 <code>appendChild()</code> 或 <code>insertBefore()</code>。</p>
+<p><code>appendChild()</code> 是在需要插入的 <code>Element</code> 节点删调用</p>
+<p><code>insertBefore()</code> 类似于前者，它需要接受两个参数，第一个参数就是待插入的节点，第二个参数是已经存在的节点</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将child节点插入到parent中，使其成为第n个子节点</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertAt</span>(<span class="params">parent, child, n</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>( n &lt; <span class="number">0</span> || n &gt; parent.childNodes.length) </span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"invalid index"</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>( n == parent.childNodes.length)</span><br><span class="line">		parent.appendChild(child)</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">else</span> parent.insertBefore(child, paretn.childNodes[n])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="删除和替换节点"><a href="#删除和替换节点" class="headerlink" title="删除和替换节点"></a>删除和替换节点</h3><p><code>removeChild()</code> 方法是从文档中删除一个节点</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n.parentNode.removeChild(n)</span><br></pre></td></tr></table></figure>
+<p><code>replaceChild()</code> 方法删除一个子节点并用一个新节点取而代之。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n.parentNode.replaceChild(<span class="built_in">document</span>.createTextNode(<span class="string">"[ REDACTED ]"</span>), n)</span><br></pre></td></tr></table></figure>
+<h2 id="生成目录表"><a href="#生成目录表" class="headerlink" title="生成目录表"></a>生成目录表</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515333839746.jpg" alt=""></p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515333852350.jpg" alt=""></p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515333866340.jpg" alt=""></p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515333877334.jpg" alt=""></p>
+<h2 id="文档和元素的几何形状和滚动"><a href="#文档和元素的几何形状和滚动" class="headerlink" title="文档和元素的几何形状和滚动"></a>文档和元素的几何形状和滚动</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询窗口滚动条的位置</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getScrollOffsets</span>(<span class="params">w</span>)</span>&#123;</span><br><span class="line">	<span class="comment">// 使用指定窗口，如果不带参数则使用当前窗口</span></span><br><span class="line">	w = w || <span class="built_in">window</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 除了IE8 及更早的版本，其他浏览器都能用</span></span><br><span class="line">	<span class="keyword">if</span> (w.pageXOffset != <span class="literal">null</span>) </span><br><span class="line">		<span class="keyword">return</span> &#123;<span class="attr">x</span>: w.pageXOffset, <span class="attr">y</span>: w.pageYOffset&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">// 对标准模式下的IE</span></span><br><span class="line">	<span class="keyword">var</span> d  = w.document</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">document</span>.compatMode == <span class="string">"css1Compat"</span>)</span><br><span class="line">		<span class="keyword">return</span> &#123;<span class="attr">x</span>: d.documentElement.scrollLeft, <span class="attr">y</span>: d.documentElement.scrollTop&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">// 对怪异模式下的浏览器</span></span><br><span class="line">	<span class="keyword">return</span> &#123;<span class="attr">x</span>: d.body.scrollleft, <span class="attr">y</span>: d.body.scrollTop&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获得在视口坐标中的位置，返回left、right、top、bottom属性的对象</span></span><br><span class="line"><span class="keyword">var</span> box = e.getBoundingClientRect()</span><br></pre></td></tr></table></figure>
+<h3 id="判断元素在某点"><a href="#判断元素在某点" class="headerlink" title="判断元素在某点"></a>判断元素在某点</h3><p><code>getBoundingClientRect()</code> 方法能确定元素在视口中的位置</p>
+<p><code>elementFromPoint()</code> 方法判定视口指定位置有什么元素</p>
+<h3 id="滚动"><a href="#滚动" class="headerlink" title="滚动"></a>滚动</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获得文档和视口的高度，offsetHeight会在下面解释</span></span><br><span class="line"><span class="keyword">var</span> documentHeight = <span class="built_in">document</span>.documentElement.offsetHeight</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> viewportHeight = <span class="built_in">window</span>.innerHeight</span><br><span class="line"></span><br><span class="line"><span class="comment">// 然后滚动让最后一页在视口中可见</span></span><br><span class="line"><span class="built_in">window</span>.scrollTo(<span class="number">0</span>, documentheight - viewprotHeight)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/脚本文档化/" rel="tag"># 脚本文档化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/06/cjipbjjvp000anv6p3gas5q93/" rel="next" title="CentOS7 服务器安装 Node.js">
+                <i class="fa fa-chevron-left"></i> CentOS7 服务器安装 Node.js
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/10/cjipbjjzm008ynv6p6tleg2rj/" rel="prev" title="高性能 Webpack3 配置">
+                高性能 Webpack3 配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpeg"
+                alt="罗业聪" />
+            
+              <p class="site-author-name" itemprop="name">罗业聪</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
+                      
+                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript脚本化文档下"><span class="nav-number">1.</span> <span class="nav-text">JavaScript脚本化文档下</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#属性"><span class="nav-number">1.1.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-属性作为-Element-的属性"><span class="nav-number">1.1.1.</span> <span class="nav-text">HTML 属性作为 Element 的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非标准的HTML属性"><span class="nav-number">1.1.2.</span> <span class="nav-text">非标准的HTML属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素的内容"><span class="nav-number">1.2.</span> <span class="nav-text">元素的内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#inerHTML-与-outerHTML-⚠️"><span class="nav-number">1.2.1.</span> <span class="nav-text">inerHTML 与 outerHTML ⚠️</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作为纯文本"><span class="nav-number">1.2.2.</span> <span class="nav-text">作为纯文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作为Text节点的元素内容"><span class="nav-number">1.2.3.</span> <span class="nav-text">作为Text节点的元素内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建、插入和删除节点"><span class="nav-number">1.3.</span> <span class="nav-text">创建、插入和删除节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建节节点"><span class="nav-number">1.3.1.</span> <span class="nav-text">创建节节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入节点"><span class="nav-number">1.3.2.</span> <span class="nav-text">插入节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除和替换节点"><span class="nav-number">1.3.3.</span> <span class="nav-text">删除和替换节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成目录表"><span class="nav-number">1.4.</span> <span class="nav-text">生成目录表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档和元素的几何形状和滚动"><span class="nav-number">1.5.</span> <span class="nav-text">文档和元素的几何形状和滚动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#判断元素在某点"><span class="nav-number">1.5.1.</span> <span class="nav-text">判断元素在某点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滚动"><span class="nav-number">1.5.2.</span> <span class="nav-text">滚动</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">罗业聪</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">121.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="50" alpha="0.6"  zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'lyctea',
+            repo: 'lyctea.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '70a5af9699aa09c449e4eabc62b0a3ddc0529594',
+            
+                client_id: 'b2cd2b1da89eab81af71'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
