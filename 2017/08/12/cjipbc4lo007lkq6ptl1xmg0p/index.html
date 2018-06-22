@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,数据结构,算法," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="数组数组的创建与初始化 new关键字  12var color = new Array()var colors = new Array(&apos;red&apos;,&apos;yellow&apos;,&apos;blue&apos;)  数组字面量  12var color = []var colors = [&apos;red&apos;,&apos;yellow&apos;,&apos;blue&apos;] 检测数组检测某个对象是不是数组 ES3中的方法123if（value instanceof Ar">
+<meta name="keywords" content="JavaScript,数据结构,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组、栈、队列">
+<meta property="og:url" content="https://lyctea.github.io/2017/08/12/cjipbc4lo007lkq6ptl1xmg0p/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="数组数组的创建与初始化 new关键字  12var color = new Array()var colors = new Array(&apos;red&apos;,&apos;yellow&apos;,&apos;blue&apos;)  数组字面量  12var color = []var colors = [&apos;red&apos;,&apos;yellow&apos;,&apos;blue&apos;] 检测数组检测某个对象是不是数组 ES3中的方法123if（value instanceof Ar">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502518771526.jpg">
+<meta property="og:updated_time" content="2017-08-12T09:49:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数组、栈、队列">
+<meta name="twitter:description" content="数组数组的创建与初始化 new关键字  12var color = new Array()var colors = new Array(&apos;red&apos;,&apos;yellow&apos;,&apos;blue&apos;)  数组字面量  12var color = []var colors = [&apos;red&apos;,&apos;yellow&apos;,&apos;blue&apos;] 检测数组检测某个对象是不是数组 ES3中的方法123if（value instanceof Ar">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502518771526.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lyctea.github.io/2017/08/12/cjipbc4lo007lkq6ptl1xmg0p/"/>
+
+
+
+
+
+  <title>数组、栈、队列 | 孤丶晴的网络日志</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孤丶晴的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lyctea.github.io/2017/08/12/cjipbc4lo007lkq6ptl1xmg0p/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="罗业聪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤丶晴的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数组、栈、队列</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T17:48:42+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">JS数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/12/cjipbc4lo007lkq6ptl1xmg0p/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/08/12/cjipbc4lo007lkq6ptl1xmg0p/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,477
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="数组的创建与初始化"><a href="#数组的创建与初始化" class="headerlink" title="数组的创建与初始化"></a>数组的创建与初始化</h2><ul>
+<li>new关键字</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color = <span class="keyword">new</span> <span class="built_in">Array</span>()</span><br><span class="line"><span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">'red'</span>,<span class="string">'yellow'</span>,<span class="string">'blue'</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>数组字面量</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color = []</span><br><span class="line"><span class="keyword">var</span> colors = [<span class="string">'red'</span>,<span class="string">'yellow'</span>,<span class="string">'blue'</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="检测数组"><a href="#检测数组" class="headerlink" title="检测数组"></a>检测数组</h2><p>检测某个对象是不是数组</p>
+<h3 id="ES3中的方法"><a href="#ES3中的方法" class="headerlink" title="ES3中的方法"></a>ES3中的方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>（value <span class="keyword">instanceof</span> <span class="built_in">Array</span>）&#123;</span><br><span class="line">	<span class="comment">//如果是数组，执行某些操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果页面中包含多个框架，那实际上就存在两个以上的不同全局执行环境，从而存在两个以上的不同版本的Array构造函数。</p>
+<h3 id="ES5中的方法，也是现在使用的方法"><a href="#ES5中的方法，也是现在使用的方法" class="headerlink" title="ES5中的方法，也是现在使用的方法"></a>ES5中的方法，也是现在使用的方法</h3><p>兼容性： IE9+</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value) &#123;</span><br><span class="line">	<span class="comment">//对数组执行某些操作</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="转换方法"><a href="#转换方法" class="headerlink" title="转换方法"></a>转换方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">toString(): 返回数组中每个值的字符串形式拼接而成的一个以逗号隔开的字符串。</span><br><span class="line"></span><br><span class="line">valueOf()：返回的仍然是数组</span><br><span class="line"></span><br><span class="line">toLocaleString(): 在大多数情况与前两者相同，不同之初是调用数组中每一项的toLocaleString（），而不是toString（）方法。</span><br></pre></td></tr></table></figure>
+<h2 id="添加和删除元素"><a href="#添加和删除元素" class="headerlink" title="添加和删除元素"></a>添加和删除元素</h2><h3 id="通过下标直接赋值"><a href="#通过下标直接赋值" class="headerlink" title="通过下标直接赋值:"></a>通过下标直接赋值:</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">var</span> numbers = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">numbers[<span class="number">5</span>] = <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<h3 id="栈方法"><a href="#栈方法" class="headerlink" title="栈方法"></a>栈方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">push()  <span class="comment">//可以接收任意数量的参数，把他们逐个添加到数组末尾，并返回修改后数组的长度</span></span><br><span class="line"></span><br><span class="line">pop() <span class="comment">//从数组 末尾移除最后一项</span></span><br></pre></td></tr></table></figure>
+<h3 id="队列方法"><a href="#队列方法" class="headerlink" title="队列方法"></a>队列方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">shift() <span class="comment">//移除数组中的第一个项并返回，同时数组长度减一</span></span><br><span class="line"></span><br><span class="line">push() <span class="comment">//向数组末端添加元素</span></span><br><span class="line"></span><br><span class="line">unshift() <span class="comment">//在数组前端任意项并返回新数组的长度</span></span><br></pre></td></tr></table></figure>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><h4 id="concat-方法"><a href="#concat-方法" class="headerlink" title="concat() 方法"></a>concat() 方法</h4><p>将一个或多个字符串与原字符串连接合并，形成一个新的字符串并返回。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hello = <span class="string">"Hello, "</span>;</span><br><span class="line"><span class="built_in">console</span>.log(hello.concat(<span class="string">"Kevin"</span>, <span class="string">" have a nice day."</span>)); <span class="comment">/* Hello, Kevin have a nice day. */</span></span><br></pre></td></tr></table></figure>
+<h4 id="slice-方法"><a href="#slice-方法" class="headerlink" title="slice() 方法"></a>slice() 方法</h4><p>返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。原始数组不会被修改。</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502518771526.jpg" alt=""></p>
+<h4 id="splice-方法"><a href="#splice-方法" class="headerlink" title="splice() 方法"></a>splice() 方法</h4><p>通过删除现有元素和/或添加新元素来更改一个数组的内容</p>
+<p>返回值: 由被删除的元素组成的一个数组。如果只删除了一个元素，则返回只包含一个元素的数组。如果没有删除元素，则返回空数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myFish = [<span class="string">'angel'</span>, <span class="string">'clown'</span>, <span class="string">'mandarin'</span>, <span class="string">'sturgeon'</span>];</span><br><span class="line"></span><br><span class="line">myFish.splice(<span class="number">2</span>, <span class="number">0</span>, <span class="string">'drum'</span>); </span><br><span class="line"><span class="comment">// 在索引为2的位置插入'drum'</span></span><br><span class="line"><span class="comment">// myFish 变为 ["angel", "clown", "drum", "mandarin", "sturgeon"]</span></span><br><span class="line"></span><br><span class="line">myFish.splice(<span class="number">2</span>, <span class="number">1</span>); </span><br><span class="line"><span class="comment">// 从索引为2的位置删除一项（也就是'drum'这一项）</span></span><br><span class="line"><span class="comment">// myFish 变为 ["angel", "clown", "mandarin", "sturgeon"]</span></span><br></pre></td></tr></table></figure>
+<h3 id="位置方法"><a href="#位置方法" class="headerlink" title="位置方法"></a>位置方法</h3><h4 id="indexOf-方法"><a href="#indexOf-方法" class="headerlink" title="indexOf() 方法"></a>indexOf() 方法</h4><p>indexOf()方法返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [<span class="number">2</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]; </span><br><span class="line">a.indexOf(<span class="number">2</span>); <span class="comment">// 0 </span></span><br><span class="line">a.indexOf(<span class="number">6</span>); <span class="comment">// -1</span></span><br><span class="line">a.indexOf(<span class="number">7</span>); <span class="comment">// 2</span></span><br><span class="line">a.indexOf(<span class="number">8</span>); <span class="comment">// 3</span></span><br><span class="line">a.indexOf(<span class="number">9</span>); <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (a.indexOf(<span class="number">3</span>) === <span class="number">-1</span>) &#123;</span><br><span class="line">  <span class="comment">// element doesn't exist in array</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="lastIndexOf-方法"><a href="#lastIndexOf-方法" class="headerlink" title="lastIndexOf() 方法"></a>lastIndexOf() 方法</h4><p>lastIndexOf() 方法可返回一个指定的字符串值最后出现的位置，在一个字符串中的指定位置从后向前搜索。</p>
+<p>参数    描述<br>searchvalue    必需。规定需检索的字符串值。<br>fromindex    可选的整数参数。规定在字符串中开始检索的位置。它的合法取值是 0 到 stringObject.length - 1。如省略该参数，则将从字符串的最后一个字符处开始检索。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers = [<span class="number">2</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">2</span>];</span><br><span class="line">numbers.lastIndexOf(<span class="number">2</span>); <span class="comment">// 3</span></span><br><span class="line">numbers.lastIndexOf(<span class="number">7</span>); <span class="comment">// -1</span></span><br></pre></td></tr></table></figure>
+<h3 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h3><h4 id="every"><a href="#every" class="headerlink" title="every()"></a>every()</h4><p>对数组中的每一项运行给定函数，如果函数对每一项都返回true，则返回true</p>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h4><p>对数组中的每一项运行给定函数，返回给函数会返回true的数组</p>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h4><p>对数组中的每一项运行给定函数。这个方法没有返回值</p>
+<h4 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h4><p>对数组中的每一项运行给定函数，返回每次函数调用返回结果组成的数组。</p>
+<h4 id="some"><a href="#some" class="headerlink" title="some()"></a>some()</h4><p>对数组中的每一项运行给定函数，如果任一个函数返回true，则返回true</p>
+<h3 id="归并方法"><a href="#归并方法" class="headerlink" title="归并方法"></a>归并方法</h3><h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h4><p>从数组第一项开始，逐个遍历到最后。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> total = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].reduce(<span class="function"><span class="keyword">function</span>(<span class="params">sum, value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> sum + value;</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// total is 6</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> flattened = [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>]].reduce(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a.concat(b);</span><br><span class="line">&#125;, []);</span><br><span class="line"><span class="comment">// flattened is [0, 1, 2, 3, 4, 5]</span></span><br></pre></td></tr></table></figure>
+<h4 id="reduceRight（）"><a href="#reduceRight（）" class="headerlink" title="reduceRight（）"></a>reduceRight（）</h4><p>则从数组的最后一项开始，向前遍历到第一项。</p>
+<h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><p>栈是一种遵从后进先出（LIFO）原则的有序集合。新添加的或待添加的元素都保存在栈的末尾，称作栈顶，另一端叫栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Stack</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> items = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.push = <span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;</span><br><span class="line">        items.push(element)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.pop = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        items.pop()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.peek = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items[items.length - <span class="number">1</span>]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.isEmpty = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items.length == <span class="number">0</span> </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.size = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items.length</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.print = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(items.toString())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> stack = <span class="keyword">new</span> Stack()</span><br><span class="line"><span class="built_in">console</span>.log(stack.isEmpty())</span><br><span class="line"></span><br><span class="line">stack.push(<span class="number">3</span>)</span><br><span class="line">stack.push(<span class="number">6</span>)</span><br><span class="line">stack.push(<span class="number">8</span>)</span><br><span class="line">stack.print()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(stack.peek())</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">luoyecs-iMac:js数据结构与算法 LW-luoyec$ node stack.js</span></span><br><span class="line"><span class="comment">true</span></span><br><span class="line"><span class="comment">3,6,8</span></span><br><span class="line"><span class="comment">8</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>队列是遵循FIFO（先进先出，也成为先来先服务）原则的一组有序的项。队列的尾部添加新元素，并从顶部移除元素。最新添加的元素必须排在队列的末尾。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Queue</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> items = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.enqueue = <span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;</span><br><span class="line">        items.push(element)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.dequeue = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        items.shift()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.front = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items[<span class="number">0</span>]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.isEmpty = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items.length == <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.clear = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        items = []</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.size = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> items.length</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.print = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(items.toString())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> queue = <span class="keyword">new</span> Queue()</span><br><span class="line"><span class="built_in">console</span>.log(queue.isEmpty())</span><br><span class="line"></span><br><span class="line">queue.enqueue(<span class="number">1</span>)</span><br><span class="line">queue.enqueue(<span class="number">2</span>)</span><br><span class="line">queue.enqueue(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">queue.print()</span><br><span class="line"></span><br><span class="line">queue.dequeue()</span><br><span class="line"></span><br><span class="line">queue.print()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/12/cjipbc4ku006ckq6p7p6k1zz4/" rel="next" title="代码整洁之道四:注释">
+                <i class="fa fa-chevron-left"></i> 代码整洁之道四:注释
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/16/cjipbc4i3000ikq6pyxagvtv9/" rel="prev" title="Egret Loading 页面实现方法">
+                Egret Loading 页面实现方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpeg"
+                alt="罗业聪" />
+            
+              <p class="site-author-name" itemprop="name">罗业聪</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
+                      
+                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的创建与初始化"><span class="nav-number">1.1.</span> <span class="nav-text">数组的创建与初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测数组"><span class="nav-number">1.2.</span> <span class="nav-text">检测数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES3中的方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">ES3中的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES5中的方法，也是现在使用的方法"><span class="nav-number">1.2.2.</span> <span class="nav-text">ES5中的方法，也是现在使用的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换方法"><span class="nav-number">1.3.</span> <span class="nav-text">转换方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加和删除元素"><span class="nav-number">1.4.</span> <span class="nav-text">添加和删除元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过下标直接赋值"><span class="nav-number">1.4.1.</span> <span class="nav-text">通过下标直接赋值:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">栈方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列方法"><span class="nav-number">1.4.3.</span> <span class="nav-text">队列方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作方法"><span class="nav-number">1.4.4.</span> <span class="nav-text">操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#concat-方法"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">concat() 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slice-方法"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">slice() 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#splice-方法"><span class="nav-number">1.4.4.3.</span> <span class="nav-text">splice() 方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位置方法"><span class="nav-number">1.4.5.</span> <span class="nav-text">位置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOf-方法"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">indexOf() 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lastIndexOf-方法"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">lastIndexOf() 方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代方法"><span class="nav-number">1.4.6.</span> <span class="nav-text">迭代方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#every"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">every()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filter"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">filter()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach"><span class="nav-number">1.4.6.3.</span> <span class="nav-text">forEach()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map"><span class="nav-number">1.4.6.4.</span> <span class="nav-text">map()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#some"><span class="nav-number">1.4.6.5.</span> <span class="nav-text">some()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归并方法"><span class="nav-number">1.4.7.</span> <span class="nav-text">归并方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#reduce"><span class="nav-number">1.4.7.1.</span> <span class="nav-text">reduce</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reduceRight（）"><span class="nav-number">1.4.7.2.</span> <span class="nav-text">reduceRight（）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#栈"><span class="nav-number">2.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#队列"><span class="nav-number">3.</span> <span class="nav-text">队列</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">罗业聪</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">121.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="50" alpha="0.6"  zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'lyctea',
+            repo: 'lyctea.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '70a5af9699aa09c449e4eabc62b0a3ddc0529594',
+            
+                client_id: 'b2cd2b1da89eab81af71'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
