@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="react,事件,ES6," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="参考： 事件处理（React 文档） 从 React 绑定 this，看 JS 语言发展和框架设计 React 事件处理事件包含了许多细节，在实际开发中容易忽略，造成不是我们期望的结果，本文包含了这部分的细节，解决开发中遇到的 React 事件的问题。 对比传统 HTMLReact 元素的事件处理和 DOM 元素的很相似。但是有一点语法上的不同:  React 事件绑定属性的命名采用驼峰式写法，而">
+<meta name="keywords" content="react,事件,ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React 事件处理">
+<meta property="og:url" content="https://lyctea.github.io/2018/01/28/cjipau7h00041av6pxfd20p7o/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="参考： 事件处理（React 文档） 从 React 绑定 this，看 JS 语言发展和框架设计 React 事件处理事件包含了许多细节，在实际开发中容易忽略，造成不是我们期望的结果，本文包含了这部分的细节，解决开发中遇到的 React 事件的问题。 对比传统 HTMLReact 元素的事件处理和 DOM 元素的很相似。但是有一点语法上的不同:  React 事件绑定属性的命名采用驼峰式写法，而">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1517071841840.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1517073353376.jpg">
+<meta property="og:updated_time" content="2018-01-27T17:24:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React 事件处理">
+<meta name="twitter:description" content="参考： 事件处理（React 文档） 从 React 绑定 this，看 JS 语言发展和框架设计 React 事件处理事件包含了许多细节，在实际开发中容易忽略，造成不是我们期望的结果，本文包含了这部分的细节，解决开发中遇到的 React 事件的问题。 对比传统 HTMLReact 元素的事件处理和 DOM 元素的很相似。但是有一点语法上的不同:  React 事件绑定属性的命名采用驼峰式写法，而">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1517071841840.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lyctea.github.io/2018/01/28/cjipau7h00041av6pxfd20p7o/"/>
+
+
+
+
+
+  <title>React 事件处理 | 孤丶晴的网络日志</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孤丶晴的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lyctea.github.io/2018/01/28/cjipau7h00041av6pxfd20p7o/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="罗业聪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤丶晴的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React 事件处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T01:23:29+08:00">
+                2018-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/28/cjipau7h00041av6pxfd20p7o/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/01/28/cjipau7h00041av6pxfd20p7o/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,348
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考：</p>
+<p><a href="https://doc.react-china.org/docs/handling-events.html#%E5%90%91%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0" target="_blank" rel="noopener">事件处理（React 文档）</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/27713910" target="_blank" rel="noopener">从 React 绑定 this，看 JS 语言发展和框架设计</a></p>
+<h1 id="React-事件处理"><a href="#React-事件处理" class="headerlink" title="React 事件处理"></a>React 事件处理</h1><p>事件包含了许多细节，在实际开发中容易忽略，造成不是我们期望的结果，本文包含了这部分的细节，解决开发中遇到的 <code>React</code> 事件的问题。</p>
+<h2 id="对比传统-HTML"><a href="#对比传统-HTML" class="headerlink" title="对比传统 HTML"></a>对比传统 HTML</h2><p><code>React</code> 元素的事件处理和 <code>DOM</code> 元素的很相似。但是有一点语法上的不同:</p>
+<ul>
+<li><code>React</code> 事件绑定属性的命名采用驼峰式写法，而不是小写。</li>
+<li>如果采用 <code>JSX</code> 的语法你需要传入一个函数作为事件处理函数，而不是一个字符串( <code>DOM</code> 元素的写法)</li>
+</ul>
+<p>传统的 <code>HTML</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onclick=<span class="string">"activateLasers()"</span>&gt;Activate Lasers&lt;<span class="regexp">/button&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>React</code> 中稍稍有点不同：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onClick=&#123;activateLasers&#125;&gt;Activate Lasers&lt;<span class="regexp">/button&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="阻止事件默认行为"><a href="#阻止事件默认行为" class="headerlink" title="阻止事件默认行为"></a>阻止事件默认行为</h3><p>不能使用返回 <code>false</code> 的方式阻止默认行为。你必须明确的使用 <code>preventDefault</code></p>
+<p>传统 <code>HTML</code> 中可以这样写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">"#"</span> onclick=<span class="string">"console.log('The link was clicked.'); return false"</span>&gt;</span><br><span class="line">    Click me</span><br><span class="line">&lt;<span class="regexp">/a&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在 <code>React</code> 中应该这样写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ActionLink</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleClick</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">        e.preventDefault();</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"The link was clicked."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;a href=<span class="string">"#"</span> onClick=&#123;handleClick&#125;&gt;</span><br><span class="line">            Click me</span><br><span class="line">        &lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这里的参数 <code>e</code> 是合成事件，<code>React</code> 根据 <code>W3C spec</code> 来定义这些合成事件，所以你不需要担心跨浏览器的兼容性问题。</p>
+<h2 id="在-ES6-中的事件处理"><a href="#在-ES6-中的事件处理" class="headerlink" title="在 ES6 中的事件处理"></a>在 ES6 中的事件处理</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Toggle</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="keyword">this</span>.state = &#123; <span class="attr">isToggleOn</span>: <span class="literal">true</span> &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// This binding is necessary to make `this` work in the callback</span></span><br><span class="line">        <span class="keyword">this</span>.handleClick = <span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleClick() &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> (&#123;</span><br><span class="line">            isToggleOn: !prevState.isToggleOn</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;button onClick=&#123;<span class="keyword">this</span>.handleClick&#125;&gt;</span><br><span class="line">                &#123;<span class="keyword">this</span>.state.isToggleOn ? <span class="string">"ON"</span> : <span class="string">"OFF"</span>&#125;</span><br><span class="line">            &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>你必须谨慎对待 JSX 回调函数中的 this，类的方法默认是不会绑定 this 的。如果你忘记绑定 this.handleClick 并把它传入 onClick, 当你调用这个函数的时候 this 的值会是 undefined。</code></p>
+</blockquote>
+<blockquote>
+<p><code>这并不是 React 的特殊行为；它是函数如何在 JavaScript 中运行的一部分。通常情况下，如果你没有在方法后面添加 () ，例如 onClick={this.handleClick}，你应该为这个方法绑定 this。</code></p>
+</blockquote>
+<h2 id="绑定-this"><a href="#绑定-this" class="headerlink" title="绑定 this"></a>绑定 this</h2><h3 id="React-createClass-自动绑定"><a href="#React-createClass-自动绑定" class="headerlink" title="React.createClass 自动绑定"></a>React.createClass 自动绑定</h3><p><code>React.createClass</code> 创建的组件，可以自动绑定 <code>this</code>。也就是说，<code>this</code> 这个关键字会自动绑定在组件实例上面。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This magically works with React.createClass</span></span><br><span class="line"><span class="comment">// because `this` is bound for you.</span></span><br><span class="line">onChange = &#123;<span class="keyword">this</span>.handleChange&#125;</span><br></pre></td></tr></table></figure>
+<p>当然很遗憾，对于组件的创建，官方已经推荐使用 <code>class</code> 声明组件或使用 <code>functional</code> 无状态组件</p>
+<h3 id="渲染时绑定"><a href="#渲染时绑定" class="headerlink" title="渲染时绑定"></a>渲染时绑定</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onChange = &#123;<span class="keyword">this</span>.handleChange.bind(<span class="keyword">this</span>)&#125;</span><br></pre></td></tr></table></figure>
+<p>有一个潜在的性能问题： <strong>当组件每次重新渲染时，都会有一个新的函数被创建</strong>。但在正常开发场景中，可以忽略。</p>
+<h3 id="箭头函数绑定"><a href="#箭头函数绑定" class="headerlink" title="箭头函数绑定"></a>箭头函数绑定</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onChange = &#123;e =&gt; <span class="keyword">this</span>.handleChange(e)&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>同样存在潜在的性能问题</strong></p>
+<h3 id="Constructor-内绑定"><a href="#Constructor-内绑定" class="headerlink" title="Constructor 内绑定"></a>Constructor 内绑定</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">  <span class="keyword">super</span>(props);</span><br><span class="line">  <span class="keyword">this</span>.handleChange = <span class="keyword">this</span>.handleChange.bind(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重复而累赘</p>
+<h3 id="Class-属性中使用-和箭头函数"><a href="#Class-属性中使用-和箭头函数" class="headerlink" title="Class 属性中使用 = 和箭头函数"></a>Class 属性中使用 = 和箭头函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">handleChange = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// call this function from render</span></span><br><span class="line">    <span class="comment">// and this.whatever in here works fine.</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这种方式的优点：</p>
+<ul>
+<li>使用箭头函数，有效绑定了 <code>this</code>；</li>
+<li>没有第二种方法和第三种方法的潜在性能问题；</li>
+<li>避免了方法四的组件实例重复问题；</li>
+<li>我们可以直接从 <code>ES5 createClass</code> 重构得来。</li>
+</ul>
+<blockquote>
+<p>这个方法依赖于 ES next 的新特性， 请参考：<a href="https://tc39.github.io/proposal-class-public-fields/" target="_blank" rel="noopener">tc39.github.io</a> &gt; <a href="http://babeljs.io/blog/2015/06/07/react-on-es6-plus/" target="_blank" rel="noopener">http://babeljs.io/blog/2015/06/07/react-on-es6-plus/</a> &gt; <a href="http://babeljs.io/blog/2015/10/31/setting-up-babel-6/" target="_blank" rel="noopener">http://babeljs.io/blog/2015/10/31/setting-up-babel-6/</a></p>
+</blockquote>
+<p>好消息是在 create-react-app 等工具中已经默认开启。</p>
+<h2 id="向事件处理程序传递参数"><a href="#向事件处理程序传递参数" class="headerlink" title="向事件处理程序传递参数"></a>向事件处理程序传递参数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onClick=&#123;(e) =&gt; <span class="keyword">this</span>.deleteRow(id, e)&#125;&gt;Delete Row&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;button onClick=&#123;this.deleteRow.bind(this, id)&#125;&gt;Delete Row&lt;/</span>button&gt;</span><br></pre></td></tr></table></figure>
+<p>上述两种方式是等价的，分别通过 <code>arrow functions</code> 和 <code>Function.prototype.bind</code> 来为特定事件类型添加事件处理程序。</p>
+<p>上面两个例子中，参数 <code>e</code> 作为 <code>React</code> 事件对象将会被作为第二个参数进行传递。通过箭头函数的方式，事件对象必须显式的进行传递，但是通过 <code>bind</code> 的方式，事件对象以及更多的参数将会被隐式的进行传递。</p>
+<p>值得注意的是，通过 <code>bind</code> 方式向监听函数传参，在类组件中定义的监听函数，事件对象 <code>e</code> 要排在所传递参数的后面，例如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Popper</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.state = &#123; <span class="attr">name</span>: <span class="string">"Hello world!"</span> &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    preventPop(name, e) &#123;</span><br><span class="line">        <span class="comment">//事件对象e要放在最后</span></span><br><span class="line">        e.preventDefault();</span><br><span class="line">        alert(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;p&gt;hello&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">                &#123;/</span>* Pass params via bind() method. *<span class="regexp">/&#125;</span></span><br><span class="line"><span class="regexp">                &lt;a</span></span><br><span class="line"><span class="regexp">                    href="https:/</span><span class="regexp">/reactjs.org"</span></span><br><span class="line"><span class="regexp">                    onClick=&#123;this.preventPop.bind(this, this.state.name)&#125;</span></span><br><span class="line"><span class="regexp">                &gt;</span></span><br><span class="line"><span class="regexp">                    Click</span></span><br><span class="line"><span class="regexp">                &lt;/</span>a&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><h3 id="事件自动执行了？"><a href="#事件自动执行了？" class="headerlink" title="事件自动执行了？"></a>事件自动执行了？</h3><p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">"#"</span> onClick=&#123;<span class="keyword">this</span>.onLoadQR(text)&#125;&gt;</span><br><span class="line">    &lt;Icon type=<span class="string">"qrcode"</span> /&gt;下载</span><br><span class="line">&lt;<span class="regexp">/a&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这种写法是直接执行了函数，所以每一次渲染都会执行<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1517071841840.jpg" alt=""></p>
+<p>而正确的行为是，我们应该在这里进行事件绑定，因为 <code>React</code> 不会进行自动绑定，具体方法看前文 “绑定 <code>this</code>”</p>
+<h3 id="不写-this-为什么找不到方法？"><a href="#不写-this-为什么找不到方法？" class="headerlink" title="不写 this 为什么找不到方法？"></a>不写 <code>this</code> 为什么找不到方法？</h3><p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Switch defaultChecked onChange=&#123;onChangeSwitch(text)&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<p>省略了 <code>this</code>, 此时方法虽然写在了 <code>class</code> 内，但是缺无法获取到，此时如果将方法写到 <code>class</code> 外，作为一个全局变量，但这个方法内部的 <code>this</code> 指向缺为 <code>undefined</code>。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1517073353376.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/事件/" rel="tag"># 事件</a>
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/10/cjipau7j7008uav6p2gl12l2r/" rel="next" title="高性能 Webpack3 配置">
+                <i class="fa fa-chevron-left"></i> 高性能 Webpack3 配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/10/cjipau7gk0038av6p5knz1fl0/" rel="prev" title="Jenkins publish over ssh 插件使用">
+                Jenkins publish over ssh 插件使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpeg"
+                alt="罗业聪" />
+            
+              <p class="site-author-name" itemprop="name">罗业聪</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
+                      
+                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-事件处理"><span class="nav-number">1.</span> <span class="nav-text">React 事件处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对比传统-HTML"><span class="nav-number">1.1.</span> <span class="nav-text">对比传统 HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阻止事件默认行为"><span class="nav-number">1.1.1.</span> <span class="nav-text">阻止事件默认行为</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-ES6-中的事件处理"><span class="nav-number">1.2.</span> <span class="nav-text">在 ES6 中的事件处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定-this"><span class="nav-number">1.3.</span> <span class="nav-text">绑定 this</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#React-createClass-自动绑定"><span class="nav-number">1.3.1.</span> <span class="nav-text">React.createClass 自动绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染时绑定"><span class="nav-number">1.3.2.</span> <span class="nav-text">渲染时绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭头函数绑定"><span class="nav-number">1.3.3.</span> <span class="nav-text">箭头函数绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Constructor-内绑定"><span class="nav-number">1.3.4.</span> <span class="nav-text">Constructor 内绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-属性中使用-和箭头函数"><span class="nav-number">1.3.5.</span> <span class="nav-text">Class 属性中使用 = 和箭头函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向事件处理程序传递参数"><span class="nav-number">1.4.</span> <span class="nav-text">向事件处理程序传递参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他问题"><span class="nav-number">1.5.</span> <span class="nav-text">其他问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件自动执行了？"><span class="nav-number">1.5.1.</span> <span class="nav-text">事件自动执行了？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不写-this-为什么找不到方法？"><span class="nav-number">1.5.2.</span> <span class="nav-text">不写 this 为什么找不到方法？</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">罗业聪</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">121.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'lyctea',
+            repo: 'lyctea.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '70a5af9699aa09c449e4eabc62b0a3ddc0529594',
+            
+                client_id: 'b2cd2b1da89eab81af71'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>

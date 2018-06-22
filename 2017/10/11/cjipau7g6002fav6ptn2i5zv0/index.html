@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="类型," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="数组 数组可以容纳任何类型的值，可以是字符串、 数字、对象(object)，甚至是其他数组(多维数组就是通过这种方式来实现的)   使用 delete 运算符可以将单元从数组中删除，但是请注意，单元删除后，数 组的 length 属性并不会发生变化。  可以通过下标对数组元素进行索引，但是同时，数组也是对象，所以可以通过点操作符以及[‘’]获取数组元素： 123456var a = [ ];a[0">
+<meta name="keywords" content="类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 值">
+<meta property="og:url" content="https://lyctea.github.io/2017/10/11/cjipau7g6002fav6ptn2i5zv0/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="数组 数组可以容纳任何类型的值，可以是字符串、 数字、对象(object)，甚至是其他数组(多维数组就是通过这种方式来实现的)   使用 delete 运算符可以将单元从数组中删除，但是请注意，单元删除后，数 组的 length 属性并不会发生变化。  可以通过下标对数组元素进行索引，但是同时，数组也是对象，所以可以通过点操作符以及[‘’]获取数组元素： 123456var a = [ ];a[0">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-11T05:17:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 值">
+<meta name="twitter:description" content="数组 数组可以容纳任何类型的值，可以是字符串、 数字、对象(object)，甚至是其他数组(多维数组就是通过这种方式来实现的)   使用 delete 运算符可以将单元从数组中删除，但是请注意，单元删除后，数 组的 length 属性并不会发生变化。  可以通过下标对数组元素进行索引，但是同时，数组也是对象，所以可以通过点操作符以及[‘’]获取数组元素： 123456var a = [ ];a[0">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://lyctea.github.io/2017/10/11/cjipau7g6002fav6ptn2i5zv0/"/>
+
+
+
+
+
+  <title>JavaScript 值 | 孤丶晴的网络日志</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孤丶晴的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lyctea.github.io/2017/10/11/cjipau7g6002fav6ptn2i5zv0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="罗业聪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤丶晴的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript 值</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T13:17:29+08:00">
+                2017-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/你不知道的JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">你不知道的JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/11/cjipau7g6002fav6ptn2i5zv0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/10/11/cjipau7g6002fav6ptn2i5zv0/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,936
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><blockquote>
+<p>数组可以容纳任何类型的值，可以是字符串、 数字、对象(object)，甚至是其他数组(多维数组就是通过这种方式来实现的)</p>
+</blockquote>
+<blockquote>
+<p>使用 delete 运算符可以将单元从数组中删除，但是请注意，单元删除后，数 组的 length 属性并不会发生变化。</p>
+</blockquote>
+<p>可以通过下标对数组元素进行索引，但是同时，数组也是对象，所以可以通过点操作符以及[‘’]获取数组元素：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [ ];</span><br><span class="line">a[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">a[<span class="string">"foobar"</span>] = <span class="number">2</span>;</span><br><span class="line">a.length;</span><br><span class="line">a[<span class="string">"foobar"</span>];</span><br><span class="line">a.foobar;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，当使用[‘1’]数字字符串的性质，会被强制类型转换成十进制数字。</p>
+<p>在数组中加入字符串键值 / 属性并不是一个好主意。建议使用对象来存放键值 / 属性值， 用数组来存放数字索引值。</p>
+<h1 id="类数组"><a href="#类数组" class="headerlink" title="类数组"></a>类数组</h1><p>有时需要将类数组(一组通过数字索引的值)转换为真正的数组，这一般通过数组工具函数(如 indexOf(..)、concat(..)、forEach(..) 等)来实现。</p>
+<p>Array.from() 方法返回一个数组复本</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.from(<span class="string">'dsdgarg'</span>)</span><br><span class="line">(<span class="number">7</span>) [<span class="string">"d"</span>, <span class="string">"s"</span>, <span class="string">"d"</span>, <span class="string">"g"</span>, <span class="string">"a"</span>, <span class="string">"r"</span>, <span class="string">"g"</span>]</span><br><span class="line"><span class="built_in">Array</span>.from([<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line">(<span class="number">2</span>) [<span class="number">1</span>, <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><p>在JavaScript中字符串与字符串数组不是一回事，尽管这两者很相似。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;</span><br><span class="line"><span class="keyword">var</span> b = [<span class="string">"f"</span>,<span class="string">"o"</span>,<span class="string">"o"</span>]</span><br></pre></td></tr></table></figure>
+<p>都有length属性以及indexOf()方法和concat(…) 方法</p>
+<p>都可以通过b[1]获取元素， 但是低版本的IE中需要通过a. chartAt(1)方法获取指定下标的字符</p>
+<p>一个有趣的事情，我们可以使用数组的方法来处理字符串</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a.join;         <span class="comment">// undefined</span></span><br><span class="line">     a.map;          <span class="comment">// undefined</span></span><br><span class="line">     <span class="keyword">var</span> c = <span class="built_in">Array</span>.prototype.join.call( a, <span class="string">"-"</span> );</span><br><span class="line">     <span class="keyword">var</span> d = <span class="built_in">Array</span>.prototype.map.call( a, <span class="function"><span class="keyword">function</span>(<span class="params">v</span>)</span>&#123;</span><br><span class="line">         <span class="keyword">return</span> v.toUpperCase() + <span class="string">"."</span>;</span><br><span class="line">     &#125; ).join( <span class="string">""</span> );</span><br><span class="line">     c;              <span class="comment">// "f-o-o"</span></span><br><span class="line">     d;              <span class="comment">// "F.O.O."</span></span><br></pre></td></tr></table></figure>
+<p>字符串反转的例子，数组有一个方法reverse()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a.reverse;</span><br><span class="line">b.reverse();</span><br><span class="line">b;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">// ["!","o","O","f"]</span></span><br><span class="line"><span class="comment">// ["f","O","o","!"]</span></span><br></pre></td></tr></table></figure>
+<p>一个变通(破解)的办法是先将字符串转换为数组，待处理完后再将结果转换回字符串:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> c = a</span><br><span class="line"><span class="comment">// 将a的值转换为字符数组 .split( "" )</span></span><br><span class="line"><span class="comment">// 将数组中的字符进行倒转 .reverse()</span></span><br><span class="line"><span class="comment">// 将数组中的字符拼接回字符串 .join( "" );</span></span><br><span class="line">c; <span class="comment">// "oof"</span></span><br></pre></td></tr></table></figure>
+<p>这种方法的确简单粗暴，但对简单的字符串却完全适用。上述方法对于包含复杂字符(Unicode，如星号、多字节字符等)的 字符串并不适用。</p>
+<h1 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h1><blockquote>
+<p>JavaScript 只有一种数值类型:number(数字)，包括“整数”和带小数的十进制数</p>
+</blockquote>
+<p>指数格式显示，toExponential() 函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5E10</span>;</span><br><span class="line">     a;                  <span class="comment">// 50000000000</span></span><br><span class="line">     a.toExponential();  <span class="comment">// "5e+10"</span></span><br><span class="line">     <span class="keyword">var</span> b = a * a;</span><br><span class="line">     b;                  <span class="comment">// 2.5e+21</span></span><br><span class="line">     <span class="keyword">var</span> c = <span class="number">1</span> / a;</span><br><span class="line">     c;                  <span class="comment">// 2e-11</span></span><br></pre></td></tr></table></figure>
+<p>tofixed(..) 方法可指定小数部分的显示位数:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">42.59</span>;</span><br><span class="line">     a.toFixed( <span class="number">0</span> ); <span class="comment">// "43"</span></span><br><span class="line">     a.toFixed( <span class="number">1</span> ); <span class="comment">// "42.6"</span></span><br><span class="line">     a.toFixed( <span class="number">2</span> ); <span class="comment">// "42.59"</span></span><br><span class="line">     a.toFixed( <span class="number">3</span> ); <span class="comment">// "42.590"</span></span><br><span class="line">     a.toFixed( <span class="number">4</span> ); <span class="comment">// "42.5900"</span></span><br></pre></td></tr></table></figure>
+<p>toPrecision(..) 方法用来指定有效数位的显示位数::</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">42.59</span>;</span><br><span class="line">     a.toPrecision( <span class="number">1</span> ); <span class="comment">// "4e+1"</span></span><br><span class="line">     a.toPrecision( <span class="number">2</span> ); <span class="comment">// "43"</span></span><br><span class="line">     a.toPrecision( <span class="number">3</span> ); <span class="comment">// "42.6"</span></span><br><span class="line">     a.toPrecision( <span class="number">4</span> ); <span class="comment">// "42.59"</span></span><br><span class="line">     a.toPrecision( <span class="number">5</span> ); <span class="comment">// "42.590"</span></span><br><span class="line">     a.toPrecision( <span class="number">6</span> ); <span class="comment">// "42.5900"</span></span><br></pre></td></tr></table></figure>
+<h2 id="较小的数值"><a href="#较小的数值" class="headerlink" title="较小的数值"></a>较小的数值</h2><p>0.1 + 0.2 === 0.3; // false</p>
+<p>相加的结果是一个比较接近的数字<code>0.30000000000000004</code>，那么如何判断相加是相等的呢？</p>
+<p>设置一个误差范围值：</p>
+<p>从 ES6 开始，该值定义在 Number.EPSILON 中，我们可以直接拿来用，也可以为 ES6 之前<br>的版本写 polyfill:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">     <span class="keyword">if</span> (!<span class="built_in">Number</span>.EPSILON) &#123;</span><br><span class="line">         <span class="built_in">Number</span>.EPSILON = <span class="built_in">Math</span>.pow(<span class="number">2</span>,<span class="number">-52</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 Number.EPSILON 来比较两个数字是否相等</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numbersCloseEnoughToEqual</span>(<span class="params">n1,n2</span>) </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="built_in">Math</span>.abs( n1 - n2 ) &lt; <span class="built_in">Number</span>.EPSILON;</span><br><span class="line">&#125;</span><br><span class="line">     <span class="keyword">var</span> a = <span class="number">0.1</span> + <span class="number">0.2</span>;</span><br><span class="line">     <span class="keyword">var</span> b = <span class="number">0.3</span>;</span><br><span class="line">     numbersCloseEnoughToEqual( a, b );</span><br><span class="line">     numbersCloseEnoughToEqual( <span class="number">0.0000001</span>, <span class="number">0.0000002</span> );  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h2 id="数的极限范围"><a href="#数的极限范围" class="headerlink" title="数的极限范围"></a>数的极限范围</h2><p> 1.798e+308    5e-324（不是负数，但无限接近0）</p>
+<h2 id="整数的安全范围"><a href="#整数的安全范围" class="headerlink" title="整数的安全范围"></a>整数的安全范围</h2><p>能够被“安全”呈现的最大整数是 2^53 - 1，即 9007199254740991，在 ES6 中被定义为 Number.MAX_SAFE_INTEGER。最小整数是 -9007199254740991，在 ES6 中被定义为 Number. MIN_SAFE_INTEGER。</p>
+<h2 id="整数的检测"><a href="#整数的检测" class="headerlink" title="整数的检测"></a>整数的检测</h2><p>Number.isInteger(..)方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ES6之前</span></span><br><span class="line"> <span class="keyword">if</span> (!<span class="built_in">Number</span>.isInteger) &#123;</span><br><span class="line">         <span class="built_in">Number</span>.isInteger = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">             <span class="keyword">return</span> <span class="keyword">typeof</span> num == <span class="string">"number"</span> &amp;&amp; num % <span class="number">1</span> == <span class="number">0</span>;</span><br><span class="line">         &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ES6语法</span></span><br><span class="line"><span class="built_in">Number</span>.isInteger( <span class="number">42</span> );     <span class="comment">// true</span></span><br><span class="line">     <span class="built_in">Number</span>.isInteger( <span class="number">42.000</span> ); <span class="comment">// true</span></span><br><span class="line">     <span class="built_in">Number</span>.isInteger( <span class="number">42.3</span> );   <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>检测一个值是否是安全的整数，number.isSafeInteger(..) 方法:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="built_in">Number</span>.isSafeInteger) &#123;</span><br><span class="line">         <span class="built_in">Number</span>.isSafeInteger = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">             <span class="keyword">return</span> <span class="built_in">Number</span>.isInteger( num ) &amp;&amp;</span><br><span class="line">                 <span class="built_in">Math</span>.abs( num ) &lt;= <span class="built_in">Number</span>.MAX_SAFE_INTEGER;</span><br><span class="line">&#125;; &#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Number</span>.isSafeInteger( <span class="built_in">Number</span>.MAX_SAFE_INTEGER );</span><br><span class="line"><span class="built_in">Number</span>.isSafeInteger( <span class="built_in">Math</span>.pow( <span class="number">2</span>, <span class="number">53</span> ) );</span><br><span class="line"><span class="built_in">Number</span>.isSafeInteger( <span class="built_in">Math</span>.pow( <span class="number">2</span>, <span class="number">53</span> ) - <span class="number">1</span> );</span><br><span class="line"><span class="comment">// true</span></span><br><span class="line"><span class="comment">// false</span></span><br><span class="line"><span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="一些特殊的值"><a href="#一些特殊的值" class="headerlink" title="一些特殊的值"></a>一些特殊的值</h2><ul>
+<li><p>null：指的是空值，或者曾经赋值，但现在没有值，初始化时会赋值成null以便于和undefined区分</p>
+</li>
+<li><p>undefined：指的是没有值，从未赋值</p>
+</li>
+<li><p>void运算符：通过void运算符可以让表达式返回undefined</p>
+</li>
+<li><p>NaN：不是数字的数字，如果数学运算的操作数不是数字类型，就无法返回一个有效的数字，这种情况下返回值为NaN，推荐使用ES6中的Number.isNan(..)方法，以避免一些历史遗留的问题</p>
+</li>
+</ul>
+<ul>
+<li>-0+0: 转换让人迷惑，还是查文档吧</li>
+</ul>
+<h1 id="值和引用"><a href="#值和引用" class="headerlink" title="值和引用"></a>值和引用</h1><blockquote>
+<p>引用就像一种特殊的指 针，是来指向变量的指针(别名)。如果参数不声明为引用的话，参数值总是通过值复制 的方式传递，即便对复杂的对象值也是如此。</p>
+</blockquote>
+<p>简单值(即标量基本类型值，scalar primitive)总是通过值复制的方式来赋值/传递，包括 null、undefined、字符串、数字、布尔和 ES6 中的 symbol。</p>
+<p>复合值(compound value)——对象(包括数组和封装对象，参见第3章)和函数，则总 是通过引用复制的方式来赋值 / 传递。</p>
+<p>由于引用指向的是值本身而非变量，所以一个引用无法更改另一个引用的指向。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">     <span class="keyword">var</span> b = a;</span><br><span class="line">     a; <span class="comment">// [1,2,3]</span></span><br><span class="line">     b; <span class="comment">// [1,2,3]</span></span><br><span class="line"><span class="comment">// 然后</span></span><br><span class="line">b = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]; a; <span class="comment">// [1,2,3] b; // [4,5,6]</span></span><br></pre></td></tr></table></figure>
+<p>引用指向的值本身，所以在函数参数传递的时候：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">         x.push( <span class="number">4</span> );</span><br><span class="line">         x; <span class="comment">// [1,2,3,4]</span></span><br><span class="line"><span class="comment">// 然后</span></span><br><span class="line">x = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]; x.push( <span class="number">7</span> );</span><br><span class="line">x; <span class="comment">// [4,5,6,7]</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">foo( a );</span><br><span class="line">a; <span class="comment">// 是[1,2,3,4]，不是[4,5,6,7]</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们无法自行决定使用值复制还是引用复制，一切由值的类型来决定。</p>
+</blockquote>
+<h2 id="值复制"><a href="#值复制" class="headerlink" title="值复制"></a>值复制</h2><p>如果通过值复制的方式来传递复合值(如数组)，就需要为其创建一个复本，这样传递的 就不再是原始值。例如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo( a.slice() );</span><br></pre></td></tr></table></figure>
+<p>slice(..)不带参数会返回当前数组的一个浅副本，由于传递给函数的是指向该副本的引用，所以在函数中的操作不会影响到a指向的数组。</p>
+<p>相反的，如果要将基本数据类型的值传递到函数内，并且修改之，就需要将该值封装套一个复合值（对象或者数组等）中，然后通过引用复制的方式传递</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>null 类型只有一个值 null，undefined 类型也只有一个值 undefined。所有变量在赋值之 前默认值都是 undefined。void 运算符返回 undefined。</p>
+<p>数字类型有几个特殊值，包括 NaN(意指“not a number”，更确切地说是“invalid number”)、+Infinity、-Infinity 和 -0。</p>
+<p>简单标量基本类型值(字符串和数字等)通过值复制来赋值 / 传递，而复合值(对象等) 通过引用复制来赋值 / 传递。JavaScript 中的引用和其他语言中的引用 / 指针不同，它们不 能指向别的变量 / 引用，只能指向值。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/类型/" rel="tag"># 类型</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/10/cjipau7ge002tav6p89761d78/" rel="next" title="JavaScript类型">
+                <i class="fa fa-chevron-left"></i> JavaScript类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/11/cjipau7fm0019av6p57udqlps/" rel="prev" title="JavaScript 原生函数">
+                JavaScript 原生函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpeg"
+                alt="罗业聪" />
+            
+              <p class="site-author-name" itemprop="name">罗业聪</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
+                      
+                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类数组"><span class="nav-number">2.</span> <span class="nav-text">类数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串"><span class="nav-number">3.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数字"><span class="nav-number">4.</span> <span class="nav-text">数字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#较小的数值"><span class="nav-number">4.1.</span> <span class="nav-text">较小的数值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数的极限范围"><span class="nav-number">4.2.</span> <span class="nav-text">数的极限范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整数的安全范围"><span class="nav-number">4.3.</span> <span class="nav-text">整数的安全范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整数的检测"><span class="nav-number">4.4.</span> <span class="nav-text">整数的检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些特殊的值"><span class="nav-number">4.5.</span> <span class="nav-text">一些特殊的值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#值和引用"><span class="nav-number">5.</span> <span class="nav-text">值和引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#值复制"><span class="nav-number">5.1.</span> <span class="nav-text">值复制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">罗业聪</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">121.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 访问总量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'lyctea',
+            repo: 'lyctea.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '70a5af9699aa09c449e4eabc62b0a3ddc0529594',
+            
+                client_id: 'b2cd2b1da89eab81af71'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
