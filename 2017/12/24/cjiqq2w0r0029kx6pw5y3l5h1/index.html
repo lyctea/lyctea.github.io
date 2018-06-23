@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,事件," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript事件处理上客户端 JavaScript 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，Web 浏览器就会产生事件。 如果 JavaScript 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。 术语了解相关的术语，有助于继续深入学习事件和事件处理。  事件类型（event type）">
+<meta name="keywords" content="JavaScript,事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript事件处理上">
+<meta property="og:url" content="http://luoyec.cn/2017/12/24/cjiqq2w0r0029kx6pw5y3l5h1/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="JavaScript事件处理上客户端 JavaScript 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，Web 浏览器就会产生事件。 如果 JavaScript 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。 术语了解相关的术语，有助于继续深入学习事件和事件处理。  事件类型（event type）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-26T14:33:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript事件处理上">
+<meta name="twitter:description" content="JavaScript事件处理上客户端 JavaScript 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，Web 浏览器就会产生事件。 如果 JavaScript 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。 术语了解相关的术语，有助于继续深入学习事件和事件处理。  事件类型（event type）">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://luoyec.cn/2017/12/24/cjiqq2w0r0029kx6pw5y3l5h1/"/>
+
+
+
+
+
+  <title>JavaScript事件处理上 | 孤丶晴的网络日志</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孤丶晴的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://luoyec.cn/2017/12/24/cjiqq2w0r0029kx6pw5y3l5h1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤丶晴的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JavaScript事件处理上</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T22:54:12+08:00">
+                2017-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/24/cjiqq2w0r0029kx6pw5y3l5h1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/12/24/cjiqq2w0r0029kx6pw5y3l5h1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,246
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript事件处理上"><a href="#JavaScript事件处理上" class="headerlink" title="JavaScript事件处理上"></a>JavaScript事件处理上</h1><p>客户端 <code>JavaScript</code> 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，<code>Web</code> 浏览器就会产生事件。</p>
+<p>如果 <code>JavaScript</code> 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。</p>
+<h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p>了解相关的术语，有助于继续深入学习事件和事件处理。</p>
+<ul>
+<li><p>事件类型<code>（event type）</code></p>
+<ul>
+<li>是一个用来说明发生什么事件的字符串，有时也被事件名字<code>（event name）</code></li>
+</ul>
+</li>
+<li><p>事件目标<code>（event targe）</code></p>
+<ul>
+<li>是发生的事件或与之相关的对象，当将事件是，必须同时指明类型和目标。</li>
+<li><code>Window、Document、Element</code>是最常见的事件目标</li>
+</ul>
+</li>
+<li><p>事件处理程序<code>（event handler）</code></p>
+<ul>
+<li>事件处理程序<code>（event handler）</code>或事件监听程序<code>（event listener）</code> 是处理响应事件的函数。</li>
+<li>当对象在注册的事件程序被调用时，我们有时会说浏览器“触发”和“派发”了事件</li>
+</ul>
+</li>
+<li><p>事件对象<code>（event object）</code></p>
+<ul>
+<li>事件对象<code>（event object）</code>是与特定事件并且包含有关该事件详细信息的对象。</li>
+<li>事件对象作为参数传递给事件处理程序</li>
+<li>所有的事件对象都有用来指定事件类型的 <code>type</code> 属性和指定事件目标的 <code>targe</code> 属性。</li>
+</ul>
+</li>
+<li><p>事件传播<code>（event propagation）</code></p>
+<ul>
+<li>事件传播<code>（event propagation）</code>是浏览器决定哪个对象触发其事件处理程序的过程。</li>
+<li>当文档元素发生某个类型的事件时，他们会在文档树上向上传播或“冒泡”<code>（bubble）</code></li>
+<li>事件处理程序能通过调用方法或设置事件对象属性来阻止事件传播，这样能停止冒泡并将无法再容器元素上触发的处理程序。</li>
+</ul>
+</li>
+<li><p>事件捕获<code>（event capturing）</code></p>
+<ul>
+<li>是事件传播的另一种形式，在容器元素上注册的特定处理程序有机会在事件传播到真实目标之前拦截（或“捕获”）它</li>
+<li><code>IE8</code> 版本之前不支持事件捕获</li>
+</ul>
+</li>
+<li><p>事件的默认操作</p>
+<ul>
+<li>例如在超链接的点击事件，浏览器的默认操作是按照超链接重新加载页面</li>
+<li>事件处理程序可以通过返回一个适当的值、调用事件对象的某个方法设置事件对象的某个属性来阻止默认操作的发生。</li>
+</ul>
+</li>
+</ul>
+<h2 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h2><p>随着 <code>Web</code> 平台发展到包含更强大的API，事件集合随之越来越大，这些新事件主要有三个来源：</p>
+<ul>
+<li>3级 <code>DOM</code> 事件规范</li>
+<li><code>HTML5</code> 规范衍生规范的大量新API定义的事件</li>
+<li>基于触摸和支持 <code>JavaScript</code> 的移动设备的出现</li>
+</ul>
+<p>事件大致可以分成几类，了解这些分类有助于理解和组织事件列表：</p>
+<ul>
+<li><p>依赖于设备的输入事件</p>
+<ul>
+<li>鼠标和键盘， <code>mousedown、mousemove、mouseup、keydown、keyup</code></li>
+</ul>
+</li>
+<li><p>独立与设备的输入事件</p>
+<ul>
+<li>这些事件没有直接相关的特定输入设备，如 <code>click</code> 事件，可以通过鼠标点击发生也可以通过键盘或者其他设备触发</li>
+</ul>
+</li>
+<li><p>用户界面事件</p>
+<ul>
+<li>用户界面事件，通常出现定义 <code>Web</code> 程序用户界面的 <code>HTML</code> 表单元素上。</li>
+<li>包括文本输入域获取键盘焦点的 <code>focus</code> 事件、用户改变表单元格的 <code>change</code> 事件、表单提交 <code>submit</code> 事件</li>
+</ul>
+</li>
+<li><p>状态变化事件</p>
+<ul>
+<li>不是由于用户活动而是由于网络或浏览器活动出发、用来标识某种声明周期或相关状态的变化</li>
+<li>例如，<code>window</code> 的 <code>onload</code> 事件，<code>loadstart、progress、loadend</code>等 <code>I/O</code> 过程的异步通知</li>
+</ul>
+</li>
+<li><p>特定的 <code>API</code> 事件</p>
+<ul>
+<li><code>HTML5</code> 及相关规范定义的大量 <code>Web API</code> 都有自己的事件类型</li>
+<li>如拖放 <code>API</code>，<code>dragstart、dragenter，&lt;video /&gt;</code> 等</li>
+</ul>
+</li>
+</ul>
+<h3 id="传统事件类型"><a href="#传统事件类型" class="headerlink" title="传统事件类型"></a>传统事件类型</h3><ul>
+<li><p>表单事件</p>
+<ul>
+<li>表单事件是所有事件类型中最稳定且得到最良好支持的那部分</li>
+<li>表单提交和重置，会触发 <code>submit</code> 和 <code>reset</code> 事件</li>
+<li>类按钮元素（如单选、复选）交互时，<code>click</code> 事件</li>
+<li>用户通过文字、选择选项或选择复选框改变表单元素状态时，通常会触发 <code>change</code> 事件</li>
+<li>对于文本输入域，只有当焦点移动到其他元素才会触发 <code>change</code> 事件</li>
+<li>改变表单元素焦点时会触发，<code>focus</code> 和 <code>blur</code> 事件</li>
+<li>通过事件处理程序能取消 <code>submit</code> 和 <code>reset</code> 事件的默认操作</li>
+</ul>
+</li>
+<li><p><code>Window</code> 事件 </p>
+<ul>
+<li><code>Window</code> 事件是指事件的发生于浏览器窗口本身而非窗口中显示的任何特定文档内容相关</li>
+<li><code>load</code> 事件，是当文档和其他所有的外部资源（比如图片）完全加载并显示给用户时才会触发</li>
+<li><code>unload事件</code>，是当用户离开文档转向其他文档是触发它</li>
+<li><code>resize</code>、<code>scroll事件</code>，当用户调整浏览器窗口大小、滚动时会被触发，但其事件对象时非常普通的 <code>Event</code> 对象，没有指定调整大小或发生滚动的详细信息属性</li>
+</ul>
+</li>
+<li><p>鼠标事件</p>
+<ul>
+<li>当用户在文档上移动单击鼠标都会产生鼠标事件，这些事件在鼠标指针所对应的最深嵌套元素上触发， 但他们会冒泡直到文档的最顶层</li>
+<li>事件对象中包含了，鼠标的位置和按键状态</li>
+<li>对于 <code>click</code> 事件， <code>detail</code> 属性制定了其是单击、双击、还是三击</li>
+<li><code>mousemove</code> 事件，当用户移动鼠标时触发，在该事件中，一定不能触发计算密集型任务</li>
+<li><code>mouseover</code> 事件，当用户鼠标指针悬停到新元素上时触发，<code>mouseout</code>，不在悬停在某个对象上时触发</li>
+<li><code>mousewhell</code> 事件，当用户鼠标滚轮时触发</li>
+</ul>
+</li>
+<li><p>键盘事件</p>
+<ul>
+<li>用户每次按下或释放键盘上的按键时都会产生事件</li>
+<li>传递给事件处理程序的对象中有 <code>keyCode</code> 字段 ， 它指定按下或释放的键是哪一个</li>
+<li><code>keydown</code>、<code>keyup</code>、<code>keypress</code> 事件，键盘按下、释放，<code>keypress</code> 按住时可以产生连续多个相同的字符</li>
+</ul>
+</li>
+</ul>
+<h3 id="DOM-事件"><a href="#DOM-事件" class="headerlink" title="DOM 事件"></a><code>DOM</code> 事件</h3><p><em>DOM的分级：根据W3C DOM规范，DOM是HTML与XML的应用编程接口（API），DOM将整个页面映射为一个由层次节点组成的文件。有1级、2级、3级共3个级别。</em></p>
+<h4 id="1级DOM："><a href="#1级DOM：" class="headerlink" title="1级DOM："></a>1级DOM：</h4><p><em>1级DOM在1998年10月份成为W3C的提议，由DOM核心与DOM HTML两个模块组成。DOM核心能映射以XML为基础的文档结构，允许获取和操作文档的任意部分。DOM HTML通过添加HTML专用的对象与函数对DOM核心进行了扩展。</em></p>
+<h4 id="2级DOM"><a href="#2级DOM" class="headerlink" title="2级DOM"></a>2级DOM</h4><p><em>鉴于1级DOM仅以映射文档结构为目标，DOM 2级面向更为宽广。通过对原有DOM的扩展，2级DOM通过对象接口增加了对鼠标和用户界面事件（DHTML长期支持鼠标与用户界面事件）、范围、遍历（重复执行DOM文档）和层叠样式表（CSS）的支持。同时也对DOM 1的核心进行了扩展，从而可支持XML命名空间。</em></p>
+<p>*2级DOM引进了几个新DOM模块来处理新的接口类型：</p>
+<ul>
+<li>DOM视图：描述跟踪一个文档的各种视图（使用CSS样式设计文档前后）的接口；</li>
+<li>DOM事件：描述事件接口；</li>
+<li>DOM样式：描述处理基于CSS样式的接口；</li>
+<li>DOM遍历与范围：描述遍历和操作文档树的接口；*</li>
+</ul>
+<h4 id="3级DOM"><a href="#3级DOM" class="headerlink" title="3级DOM"></a>3级DOM</h4><p><em>3级DOM通过引入统一方式载入和保存文档和文档验证方法对DOM进行进一步扩展，DOM3包含一个名为“DOM载入与保存”的新模块，DOM核心扩展后可支持XML1.0的所有内容，包括XML Infoset、 XPath、和XML Base。</em></p>
+<h4 id="“0级”DOM"><a href="#“0级”DOM" class="headerlink" title="“0级”DOM"></a>“0级”DOM</h4><p><em>当阅读与DOM有关的材料时，可能会遇到参考0级DOM的情况。需要注意的是并没有标准被称为0级DOM，它仅是DOM历史上一个参考点（0级DOM被认为是在Internet Explorer 4.0 与Netscape Navigator4.0支持的最早的DHTML）。</em></p>
+<h3 id="HTML5-事件"><a href="#HTML5-事件" class="headerlink" title="HTML5 事件"></a><code>HTML5</code> 事件</h3><p><code>HTML5</code> 及相关标准定义了大量新的 <code>Web</code> 应用 <code>API</code>，其中许多 <code>API</code> 都定义了事件。</p>
+<ul>
+<li>音频和视频 <code>&lt;audio&gt;</code> 和 <code>&lt;video&gt;</code></li>
+<li>拖放事件</li>
+<li>表单的新特性，表单验证机制，包括验证失败时在表单元素上会触发 <code>invalid</code> 事件</li>
+<li>离线 Web 应用的支持</li>
+<li>许多新的API应用使用 <code>message</code> 事件进行异步通信。跨文档通信 <code>API</code> 允许一台服务器上的文档能通过和另一台服务器上的文档脚本交换消息。</li>
+<li><code>XMLHttpRequest</code> 规范定义了一系列事件来追踪异步的 <code>I/O</code> 进度，<code>loadstart、progress、loadend</code></li>
+</ul>
+<h3 id="触摸屏和移动设备事件"><a href="#触摸屏和移动设备事件" class="headerlink" title="触摸屏和移动设备事件"></a>触摸屏和移动设备事件</h3><p>可以在 <code>Apple</code> <a href="http://developer.apple.com" target="_blank" rel="noopener">开发者中心</a> 查询更多信息</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/事件/" rel="tag"># 事件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/16/cjiqq2w0i001mkx6pjzgm9yxn/" rel="next" title="JavaScript模块">
+                <i class="fa fa-chevron-left"></i> JavaScript模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/26/cjiqq2w12002xkx6pak5f8g6e/" rel="prev" title="JavaScript脚本化文档上">
+                JavaScript脚本化文档上 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpeg"
+                alt="luoyecong" />
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
+                      
+                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript事件处理上"><span class="nav-number">1.</span> <span class="nav-text">JavaScript事件处理上</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#术语"><span class="nav-number">1.1.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件类型"><span class="nav-number">1.2.</span> <span class="nav-text">事件类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统事件类型"><span class="nav-number">1.2.1.</span> <span class="nav-text">传统事件类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM-事件"><span class="nav-number">1.2.2.</span> <span class="nav-text">DOM 事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1级DOM："><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1级DOM：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2级DOM"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2级DOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3级DOM"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">3级DOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“0级”DOM"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">“0级”DOM</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5-事件"><span class="nav-number">1.2.3.</span> <span class="nav-text">HTML5 事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触摸屏和移动设备事件"><span class="nav-number">1.2.4.</span> <span class="nav-text">触摸屏和移动设备事件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">121.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a></div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'lyctea',
+            repo: 'lyctea.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '70a5af9699aa09c449e4eabc62b0a3ddc0529594',
+            
+                client_id: 'b2cd2b1da89eab81af71'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
