@@ -5,12 +5,12 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://lyctea.github.io/"/>
+  <link href="http://luoyec.cn/"/>
   <updated>2018-06-11T09:14:07.265Z</updated>
-  <id>https://lyctea.github.io/</id>
+  <id>http://luoyec.cn/</id>
   
   <author>
-    <name>罗业聪</name>
+    <name>luoyecong</name>
     
   </author>
   
@@ -18,12 +18,12 @@
   
   <entry>
     <title>Nginx 部署静态页面</title>
-    <link href="https://lyctea.github.io/2018/06/11/cjipbjjx8003qnv6pkdac83ki/"/>
-    <id>https://lyctea.github.io/2018/06/11/cjipbjjx8003qnv6pkdac83ki/</id>
+    <link href="http://luoyec.cn/2018/06/11/cjiqogtqf003nwj6plbyhcx2k/"/>
+    <id>http://luoyec.cn/2018/06/11/cjiqogtqf003nwj6plbyhcx2k/</id>
     <published>2018-06-11T09:14:01.244Z</published>
     <updated>2018-06-11T09:14:07.265Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Nginx-部署静态页面"><a href="#Nginx-部署静态页面" class="headerlink" title="Nginx 部署静态页面"></a>Nginx 部署静态页面</h1><p>在前后端分离的项目中，前端经过编译生成的文件中，往往只包含一个 <code>index.html</code> 入口文件。可以利用 <code>Nginx</code> 进行简单配置就可以实现在部署到服务器端。</p><blockquote><p>🐸 如果是 <code>nodejs</code> 的项目可以利用 <code>pm2</code> 进行部署，如果是 <code>egg</code> 的项目可以利用 <code>egg</code> 的工具 <code>egg-scripts</code> 进行部署</p></blockquote><h2 id="Nginx-的全局配置"><a href="#Nginx-的全局配置" class="headerlink" title="Nginx 的全局配置"></a>Nginx 的全局配置</h2><p>通过 <code>yum</code> 安装 <code>Nginx</code> 的配置文件在 <code>/etc/nginx/nginx.conf</code> 下。</p><p>其中 <code>include /etc/nginx/default.d/*.conf;</code> 引入在目录下的所有配置文件，原则上每个配置文件对应一个静态页面文件。</p><blockquote><p>⚠️ <code>include</code> 的坑：<code>include</code> 的位置应该在第一个 server 块后面<br>⚠️ 权限问题导致的 403： 修改 <code>conf</code> 配置 <code>user</code> 字段为 <code>root</code>（默认是 <code>nginx</code> ）</p></blockquote><p><strong>完整的 nginx.conf 配置：</strong></p><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For more information on configuration, see:</span></span><br><span class="line"><span class="comment">#   * Official English Documentation: http://nginx.org/en/docs/</span></span><br><span class="line"><span class="comment">#   * Official Russian Documentation: http://nginx.org/ru/docs/</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">user</span> root;</span><br><span class="line"><span class="attribute">worker_processes</span> auto;</span><br><span class="line"><span class="attribute">error_log</span> /var/log/nginx/error.log;</span><br><span class="line"><span class="attribute">pid</span> /run/nginx.pid;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load dynamic modules. See /usr/share/nginx/README.dynamic.</span></span><br><span class="line"><span class="attribute">include</span> /usr/share/nginx/modules/<span class="regexp">*.conf</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">worker_connections</span> <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">log_format</span>  main  <span class="string">'<span class="variable">$remote_addr</span> - <span class="variable">$remote_user</span> [<span class="variable">$time_local</span>] "<span class="variable">$request</span>" '</span></span><br><span class="line">                      <span class="string">'<span class="variable">$status</span> <span class="variable">$body_bytes_sent</span> "<span class="variable">$http_referer</span>" '</span></span><br><span class="line">                      <span class="string">'"<span class="variable">$http_user_agent</span>" "<span class="variable">$http_x_forwarded_for</span>"'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span>  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">sendfile</span>            <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">tcp_nopush</span>          <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">tcp_nodelay</span>         <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">keepalive_timeout</span>   <span class="number">65</span>;</span><br><span class="line">    <span class="attribute">types_hash_max_size</span> <span class="number">2048</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span>             /etc/nginx/mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>        application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Load modular configuration files from the /etc/nginx/conf.d directory.</span></span><br><span class="line">    <span class="comment"># See http://nginx.org/en/docs/ngx_core_module.html#include</span></span><br><span class="line">    <span class="comment"># for more information.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#include /etc/nginx/conf.d/*.conf;</span></span><br><span class="line"></span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>       <span class="number">80</span> default_server;</span><br><span class="line">        <span class="attribute">listen</span>       [::]:<span class="number">80</span> default_server;</span><br><span class="line">        <span class="attribute">server_name</span>  _;</span><br><span class="line">        <span class="attribute">root</span>         /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Load configuration files for the default server block.</span></span><br><span class="line">        <span class="comment"># include /etc/nginx/default.d/*.conf;</span></span><br><span class="line"></span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">error_page</span> <span class="number">404</span> /<span class="number">404</span>.html;</span><br><span class="line">            <span class="attribute">location</span> = /40x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">error_page</span> <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span> /50x.html;</span><br><span class="line">            <span class="attribute">location</span> = /50x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span> /etc/nginx/default.d/<span class="regexp">*.conf</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Settings for a TLS enabled server.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#    server &#123;</span></span><br><span class="line"><span class="comment">#        listen       443 ssl http2 default_server;</span></span><br><span class="line"><span class="comment">#        listen       [::]:443 ssl http2 default_server;</span></span><br><span class="line"><span class="comment">#        server_name  _;</span></span><br><span class="line"><span class="comment">#        root         /usr/share/nginx/html;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        ssl_certificate "/etc/pki/nginx/server.crt";</span></span><br><span class="line"><span class="comment">#        ssl_certificate_key "/etc/pki/nginx/private/server.key";</span></span><br><span class="line"><span class="comment">#        ssl_session_cache shared:SSL:1m;</span></span><br><span class="line"><span class="comment">#        ssl_session_timeout  10m;</span></span><br><span class="line"><span class="comment">#        ssl_ciphers HIGH:!aNULL:!MD5;</span></span><br><span class="line"><span class="comment">#        ssl_prefer_server_ciphers on;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        # Load configuration files for the default server block.</span></span><br><span class="line"><span class="comment">#        include /etc/nginx/default.d/*.conf;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        location / &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        error_page 404 /404.html;</span></span><br><span class="line"><span class="comment">#            location = /40x.html &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        error_page 500 502 503 504 /50x.html;</span></span><br><span class="line"><span class="comment">#            location = /50x.html &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#    &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="default-conf-的配置"><a href="#default-conf-的配置" class="headerlink" title="default.conf 的配置"></a>default.conf 的配置</h2><p>在 <code>/etc/nginx/default.d</code> 目录下配置，新建文件，一个简单的文件模板如下：</p><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">9001</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  localhost;</span><br><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">root</span>   /root/node-project/pm2test;</span><br><span class="line">        <span class="comment">#index  index.html index.htm;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>⚠️ 注意这里只包含 <code>server</code> 块</p><h2 id="相关命令行"><a href="#相关命令行" class="headerlink" title="相关命令行"></a>相关命令行</h2><p><strong>检查配置文件是否配置正确</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure><p><strong>修改配置后，刷新配置</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure><p><strong>杀死 nginx 进程，重启</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pkill -9 nginx</span><br><span class="line">systemctl restart nginx</span><br></pre></td></tr></table></figure><p><strong>启动 nginx</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx</span><br></pre></td></tr></table></figure><h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>利用 <code>nginx</code> 反向代理可以解决前端开中的跨域问题，而不需要服务端配合。具体请参考：<a href="http://luoyec.cn/2017/11/18/cjh5m1vhr003gsz6pr58ed54r/" target="_blank" rel="noopener">Nginx 反向代理</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Nginx-部署静态页面"><a href="#Nginx-部署静态页面" class="headerlink" title="Nginx 部署静态页面"></a>Nginx 部署静态页面</h1><p>在前后端分离的项目中，前端经过编译生成的文件中，往往只包含一个 <code>index.html</code> 入口文件。可以利用 <code>Nginx</code> 进行简单配置就可以实现在部署到服务器端。</p><blockquote><p>🐸 如果是 <code>nodejs</code> 的项目可以利用 <code>pm2</code> 进行部署，如果是 <code>egg</code> 的项目可以利用 <code>egg</code> 的工具 <code>egg-scripts</code> 进行部署</p></blockquote><h2 id="Nginx-的全局配置"><a href="#Nginx-的全局配置" class="headerlink" title="Nginx 的全局配置"></a>Nginx 的全局配置</h2><p>通过 <code>yum</code> 安装 <code>Nginx</code> 的配置文件在 <code>/etc/nginx/nginx.conf</code> 下。</p><p>其中 <code>include /etc/nginx/default.d/*.conf;</code> 引入在目录下的所有配置文件，原则上每个配置文件对应一个静态页面文件。</p><blockquote><p>⚠️ <code>include</code> 的坑：<code>include</code> 的位置应该在第一个 server 块后面<br>⚠️ 权限问题导致的 403： 修改 <code>conf</code> 配置 <code>user</code> 字段为 <code>root</code>（默认是 <code>nginx</code> ）</p></blockquote><p><strong>完整的 nginx.conf 配置：</strong></p><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For more information on configuration, see:</span></span><br><span class="line"><span class="comment">#   * Official English Documentation: http://nginx.org/en/docs/</span></span><br><span class="line"><span class="comment">#   * Official Russian Documentation: http://nginx.org/ru/docs/</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">user</span> root;</span><br><span class="line"><span class="attribute">worker_processes</span> auto;</span><br><span class="line"><span class="attribute">error_log</span> /var/log/nginx/error.log;</span><br><span class="line"><span class="attribute">pid</span> /run/nginx.pid;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load dynamic modules. See /usr/share/nginx/README.dynamic.</span></span><br><span class="line"><span class="attribute">include</span> /usr/share/nginx/modules/<span class="regexp">*.conf</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">worker_connections</span> <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">log_format</span>  main  <span class="string">'<span class="variable">$remote_addr</span> - <span class="variable">$remote_user</span> [<span class="variable">$time_local</span>] "<span class="variable">$request</span>" '</span></span><br><span class="line">                      <span class="string">'<span class="variable">$status</span> <span class="variable">$body_bytes_sent</span> "<span class="variable">$http_referer</span>" '</span></span><br><span class="line">                      <span class="string">'"<span class="variable">$http_user_agent</span>" "<span class="variable">$http_x_forwarded_for</span>"'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span>  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">sendfile</span>            <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">tcp_nopush</span>          <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">tcp_nodelay</span>         <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">keepalive_timeout</span>   <span class="number">65</span>;</span><br><span class="line">    <span class="attribute">types_hash_max_size</span> <span class="number">2048</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span>             /etc/nginx/mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>        application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Load modular configuration files from the /etc/nginx/conf.d directory.</span></span><br><span class="line">    <span class="comment"># See http://nginx.org/en/docs/ngx_core_module.html#include</span></span><br><span class="line">    <span class="comment"># for more information.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#include /etc/nginx/conf.d/*.conf;</span></span><br><span class="line"></span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>       <span class="number">80</span> default_server;</span><br><span class="line">        <span class="attribute">listen</span>       [::]:<span class="number">80</span> default_server;</span><br><span class="line">        <span class="attribute">server_name</span>  _;</span><br><span class="line">        <span class="attribute">root</span>         /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Load configuration files for the default server block.</span></span><br><span class="line">        <span class="comment"># include /etc/nginx/default.d/*.conf;</span></span><br><span class="line"></span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">error_page</span> <span class="number">404</span> /<span class="number">404</span>.html;</span><br><span class="line">            <span class="attribute">location</span> = /40x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">error_page</span> <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span> /50x.html;</span><br><span class="line">            <span class="attribute">location</span> = /50x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span> /etc/nginx/default.d/<span class="regexp">*.conf</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Settings for a TLS enabled server.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#    server &#123;</span></span><br><span class="line"><span class="comment">#        listen       443 ssl http2 default_server;</span></span><br><span class="line"><span class="comment">#        listen       [::]:443 ssl http2 default_server;</span></span><br><span class="line"><span class="comment">#        server_name  _;</span></span><br><span class="line"><span class="comment">#        root         /usr/share/nginx/html;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        ssl_certificate "/etc/pki/nginx/server.crt";</span></span><br><span class="line"><span class="comment">#        ssl_certificate_key "/etc/pki/nginx/private/server.key";</span></span><br><span class="line"><span class="comment">#        ssl_session_cache shared:SSL:1m;</span></span><br><span class="line"><span class="comment">#        ssl_session_timeout  10m;</span></span><br><span class="line"><span class="comment">#        ssl_ciphers HIGH:!aNULL:!MD5;</span></span><br><span class="line"><span class="comment">#        ssl_prefer_server_ciphers on;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        # Load configuration files for the default server block.</span></span><br><span class="line"><span class="comment">#        include /etc/nginx/default.d/*.conf;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        location / &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        error_page 404 /404.html;</span></span><br><span class="line"><span class="comment">#            location = /40x.html &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        error_page 500 502 503 504 /50x.html;</span></span><br><span class="line"><span class="comment">#            location = /50x.html &#123;</span></span><br><span class="line"><span class="comment">#        &#125;</span></span><br><span class="line"><span class="comment">#    &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="default-conf-的配置"><a href="#default-conf-的配置" class="headerlink" title="default.conf 的配置"></a>default.conf 的配置</h2><p>在 <code>/etc/nginx/default.d</code> 目录下配置，新建文件，一个简单的文件模板如下：</p><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">9001</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  localhost;</span><br><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">root</span>   /root/node-project/pm2test;</span><br><span class="line">        <span class="comment">#index  index.html index.htm;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>⚠️ 注意这里只包含 <code>server</code> 块</p><h2 id="相关命令行"><a href="#相关命令行" class="headerlink" title="相关命令行"></a>相关命令行</h2><p><strong>检查配置文件是否配置正确</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure><p><strong>修改配置后，刷新配置</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure><p><strong>杀死 nginx 进程，重启</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pkill -9 nginx</span><br><span class="line">systemctl restart nginx</span><br></pre></td></tr></table></figure><p><strong>启动 nginx</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx</span><br></pre></td></tr></table></figure><h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>利用 <code>nginx</code> 反向代理可以解决前端开中的跨域问题，而不需要服务端配合。具体请参考：<a href="http://luoyec.cn/2017/11/18/cjh5m1vhr003gsz6pr58ed54r/">Nginx 反向代理</a></p>]]></content>
     
     <summary type="html">
     
@@ -34,19 +34,19 @@
     
     </summary>
     
-      <category term="工程化" scheme="https://lyctea.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+      <category term="工程化" scheme="http://luoyec.cn/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
     
     
-      <category term="nginx" scheme="https://lyctea.github.io/tags/nginx/"/>
+      <category term="nginx" scheme="http://luoyec.cn/tags/nginx/"/>
     
-      <category term="部署" scheme="https://lyctea.github.io/tags/%E9%83%A8%E7%BD%B2/"/>
+      <category term="部署" scheme="http://luoyec.cn/tags/%E9%83%A8%E7%BD%B2/"/>
     
   </entry>
   
   <entry>
     <title>Vue.js 快速入门与专业应用</title>
-    <link href="https://lyctea.github.io/2018/05/14/cjipbjjxk004jnv6ptdvzysp3/"/>
-    <id>https://lyctea.github.io/2018/05/14/cjipbjjxk004jnv6ptdvzysp3/</id>
+    <link href="http://luoyec.cn/2018/05/14/cjiqogtqu004nwj6p6t2rzenu/"/>
+    <id>http://luoyec.cn/2018/05/14/cjiqogtqu004nwj6p6t2rzenu/</id>
     <published>2018-05-14T02:03:57.255Z</published>
     <updated>2018-05-14T02:09:43.470Z</updated>
     
@@ -62,19 +62,19 @@
     
     </summary>
     
-      <category term="vue" scheme="https://lyctea.github.io/categories/vue/"/>
+      <category term="vue" scheme="http://luoyec.cn/categories/vue/"/>
     
     
-      <category term="vue" scheme="https://lyctea.github.io/tags/vue/"/>
+      <category term="vue" scheme="http://luoyec.cn/tags/vue/"/>
     
-      <category term="框架" scheme="https://lyctea.github.io/tags/%E6%A1%86%E6%9E%B6/"/>
+      <category term="框架" scheme="http://luoyec.cn/tags/%E6%A1%86%E6%9E%B6/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript 数组去重</title>
-    <link href="https://lyctea.github.io/2018/05/06/cjipbjjwa001gnv6p017w3pyi/"/>
-    <id>https://lyctea.github.io/2018/05/06/cjipbjjwa001gnv6p017w3pyi/</id>
+    <link href="http://luoyec.cn/2018/05/06/cjiqogtpi001kwj6p35llwj6f/"/>
+    <id>http://luoyec.cn/2018/05/06/cjiqogtpi001kwj6p35llwj6f/</id>
     <published>2018-05-06T11:50:18.040Z</published>
     <updated>2018-05-06T11:50:23.573Z</updated>
     
@@ -89,19 +89,19 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="排序算法" scheme="https://lyctea.github.io/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+      <category term="排序算法" scheme="http://luoyec.cn/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript排序算法</title>
-    <link href="https://lyctea.github.io/2018/05/06/cjipbjjwu002rnv6pk8x5terv/"/>
-    <id>https://lyctea.github.io/2018/05/06/cjipbjjwu002rnv6pk8x5terv/</id>
+    <link href="http://luoyec.cn/2018/05/06/cjiqogtpy002owj6pnymrs7am/"/>
+    <id>http://luoyec.cn/2018/05/06/cjiqogtpy002owj6pnymrs7am/</id>
     <published>2018-05-06T03:59:25.542Z</published>
     <updated>2018-05-06T03:59:37.568Z</updated>
     
@@ -117,19 +117,19 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="排序算法" scheme="https://lyctea.github.io/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+      <category term="排序算法" scheme="http://luoyec.cn/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>AJAX 工作原理及概述</title>
-    <link href="https://lyctea.github.io/2018/05/04/cjipbjjvh0004nv6p9in96297/"/>
-    <id>https://lyctea.github.io/2018/05/04/cjipbjjvh0004nv6p9in96297/</id>
+    <link href="http://luoyec.cn/2018/05/04/cjiqogtom0004wj6pnmtjeg3x/"/>
+    <id>http://luoyec.cn/2018/05/04/cjiqogtom0004wj6pnmtjeg3x/</id>
     <published>2018-05-04T07:11:14.446Z</published>
     <updated>2018-05-04T07:11:33.599Z</updated>
     
@@ -145,21 +145,21 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="ajax" scheme="https://lyctea.github.io/tags/ajax/"/>
+      <category term="ajax" scheme="http://luoyec.cn/tags/ajax/"/>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="XMLHttpRequest" scheme="https://lyctea.github.io/tags/XMLHttpRequest/"/>
+      <category term="XMLHttpRequest" scheme="http://luoyec.cn/tags/XMLHttpRequest/"/>
     
   </entry>
   
   <entry>
     <title>正则表达式练习题</title>
-    <link href="https://lyctea.github.io/2018/05/01/cjipbjjz4007pnv6pyo8405oa/"/>
-    <id>https://lyctea.github.io/2018/05/01/cjipbjjz4007pnv6pyo8405oa/</id>
+    <link href="http://luoyec.cn/2018/05/01/cjiqogts7007pwj6pu2ald4ez/"/>
+    <id>http://luoyec.cn/2018/05/01/cjiqogts7007pwj6pu2ald4ez/</id>
     <published>2018-05-01T06:31:39.761Z</published>
     <updated>2018-05-01T06:31:52.739Z</updated>
     
@@ -174,19 +174,19 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="正则" scheme="https://lyctea.github.io/tags/%E6%AD%A3%E5%88%99/"/>
+      <category term="正则" scheme="http://luoyec.cn/tags/%E6%AD%A3%E5%88%99/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript 类的继承</title>
-    <link href="https://lyctea.github.io/2018/04/17/cjipbjjwh001xnv6ppoj5qoro/"/>
-    <id>https://lyctea.github.io/2018/04/17/cjipbjjwh001xnv6ppoj5qoro/</id>
+    <link href="http://luoyec.cn/2018/04/17/cjiqogtpn001xwj6p9hmmq9bh/"/>
+    <id>http://luoyec.cn/2018/04/17/cjiqogtpn001xwj6p9hmmq9bh/</id>
     <published>2018-04-17T05:16:30.391Z</published>
     <updated>2018-04-17T05:59:53.545Z</updated>
     
@@ -202,21 +202,21 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="类" scheme="https://lyctea.github.io/tags/%E7%B1%BB/"/>
+      <category term="类" scheme="http://luoyec.cn/tags/%E7%B1%BB/"/>
     
-      <category term="继承" scheme="https://lyctea.github.io/tags/%E7%BB%A7%E6%89%BF/"/>
+      <category term="继承" scheme="http://luoyec.cn/tags/%E7%BB%A7%E6%89%BF/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript 类的封装</title>
-    <link href="https://lyctea.github.io/2018/04/15/cjipbjjwg001tnv6pxx4pj5ww/"/>
-    <id>https://lyctea.github.io/2018/04/15/cjipbjjwg001tnv6pxx4pj5ww/</id>
+    <link href="http://luoyec.cn/2018/04/15/cjiqogtpm001twj6pd9wv6puv/"/>
+    <id>http://luoyec.cn/2018/04/15/cjiqogtpm001twj6pd9wv6puv/</id>
     <published>2018-04-15T13:51:01.501Z</published>
     <updated>2018-04-15T13:51:43.000Z</updated>
     
@@ -231,21 +231,21 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="类" scheme="https://lyctea.github.io/tags/%E7%B1%BB/"/>
+      <category term="类" scheme="http://luoyec.cn/tags/%E7%B1%BB/"/>
     
-      <category term="继承" scheme="https://lyctea.github.io/tags/%E7%BB%A7%E6%89%BF/"/>
+      <category term="继承" scheme="http://luoyec.cn/tags/%E7%BB%A7%E6%89%BF/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript 基本数据类型-对象</title>
-    <link href="https://lyctea.github.io/2018/04/15/cjipbjjwc001knv6p6tdnk7rx/"/>
-    <id>https://lyctea.github.io/2018/04/15/cjipbjjwc001knv6p6tdnk7rx/</id>
+    <link href="http://luoyec.cn/2018/04/15/cjiqogtph001gwj6pmrbzl2rp/"/>
+    <id>http://luoyec.cn/2018/04/15/cjiqogtph001gwj6pmrbzl2rp/</id>
     <published>2018-04-14T19:03:40.058Z</published>
     <updated>2018-04-14T19:03:45.105Z</updated>
     
@@ -260,21 +260,21 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="对象" scheme="https://lyctea.github.io/tags/%E5%AF%B9%E8%B1%A1/"/>
+      <category term="对象" scheme="http://luoyec.cn/tags/%E5%AF%B9%E8%B1%A1/"/>
     
-      <category term="Object" scheme="https://lyctea.github.io/tags/Object/"/>
+      <category term="Object" scheme="http://luoyec.cn/tags/Object/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript 原型及原型链</title>
-    <link href="https://lyctea.github.io/2018/04/14/cjipbjjw70019nv6psm4ura3m/"/>
-    <id>https://lyctea.github.io/2018/04/14/cjipbjjw70019nv6psm4ura3m/</id>
+    <link href="http://luoyec.cn/2018/04/14/cjiqogtpd0019wj6p1d593tla/"/>
+    <id>http://luoyec.cn/2018/04/14/cjiqogtpd0019wj6p1d593tla/</id>
     <published>2018-04-14T08:15:53.601Z</published>
     <updated>2018-04-14T10:28:43.620Z</updated>
     
@@ -289,21 +289,21 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="原型" scheme="https://lyctea.github.io/tags/%E5%8E%9F%E5%9E%8B/"/>
+      <category term="原型" scheme="http://luoyec.cn/tags/%E5%8E%9F%E5%9E%8B/"/>
     
-      <category term="原型链" scheme="https://lyctea.github.io/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/"/>
+      <category term="原型链" scheme="http://luoyec.cn/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/"/>
     
   </entry>
   
   <entry>
     <title>前端跨域通信原理及示例</title>
-    <link href="https://lyctea.github.io/2018/04/14/cjipbjjyn006ynv6p2e6928co/"/>
-    <id>https://lyctea.github.io/2018/04/14/cjipbjjyn006ynv6p2e6928co/</id>
+    <link href="http://luoyec.cn/2018/04/14/cjiqogtrt006ywj6ptd4pj17t/"/>
+    <id>http://luoyec.cn/2018/04/14/cjiqogtrt006ywj6ptd4pj17t/</id>
     <published>2018-04-14T04:45:50.875Z</published>
     <updated>2018-04-14T04:46:15.411Z</updated>
     
@@ -319,19 +319,19 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="跨域" scheme="https://lyctea.github.io/tags/%E8%B7%A8%E5%9F%9F/"/>
+      <category term="跨域" scheme="http://luoyec.cn/tags/%E8%B7%A8%E5%9F%9F/"/>
     
-      <category term="http" scheme="https://lyctea.github.io/tags/http/"/>
+      <category term="http" scheme="http://luoyec.cn/tags/http/"/>
     
   </entry>
   
   <entry>
     <title>XMLHttpRequest请求</title>
-    <link href="https://lyctea.github.io/2018/04/13/cjipbjjxm004onv6pzmki457p/"/>
-    <id>https://lyctea.github.io/2018/04/13/cjipbjjxm004onv6pzmki457p/</id>
+    <link href="http://luoyec.cn/2018/04/13/cjiqogtqs004kwj6puqdsekj4/"/>
+    <id>http://luoyec.cn/2018/04/13/cjiqogtqs004kwj6puqdsekj4/</id>
     <published>2018-04-13T15:38:53.944Z</published>
     <updated>2018-04-13T15:39:14.839Z</updated>
     
@@ -346,17 +346,17 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="http" scheme="https://lyctea.github.io/tags/http/"/>
+      <category term="http" scheme="http://luoyec.cn/tags/http/"/>
     
   </entry>
   
   <entry>
     <title>React 服务端渲染理论</title>
-    <link href="https://lyctea.github.io/2018/04/05/cjipbjjxf0044nv6p885bqhyz/"/>
-    <id>https://lyctea.github.io/2018/04/05/cjipbjjxf0044nv6p885bqhyz/</id>
+    <link href="http://luoyec.cn/2018/04/05/cjiqogtqm0042wj6p9pnwzawu/"/>
+    <id>http://luoyec.cn/2018/04/05/cjiqogtqm0042wj6p9pnwzawu/</id>
     <published>2018-04-05T07:09:31.232Z</published>
     <updated>2018-04-05T07:09:35.413Z</updated>
     
@@ -371,21 +371,21 @@
     
     </summary>
     
-      <category term="React" scheme="https://lyctea.github.io/categories/React/"/>
+      <category term="React" scheme="http://luoyec.cn/categories/React/"/>
     
     
-      <category term="React" scheme="https://lyctea.github.io/tags/React/"/>
+      <category term="React" scheme="http://luoyec.cn/tags/React/"/>
     
-      <category term="rss" scheme="https://lyctea.github.io/tags/rss/"/>
+      <category term="rss" scheme="http://luoyec.cn/tags/rss/"/>
     
-      <category term="服务端渲染" scheme="https://lyctea.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/"/>
+      <category term="服务端渲染" scheme="http://luoyec.cn/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript 正则表达式</title>
-    <link href="https://lyctea.github.io/2018/03/31/cjipbjjwe001pnv6po4blbbk6/"/>
-    <id>https://lyctea.github.io/2018/03/31/cjipbjjwe001pnv6po4blbbk6/</id>
+    <link href="http://luoyec.cn/2018/03/31/cjiqogtpl001pwj6p8tfdezq8/"/>
+    <id>http://luoyec.cn/2018/03/31/cjiqogtpl001pwj6p8tfdezq8/</id>
     <published>2018-03-31T03:02:24.965Z</published>
     <updated>2018-03-31T03:03:06.000Z</updated>
     
@@ -400,21 +400,21 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="RegExp" scheme="https://lyctea.github.io/tags/RegExp/"/>
+      <category term="RegExp" scheme="http://luoyec.cn/tags/RegExp/"/>
     
-      <category term="正则" scheme="https://lyctea.github.io/tags/%E6%AD%A3%E5%88%99/"/>
+      <category term="正则" scheme="http://luoyec.cn/tags/%E6%AD%A3%E5%88%99/"/>
     
   </entry>
   
   <entry>
     <title>浏览器存储、HTTP缓存、SSR</title>
-    <link href="https://lyctea.github.io/2018/03/24/cjipbjjz6007tnv6phl4omf3k/"/>
-    <id>https://lyctea.github.io/2018/03/24/cjipbjjz6007tnv6phl4omf3k/</id>
+    <link href="http://luoyec.cn/2018/03/24/cjiqogtsa007wwj6p5xgn88ue/"/>
+    <id>http://luoyec.cn/2018/03/24/cjiqogtsa007wwj6p5xgn88ue/</id>
     <published>2018-03-24T14:32:19.000Z</published>
     <updated>2018-03-24T14:32:22.000Z</updated>
     
@@ -429,19 +429,19 @@
     
     </summary>
     
-      <category term="前端性能优化" scheme="https://lyctea.github.io/categories/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+      <category term="前端性能优化" scheme="http://luoyec.cn/categories/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
     
-      <category term="性能优化" scheme="https://lyctea.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+      <category term="性能优化" scheme="http://luoyec.cn/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
-      <category term="离线存储" scheme="https://lyctea.github.io/tags/%E7%A6%BB%E7%BA%BF%E5%AD%98%E5%82%A8/"/>
+      <category term="离线存储" scheme="http://luoyec.cn/tags/%E7%A6%BB%E7%BA%BF%E5%AD%98%E5%82%A8/"/>
     
   </entry>
   
   <entry>
     <title>懒加载与预加载，重绘与回流</title>
-    <link href="https://lyctea.github.io/2018/03/24/cjipbjjyv007bnv6pqqiaw69x/"/>
-    <id>https://lyctea.github.io/2018/03/24/cjipbjjyv007bnv6pqqiaw69x/</id>
+    <link href="http://luoyec.cn/2018/03/24/cjiqogtrz007bwj6p58kt9jlj/"/>
+    <id>http://luoyec.cn/2018/03/24/cjiqogtrz007bwj6p58kt9jlj/</id>
     <published>2018-03-23T16:40:34.000Z</published>
     <updated>2018-03-23T16:40:46.000Z</updated>
     
@@ -456,19 +456,19 @@
     
     </summary>
     
-      <category term="前端性能优化" scheme="https://lyctea.github.io/categories/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+      <category term="前端性能优化" scheme="http://luoyec.cn/categories/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
     
-      <category term="性能优化" scheme="https://lyctea.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+      <category term="性能优化" scheme="http://luoyec.cn/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
-      <category term="懒加载，预加载" scheme="https://lyctea.github.io/tags/%E6%87%92%E5%8A%A0%E8%BD%BD%EF%BC%8C%E9%A2%84%E5%8A%A0%E8%BD%BD/"/>
+      <category term="懒加载，预加载" scheme="http://luoyec.cn/tags/%E6%87%92%E5%8A%A0%E8%BD%BD%EF%BC%8C%E9%A2%84%E5%8A%A0%E8%BD%BD/"/>
     
   </entry>
   
   <entry>
     <title>资源合并与压缩</title>
-    <link href="https://lyctea.github.io/2018/03/23/cjipbjjzj008qnv6pjv8h3vge/"/>
-    <id>https://lyctea.github.io/2018/03/23/cjipbjjzj008qnv6pjv8h3vge/</id>
+    <link href="http://luoyec.cn/2018/03/23/cjiqogtsn008qwj6p40cjadpj/"/>
+    <id>http://luoyec.cn/2018/03/23/cjiqogtsn008qwj6p40cjadpj/</id>
     <published>2018-03-23T05:31:52.000Z</published>
     <updated>2018-03-23T05:33:26.000Z</updated>
     
@@ -487,19 +487,19 @@
     
     </summary>
     
-      <category term="前端性能优化" scheme="https://lyctea.github.io/categories/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+      <category term="前端性能优化" scheme="http://luoyec.cn/categories/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
     
-      <category term="性能优化" scheme="https://lyctea.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+      <category term="性能优化" scheme="http://luoyec.cn/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
-      <category term="文件压缩" scheme="https://lyctea.github.io/tags/%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9/"/>
+      <category term="文件压缩" scheme="http://luoyec.cn/tags/%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript 迭代器与生成器</title>
-    <link href="https://lyctea.github.io/2018/03/21/cjipbjjwi0021nv6p5lwh4ypu/"/>
-    <id>https://lyctea.github.io/2018/03/21/cjipbjjwi0021nv6p5lwh4ypu/</id>
+    <link href="http://luoyec.cn/2018/03/21/cjiqogtpo0021wj6p7hgirman/"/>
+    <id>http://luoyec.cn/2018/03/21/cjiqogtpo0021wj6p7hgirman/</id>
     <published>2018-03-21T08:58:44.000Z</published>
     <updated>2018-03-21T08:58:55.000Z</updated>
     
@@ -514,21 +514,21 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="迭代器" scheme="https://lyctea.github.io/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/"/>
+      <category term="迭代器" scheme="http://luoyec.cn/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/"/>
     
-      <category term="生成器" scheme="https://lyctea.github.io/tags/%E7%94%9F%E6%88%90%E5%99%A8/"/>
+      <category term="生成器" scheme="http://luoyec.cn/tags/%E7%94%9F%E6%88%90%E5%99%A8/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript 递归上</title>
-    <link href="https://lyctea.github.io/2018/03/08/cjipbjjwk0024nv6pubwmqsw6/"/>
-    <id>https://lyctea.github.io/2018/03/08/cjipbjjwk0024nv6pubwmqsw6/</id>
+    <link href="http://luoyec.cn/2018/03/08/cjiqogtpp0024wj6pnt94oogi/"/>
+    <id>http://luoyec.cn/2018/03/08/cjiqogtpp0024wj6pnt94oogi/</id>
     <published>2018-03-08T01:01:16.000Z</published>
     <updated>2018-03-08T01:01:21.000Z</updated>
     
@@ -543,19 +543,19 @@
     
     </summary>
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/categories/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/categories/JavaScript/"/>
     
     
-      <category term="JavaScript" scheme="https://lyctea.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://luoyec.cn/tags/JavaScript/"/>
     
-      <category term="递归" scheme="https://lyctea.github.io/tags/%E9%80%92%E5%BD%92/"/>
+      <category term="递归" scheme="http://luoyec.cn/tags/%E9%80%92%E5%BD%92/"/>
     
   </entry>
   
   <entry>
     <title>Jenkins安装及基础配置</title>
-    <link href="https://lyctea.github.io/2018/03/07/cjipbjjx2003cnv6pqygee06o/"/>
-    <id>https://lyctea.github.io/2018/03/07/cjipbjjx2003cnv6pqygee06o/</id>
+    <link href="http://luoyec.cn/2018/03/07/cjiqogtqa003dwj6p0f5nis5n/"/>
+    <id>http://luoyec.cn/2018/03/07/cjiqogtqa003dwj6p0f5nis5n/</id>
     <published>2018-03-07T01:55:41.000Z</published>
     <updated>2018-03-07T01:55:44.000Z</updated>
     
@@ -571,12 +571,12 @@
     
     </summary>
     
-      <category term="前端工程化" scheme="https://lyctea.github.io/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+      <category term="前端工程化" scheme="http://luoyec.cn/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
     
     
-      <category term="Jenkins" scheme="https://lyctea.github.io/tags/Jenkins/"/>
+      <category term="Jenkins" scheme="http://luoyec.cn/tags/Jenkins/"/>
     
-      <category term="ECS" scheme="https://lyctea.github.io/tags/ECS/"/>
+      <category term="ECS" scheme="http://luoyec.cn/tags/ECS/"/>
     
   </entry>
   
