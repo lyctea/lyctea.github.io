@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（15） | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="读书笔记,面对对象">
+  <meta name="description" content="设计模式 创建一个软件系统时，实际上是对一个真实系统建模。  设计模式的基本概念以最佳实践原则为中心。所谓最佳实践，当创建好的、高效的解决方案时，这些解决方案会以某种方式记录下来，使其他人能够从先前已取得的成功获益——当然也包括从以往的失败学习。 为什么研究设计模式 每个模式都描述了在我们环境中反复出现的一个问题，然后介绍这个问题解决方案的核心，以便多次使用这个解决方案，而不必反复地重复工作。">
+<meta name="keywords" content="读书笔记,面对对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（15）">
+<meta property="og:url" content="https://luoyec.cn/2017/08/26/cjitxn3qc00557v6px7pklttg/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="设计模式 创建一个软件系统时，实际上是对一个真实系统建模。  设计模式的基本概念以最佳实践原则为中心。所谓最佳实践，当创建好的、高效的解决方案时，这些解决方案会以某种方式记录下来，使其他人能够从先前已取得的成功获益——当然也包括从以往的失败学习。 为什么研究设计模式 每个模式都描述了在我们环境中反复出现的一个问题，然后介绍这个问题解决方案的核心，以便多次使用这个解决方案，而不必反复地重复工作。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503719498707.jpg">
+<meta property="og:updated_time" content="2017-08-26T04:06:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（15）">
+<meta name="twitter:description" content="设计模式 创建一个软件系统时，实际上是对一个真实系统建模。  设计模式的基本概念以最佳实践原则为中心。所谓最佳实践，当创建好的、高效的解决方案时，这些解决方案会以某种方式记录下来，使其他人能够从先前已取得的成功获益——当然也包括从以往的失败学习。 为什么研究设计模式 每个模式都描述了在我们环境中反复出现的一个问题，然后介绍这个问题解决方案的核心，以便多次使用这个解决方案，而不必反复地重复工作。">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503719498707.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              Archives
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags/"  >
+              <i class="icon icon-lg icon-tags"></i>
+              Tags
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">《写给大家看的面向对象编程书》总结&amp;&amp;实践（15）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">《写给大家看的面向对象编程书》总结&amp;&amp;实践（15）</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2017-08-26T04:03:04.000Z" itemprop="datePublished" class="page-time">
+  2017-08-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-《写给大家看的面向对象编程书》总结&amp;&amp;实践（15）" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面对对象/">面对对象</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计模式"><span class="post-toc-number">1.</span> <span class="post-toc-text">设计模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么研究设计模式"><span class="post-toc-number">2.</span> <span class="post-toc-text">为什么研究设计模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模式的四大要素"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">模式的四大要素</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模型-视图-控制器（MVC）"><span class="post-toc-number">3.</span> <span class="post-toc-text">模型/视图/控制器（MVC）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计模式的不同类型"><span class="post-toc-number">4.</span> <span class="post-toc-text">设计模式的不同类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建型模式"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">创建型模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#结构型模式"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">结构型模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#行为型模式"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">行为型模式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小结"><span class="post-toc-number">5.</span> <span class="post-toc-text">小结</span></a></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><blockquote>
+<p>创建一个软件系统时，实际上是对一个真实系统建模。</p>
+</blockquote>
+<p>设计模式的基本概念以最佳实践原则为中心。所谓最佳实践，当创建好的、高效的解决方案时，这些解决方案会以某种方式记录下来，使其他人能够从先前已取得的成功获益——当然也包括从以往的失败学习。</p>
+<h2 id="为什么研究设计模式"><a href="#为什么研究设计模式" class="headerlink" title="为什么研究设计模式"></a>为什么研究设计模式</h2><blockquote>
+<p>每个模式都描述了在我们环境中反复出现的一个问题，然后介绍这个问题解决方案的核心，以便多次使用这个解决方案，而不必反复地重复工作。</p>
+</blockquote>
+<h3 id="模式的四大要素"><a href="#模式的四大要素" class="headerlink" title="模式的四大要素"></a>模式的四大要素</h3><ul>
+<li><p>模式名是描述一个设计问题</p>
+</li>
+<li><p>问题描述了何时应用这种模式</p>
+</li>
+<li></li>
+<li>解决方案描述了构成设计的元素，以及元素之间的关系、元素的职责和协作</li>
+<li></li>
+<li>结果描述应用这种模式的结果和开销</li>
+</ul>
+<h2 id="模型-视图-控制器（MVC）"><a href="#模型-视图-控制器（MVC）" class="headerlink" title="模型/视图/控制器（MVC）"></a>模型/视图/控制器（MVC）</h2><blockquote>
+<p>《设计模式》将MVC组件定义如下：模型是应用对象，视图是屏幕表示，而控制器定义了用户界面与用户输入之间的交互方法。</p>
+</blockquote>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503719498707.jpg" alt=""></p>
+<h2 id="设计模式的不同类型"><a href="#设计模式的不同类型" class="headerlink" title="设计模式的不同类型"></a>设计模式的不同类型</h2><ul>
+<li>创建型模式：这些模式为你创建对象，而不是由你直接实例化对象。这样在确定给定情况下需要创建哪些对象时，程序会有更多的灵活性</li>
+<li>结构性模式：可以帮助你将多组对象组合为更多的结构，如果复杂用户界面或审计数据</li>
+<li>行为型模式：帮助你定义系统中对象之间的通信，以及复杂程序中如何控制数据流</li>
+</ul>
+<h3 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h3><ul>
+<li>抽象工厂模式</li>
+<li>生成器模式</li>
+<li>工厂方法模式</li>
+<li>原型模式</li>
+<li>单例模式</li>
+</ul>
+<h3 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h3><ul>
+<li>适配器模式</li>
+<li>桥接模式</li>
+<li>组合模式</li>
+<li>装饰器模式</li>
+<li>外观模式</li>
+<li>享元模式</li>
+<li>代理模式</li>
+</ul>
+<h3 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h3><ul>
+<li>职责链模式</li>
+<li>命令模式</li>
+<li>解释器模式</li>
+<li>迭代器模式</li>
+<li>中介者模式</li>
+<li>备忘录模式</li>
+<li>观察者模式</li>
+<li>策略模式</li>
+<li>模板方法模式</li>
+<li>访问者模式</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>简单介绍设计模式，及《设计模式》中列举的模式类型。</p>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2017/08/26/cjitxn3qc00557v6px7pklttg/" target="_blank" rel="external">https://luoyec.cn/2017/08/26/cjitxn3qc00557v6px7pklttg/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2017/08/29/cjitxn3o8000i7v6pp4lii8m4/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Egret MVC通用框架HTTP请求实践（GET请求）</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2017/08/26/cjitxn3qn005w7v6pup8jjgnw/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">《写给大家看的面向对象编程书》总结&amp;&amp;实践（9）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "《写给大家看的面向对象编程书》总结&&实践（15）",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2017/08/26/cjitxn3qc00557v6px7pklttg/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

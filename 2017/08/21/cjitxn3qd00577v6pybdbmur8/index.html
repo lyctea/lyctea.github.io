@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（2） | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="读书笔记,面对对象">
+  <meta name="description" content="如何以对象方式思考OO设计所期望的最终结果是一个健壮、功能完备的对象模型，换句话说，也就是一个完备的系统。 将会讨论以下几个问题：  了解接口和实现之间的区别 以更抽象的方式思考 尽可能为用户提供最小接口  了解接口和实现之间的区别在设计类时，必须了解用户需要知道什么以及用户不需要知道什么。 适当的构造类分为两个部分设计—-接口和实现 接口在最理想的情况下，应该只为最终用户提供他们所需要的服务。">
+<meta name="keywords" content="读书笔记,面对对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）">
+<meta property="og:url" content="https://luoyec.cn/2017/08/21/cjitxn3qd00577v6pybdbmur8/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="如何以对象方式思考OO设计所期望的最终结果是一个健壮、功能完备的对象模型，换句话说，也就是一个完备的系统。 将会讨论以下几个问题：  了解接口和实现之间的区别 以更抽象的方式思考 尽可能为用户提供最小接口  了解接口和实现之间的区别在设计类时，必须了解用户需要知道什么以及用户不需要知道什么。 适当的构造类分为两个部分设计—-接口和实现 接口在最理想的情况下，应该只为最终用户提供他们所需要的服务。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503271056492.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503271314894.jpg">
+<meta property="og:updated_time" content="2017-08-20T23:32:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）">
+<meta name="twitter:description" content="如何以对象方式思考OO设计所期望的最终结果是一个健壮、功能完备的对象模型，换句话说，也就是一个完备的系统。 将会讨论以下几个问题：  了解接口和实现之间的区别 以更抽象的方式思考 尽可能为用户提供最小接口  了解接口和实现之间的区别在设计类时，必须了解用户需要知道什么以及用户不需要知道什么。 适当的构造类分为两个部分设计—-接口和实现 接口在最理想的情况下，应该只为最终用户提供他们所需要的服务。">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503271056492.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              Archives
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags/"  >
+              <i class="icon icon-lg icon-tags"></i>
+              Tags
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2017-08-20T23:32:21.000Z" itemprop="datePublished" class="page-time">
+  2017-08-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面对对象/">面对对象</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何以对象方式思考"><span class="post-toc-number">1.</span> <span class="post-toc-text">如何以对象方式思考</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#了解接口和实现之间的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">了解接口和实现之间的区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#接口"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">接口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#接口-实现示例"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">接口/实现示例</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计接口是使用抽象思维"><span class="post-toc-number">3.</span> <span class="post-toc-text">设计接口是使用抽象思维</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#尽可能为用户提供最小接口"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">尽可能为用户提供最小接口</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小结"><span class="post-toc-number">4.</span> <span class="post-toc-text">小结</span></a></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="如何以对象方式思考"><a href="#如何以对象方式思考" class="headerlink" title="如何以对象方式思考"></a>如何以对象方式思考</h2><p>OO设计所期望的最终结果是一个健壮、功能完备的对象模型，换句话说，也就是一个完备的系统。</p>
+<p>将会讨论以下几个问题：</p>
+<ul>
+<li>了解接口和实现之间的区别</li>
+<li>以更抽象的方式思考</li>
+<li>尽可能为用户提供最小接口</li>
+</ul>
+<h2 id="了解接口和实现之间的区别"><a href="#了解接口和实现之间的区别" class="headerlink" title="了解接口和实现之间的区别"></a>了解接口和实现之间的区别</h2><p>在设计类时，必须了解用户需要知道什么以及用户不需要知道什么。</p>
+<p>适当的构造类分为两个部分设计—-接口和实现</p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>在最理想的情况下，应该只为最终用户提供他们所需要的服务。</p>
+<blockquote>
+<p>明确用户<br>在设计一个类时，也许最重要的就是明确类的受众或用户。</p>
+</blockquote>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>实现的细节对用户是隐藏的。需要记住的一个实现的目标：改变实现不需要同时改变用户的代码。</p>
+<h3 id="接口-实现示例"><a href="#接口-实现示例" class="headerlink" title="接口/实现示例"></a>接口/实现示例</h3><p>根据需求提供相应的接口，例如一个简单的数据库读取器：</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503271056492.jpg" alt=""></p>
+<p>DataBaseReader类的一个UML类图</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503271314894.jpg" alt=""></p>
+<blockquote>
+<p>公共接口<br>如果一个方法是公共的，应用程序员就可以访问它，因此，它可以认为是类接口的一部分。</p>
+</blockquote>
+<blockquote>
+<p>对象持久性<br>是指保存对象的状态，从而可以在以后恢复并使用。没有持久存储的对象一旦出了作用域实际上就已经死亡了。例如可以把对象的状态保存在数据库中。</p>
+</blockquote>
+<h2 id="设计接口是使用抽象思维"><a href="#设计接口是使用抽象思维" class="headerlink" title="设计接口是使用抽象思维"></a>设计接口是使用抽象思维</h2><p>抽象接口通常是实现一个优秀可重用OO设计所采用的做法。</p>
+<h3 id="尽可能为用户提供最小接口"><a href="#尽可能为用户提供最小接口" class="headerlink" title="尽可能为用户提供最小接口"></a>尽可能为用户提供最小接口</h3><p>要做到这一点，需要遵守以下规则：</p>
+<ul>
+<li>只为用户提供他们确实需要的东西</li>
+<li>最好是当用户确实需要时才增加接口，而不要为用户提供他们不需要的接口</li>
+<li>公共接口定义用户能够访问的信息</li>
+<li>用用户角度设计类，而不要从信息系统的角度进行设计</li>
+<li>确保设计类时将与真正使用这个类的人（不只是开发人员）反复考虑需求和设计</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>关于OO思维过程的问题并不是固定的，采用OO方式做事与其说是一门科学不如说是一门艺术。你可以用自己的方式来描述OO思维。</p>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2017/08/21/cjitxn3qd00577v6pybdbmur8/" target="_blank" rel="external">https://luoyec.cn/2017/08/21/cjitxn3qd00577v6pybdbmur8/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2017/08/21/cjitxn3qf005b7v6pu9yy53c0/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">《写给大家看的面向对象编程书》总结&amp;&amp;实践（3）</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2017/08/20/cjitxn3r3006o7v6ppfql8tj4/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">《写给大家看的面向对象编程书》总结&amp;&amp;实践（1）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "《写给大家看的面向对象编程书》总结&&实践（2）",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2017/08/21/cjitxn3qd00577v6pybdbmur8/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

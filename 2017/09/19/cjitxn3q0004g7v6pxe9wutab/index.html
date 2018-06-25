@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>TCP与UDP | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="图解TCP/IP,读书笔记">
+  <meta name="description" content="TCP提供可靠的通信传输，而UDP则常被用于让广播和细节控制交给应用和通信传输。总之，根据通信的具体特征，选择合适的传输层协议是非常重要的。 传输层定义IP首部中有一个协议字段，用来标识网络层（IP）的上一层采用的是哪一种传输层协议，根据这个字段的协议号，就可以识别IP传输的数据部分究竟是TCP的内容还是UDP的内容。 通信处理 两种传输层协议TCP和UDPTCP是面向连接的、可靠的流协议。所谓流">
+<meta name="keywords" content="图解TCP&#x2F;IP,读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP与UDP">
+<meta property="og:url" content="https://luoyec.cn/2017/09/19/cjitxn3q0004g7v6pxe9wutab/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="TCP提供可靠的通信传输，而UDP则常被用于让广播和细节控制交给应用和通信传输。总之，根据通信的具体特征，选择合适的传输层协议是非常重要的。 传输层定义IP首部中有一个协议字段，用来标识网络层（IP）的上一层采用的是哪一种传输层协议，根据这个字段的协议号，就可以识别IP传输的数据部分究竟是TCP的内容还是UDP的内容。 通信处理 两种传输层协议TCP和UDPTCP是面向连接的、可靠的流协议。所谓流">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505739603132.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505797518206.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505797650982.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505820102926.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505820524004.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505820793298.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505821531586.jpg">
+<meta property="og:updated_time" content="2017-09-19T11:53:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TCP与UDP">
+<meta name="twitter:description" content="TCP提供可靠的通信传输，而UDP则常被用于让广播和细节控制交给应用和通信传输。总之，根据通信的具体特征，选择合适的传输层协议是非常重要的。 传输层定义IP首部中有一个协议字段，用来标识网络层（IP）的上一层采用的是哪一种传输层协议，根据这个字段的协议号，就可以识别IP传输的数据部分究竟是TCP的内容还是UDP的内容。 通信处理 两种传输层协议TCP和UDPTCP是面向连接的、可靠的流协议。所谓流">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505739603132.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              Archives
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags/"  >
+              <i class="icon icon-lg icon-tags"></i>
+              Tags
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">TCP与UDP</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">TCP与UDP</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2017-09-19T11:53:34.000Z" itemprop="datePublished" class="page-time">
+  2017-09-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/图解TCP-IP/">图解TCP/IP</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-TCP与UDP" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图解TCP-IP/">图解TCP/IP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#传输层定义"><span class="post-toc-number">1.</span> <span class="post-toc-text">传输层定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#通信处理"><span class="post-toc-number">2.</span> <span class="post-toc-text">通信处理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#两种传输层协议TCP和UDP"><span class="post-toc-number">3.</span> <span class="post-toc-text">两种传输层协议TCP和UDP</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TCP"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">TCP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">UDP</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#端口号"><span class="post-toc-number">4.</span> <span class="post-toc-text">端口号</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定义"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#根据端口号识别应用"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">根据端口号识别应用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#端口号如何确定"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">端口号如何确定</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#端口与协议"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">端口与协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#连接管理"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">连接管理</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#UDP首部格式"><span class="post-toc-number">5.</span> <span class="post-toc-text">UDP首部格式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TCP首部格式"><span class="post-toc-number">6.</span> <span class="post-toc-text">TCP首部格式</span></a></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <p>TCP提供可靠的通信传输，而UDP则常被用于让广播和细节控制交给应用和通信传输。总之，根据通信的具体特征，选择合适的传输层协议是非常重要的。</p>
+<h1 id="传输层定义"><a href="#传输层定义" class="headerlink" title="传输层定义"></a>传输层定义</h1><p>IP首部中有一个协议字段，用来标识网络层（IP）的上一层采用的是哪一种传输层协议，根据这个字段的协议号，就可以识别IP传输的数据部分究竟是TCP的内容还是UDP的内容。</p>
+<h1 id="通信处理"><a href="#通信处理" class="headerlink" title="通信处理"></a>通信处理</h1><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505739603132.jpg" alt=""></p>
+<h1 id="两种传输层协议TCP和UDP"><a href="#两种传输层协议TCP和UDP" class="headerlink" title="两种传输层协议TCP和UDP"></a>两种传输层协议TCP和UDP</h1><h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p>是面向连接的、可靠的流协议。所谓流就是指不间断的数据结构，可以类比水流。</p>
+<p>TCP通过校验和、序列号、确认应答、重发控制、连接管理以及窗口等机制实现可靠性传输。</p>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>UDP是不具有可靠性的数据报协议，在这种情况下，虽然可以保证发送消息的大小，却不能保证消息一定到达。</p>
+<p>应用场景：</p>
+<ul>
+<li>包总量较少的通信（DNS、SNMP）等</li>
+<li>视频、音频等多媒体通信（即使通信）</li>
+<li>限定于LAN等特定网络中的应用通信</li>
+<li>广播通信（广播、多播）</li>
+</ul>
+<blockquote>
+<p>套接字（Soket）<br>在应用程序中利用套接字，可以设置对端的IP地址、端口号、并实现数据的发送与接收</p>
+</blockquote>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505797518206.jpg" alt=""></p>
+<h1 id="端口号"><a href="#端口号" class="headerlink" title="端口号"></a>端口号</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>端口号用来识别同一台计算机中进行通信的不同应用程序，一次，它也被称为程序地址。</p>
+<h2 id="根据端口号识别应用"><a href="#根据端口号识别应用" class="headerlink" title="根据端口号识别应用"></a>根据端口号识别应用</h2><p>传输层利用端口号识别本机中正在进行通信的应用程序。<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505797650982.jpg" alt=""></p>
+<h2 id="端口号如何确定"><a href="#端口号如何确定" class="headerlink" title="端口号如何确定"></a>端口号如何确定</h2><ul>
+<li>标准既定的端口号</li>
+<li>时序分配法：例如每需要一个新的端口号就在之前的分配的号码的基础上加1</li>
+</ul>
+<h2 id="端口与协议"><a href="#端口与协议" class="headerlink" title="端口与协议"></a>端口与协议</h2><p>端口号由其使用的传输层协议决定，因此，不同的传输协议可以使用相同的端口号。</p>
+<p>数据到达IP层后，会先检查IP首部中的协议号，再传给相应协议的模块。如果是TCP则传给TCP模块，由传输协议各自独立处理。</p>
+<h2 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h2><p>UDP是一种面向无连接的通信协议，因此不检查对端是否可用痛殴更新，直接将UDP包发送出去。TCP相反。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505820102926.jpg" alt=""></p>
+<h1 id="UDP首部格式"><a href="#UDP首部格式" class="headerlink" title="UDP首部格式"></a>UDP首部格式</h1><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505820524004.jpg" alt=""></p>
+<ul>
+<li>源端口号（Source Port）：表示发送端口号，字段长16位。</li>
+<li>目标端口号（Destination Port）：表示接收端口号，字段长度16位。</li>
+<li>包长度（Length）：该字段保存了UDP首部的长度跟数据的长度之和。单位字节为8</li>
+<li>校验和（Checksum）：校验和是为了提供可靠的UDP首部和数据而设计的。</li>
+</ul>
+<h1 id="TCP首部格式"><a href="#TCP首部格式" class="headerlink" title="TCP首部格式"></a>TCP首部格式</h1><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505820793298.jpg" alt=""></p>
+<ul>
+<li>源端口号（Source Port）：表示发送端端口号，字段长16位</li>
+<li>目标端口号（Destination Port）：表示接受端口号，字段长度16位。</li>
+<li>序列号（Sequence Number）:是指发送数据的位置。每发送一次数据，就累加一次该数据字节数的大小</li>
+<li>确认应答号（Acknowledgement Number）：下一次应该收到的数据的序列号。</li>
+<li>数据偏移（Data Offset）：表示TCP所传输的数据部分应该从TCP包的哪个位开始计算。也可看作TCP首部的长度。</li>
+<li>保留（Reserved）：为 以后扩展</li>
+<li>控制位（Control Flag）: 字段长8位，每一位从左至右分别为 CWR、ECE、URG、ACK、PSH、RST、SYN、FIN。<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505821531586.jpg" alt=""></li>
+<li>窗口大小（Window Size）：用于通知从农耕相同TCP首部的确认应答号所指位置开始能够接受的数据大小。TCP不允许发送超过此处所表示大小的数据。</li>
+<li>校验和（Checksum）：如果计算校验和字段在内的所有数据的16位和以后，得出的结果是“16位全部为1”说明所收到的数据时正确的。</li>
+<li>紧急指针（Urgent Pointer）：紧急指针指出了紧急数据的末尾在报文段中的位置。</li>
+<li>选项（Options）：用于提高TCP传输性能。</li>
+</ul>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2017/09/19/cjitxn3q0004g7v6pxe9wutab/" target="_blank" rel="external">https://luoyec.cn/2017/09/19/cjitxn3q0004g7v6pxe9wutab/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2017/09/19/cjitxn3rz008t7v6petw0cq6w/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">路由协议与应用协议</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2017/09/18/cjitxn3ok00177v6pysuxmgc2/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">IP协议相关技术</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "TCP与UDP",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2017/09/19/cjitxn3q0004g7v6pxe9wutab/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
