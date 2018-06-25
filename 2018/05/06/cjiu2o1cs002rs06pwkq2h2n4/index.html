@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript排序算法 | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="JavaScript,排序算法">
+  <meta name="description" content="参考：《数据结构与算法 JavaScript 描述》visualgo 数据可视化 JavaScript 排序算法排序算法的核心思想是对一组数据按照一定的顺序重新排列。重新排序时用到一组嵌套的 for 循环，其中外循环会遍历数组的每一项，内循环则用于比较元素。 冒泡排序之所以叫冒泡排序，是因为排序时，数据会像起跑一样从数组的一端漂浮到另一端。算法在数组中移动，比较相邻的数据，当左侧大于右侧数据时将他">
+<meta name="keywords" content="JavaScript,排序算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript排序算法">
+<meta property="og:url" content="https://luoyec.cn/2018/05/06/cjiu2o1cs002rs06pwkq2h2n4/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="参考：《数据结构与算法 JavaScript 描述》visualgo 数据可视化 JavaScript 排序算法排序算法的核心思想是对一组数据按照一定的顺序重新排列。重新排序时用到一组嵌套的 for 循环，其中外循环会遍历数组的每一项，内循环则用于比较元素。 冒泡排序之所以叫冒泡排序，是因为排序时，数据会像起跑一样从数组的一端漂浮到另一端。算法在数组中移动，比较相邻的数据，当左侧大于右侧数据时将他">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015223238449-2146169197.gif">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015224719590-1433219824.gif">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015225645277-1151100000.gif">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1525575968269.jpg">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/849589/201803/849589-20180331170017421-364506073.gif">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1525577492984.jpg">
+<meta property="og:updated_time" content="2018-05-06T03:59:37.568Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript排序算法">
+<meta name="twitter:description" content="参考：《数据结构与算法 JavaScript 描述》visualgo 数据可视化 JavaScript 排序算法排序算法的核心思想是对一组数据按照一定的顺序重新排列。重新排序时用到一组嵌套的 for 循环，其中外循环会遍历数组的每一项，内循环则用于比较元素。 冒泡排序之所以叫冒泡排序，是因为排序时，数据会像起跑一样从数组的一端漂浮到另一端。算法在数组中移动，比较相邻的数据，当左侧大于右侧数据时将他">
+<meta name="twitter:image" content="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015223238449-2146169197.gif">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              文章
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">JavaScript排序算法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">JavaScript排序算法</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2018-05-06T03:59:25.542Z" itemprop="datePublished" class="page-time">
+  2018-05-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/JavaScript/">JavaScript</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-JavaScript排序算法" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序算法/">排序算法</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#JavaScript-排序算法"><span class="post-toc-number">1.</span> <span class="post-toc-text">JavaScript 排序算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#冒泡排序"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">冒泡排序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#选择排序"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">选择排序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#插入排序"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">插入排序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#希尔排序"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">希尔排序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#快速排序"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">快速排序</span></a></li></ol></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <p>参考：《数据结构与算法 JavaScript 描述》<br><a href="https://visualgo.net/zh/sorting" target="_blank" rel="noopener">visualgo 数据可视化</a></p>
+<h1 id="JavaScript-排序算法"><a href="#JavaScript-排序算法" class="headerlink" title="JavaScript 排序算法"></a>JavaScript 排序算法</h1><p>排序算法的核心思想是对一组数据按照一定的顺序重新排列。重新排序时用到一组嵌套的 <code>for</code> 循环，其中外循环会遍历数组的每一项，内循环则用于比较元素。</p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>之所以叫冒泡排序，是因为排序时，数据会像起跑一样从数组的一端漂浮到另一端。算法在数组中移动，比较相邻的数据，当左侧大于右侧数据时将他们进行交换。</p>
+<p><img src="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015223238449-2146169197.gif" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1、第一轮排序之后就能将最大数放到最后，那么经过 n-1 轮，就能完成所有的排序，所以需要遍历的次数是 n-1</span></span><br><span class="line"><span class="comment"> * 2、内层循环中，max - i 而不是 max？ 因为没经过一轮都会讲最大数放到后面，不再需要对这些已经排序的值进行再次遍历</span></span><br><span class="line"><span class="comment"> * 3、为什么需要标志位，当一次遍历之后发现没有进行任何交换，说明次数数组已经完成排序，跳出循环，返回结果即可</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> max = data.length - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; max; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> done = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; max - i; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (data[j] &gt; data[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="keyword">var</span> temp = data[j]</span><br><span class="line">                data[j] = data[j + <span class="number">1</span>]</span><br><span class="line">                data[j + <span class="number">1</span>] = data[j]</span><br><span class="line">                done = <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (done) <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> testArr = [<span class="number">12</span>, <span class="number">34</span>, <span class="number">34</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">6579</span>, <span class="number">7569</span>, <span class="number">23.32</span>, <span class="number">234</span>, <span class="number">234</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(bubbleSort(testArr))</span><br></pre></td></tr></table></figure>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序从数组的开头开始，将第一个元素和其他<strong>每一个</strong>元素进行比较，检查所有元素后，最小的元素会被放到数组的第一个位置，然后算法会从第二个位置继续。这个过程一直进行，当进行到数组的倒数第二个位置时，所有的数据便完成了排序。</p>
+<p><img src="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015224719590-1433219824.gif" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 外层循环遍历 n-1 次</span></span><br><span class="line"><span class="comment"> * 内层循环，没经过一次，找出最小值的坐标，循环结束后交互外循环坐标和最小坐标元素</span></span><br><span class="line"><span class="comment"> * 内层循环是依次减少的</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> example = [<span class="number">8</span>, <span class="number">94</span>, <span class="number">15</span>, <span class="number">88</span>, <span class="number">55</span>, <span class="number">76</span>, <span class="number">21</span>, <span class="number">39</span>]</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> len = arr.length</span><br><span class="line">    <span class="keyword">var</span> minIndex, temp</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> minIndex = i</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &lt; arr[minIndex]) &#123;</span><br><span class="line">                minIndex = j</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        temp = arr[i]</span><br><span class="line">        arr[i] = arr[minIndex]</span><br><span class="line">        arr[minIndex] = temp</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(selectSort(example))</span><br></pre></td></tr></table></figure>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>插入排序有两个循环，外循环将数组元素挨个移动，而内循环则对外循环中选中的元素及后面的那个元素进行比较。如果外循环中选中的元素比内循环中的元素小，那么数组元素会向右移动，为内循环中的这个元素腾出位置。</p>
+<p><img src="https://images2017.cnblogs.com/blog/849589/201710/849589-20171015225645277-1151100000.gif" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> len = arr.length</span><br><span class="line"></span><br><span class="line">    <span class="comment">//数组长度为1时，不需要排序，直接返回</span></span><br><span class="line">    <span class="keyword">if</span> (len &lt;= <span class="number">1</span>) <span class="keyword">return</span> arr</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="comment">// tmp 是需要被插入的元素</span></span><br><span class="line">        <span class="keyword">var</span> tmp = arr[i]</span><br><span class="line">        <span class="keyword">var</span> j = i</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历已经排序的元素</span></span><br><span class="line">        <span class="keyword">while</span> (arr[j - <span class="number">1</span>] &gt; tmp) &#123;</span><br><span class="line">            arr[j] = arr[j - <span class="number">1</span>]</span><br><span class="line">            --j</span><br><span class="line">        &#125;</span><br><span class="line">        arr[j] = tmp</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(insertSort([<span class="number">1</span>, <span class="number">45</span>, <span class="number">43</span>, <span class="number">4</span>, <span class="number">56</span>, <span class="number">7</span>, <span class="number">20</span>, <span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序的工作原理是，通过定义一个间隔序列来小时排序过程中进行比较的元素之间有多远的间隔。我们可以动态定义间隔序列，不过对于大部分实际应用常见，算法要用到间隔序列可以提前定义好。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1525575968269.jpg" alt=""></p>
+<p><img src="https://images2018.cnblogs.com/blog/849589/201803/849589-20180331170017421-364506073.gif" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shellSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> len = arr.length,</span><br><span class="line">        temp,</span><br><span class="line">        gap = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> (gap &lt; len / <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="comment">// 动态定义间隔序列 1 4 13</span></span><br><span class="line">        gap = gap * <span class="number">3</span> + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (gap; gap &gt; <span class="number">0</span>; gap = <span class="built_in">Math</span>.floor(gap / <span class="number">3</span>)) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = gap; i &lt; len; i++) &#123;</span><br><span class="line">            temp = arr[i]</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> j = i - gap; j &gt; <span class="number">0</span> &amp;&amp; arr[j] &gt; temp; j -= gap) &#123;</span><br><span class="line">                arr[j + gap] = arr[j]</span><br><span class="line">            &#125;</span><br><span class="line">            arr[j + gap] = temp</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> example = [<span class="number">8</span>, <span class="number">94</span>, <span class="number">15</span>, <span class="number">88</span>, <span class="number">55</span>, <span class="number">76</span>, <span class="number">21</span>, <span class="number">39</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(shellSort(example))</span><br></pre></td></tr></table></figure>
+<p>外循环控制间隔序列的移动，也就是说，算法在第一次处理数据集时，会检查所有间隔为 4 的元素，下一次检查间隔为 1 的元素。在开始最后一次处理是时，大部分元素都将在正确的位置，算法就不必对很多元素进行交换，这也是希尔排序高效的地方。</p>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序是处理大数据集最快的排序算法之一。它是一种分而治之的算法，通过递归的方式将数据一次分解为包含较小元素和较大元素的不同子序列。该算法不断重复这个步骤直到所有数据都是序列的。</p>
+<p>首先要在列表中选择一个元素作为基准值 (<code>pivot</code>)。数据排序围绕基准值进行，将列表中小于基准值的元素移到数组的底部，将大于基准值的元素移到数组的顶部。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1525577492984.jpg" alt=""></p>
+<p>快速排序的算法和伪代码：</p>
+<ul>
+<li>选择一个基准元素，将列表分隔成两个子序列</li>
+<li>对列表重新排序，将所有小于基准值的元素放在基准值前面，所有大于基准值的元素放在基准值后面</li>
+<li>分别对较小元素的子序列和较大元素的子序列重复步骤 1 和步骤 2</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">qSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr.length == <span class="number">0</span>) <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> left = [] <span class="comment">//小于基准存放数组</span></span><br><span class="line">    <span class="keyword">var</span> right = [] <span class="comment">// 大于基准存放数组</span></span><br><span class="line">    <span class="keyword">var</span> pivot = arr[<span class="number">0</span>] <span class="comment">//基准值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] &lt; pivot) &#123;</span><br><span class="line">            left.push(arr[i])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            right.push(arr[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> qSort(left).concat(pivot, qSort(right))</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = []</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i) &#123;</span><br><span class="line">    a[i] = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">100</span> + <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a)</span><br><span class="line"><span class="built_in">console</span>.log(qSort(a))</span><br></pre></td></tr></table></figure>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2018/05/06/cjiu2o1cs002rs06pwkq2h2n4/" target="_blank" rel="external">https://luoyec.cn/2018/05/06/cjiu2o1cs002rs06pwkq2h2n4/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2018/05/06/cjiu2o1c8001ks06pe17ykv9i/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">JavaScript 数组去重</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2018/05/04/cjiu2o1be0003s06poauj97hg/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">AJAX 工作原理及概述</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "JavaScript排序算法",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2018/05/06/cjiu2o1cs002rs06pwkq2h2n4/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

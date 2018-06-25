@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>浏览器存储、HTTP缓存、SSR | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="性能优化,离线存储">
+  <meta name="description" content="参考资源：HTTP 缓存 MDN服务端渲染与 Universal React App 浏览器存储Cookie HTTP 请求是无状态的，一次连接关闭，使用 Cookie去维持客户端状态，维护用户的登录信息。服务端可以判断这个请求是来自哪个客户端。 总结两点功能：  用于浏览器端和服务器端的交互 客户端自身数据的存储  Cookie 存储的限制：  作为浏览器存储，大小 4kb 左右（存储数据能力被">
+<meta name="keywords" content="性能优化,离线存储">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器存储、HTTP缓存、SSR">
+<meta property="og:url" content="https://luoyec.cn/2018/03/24/cjiu2o1f7007ts06pwxqrhjun/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="参考资源：HTTP 缓存 MDN服务端渲染与 Universal React App 浏览器存储Cookie HTTP 请求是无状态的，一次连接关闭，使用 Cookie去维持客户端状态，维护用户的登录信息。服务端可以判断这个请求是来自哪个客户端。 总结两点功能：  用于浏览器端和服务器端的交互 客户端自身数据的存储  Cookie 存储的限制：  作为浏览器存储，大小 4kb 左右（存储数据能力被">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1521824473690.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1521898842131.jpg">
+<meta property="og:updated_time" content="2018-03-24T14:32:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浏览器存储、HTTP缓存、SSR">
+<meta name="twitter:description" content="参考资源：HTTP 缓存 MDN服务端渲染与 Universal React App 浏览器存储Cookie HTTP 请求是无状态的，一次连接关闭，使用 Cookie去维持客户端状态，维护用户的登录信息。服务端可以判断这个请求是来自哪个客户端。 总结两点功能：  用于浏览器端和服务器端的交互 客户端自身数据的存储  Cookie 存储的限制：  作为浏览器存储，大小 4kb 左右（存储数据能力被">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1521824473690.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              文章
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">浏览器存储、HTTP缓存、SSR</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">浏览器存储、HTTP缓存、SSR</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2018-03-24T14:32:19.000Z" itemprop="datePublished" class="page-time">
+  2018-03-24
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/前端性能优化/">前端性能优化</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-浏览器存储、HTTP缓存、SSR" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/离线存储/">离线存储</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#浏览器存储"><span class="post-toc-number">1.</span> <span class="post-toc-text">浏览器存储</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Cookie"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Cookie</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LocalStorage"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">LocalStorage</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SessionStorage"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">SessionStorage</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IndexDB"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">IndexDB</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Service-Workers-产生的意义"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">Service Workers 产生的意义</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PWA"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">PWA</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#HTTP-缓存"><span class="post-toc-number">2.</span> <span class="post-toc-text">HTTP 缓存</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Server-Side-Rendering"><span class="post-toc-number">3.</span> <span class="post-toc-text">Server Side Rendering</span></a></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <p>参考资源：<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ" target="_blank" rel="noopener">HTTP 缓存 MDN</a><br><a href="https://juejin.im/post/5a0536346fb9a044fe45d33a" target="_blank" rel="noopener">服务端渲染与 Universal React App</a></p>
+<h1 id="浏览器存储"><a href="#浏览器存储" class="headerlink" title="浏览器存储"></a>浏览器存储</h1><h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1521824473690.jpg" alt=""></p>
+<p><code>HTTP</code> 请求是无状态的，一次连接关闭，使用 <code>Cookie</code>去维持客户端状态，维护用户的登录信息。服务端可以判断这个请求是来自哪个客户端。</p>
+<p>总结两点功能：</p>
+<ul>
+<li>用于浏览器端和服务器端的交互</li>
+<li>客户端自身数据的存储</li>
+</ul>
+<p><code>Cookie</code> 存储的限制：</p>
+<ul>
+<li>作为浏览器存储，大小 4kb 左右（<code>存储数据能力被localstorage</code> 替代）</li>
+<li>需要设置过期时间 <code>expire</code></li>
+<li><code>httponly</code>：当前这个 <code>Cookie</code> 只能用户 <code>http</code> 传输，而不能用 <code>js</code> 进行读写</li>
+<li><code>Cookie</code>中在相关域名下面 – <code>CND</code> 的流量损耗 - 在同一个域名下的所有请求，都会携带请求<ul>
+<li><code>CDN</code> 的域名和主站的域名要分开</li>
+</ul>
+</li>
+</ul>
+<h2 id="LocalStorage"><a href="#LocalStorage" class="headerlink" title="LocalStorage"></a>LocalStorage</h2><ul>
+<li><code>HTML5</code> 设计专门用来浏览器存储的</li>
+<li>大小为 5MB 左右</li>
+<li>尽在客户端使用，不和服务端进行通信</li>
+<li>接口封装较好</li>
+<li>浏览器本地缓存方案</li>
+</ul>
+<h2 id="SessionStorage"><a href="#SessionStorage" class="headerlink" title="SessionStorage"></a>SessionStorage</h2><ul>
+<li>会话级别的浏览器存储</li>
+<li>大小为 <code>5MB</code> 左右</li>
+<li>尽在客户端使用，不和服务端进行通信</li>
+<li>接口封装较好</li>
+<li>对于表单信息的维护</li>
+</ul>
+<h2 id="IndexDB"><a href="#IndexDB" class="headerlink" title="IndexDB"></a>IndexDB</h2><p><code>IndexDB</code> 是一种低级 <code>API</code>，用于客户端存储大量结构化数据。该 <code>API</code> 使用索引来实现对该数据的高性能搜索。虽然 <code>Web Storage</code> 对于储存较少的数据很有用，但对于存储更大量的结构化数据来说，这种方法不太有用。<code>IndexDB</code> 提供了解决方案。</p>
+<p>为应用创建离线版本。</p>
+<h2 id="Service-Workers-产生的意义"><a href="#Service-Workers-产生的意义" class="headerlink" title="Service Workers 产生的意义"></a>Service Workers 产生的意义</h2><blockquote>
+<p><code>Service workers</code><br>本质上充当 <code>Web</code> 应用程序与浏览器之间的代理服务器，也可以在网络可用时作为浏览器和网络间的代理。它们旨在（除其他之外）使得能够创建有效的离线体验，拦截网络请求并基于网络是否可用以及更新的资源是否驻留在服务器上来采取适当的动作。他们还允许访问推送通知和后台同步 API。</p>
+</blockquote>
+<p><code>Service workers</code>是一个脚本。浏览器独立与当前网页，将其在后台运行，为实现一些不依 赖页面或者用户交互的特性打开了一扇大门，在未来这些特性将包括推送消息，背景后台同步，<code>geofencing</code>（地理围栏定位），但他将退出的第一个首要特性，就是拦截和处理网络请求的能力，包括变成方式来管理被缓存的响应。</p>
+<p>使用拦截网络请求的能力，可以实现离线应用。</p>
+<h2 id="PWA"><a href="#PWA" class="headerlink" title="PWA"></a>PWA</h2><p><code>PWA（Progressive Web APPs）</code> 是一种 <code>Web App</code> 新模型，并不是具体指某一种前沿的技术或者某一个单一的知识点，我们从英文缩写就能看出来，这事一个<strong>渐进式</strong>的 <code>WebApp</code> ，是通过一系列新的 <code>Web</code> 特性。配合优秀的 <code>UI</code> 交互设计，逐步的增强 <code>Web APP</code> 的用户体验。</p>
+<ul>
+<li>可靠：在没有网络的环境中也能提供基本的页面访问，而不会出现 “未连接到互联网”的页面。</li>
+<li>快速：针对网页渲染及网路数据访问有较好的优化。</li>
+<li>融入（<code>Engaging</code>）：应用可以被增加到手机桌面，并且和普通应用一样有全屏、推送等特性。</li>
+</ul>
+<blockquote>
+<p>⚠️ <code>lighthouse</code>：<code>chorm</code> 扩展插件，检查网站性能，SEO 等</p>
+</blockquote>
+<h1 id="HTTP-缓存"><a href="#HTTP-缓存" class="headerlink" title="HTTP 缓存"></a>HTTP 缓存</h1><blockquote>
+<p>重用已获取的资源能够有效的提升网站与应用的性能。Web 缓存能够减少延迟与网络阻塞，进而减少显示某个资源所用的时间。借助 HTTP 缓存，Web 站点变得更具有响应性。</p>
+</blockquote>
+<h1 id="Server-Side-Rendering"><a href="#Server-Side-Rendering" class="headerlink" title="Server Side Rendering"></a>Server Side Rendering</h1><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1521898842131.jpg" alt=""></p>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2018/03/24/cjiu2o1f7007ts06pwxqrhjun/" target="_blank" rel="external">https://luoyec.cn/2018/03/24/cjiu2o1f7007ts06pwxqrhjun/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2018/03/31/cjiu2o1cb001ps06p8n182s9u/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">JavaScript 正则表达式</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2018/03/24/cjiu2o1f1007bs06pxuexbzjr/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">懒加载与预加载，重绘与回流</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "浏览器存储、HTTP缓存、SSR",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2018/03/24/cjiu2o1f7007ts06pwxqrhjun/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

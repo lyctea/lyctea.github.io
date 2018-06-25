@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>MySQL 基础 一 | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="mysql,关系型数据库,nodejs">
+  <meta name="description" content="数据库与关系型数据库数据库数据库（Database）是按照数据结构来组织、存储和管理数据的仓库，每个数据库都有一个或多个不同的API用于创建，访问，管理，搜索和复制所保存的数据。 关系型数据库所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。 RDBMS 术语 数据库: 数据库是一些关联表的集合。  数据表: 表是数据的矩阵。在一个数据库中的表">
+<meta name="keywords" content="mysql,关系型数据库,nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 基础 一">
+<meta property="og:url" content="https://luoyec.cn/2017/12/12/cjiu2o1d5003js06pm923588i/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="数据库与关系型数据库数据库数据库（Database）是按照数据结构来组织、存储和管理数据的仓库，每个数据库都有一个或多个不同的API用于创建，访问，管理，搜索和复制所保存的数据。 关系型数据库所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。 RDBMS 术语 数据库: 数据库是一些关联表的集合。  数据表: 表是数据的矩阵。在一个数据库中的表">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1513034722578.jpg">
+<meta property="og:updated_time" content="2017-12-11T23:56:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL 基础 一">
+<meta name="twitter:description" content="数据库与关系型数据库数据库数据库（Database）是按照数据结构来组织、存储和管理数据的仓库，每个数据库都有一个或多个不同的API用于创建，访问，管理，搜索和复制所保存的数据。 关系型数据库所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。 RDBMS 术语 数据库: 数据库是一些关联表的集合。  数据表: 表是数据的矩阵。在一个数据库中的表">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1513034722578.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              文章
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">MySQL 基础 一</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">MySQL 基础 一</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2017-12-11T23:56:10.000Z" itemprop="datePublished" class="page-time">
+  2017-12-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/mysql/">mysql</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-MySQL 基础 一" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/关系型数据库/">关系型数据库</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据库与关系型数据库"><span class="post-toc-number">1.</span> <span class="post-toc-text">数据库与关系型数据库</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据库"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关系型数据库"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">关系型数据库</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RDBMS-术语"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">RDBMS 术语</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Mysql数据库"><span class="post-toc-number">2.</span> <span class="post-toc-text">Mysql数据库</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">安装</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础SQL语句"><span class="post-toc-number">3.</span> <span class="post-toc-text">基础SQL语句</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SELECT"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">SELECT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SELECT-DISTINCT"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">SELECT DISTINCT</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#WHERE"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">WHERE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AND-amp-OR"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">AND &amp; OR</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ORDER-BY"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">ORDER BY</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#INSERT-INTO"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">INSERT INTO</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#UPDATE"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">UPDATE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DELETE"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">DELETE</span></a></li></ol></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="数据库与关系型数据库"><a href="#数据库与关系型数据库" class="headerlink" title="数据库与关系型数据库"></a>数据库与关系型数据库</h2><h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>数据库（<code>Database</code>）是按照数据结构来组织、存储和管理数据的仓库，<br>每个数据库都有一个或多个不同的API用于创建，访问，管理，搜索和复制所保存的数据。</p>
+<h3 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h3><p>所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。</p>
+<h3 id="RDBMS-术语"><a href="#RDBMS-术语" class="headerlink" title="RDBMS 术语"></a>RDBMS 术语</h3><ul>
+<li><p>数据库: 数据库是一些关联表的集合。</p>
+</li>
+<li><p>数据表: 表是数据的矩阵。在一个数据库中的表看起来像一个简单的电子表格。</p>
+</li>
+<li><p>列: 一列(数据元素) 包含了相同的数据, 例如邮政编码的数据。</p>
+</li>
+<li><p>行：一行（=元组，或记录）是一组相关的数据，例如一条用户订阅的数据。</p>
+</li>
+<li><p>冗余：存储两倍数据，冗余降低了性能，但提高了数据的安全性。</p>
+</li>
+<li><p>主键：主键是唯一的。一个数据表中只能包含一个主键。你可以使用主键来查询数据。</p>
+</li>
+<li><p>外键：外键用于关联两个表。</p>
+</li>
+<li><p>复合键：复合键（组合键）将多个列作为一个索引键，一般用于复合索引。</p>
+</li>
+<li><p>索引：使用索引可快速访问数据库表中的特定信息。索引是对数据库表中一列或多列的值进行排序的一种结构。类似于书籍的目录。</p>
+</li>
+<li><p>参照完整性: 参照的完整性要求关系中不允许引用不存在的实体。与实体完整性是关系模型必须满足的完整性约束条件，目的是保证数据的一致性。</p>
+</li>
+</ul>
+<h2 id="Mysql数据库"><a href="#Mysql数据库" class="headerlink" title="Mysql数据库"></a>Mysql数据库</h2><p><code>MySQL</code> 是一个关系型数据库管理系统，由瑞典 MySQL AB 公司开发，目前属于 Oracle 公司。<code>MySQL</code> 是一种关联数据库管理系统，关联数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>验证安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">luoyecs-iMac:~ luoyec$ mysqladmin --version</span><br><span class="line">mysqladmin  Ver 8.42 Distrib 5.7.20, for macos10.12 on x86_64</span><br></pre></td></tr></table></figure>
+<p>检查 <code>MySql</code> 服务器是否启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">luoyecs-iMac:~ luoyec$ ps -ef | grep mysqld</span><br><span class="line">   74   856     1   0 10:17上午 ??         0:00.72 /usr/local/mysql/bin/mysqld --user=_mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data --plugin-dir=/usr/local/mysql/lib/plugin --log-error=/usr/local/mysql/data/mysqld.local.err --pid-file=/usr/local/mysql/data/mysqld.local.pid --keyring-file-data=/usr/local/mysql/keyring/keyring --early-plugin-load=keyring_file=keyring_file.so</span><br><span class="line">  501   959   635   0 10:26上午 ttys002    0:00.01 grep mysqld</span><br></pre></td></tr></table></figure>
+<p>关闭目前运行的 <code>MySQL</code> 服务器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mysqladmin -u root -p shutdown</span><br></pre></td></tr></table></figure>
+<h2 id="基础SQL语句"><a href="#基础SQL语句" class="headerlink" title="基础SQL语句"></a>基础SQL语句</h2><h3 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h3><p><code>SELECT</code> 语句用于从数据库中选取数据。<br>结果被存储在一个结果表中，称为结果集。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>,country <span class="keyword">FROM</span> Websites;</span><br></pre></td></tr></table></figure>
+<h3 id="SELECT-DISTINCT"><a href="#SELECT-DISTINCT" class="headerlink" title="SELECT DISTINCT"></a>SELECT DISTINCT</h3><p><code>SELECT DISTINCT</code> 语句用于返回唯一不同的值, 也就是去掉列中重复值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT column_name,column_name</span><br><span class="line">FROM table_name;</span><br></pre></td></tr></table></figure></p>
+<h3 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a>WHERE</h3><p><code>WHERE</code> 子句用于提取那些满足指定标准的记录。</p>
+<p>下面的 <code>SQL</code> 语句从 “Websites” 表中选取国家为 “CN” 的所有网站：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> Websites <span class="keyword">WHERE</span> country=<span class="string">'CN'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>运算符：<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1513034722578.jpg" alt=""></p>
+<h3 id="AND-amp-OR"><a href="#AND-amp-OR" class="headerlink" title="AND &amp; OR"></a>AND &amp; OR</h3><blockquote>
+<p>AND &amp; OR 运算符用于基于一个以上的条件对记录进行过滤。</p>
+</blockquote>
+<blockquote>
+<p>如果第一个条件和第二个条件都成立，则 AND 运算符显示一条记录。<br>如果第一个条件和第二个条件中只要有一个成立，则 OR运算符显示一条记录。</p>
+</blockquote>
+<p>下面的 <code>SQL</code> 语句从 “Websites” 表中选取国家为 “CN” 且id排名大于 2” 的所有网站：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> Websites <span class="keyword">WHERE</span> country=<span class="string">'CN'</span> <span class="keyword">AND</span> <span class="keyword">id</span>&gt;<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>选取 id 等于2或者等于3的所有数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> Websites <span class="keyword">WHERE</span> <span class="keyword">id</span>=<span class="number">3</span> <span class="keyword">OR</span> <span class="keyword">id</span>=<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>您也可以把 <code>AND</code> 和 <code>OR</code> 结合起来（使用圆括号来组成复杂的表达式）。<br>“Websites” 表中选取 alexa 排名大于 “15” 且国家为 “CN” 或 “USA” 的所有网站：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> Websites</span><br><span class="line"><span class="keyword">WHERE</span> alexa &gt; <span class="number">15</span></span><br><span class="line"><span class="keyword">AND</span> (country=<span class="string">'CN'</span> <span class="keyword">OR</span> country=<span class="string">'USA'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="ORDER-BY"><a href="#ORDER-BY" class="headerlink" title="ORDER BY"></a>ORDER BY</h3><blockquote>
+<p>ORDER BY 关键字用于对结果集进行排序。</p>
+</blockquote>
+<blockquote>
+<p>ORDER BY 关键字用于对结果集按照一个列或者多个列进行排序。<br>ORDER BY 关键字默认按照升序对记录进行排序。如果需要按照降序对记录进行排序，您可以使用 DESC 关键字。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name,column_name</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column_name,column_name <span class="keyword">ASC</span>|<span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<p>选取所有网站，按id降序</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> Websites <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ORDER BY 多列的时候，先按照第一个column name排序，在按照第二个column name排序；如上述教程最后一个例子：</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>先将country值这一列排序，同为CN的排前面，同属USA的排后面； </li>
+<li>然后在同属CN的这些多行数据中，再根据alexa值的大小排列。</li>
+<li>ORDER BY 排列时，不写明ASCDESC的时候，默认是ASC。</li>
+</ul>
+</blockquote>
+<h3 id="INSERT-INTO"><a href="#INSERT-INTO" class="headerlink" title="INSERT INTO"></a>INSERT INTO</h3><p><code>INSERT INTO</code> 语句用于向表中插入新记录。</p>
+<p><code>INSERT INTO</code> 语句可以有两种编写形式。</p>
+<p>第一种形式无需指定要插入数据的列名，只需提供被插入的值即可：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table_name</span><br><span class="line"><span class="keyword">VALUES</span> (value1,value2,value3,...);</span><br></pre></td></tr></table></figure>
+<p>第二种形式需要指定列名及被插入的值：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table_name (column1,column2,column3,...)</span><br><span class="line"><span class="keyword">VALUES</span> (value1,value2,value3,...);</span><br></pre></td></tr></table></figure>
+<p>向表中插入一个新行</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- id是自动更新的，可以省略</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Websites (<span class="keyword">id</span>, app_name, <span class="keyword">url</span>, country) <span class="keyword">VALUES</span> (<span class="number">4</span>, <span class="string">'bilibili'</span>, <span class="string">'wwww.bb.com'</span>, <span class="string">'JP'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 只在url, country列插入数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Websites (<span class="keyword">url</span>, country) <span class="keyword">VALUES</span> (<span class="string">'wwww.bib.com'</span>, <span class="string">'JP'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h3><p><code>UPDATE</code> 语句用于更新表中已存在的记录。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> table_name</span><br><span class="line"><span class="keyword">SET</span> column1=value1,column2=value2,...</span><br><span class="line"><span class="keyword">WHERE</span> some_column=some_value;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>⚠️   请注意 SQL UPDATE 语句中的 WHERE 子句！ WHERE 子句规定哪条记录或者哪些记录需要更新。如果您省略了 WHERE子句，所有的记录都将被更新！</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 更新ID大于3的数据</span></span><br><span class="line"><span class="keyword">UPDATE</span> Websites <span class="keyword">SET</span> country=<span class="string">'CN'</span> <span class="keyword">WHERE</span> <span class="keyword">id</span>&gt;<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><p><code>DELETE</code> 语句用于删除表中的行。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> some_column=some_value;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>⚠️ 请注意 SQL DELETE 语句中的 WHERE 子句！ WHERE 子句规定哪条记录或者哪些记录需要删除。如果您省略了 WHERE 子句，所有的记录都将被删除！</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除app_name为''，且id&gt;3的行</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> Websites <span class="keyword">WHERE</span> app_name=<span class="string">''</span> <span class="keyword">AND</span> <span class="keyword">id</span>&gt;<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2017/12/12/cjiu2o1d5003js06pm923588i/" target="_blank" rel="external">https://luoyec.cn/2017/12/12/cjiu2o1d5003js06pm923588i/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2017/12/16/cjiu2o1bn000ds06p11ih7rg4/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">ES6 模块系统</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2017/12/09/cjiu2o1dc003ws06pwzkspvn7/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Node.js 模块</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "MySQL 基础 一",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2017/12/12/cjiu2o1d5003js06pm923588i/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

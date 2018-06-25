@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>网络基础知识 | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="图解TCP/IP,读书笔记">
+  <meta name="description" content="本章总结了深入理解TCP/IP所必备的基础知识，其中包括计算机与网络发展的历史及其标准化过程、OSI参考模型、网络概念的本质、网络构建的设备等。  计算机网络出现的背景从独立模式到网络互联模式  计算机网络，根据其规模可分为WAN（Wide Area Network， 广域网）和LAN（Local Area Networ， 局域网） 分组交换协议  分组交换是指将大数据分割为一个个叫包（Packe">
+<meta name="keywords" content="图解TCP&#x2F;IP,读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络基础知识">
+<meta property="og:url" content="https://luoyec.cn/2017/09/11/cjiu2o1fe0089s06ptdhcni9v/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="本章总结了深入理解TCP/IP所必备的基础知识，其中包括计算机与网络发展的历史及其标准化过程、OSI参考模型、网络概念的本质、网络构建的设备等。  计算机网络出现的背景从独立模式到网络互联模式  计算机网络，根据其规模可分为WAN（Wide Area Network， 广域网）和LAN（Local Area Networ， 局域网） 分组交换协议  分组交换是指将大数据分割为一个个叫包（Packe">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504966276440.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504967619906.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504968037402.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504968175860.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1505012773330.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1505015596197.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1505015984794.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505085985062.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505086794129.jpg">
+<meta property="og:updated_time" content="2017-09-10T23:48:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络基础知识">
+<meta name="twitter:description" content="本章总结了深入理解TCP/IP所必备的基础知识，其中包括计算机与网络发展的历史及其标准化过程、OSI参考模型、网络概念的本质、网络构建的设备等。  计算机网络出现的背景从独立模式到网络互联模式  计算机网络，根据其规模可分为WAN（Wide Area Network， 广域网）和LAN（Local Area Networ， 局域网） 分组交换协议  分组交换是指将大数据分割为一个个叫包（Packe">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504966276440.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              文章
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">网络基础知识</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">网络基础知识</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2017-09-10T23:46:16.000Z" itemprop="datePublished" class="page-time">
+  2017-09-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/图解TCP-IP/">图解TCP/IP</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-网络基础知识" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图解TCP-IP/">图解TCP/IP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#计算机网络出现的背景"><span class="post-toc-number">1.</span> <span class="post-toc-text">计算机网络出现的背景</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#从独立模式到网络互联模式"><span class="post-toc-number">2.</span> <span class="post-toc-text">从独立模式到网络互联模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分组交换协议"><span class="post-toc-number">3.</span> <span class="post-toc-text">分组交换协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OSI参考模型"><span class="post-toc-number">4.</span> <span class="post-toc-text">OSI参考模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OSI参考模型在各个分层的作用"><span class="post-toc-number">5.</span> <span class="post-toc-text">OSI参考模型在各个分层的作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OSI参考模型通信处理举例"><span class="post-toc-number">6.</span> <span class="post-toc-text">OSI参考模型通信处理举例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#传输方式的分类"><span class="post-toc-number">7.</span> <span class="post-toc-text">传输方式的分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#面向有连接型和面向无连接型"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">面向有连接型和面向无连接型</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#电路交换与分组交换"><span class="post-toc-number">8.</span> <span class="post-toc-text">电路交换与分组交换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#根据接收端数量分类"><span class="post-toc-number">9.</span> <span class="post-toc-text">根据接收端数量分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#单播（Unicast）"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">单播（Unicast）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#广播（Broadcast）"><span class="post-toc-number">9.2.</span> <span class="post-toc-text">广播（Broadcast）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多播（Multicast）"><span class="post-toc-number">9.3.</span> <span class="post-toc-text">多播（Multicast）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#任播（Anycast）"><span class="post-toc-number">9.4.</span> <span class="post-toc-text">任播（Anycast）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#地址"><span class="post-toc-number">10.</span> <span class="post-toc-text">地址</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#网络构成的要素"><span class="post-toc-number">11.</span> <span class="post-toc-text">网络构成的要素</span></a></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本章总结了深入理解TCP/IP所必备的基础知识，其中包括计算机与网络发展的历史及其标准化过程、OSI参考模型、网络概念的本质、网络构建的设备等。</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504966276440.jpg" alt=""></p>
+<h2 id="计算机网络出现的背景"><a href="#计算机网络出现的背景" class="headerlink" title="计算机网络出现的背景"></a>计算机网络出现的背景</h2><h2 id="从独立模式到网络互联模式"><a href="#从独立模式到网络互联模式" class="headerlink" title="从独立模式到网络互联模式"></a>从独立模式到网络互联模式</h2><p>  计算机网络，根据其规模可分为WAN（Wide Area Network， 广域网）和LAN（Local Area Networ， 局域网）</p>
+<h2 id="分组交换协议"><a href="#分组交换协议" class="headerlink" title="分组交换协议"></a>分组交换协议</h2><p>  分组交换是指将大数据分割为一个个叫包（Packet）的较小单位进行传输的方法。<br>  <img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504967619906.jpg" alt=""></p>
+<blockquote>
+<p>标准化：所谓标准化是指不同厂商所生产的异构产品之间具有兼容性、便于使用的规范化过程。</p>
+</blockquote>
+<h2 id="OSI参考模型"><a href="#OSI参考模型" class="headerlink" title="OSI参考模型"></a>OSI参考模型</h2><p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504968037402.jpg" alt=""></p>
+<h2 id="OSI参考模型在各个分层的作用"><a href="#OSI参考模型在各个分层的作用" class="headerlink" title="OSI参考模型在各个分层的作用"></a>OSI参考模型在各个分层的作用</h2><p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504968175860.jpg" alt=""></p>
+<h2 id="OSI参考模型通信处理举例"><a href="#OSI参考模型通信处理举例" class="headerlink" title="OSI参考模型通信处理举例"></a>OSI参考模型通信处理举例</h2><p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1505012773330.jpg" alt=""></p>
+<h2 id="传输方式的分类"><a href="#传输方式的分类" class="headerlink" title="传输方式的分类"></a>传输方式的分类</h2><h3 id="面向有连接型和面向无连接型"><a href="#面向有连接型和面向无连接型" class="headerlink" title="面向有连接型和面向无连接型"></a>面向有连接型和面向无连接型</h3><p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1505015596197.jpg" alt=""></p>
+<h2 id="电路交换与分组交换"><a href="#电路交换与分组交换" class="headerlink" title="电路交换与分组交换"></a>电路交换与分组交换</h2><p>让连接到通信电路的计算机将所要发送的数据分成多个数据包，按照一定的顺序排列之后分别发送。这就是分组交换。数据被细分后，所有的计算机就可以一齐收发数据，这样也提高了通信线路的利用率。</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1505015984794.jpg" alt=""></p>
+<h2 id="根据接收端数量分类"><a href="#根据接收端数量分类" class="headerlink" title="根据接收端数量分类"></a>根据接收端数量分类</h2><h3 id="单播（Unicast）"><a href="#单播（Unicast）" class="headerlink" title="单播（Unicast）"></a>单播（Unicast）</h3><p>1对1通信，早期的固定电话就是单播通信的例子。</p>
+<h3 id="广播（Broadcast）"><a href="#广播（Broadcast）" class="headerlink" title="广播（Broadcast）"></a>广播（Broadcast）</h3><p>将消息从1台主机发送与之相连的所有其他主机。</p>
+<h3 id="多播（Multicast）"><a href="#多播（Multicast）" class="headerlink" title="多播（Multicast）"></a>多播（Multicast）</h3><p>也是将消息发给多个接收主机，不同之处在于多播要限定某一组作为接收端。</p>
+<h3 id="任播（Anycast）"><a href="#任播（Anycast）" class="headerlink" title="任播（Anycast）"></a>任播（Anycast）</h3><p>指的是在特定多态主机中选出一台作为接收端的一种通信方式。<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505085985062.jpg" alt=""></p>
+<h2 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h2><p>在实际的网络通信中，每一层的协议所使用的地址都是不尽相同的，例如TCP/IP中使用MAC地址、IP地址、端口号等信息作为地址标识。甚至在应用层中，可以将电子邮件地址作为网络通信的地址。</p>
+<p>MAC地址由设备制造商对每块网卡分别指定。但对于寻址并没有起到任何作用，所以不能算作有层次的地址。正因如此，虽然MAC地址是真正复杂通信地址，但在实际寻址过程中，IP地址却必不可少。</p>
+<h2 id="网络构成的要素"><a href="#网络构成的要素" class="headerlink" title="网络构成的要素"></a>网络构成的要素</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505086794129.jpg" alt=""></p>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2017/09/11/cjiu2o1fe0089s06ptdhcni9v/" target="_blank" rel="external">https://luoyec.cn/2017/09/11/cjiu2o1fe0089s06ptdhcni9v/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2017/09/12/cjiu2o1dj004bs06pqpfxrxy0/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">TCP/IP 基础知识</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2017/09/06/cjiu2o1eq006vs06plno8o3fc/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">分析算法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "网络基础知识",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2017/09/11/cjiu2o1fe0089s06ptdhcni9v/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
