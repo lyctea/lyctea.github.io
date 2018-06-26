@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>算法在计算中的作用 | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="算法导论,习题答案">
+  <meta name="description" content="算法给出现实生活中需要排序的一个例子或者现实生活中需要计算凸壳的一个例子？凸包问题概念假设平面上有p0~p12共13个点，过某些点作一个多边形，使这个多边形能把所有点都“包”起来。当这个多边形是凸多边形的时候，我们就叫它“凸包”。 直观地讲，可以把Q中每个点都想象成是露在一块板外的铁钉，那么凸包就是包围这些铁钉的一条拉近了的橡皮绳所构成的形状。  实例根据所有的果树的位置，找出一个n边形的最小篱笆">
+<meta name="keywords" content="算法导论,习题答案">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法在计算中的作用">
+<meta property="og:url" content="https://luoyec.cn/2017/08/30/cjivj3hs2007u006po6kfpsf1/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="算法给出现实生活中需要排序的一个例子或者现实生活中需要计算凸壳的一个例子？凸包问题概念假设平面上有p0~p12共13个点，过某些点作一个多边形，使这个多边形能把所有点都“包”起来。当这个多边形是凸多边形的时候，我们就叫它“凸包”。 直观地讲，可以把Q中每个点都想象成是露在一块板外的铁钉，那么凸包就是包围这些铁钉的一条拉近了的橡皮绳所构成的形状。  实例根据所有的果树的位置，找出一个n边形的最小篱笆">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504100387916.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504105321209.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504105519611.jpg">
+<meta property="og:updated_time" content="2017-08-30T15:10:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法在计算中的作用">
+<meta name="twitter:description" content="算法给出现实生活中需要排序的一个例子或者现实生活中需要计算凸壳的一个例子？凸包问题概念假设平面上有p0~p12共13个点，过某些点作一个多边形，使这个多边形能把所有点都“包”起来。当这个多边形是凸多边形的时候，我们就叫它“凸包”。 直观地讲，可以把Q中每个点都想象成是露在一块板外的铁钉，那么凸包就是包围这些铁钉的一条拉近了的橡皮绳所构成的形状。  实例根据所有的果树的位置，找出一个n边形的最小篱笆">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504100387916.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              文章
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">算法在计算中的作用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">算法在计算中的作用</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2017-08-30T15:10:01.000Z" itemprop="datePublished" class="page-time">
+  2017-08-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/算法导论/">算法导论</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-算法在计算中的作用" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/习题答案/">习题答案</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法导论/">算法导论</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#算法"><span class="post-toc-number">1.</span> <span class="post-toc-text">算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#给出现实生活中需要排序的一个例子或者现实生活中需要计算凸壳的一个例子？"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">给出现实生活中需要排序的一个例子或者现实生活中需要计算凸壳的一个例子？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#凸包问题"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">凸包问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#概念"><span class="post-toc-number">1.1.1.1.</span> <span class="post-toc-text">概念</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#实例"><span class="post-toc-number">1.1.1.2.</span> <span class="post-toc-text">实例</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#除速度外，在真实环境中还可能使用哪些其他有关效率的夺量"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">除速度外，在真实环境中还可能使用哪些其他有关效率的夺量</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#选择一种你以前一直的数据结构，并且讨论其优势和局限"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">选择一种你以前一直的数据结构，并且讨论其优势和局限</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最短路径与旅行商问题的相似之处和不同之处"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">最短路径与旅行商问题的相似之处和不同之处</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#提供一个问题，其中只有最佳解才行，然后提供一个问题，其中近似最佳的一个解也足够好"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">提供一个问题，其中只有最佳解才行，然后提供一个问题，其中近似最佳的一个解也足够好</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#作为技术的一种算法"><span class="post-toc-number">2.</span> <span class="post-toc-text">作为技术的一种算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#给出在应用层需要算法内同的应用的一个例子，并且讨论设计的算法的功能"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">给出在应用层需要算法内同的应用的一个例子，并且讨论设计的算法的功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#假设我们正在比较插入排序和归并排序在相同机器上面的实现，对于规模为n的输入，插入排序运行8n-2步，而归并排序运行64nlgn步。问对于哪些n值，插入排序优于归并排序？"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">假设我们正在比较插入排序和归并排序在相同机器上面的实现，对于规模为n的输入，插入排序运行8n^2步，而归并排序运行64nlgn步。问对于哪些n值，插入排序优于归并排序？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#n的最小值为何值时，运行时间为100n-2的一个算法在相同的机器上面快于运行时间为2-n的另外一个算法"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">n的最小值为何值时，运行时间为100n^2的一个算法在相同的机器上面快于运行时间为2^n的另外一个算法</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#思考题"><span class="post-toc-number">3.</span> <span class="post-toc-text">思考题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#运行时间的比较"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">运行时间的比较</span></a></li></ol></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="给出现实生活中需要排序的一个例子或者现实生活中需要计算凸壳的一个例子？"><a href="#给出现实生活中需要排序的一个例子或者现实生活中需要计算凸壳的一个例子？" class="headerlink" title="给出现实生活中需要排序的一个例子或者现实生活中需要计算凸壳的一个例子？"></a>给出现实生活中需要排序的一个例子或者现实生活中需要计算凸壳的一个例子？</h2><h3 id="凸包问题"><a href="#凸包问题" class="headerlink" title="凸包问题"></a>凸包问题</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>假设平面上有p0~p12共13个点，过某些点作一个多边形，使这个多边形能把所有点都“包”起来。当这个多边形是凸多边形的时候，我们就叫它“凸包”。</p>
+<p>直观地讲，可以把Q中每个点都想象成是露在一块板外的铁钉，那么凸包就是包围这些铁钉的一条拉近了的橡皮绳所构成的形状。</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504100387916.jpg" alt=""></p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p>根据所有的果树的位置，找出一个n边形的最小篱笆，使 得所有果树都包围在篱笆内部，或者在篱笆边沿上。也就是，一组平面上的点，求一个包含所有点的最小的凸多边形。</p>
+<h2 id="除速度外，在真实环境中还可能使用哪些其他有关效率的夺量"><a href="#除速度外，在真实环境中还可能使用哪些其他有关效率的夺量" class="headerlink" title="除速度外，在真实环境中还可能使用哪些其他有关效率的夺量"></a>除速度外，在真实环境中还可能使用哪些其他有关效率的夺量</h2><p>  占用资源的大小（在计算机中可以成为空间），问题解决的程度</p>
+<h2 id="选择一种你以前一直的数据结构，并且讨论其优势和局限"><a href="#选择一种你以前一直的数据结构，并且讨论其优势和局限" class="headerlink" title="选择一种你以前一直的数据结构，并且讨论其优势和局限"></a>选择一种你以前一直的数据结构，并且讨论其优势和局限</h2><p>  栈:后进先出，非常适合于保存程序调用的迒回地址之类的特殊应用（递归调用），缺点是无法进行随机的读写</p>
+<h2 id="最短路径与旅行商问题的相似之处和不同之处"><a href="#最短路径与旅行商问题的相似之处和不同之处" class="headerlink" title="最短路径与旅行商问题的相似之处和不同之处"></a>最短路径与旅行商问题的相似之处和不同之处</h2><p>  相同之处：都是要求出最短总距离</p>
+<p>  不同之处：终点的不同，同时最短路径不需要遍历全部的点，而那个旅行商问题就是需要遍历所有的点的问题</p>
+<p>  商旅问题没有已知的有效算法，然而，我们知道一些算法，他们给朱一个离最小值不太远的总距离。35章中会讨论近似算法问题。</p>
+<h2 id="提供一个问题，其中只有最佳解才行，然后提供一个问题，其中近似最佳的一个解也足够好"><a href="#提供一个问题，其中只有最佳解才行，然后提供一个问题，其中近似最佳的一个解也足够好" class="headerlink" title="提供一个问题，其中只有最佳解才行，然后提供一个问题，其中近似最佳的一个解也足够好"></a>提供一个问题，其中只有最佳解才行，然后提供一个问题，其中近似最佳的一个解也足够好</h2><p>  最短路径、商旅问题</p>
+<h1 id="作为技术的一种算法"><a href="#作为技术的一种算法" class="headerlink" title="作为技术的一种算法"></a>作为技术的一种算法</h1><h2 id="给出在应用层需要算法内同的应用的一个例子，并且讨论设计的算法的功能"><a href="#给出在应用层需要算法内同的应用的一个例子，并且讨论设计的算法的功能" class="headerlink" title="给出在应用层需要算法内同的应用的一个例子，并且讨论设计的算法的功能"></a>给出在应用层需要算法内同的应用的一个例子，并且讨论设计的算法的功能</h2><p>  在一次有 210 人参加的考试结束后，老师需要对平均分迕行计算。假设老师不借助于计算机类的自动工具，而是采取传统的手工计算平均分。<br>计算方法：看过考分后，大概估计一个值K ，然后与 210 个分数的数据迕行比较，找出分数与k的误差ci，如果发现有ci=-ci，则去掉，假设最后的误差和是bi，那么平均分就可以写成K+bi/210.<br>设计的算法的功能：该算法对于计算机返样的自动化计算工具来说意义不大，但是对于手工<br>计算来说，却是很实用的。在计算的过程中，首先把大数转换成了小数，然后在比较<br>时又直接把一些数据剔除，减少了运算量。最终大大加快了计算效率，幵且提高了计<br>算准确度。</p>
+<h2 id="假设我们正在比较插入排序和归并排序在相同机器上面的实现，对于规模为n的输入，插入排序运行8n-2步，而归并排序运行64nlgn步。问对于哪些n值，插入排序优于归并排序？"><a href="#假设我们正在比较插入排序和归并排序在相同机器上面的实现，对于规模为n的输入，插入排序运行8n-2步，而归并排序运行64nlgn步。问对于哪些n值，插入排序优于归并排序？" class="headerlink" title="假设我们正在比较插入排序和归并排序在相同机器上面的实现，对于规模为n的输入，插入排序运行8n^2步，而归并排序运行64nlgn步。问对于哪些n值，插入排序优于归并排序？"></a>假设我们正在比较插入排序和归并排序在相同机器上面的实现，对于规模为n的输入，插入排序运行8n^2步，而归并排序运行64nlgn步。问对于哪些n值，插入排序优于归并排序？</h2><p>答： 令 8n^2 &lt; 64nlgn<br>=&gt; 化简得n &lt; 8lgn<br>=&gt;  2^(n/8) &lt; 2^(lgn)<br>=&gt;    2^(n/8) &lt; n<br>=&gt;    令t=n/8 , n=8t<br>=&gt;    2^t &lt; 8t<br>=&gt;    制表：<br>        1    2    3    4    5    6<br>8t    8  16    24 32  40  48<br>2^t  2  4       8   16  32  64<br>当t=0 8t=0 2^t=1<br>当t=0.2, 8t=1.6 2^t=1.15<br>当t=5.1， 8t=40.8 2^t=34.3<br>当t=5.4, 8t=43.2 2^t=42.2<br>当t=5.5, 8t=44 2^t=45.25<br>所以，当0.2 &lt; t &lt; 5.5时，即1 &lt; n &lt; 44时，插入排序优于归并。</p>
+<h2 id="n的最小值为何值时，运行时间为100n-2的一个算法在相同的机器上面快于运行时间为2-n的另外一个算法"><a href="#n的最小值为何值时，运行时间为100n-2的一个算法在相同的机器上面快于运行时间为2-n的另外一个算法" class="headerlink" title="n的最小值为何值时，运行时间为100n^2的一个算法在相同的机器上面快于运行时间为2^n的另外一个算法"></a>n的最小值为何值时，运行时间为100n^2的一个算法在相同的机器上面快于运行时间为2^n的另外一个算法</h2><p>答：令100n^2&lt;2^n   =&gt;</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504105321209.jpg" alt=""></p>
+<p>由图可得当n&gt;14.325时，满足不等式，又n为正整数，所以n取最小值15。</p>
+<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h1><h2 id="运行时间的比较"><a href="#运行时间的比较" class="headerlink" title="运行时间的比较"></a>运行时间的比较</h2><p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1504105519611.jpg" alt=""></p>
+<p>答：具体的答案数据就不列出来了，但可以肯定的是，从上到下，算法效率是逐渐降低的，意思是说一个算法若能做到lgn的效率是极佳的，而如果做到n！的话则是最不可取的了。</p>
+<p>参考资料：<br><a href="http://blog.csdn.net/u012577123/article/details/38778457" target="_blank" rel="noopener"> 算法导论1：第一章算法的作用  奕思</a><br><a href="http://www.cnblogs.com/vc_zgj/p/4313800.html" target="_blank" rel="noopener">第一章 算法在计算机中的应用 技术老鸟</a></p>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2017/08/30/cjivj3hs2007u006po6kfpsf1/" target="_blank" rel="external">https://luoyec.cn/2017/08/30/cjivj3hs2007u006po6kfpsf1/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2017/09/02/cjivj3hs60089006p1lvygv5y/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">算法基础-插入排序&amp;&amp;习题2.1-3、2.1-4</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2017/08/29/cjivj3hol000g006p50aih46v/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Egret MVC通用框架HTTP请求实践（GET请求）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "算法在计算中的作用",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2017/08/30/cjivj3hs2007u006po6kfpsf1/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

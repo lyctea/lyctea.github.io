@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript 类的封装 | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="JavaScript,类,继承">
+  <meta name="description" content="参考：js 如何创建类（封装）Class 的基本语法《JavaScript 设计模式》 JavaScript 类的封装在 JavaScript 中，类的实现是基于原型继承机制的。如果两个实例都从同一个原型对象上继承了属性，我们说它们是同一个类的实例。 如果两个对象继承自同一个原型，往往意味着它们是由同一个构造函数创建并初始化的。 类的创建在 JavaScript 中创建一个类很容易，声明一个函数保">
+<meta name="keywords" content="JavaScript,类,继承">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 类的封装">
+<meta property="og:url" content="https://luoyec.cn/2018/04/15/cjivj3hpe0023006ppar9h73c/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="参考：js 如何创建类（封装）Class 的基本语法《JavaScript 设计模式》 JavaScript 类的封装在 JavaScript 中，类的实现是基于原型继承机制的。如果两个实例都从同一个原型对象上继承了属性，我们说它们是同一个类的实例。 如果两个对象继承自同一个原型，往往意味着它们是由同一个构造函数创建并初始化的。 类的创建在 JavaScript 中创建一个类很容易，声明一个函数保">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523793569198.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523793628214.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523794135407.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523796141443.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523797992598.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523799581237.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523799875156.jpg">
+<meta property="og:updated_time" content="2018-04-15T13:51:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 类的封装">
+<meta name="twitter:description" content="参考：js 如何创建类（封装）Class 的基本语法《JavaScript 设计模式》 JavaScript 类的封装在 JavaScript 中，类的实现是基于原型继承机制的。如果两个实例都从同一个原型对象上继承了属性，我们说它们是同一个类的实例。 如果两个对象继承自同一个原型，往往意味着它们是由同一个构造函数创建并初始化的。 类的创建在 JavaScript 中创建一个类很容易，声明一个函数保">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523793569198.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              文章
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">JavaScript 类的封装</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">JavaScript 类的封装</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2018-04-15T13:51:01.501Z" itemprop="datePublished" class="page-time">
+  2018-04-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/JavaScript/">JavaScript</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-JavaScript 类的封装" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/类/">类</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/继承/">继承</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#JavaScript-类的封装"><span class="post-toc-number">1.</span> <span class="post-toc-text">JavaScript 类的封装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类的创建"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">类的创建</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#属性和方法的封装"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">属性和方法的封装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再进一步，利用闭包进行封装"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">再进一步，利用闭包进行封装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建对象的安全模式"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">创建对象的安全模式</span></a></li></ol></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <p>参考：<br><a href="https://blog.csdn.net/xi_2130/article/details/50276025" target="_blank" rel="noopener">js 如何创建类（封装）</a><br><a href="http://es6.ruanyifeng.com/#docs/class" target="_blank" rel="noopener">Class 的基本语法</a><br><a href="https://item.jd.com/11747684.html" target="_blank" rel="noopener">《JavaScript 设计模式》</a></p>
+<h1 id="JavaScript-类的封装"><a href="#JavaScript-类的封装" class="headerlink" title="JavaScript 类的封装"></a>JavaScript 类的封装</h1><p>在 <code>JavaScript</code> 中，类的实现是基于原型继承机制的。如果两个实例都从同一个原型对象上继承了属性，我们说它们是同一个类的实例。</p>
+<p>如果两个对象继承自同一个原型，往往意味着它们是由同一个构造函数创建并初始化的。</p>
+<h2 id="类的创建"><a href="#类的创建" class="headerlink" title="类的创建"></a>类的创建</h2><p>在 <code>JavaScript</code> 中创建一个类很容易，声明一个函数保存在一个变量中，在这个函数内部使用<code>this</code> 添加属性或者方法。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523793569198.jpg" alt=""></p>
+<p>也可以通过在类的原型对象上添加属性和方法。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523793628214.jpg" alt=""></p>
+<blockquote>
+<p>⁉️ 通过 <code>prototype</code> 和 <code>this</code> 添加属性和方法有什么区别？通过 <code>this</code> 是在当前对手上添加的，每次对象被创建时这些方法和属性都会被重复创建；而通过 <code>prototype</code> 继承的方法不是对象自身的，所以当使用这些方法和属性时，会通过 <code>prototype</code> 一级一级想上查找（原型链），所有不会被重复创建（但是原型上的属性被修改是，所有继承该原型的对象都会被影响）。</p>
+</blockquote>
+<blockquote>
+<p>⁉️ 什么是 <code>constructor</code> ？这是一个属性，当创建一个函数或对象时都会为期创建一个原型对象 <code>prototype</code>， 在 <code>prototype</code> 对象中又会创建一个 <code>constructor</code> 属性，那么 <code>constructor</code> 属性指向的就是拥有整个原型对象的函数或者对象。</p>
+</blockquote>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523794135407.jpg" alt=""></p>
+<h2 id="属性和方法的封装"><a href="#属性和方法的封装" class="headerlink" title="属性和方法的封装"></a>属性和方法的封装</h2><p>利用 <code>JavaScript</code> 的函数级作用域，声明在函数内部的变量以及方法在外界是访问不到的，通过此特性即可创建私有变量和私有方法。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523796141443.jpg" alt=""></p>
+<p>思考 <code>new</code> 运算符原理，通过 <code>new</code> 实例化对象时，构造函数执行，<code>this</code> 执行新创建的对象。</p>
+<p>类通过 <code>prototype</code> 创建的属性或者方法在类的实例对象是可以通过 <code>this</code> 访问的。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523797992598.jpg" alt=""></p>
+<h2 id="再进一步，利用闭包进行封装"><a href="#再进一步，利用闭包进行封装" class="headerlink" title="再进一步，利用闭包进行封装"></a>再进一步，利用闭包进行封装</h2><blockquote>
+<p>闭包是有权访问另一个函数作用域中变量的函数，即在一个函数内部创建另一个函数。我们将这个闭包作为创建对象的构造函数，在闭包内部返回一个完整的类。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Book1 = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> bookNum = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">checkBook</span>(<span class="params">name</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_book</span>(<span class="params">newID, newName, newPrice</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> name, price</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">checkID</span>(<span class="params">id</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            name</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//直接构建原型</span></span><br><span class="line">    _book.prototype = &#123;</span><br><span class="line">        isJSBook: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//   记得要返回该对象，否则会 “is not a constructor”</span></span><br><span class="line">    <span class="keyword">return</span> _book</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> book1 = <span class="keyword">new</span> Book1()</span><br></pre></td></tr></table></figure>
+<h2 id="创建对象的安全模式"><a href="#创建对象的安全模式" class="headerlink" title="创建对象的安全模式"></a>创建对象的安全模式</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523799581237.jpg" alt=""></p>
+<p>当忘记写 new 运算符时，是对象的直接复制，对象内部的 <code>this</code> 指向的是全局对象<code>window</code>，使用 <code>instanceof</code> 运算符判断当前 <code>this</code>，在使用闭包的封装中，是不会有整个问题的，其属性和方法都被限定在函数内部的作用域中。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1523799875156.jpg" alt=""></p>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2018/04/15/cjivj3hpe0023006ppar9h73c/" target="_blank" rel="external">https://luoyec.cn/2018/04/15/cjivj3hpe0023006ppar9h73c/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2018/04/17/cjivj3hpi002c006pyoswblft/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">JavaScript 类的继承</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2018/04/15/cjivj3hp7001i006p2v88g1l9/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">JavaScript 基本数据类型-对象</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "JavaScript 类的封装",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2018/04/15/cjivj3hpe0023006ppar9h73c/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

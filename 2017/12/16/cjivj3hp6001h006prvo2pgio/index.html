@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript模块 | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="JavaScript,模块">
+  <meta name="description" content="JavaScript 模块JavaScript 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 JavaScript 模块 JS 模块发展史JavaScript 模块化七日谈前端模块化开发那点历史AMD, CMD, CommonJS 和 UMD CommonJS 模块系统N">
+<meta name="keywords" content="JavaScript,模块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript模块">
+<meta property="og:url" content="https://luoyec.cn/2017/12/16/cjivj3hp6001h006prvo2pgio/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="JavaScript 模块JavaScript 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 JavaScript 模块 JS 模块发展史JavaScript 模块化七日谈前端模块化开发那点历史AMD, CMD, CommonJS 和 UMD CommonJS 模块系统N">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-15T17:03:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript模块">
+<meta name="twitter:description" content="JavaScript 模块JavaScript 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 JavaScript 模块 JS 模块发展史JavaScript 模块化七日谈前端模块化开发那点历史AMD, CMD, CommonJS 和 UMD CommonJS 模块系统N">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              文章
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">JavaScript模块</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">JavaScript模块</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2017-12-15T17:03:11.000Z" itemprop="datePublished" class="page-time">
+  2017-12-16
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/JavaScript/">JavaScript</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-JavaScript 模块" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模块/">模块</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#JavaScript-模块"><span class="post-toc-number">1.</span> <span class="post-toc-text">JavaScript 模块</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JS-模块发展史"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">JS 模块发展史</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CommonJS-模块系统"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">CommonJS 模块系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#异步模块定义（AMD）"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">异步模块定义（AMD）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TypeScript-模块"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">TypeScript 模块</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ES6-模块系统"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">ES6 模块系统</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#阻塞非阻塞与同步异步"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">阻塞非阻塞与同步异步</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#同步与异步"><span class="post-toc-number">1.6.1.</span> <span class="post-toc-text">同步与异步</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#阻塞与非阻塞"><span class="post-toc-number">1.6.2.</span> <span class="post-toc-text">阻塞与非阻塞</span></a></li></ol></li></ol></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="JavaScript-模块"><a href="#JavaScript-模块" class="headerlink" title="JavaScript 模块"></a>JavaScript 模块</h1><p><code>JavaScript</code> 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 <code>JavaScript</code> 模块</p>
+<h2 id="JS-模块发展史"><a href="#JS-模块发展史" class="headerlink" title="JS 模块发展史"></a>JS 模块发展史</h2><p><a href="https://huangxuan.me/js-module-7day/#/" target="_blank" rel="noopener"><code>JavaScript</code> 模块化七日谈</a><br><a href="https://github.com/seajs/seajs/issues/588" target="_blank" rel="noopener">前端模块化开发那点历史</a><br><a href="https://segmentfault.com/a/1190000004873947" target="_blank" rel="noopener"><code>AMD, CMD, CommonJS 和 UMD</code></a></p>
+<h2 id="CommonJS-模块系统"><a href="#CommonJS-模块系统" class="headerlink" title="CommonJS 模块系统"></a>CommonJS 模块系统</h2><p><a href="https://lyctea.github.io/2017/12/09/Node%E6%A8%A1%E5%9D%97/" target="_blank" rel="noopener">Node.js 模块</a></p>
+<p><code>CommonJs</code> 是一个由开源开发者组成的团队，主要围绕 <code>JavaScript</code> 实现一些 <code>API</code> 及开展研发实践。</p>
+<p>该团队提出了一个 <code>avaScript</code> 模块规范。每个文件都可当作一个模块，并且每个文件可以访问两个对象：<code>require</code> 和 <code>export</code>。<code>require</code> 用来接收字符串（模块名），并返回该模块输出的对象。</p>
+<p><code>export</code> 对象用来导出该模块的方法和变量。<code>require</code> 方法返回的就是 <code>export</code> 对象。模块同步加载。服务器端 <code>JavaScript</code> 引擎 <code>Node.js</code> 就是用的这个模块系统。</p>
+<h2 id="异步模块定义（AMD）"><a href="#异步模块定义（AMD）" class="headerlink" title="异步模块定义（AMD）"></a>异步模块定义（AMD）</h2><p><code>AMD</code> 是一个采用异步方式加载依赖模块的模块系统。</p>
+<p>如果模块在不同文件中，它们将采用 <code>XHR</code> 进行加载。某一模块将等其所依赖的模块一一加载后才会被执行。</p>
+<p><code>AMD</code> 模块必须是一个函数，并作为参数传入<code>define</code> 函数中。函数的返回值将传输给所有依赖的模块，所获得返回值又将作为参数传给模块方法。<code>Require.js</code> 库中实现了 <code>AMD</code></p>
+<blockquote>
+<p><code>XHR</code> 英文全名 <code>XmlHttpRequest</code>，中文可以解释为可扩展超文本传输请求。Xml 可扩展标记语言，Http 超文本传输协议，Request 请求。XMLHttpRequest 对象可以在不向服务器提交整个页面的情况下，实现局部更新网页。</p>
+<p><a href="https://baike.baidu.com/item/XMLHTTPRequest" target="_blank" rel="noopener">百度百科：XMLHTTPRequest</a></p>
+</blockquote>
+<h2 id="TypeScript-模块"><a href="#TypeScript-模块" class="headerlink" title="TypeScript 模块"></a>TypeScript 模块</h2><p><code>TypeScript</code>，作为 <code>JavaScript</code> 的超集，也提供了一个模块系统。</p>
+<p>当它被编译时，便开始使用 <code>JavaScript</code> 模块模式。<code>TypeScript</code> 模块使用 <code>module</code> 关键字定义，<code>任何被输出的对象必须使用export</code> 关键字定义。</p>
+<p><code>import</code> 关键字用来将其它模块加载入模块中，并捕捉该模块导出的对象。<code>TypeScript</code> 模块是同步加载的。</p>
+<h2 id="ES6-模块系统"><a href="#ES6-模块系统" class="headerlink" title="ES6 模块系统"></a>ES6 模块系统</h2><p><a href="https://lyctea.github.io/2017/12/16/ES6%20%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F/" target="_blank" rel="noopener">ES6 模块系统</a></p>
+<p><code>ES6</code> 模块系统启发于上述现有模块系统，它具有以下特性：</p>
+<ul>
+<li><p>使用 <code>export</code> 关键词导出对象。这个关键字可以无限次使用</p>
+</li>
+<li><p>使用 <code>import</code> 关键字将其它模块导入某一模块中。它可用来导入任意数量的模块</p>
+</li>
+<li><p>支持模块的异步加载</p>
+</li>
+<li><p>为加载模块提供编程支持</p>
+</li>
+</ul>
+<h2 id="阻塞非阻塞与同步异步"><a href="#阻塞非阻塞与同步异步" class="headerlink" title="阻塞非阻塞与同步异步"></a>阻塞非阻塞与同步异步</h2><p><a href="https://www.zhihu.com/question/19732473/answer/20851256" target="_blank" rel="noopener">怎样理解阻塞非阻塞与同步异步的区别？</a></p>
+<p>“阻塞”与”非阻塞”与”同步”与“异步”不能简单的从字面理解，提供一个从分布式系统角度的回答。</p>
+<h3 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h3><p>同步和异步关注的是消息通信机制 <code>(synchronous communication/ asynchronous communication)</code></p>
+<p>所谓同步，就是在发出一个 _调用_ 时，在没有得到结果之前，该 _调用_ 就不返回。但是一旦调用返回，就得到返回值了。换句话说，就是由 <em>调用者</em> 主动等待这个 _调用_ 的结果。</p>
+<p>而异步则是相反，_调用_ 在发出之后，这个调用就直接返回了，所以没有返回结果。</p>
+<p>换句话说，当一个异步过程调用发出后，调用者不会立刻得到结果。而是在<em>调用</em>发出后，<em>被调用者</em>通过状态、通知来通知调用者，或通过回调函数处理这个调用。</p>
+<p>典型的异步编程模型比如 <code>Node.js</code></p>
+<p>举个通俗的例子：你打电话问书店老板有没有《分布式系统》这本书，如果是同步通信机制，书店老板会说，你稍等，”我查一下”，然后开始查啊查，等查好了（可能是 5 秒，也可能是一天）告诉你结果（返回结果）。</p>
+<p>而异步通信机制，书店老板直接告诉你我查一下啊，查好了打电话给你，然后直接挂电话了（不返回结果）。然后查好了，他会主动打电话给你。在这里老板通过“回电”这种方式来回调。</p>
+<h3 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h3><p>阻塞和非阻塞关注的是程序在等待调用结果（消息，返回值）时的状态。</p>
+<p>阻塞调用是指调用结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会返回。</p>
+<p>非阻塞调用指在不能立刻得到结果之前，该调用不会阻塞当前线程。</p>
+<p>还是上面的例子，你打电话问书店老板有没有《分布式系统》这本书，你如果是阻塞式调用，你会一直把自己“挂起”，直到得到这本书有没有的结果，如果是非阻塞式调用，你不管老板有没有告诉你，你自己先一边去玩了， 当然你也要偶尔过几分钟 check 一下老板有没有返回结果。</p>
+<p>在这里阻塞与非阻塞与是否同步异步无关。跟老板通过什么方式回答你结果无关。</p>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2017/12/16/cjivj3hp6001h006prvo2pgio/" target="_blank" rel="external">https://luoyec.cn/2017/12/16/cjivj3hp6001h006prvo2pgio/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2017/12/24/cjivj3hph0029006p3gj5okql/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">JavaScript事件处理上</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2017/12/16/cjivj3hon000h006pdywsoqea/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ES6 模块系统</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "JavaScript模块",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2017/12/16/cjivj3hp6001h006prvo2pgio/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

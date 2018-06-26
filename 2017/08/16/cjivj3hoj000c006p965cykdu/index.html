@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Egret Loading 页面实现方法 | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="Egret,加载页,序列帧动画">
+  <meta name="description" content="实现Loading页面的方法有好多，这里的方法是，使用EUI皮肤的加载页，可配置型和可定制型程度更高，也更易用。但不是最好的方法。 资源的处理加载页的UI资源是限于preload组资源加载的，所以这两个资源组需要分开处理。加载完并处理相关动画之后才开始加载preload资源组。 资源分组将loading页面需要用到的资源分一个loading资源组出来。 修改main.js  调整资源加载顺序">
+<meta name="keywords" content="Egret,加载页,序列帧动画">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Egret Loading 页面实现方法">
+<meta property="og:url" content="https://luoyec.cn/2017/08/16/cjivj3hoj000c006p965cykdu/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="实现Loading页面的方法有好多，这里的方法是，使用EUI皮肤的加载页，可配置型和可定制型程度更高，也更易用。但不是最好的方法。 资源的处理加载页的UI资源是限于preload组资源加载的，所以这两个资源组需要分开处理。加载完并处理相关动画之后才开始加载preload资源组。 资源分组将loading页面需要用到的资源分一个loading资源组出来。 修改main.js  调整资源加载顺序">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502853165784.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502853444407.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502853568727.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502853632002.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502854056576.jpg">
+<meta property="og:updated_time" content="2017-08-17T08:59:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Egret Loading 页面实现方法">
+<meta name="twitter:description" content="实现Loading页面的方法有好多，这里的方法是，使用EUI皮肤的加载页，可配置型和可定制型程度更高，也更易用。但不是最好的方法。 资源的处理加载页的UI资源是限于preload组资源加载的，所以这两个资源组需要分开处理。加载完并处理相关动画之后才开始加载preload资源组。 资源分组将loading页面需要用到的资源分一个loading资源组出来。 修改main.js  调整资源加载顺序">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502853165784.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              文章
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Egret Loading 页面实现方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">Egret Loading 页面实现方法</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2017-08-16T03:29:48.000Z" itemprop="datePublished" class="page-time">
+  2017-08-16
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Egret/">Egret</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-Egret Loading 页面实现方法" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Egret/">Egret</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/加载页/">加载页</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/序列帧动画/">序列帧动画</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#资源的处理"><span class="post-toc-number">1.</span> <span class="post-toc-text">资源的处理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#资源分组"><span class="post-toc-number">2.</span> <span class="post-toc-text">资源分组</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改main-js"><span class="post-toc-number">3.</span> <span class="post-toc-text">修改main.js</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#main-ts"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">main.ts</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Loading页"><span class="post-toc-number">4.</span> <span class="post-toc-text">Loading页</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LoadingUISkin-exml-皮肤"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">LoadingUISkin.exml 皮肤</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LoadingUI-ts"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">LoadingUI.ts</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后效果"><span class="post-toc-number">5.</span> <span class="post-toc-text">最后效果</span></a></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <p>实现Loading页面的方法有好多，这里的方法是，使用EUI皮肤的加载页，可配置型和可定制型程度更高，也更易用。但不是最好的方法。</p>
+<h2 id="资源的处理"><a href="#资源的处理" class="headerlink" title="资源的处理"></a>资源的处理</h2><p>加载页的UI资源是限于preload组资源加载的，所以这两个资源组需要分开处理。加载完并处理相关动画之后才开始加载preload资源组。</p>
+<h2 id="资源分组"><a href="#资源分组" class="headerlink" title="资源分组"></a>资源分组</h2><p>将loading页面需要用到的资源分一个loading资源组出来。<br><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502853165784.jpg" alt=""></p>
+<h2 id="修改main-js"><a href="#修改main-js" class="headerlink" title="修改main.js"></a>修改main.js</h2><p>  调整资源加载顺序</p>
+<p>  <img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502853444407.jpg" alt=""></p>
+<p>  <img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502853568727.jpg" alt=""></p>
+<h3 id="main-ts"><a href="#main-ts" class="headerlink" title="main.ts"></a>main.ts</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Main <span class="keyword">extends</span> eui.UILayer &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 加载进度界面</span></span><br><span class="line"><span class="comment">     * loading process interface</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> loadingView: LoadingUI;</span><br><span class="line">    <span class="keyword">protected</span> createChildren(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.createChildren();</span><br><span class="line">        <span class="comment">//inject the custom material parser</span></span><br><span class="line">        <span class="comment">//注入自定义的素材解析器</span></span><br><span class="line">        <span class="keyword">let</span> assetAdapter = <span class="keyword">new</span> AssetAdapter();</span><br><span class="line">        egret.registerImplementation(<span class="string">"eui.IAssetAdapter"</span>, assetAdapter);</span><br><span class="line">        egret.registerImplementation(<span class="string">"eui.IThemeAdapter"</span>, <span class="keyword">new</span> ThemeAdapter());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//初始化Resource资源加载库</span></span><br><span class="line">        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, <span class="keyword">this</span>.onConfigComplete, <span class="keyword">this</span>);</span><br><span class="line">        RES.loadConfig(<span class="string">"resource/default.res.json"</span>, <span class="string">"resource/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 配置文件加载完成,开始预加载皮肤主题资源和preload资源组。</span></span><br><span class="line"><span class="comment">     * Loading of configuration file is complete, start to pre-load the theme configuration file and the preload resource group</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> onConfigComplete(event: RES.ResourceEvent): <span class="built_in">void</span> &#123;</span><br><span class="line">        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, <span class="keyword">this</span>.onConfigComplete, <span class="keyword">this</span>);</span><br><span class="line">        <span class="comment">// load skin theme configuration file, you can manually modify the file. And replace the default skin.</span></span><br><span class="line">        <span class="comment">//加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。</span></span><br><span class="line">        <span class="keyword">let</span> theme = <span class="keyword">new</span> eui.Theme(<span class="string">"resource/default.thm.json"</span>, <span class="keyword">this</span>.stage);</span><br><span class="line">        theme.addEventListener(eui.UIEvent.COMPLETE, <span class="keyword">this</span>.onThemeLoadComplete, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, <span class="keyword">this</span>.onResourceLoadComplete, <span class="keyword">this</span>);</span><br><span class="line">        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, <span class="keyword">this</span>.onResourceLoadError, <span class="keyword">this</span>);</span><br><span class="line">        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, <span class="keyword">this</span>.onResourceProgress, <span class="keyword">this</span>);</span><br><span class="line">        RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, <span class="keyword">this</span>.onItemLoadError, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        RES.loadGroup(<span class="string">"loading"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> isThemeLoadEnd: <span class="built_in">boolean</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主题文件加载完成,开始预加载</span></span><br><span class="line"><span class="comment">     * Loading of theme configuration file is complete, start to pre-load the </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> onThemeLoadComplete(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.isThemeLoadEnd = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">this</span>.createScene();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> isResourceLoadEnd: <span class="built_in">boolean</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * preload资源组加载完成</span></span><br><span class="line"><span class="comment">     * preload resource group is loaded</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> onResourceLoadComplete(event: RES.ResourceEvent): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (event.groupName == <span class="string">'loading'</span>) &#123;</span><br><span class="line">            <span class="comment">//设置加载进度界面</span></span><br><span class="line">            <span class="keyword">this</span>.loadingView = <span class="keyword">new</span> LoadingUI();</span><br><span class="line">            <span class="keyword">this</span>.stage.addChild(<span class="keyword">this</span>.loadingView);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (event.groupName == <span class="string">"preload"</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.stage.removeChild(<span class="keyword">this</span>.loadingView);</span><br><span class="line">            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, <span class="keyword">this</span>.onResourceLoadComplete, <span class="keyword">this</span>);</span><br><span class="line">            RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, <span class="keyword">this</span>.onResourceLoadError, <span class="keyword">this</span>);</span><br><span class="line">            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, <span class="keyword">this</span>.onResourceProgress, <span class="keyword">this</span>);</span><br><span class="line">            RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, <span class="keyword">this</span>.onItemLoadError, <span class="keyword">this</span>);</span><br><span class="line">            <span class="keyword">this</span>.isResourceLoadEnd = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.createScene();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//调用安卓接口，获取用户信息       </span></span><br><span class="line">            <span class="keyword">let</span> userInfo = <span class="built_in">window</span>.JsAndroidWebView.sendInfoToJs()</span><br><span class="line">            sessionStorage.setItem(<span class="string">'androidUserInfo'</span>, userInfo)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> createScene() &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isThemeLoadEnd &amp;&amp; <span class="keyword">this</span>.isResourceLoadEnd) &#123;</span><br><span class="line">            <span class="keyword">this</span>.startCreateScene();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 资源组加载出错</span></span><br><span class="line"><span class="comment">     *  The resource group loading failed</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> onItemLoadError(event: RES.ResourceEvent): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.warn(<span class="string">"Url:"</span> + event.resItem.url + <span class="string">" has failed to load"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 资源组加载出错</span></span><br><span class="line"><span class="comment">     * Resource group loading failed</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> onResourceLoadError(event: RES.ResourceEvent): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">//TODO</span></span><br><span class="line">        <span class="built_in">console</span>.warn(<span class="string">"Group:"</span> + event.groupName + <span class="string">" has failed to load"</span>);</span><br><span class="line">        <span class="comment">//忽略加载失败的项目</span></span><br><span class="line">        <span class="comment">//ignore loading failed projects</span></span><br><span class="line">        <span class="keyword">this</span>.onResourceLoadComplete(event);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * preload资源组加载进度</span></span><br><span class="line"><span class="comment">     * loading process of preload resource</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> onResourceProgress(event: RES.ResourceEvent): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (event.groupName == <span class="string">"preload"</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> textfield: egret.TextField;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建场景界面</span></span><br><span class="line"><span class="comment">     * Create scene interface</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> startCreateScene(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.addChild(<span class="keyword">new</span> GameScene())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Loading页"><a href="#Loading页" class="headerlink" title="Loading页"></a>Loading页</h2><h3 id="LoadingUISkin-exml-皮肤"><a href="#LoadingUISkin-exml-皮肤" class="headerlink" title="LoadingUISkin.exml 皮肤"></a>LoadingUISkin.exml 皮肤</h3><p>给一个蓝色的矩形背景。</p>
+<p>包含用于显示进度条的外框以及一小段进度条。</p>
+<p>并且在代码中，添加一个序列帧动画到当前皮肤中。</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502853632002.jpg" alt=""></p>
+<h3 id="LoadingUI-ts"><a href="#LoadingUI-ts" class="headerlink" title="LoadingUI.ts"></a>LoadingUI.ts</h3><p>添加到动画帧到舞台中，在每一次的资源数回调函数中，播放动画，实现每次加载一个资源，人物的脚步开始运动。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> LoadingUI <span class="keyword">extends</span> eui.Component &#123;</span><br><span class="line">    <span class="keyword">private</span> solomc: egret.MovieClip</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.once(eui.UIEvent.COMPLETE, <span class="keyword">this</span>.uiComplete,<span class="keyword">this</span>)</span><br><span class="line">        <span class="keyword">this</span>.skinName = <span class="string">'src/LoadingUISkin.exml'</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> uiComplete(e:eui.UIEvent)&#123;</span><br><span class="line">        <span class="keyword">this</span>.initMC()</span><br><span class="line">        RES.loadGroup(<span class="string">"preload"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> initMC(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> data = RES.getRes(<span class="string">'solo_loading_json'</span>)</span><br><span class="line">        <span class="keyword">let</span> txtr = RES.getRes(<span class="string">'solo_loading_png'</span>) </span><br><span class="line">        <span class="keyword">let</span> mcFactory: egret.MovieClipDataFactory = <span class="keyword">new</span> egret.MovieClipDataFactory(data, txtr)</span><br><span class="line">        <span class="keyword">this</span>.solomc = <span class="keyword">new</span> egret.MovieClip(mcFactory.generateMovieClipData(<span class="string">'loading'</span>))</span><br><span class="line">        <span class="keyword">this</span>.solomc.x = <span class="number">220</span></span><br><span class="line">        <span class="keyword">this</span>.solomc.y = <span class="number">500</span></span><br><span class="line">        <span class="keyword">this</span>.addChild(<span class="keyword">this</span>.solomc)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> loadingLabel: eui.Label</span><br><span class="line">    <span class="keyword">private</span> loadingBorder: eui.Image</span><br><span class="line">    <span class="keyword">private</span> loadingPer: eui.Image</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> setProgress(current: <span class="built_in">number</span>, total: <span class="built_in">number</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.solomc.gotoAndPlay(<span class="string">'moving'</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">let</span> percentage: <span class="built_in">string</span> = (current / total * <span class="number">100</span>).toFixed(<span class="number">0</span>).toString()</span><br><span class="line">        <span class="keyword">this</span>.loadingLabel.text = <span class="string">`<span class="subst">$&#123;percentage&#125;</span>`</span></span><br><span class="line">        <span class="keyword">this</span>.loadingPer.width = (<span class="keyword">this</span>.loadingBorder.width - <span class="number">6</span>) * <span class="built_in">parseFloat</span>(percentage) / <span class="number">100</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最后效果"><a href="#最后效果" class="headerlink" title="最后效果"></a>最后效果</h2><p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502854056576.jpg" alt=""></p>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2017/08/16/cjivj3hoj000c006p965cykdu/" target="_blank" rel="external">https://luoyec.cn/2017/08/16/cjivj3hoj000c006p965cykdu/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2017/08/16/cjivj3hoi000b006pgx6mlfq1/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Egret HTTP简单请求</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2017/08/12/cjivj3hrx007l006polep8zyv/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">数组、栈、队列</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "Egret Loading 页面实现方法",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2017/08/16/cjivj3hoj000c006p965cykdu/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

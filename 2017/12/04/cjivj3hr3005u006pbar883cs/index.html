@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>二叉搜索树 | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="二叉树,算法与数据结构">
+  <meta name="description" content="二叉搜索树《学习JavaScri数据结构与算法》 数据结构 数据结构是计算机存储、组织数据的方式。数据结构是指相互之间存在一种或多种特定关系的数据元素的集合。通常情况下，精心选择的数据结构可以带来更高的运行或者存储效率。数据结构往往同高效的检索算法和索引技术有关。百度百科：数据结构   为什么要学习数据结构？程序=算法+数据结构，计算机程序设计的本质是将业务逻辑转换成数理逻辑，通过逻辑推理以及数理">
+<meta name="keywords" content="二叉树,算法与数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉搜索树">
+<meta property="og:url" content="https://luoyec.cn/2017/12/04/cjivj3hr3005u006pbar883cs/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="二叉搜索树《学习JavaScri数据结构与算法》 数据结构 数据结构是计算机存储、组织数据的方式。数据结构是指相互之间存在一种或多种特定关系的数据元素的集合。通常情况下，精心选择的数据结构可以带来更高的运行或者存储效率。数据结构往往同高效的检索算法和索引技术有关。百度百科：数据结构   为什么要学习数据结构？程序=算法+数据结构，计算机程序设计的本质是将业务逻辑转换成数理逻辑，通过逻辑推理以及数理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1512327709415.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1512328183074.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1512328582853.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1512328799677.jpg">
+<meta property="og:updated_time" content="2017-12-03T19:31:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉搜索树">
+<meta name="twitter:description" content="二叉搜索树《学习JavaScri数据结构与算法》 数据结构 数据结构是计算机存储、组织数据的方式。数据结构是指相互之间存在一种或多种特定关系的数据元素的集合。通常情况下，精心选择的数据结构可以带来更高的运行或者存储效率。数据结构往往同高效的检索算法和索引技术有关。百度百科：数据结构   为什么要学习数据结构？程序=算法+数据结构，计算机程序设计的本质是将业务逻辑转换成数理逻辑，通过逻辑推理以及数理">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1512327709415.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              文章
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">二叉搜索树</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">二叉搜索树</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2017-12-03T19:30:51.000Z" itemprop="datePublished" class="page-time">
+  2017-12-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/JS数据结构与算法/">JS数据结构与算法</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-二叉搜索树 " 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法与数据结构/">算法与数据结构</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#二叉搜索树"><span class="post-toc-number">1.</span> <span class="post-toc-text">二叉搜索树</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据结构"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">数据结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二叉搜索树-1"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">二叉搜索树</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一些名词概念"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">一些名词概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#树的遍历"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">树的遍历</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JavaScript-实现搜索树"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">JavaScript 实现搜索树</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建一棵树"><span class="post-toc-number">1.5.1.</span> <span class="post-toc-text">创建一棵树</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#中序遍历"><span class="post-toc-number">1.5.2.</span> <span class="post-toc-text">中序遍历</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前序遍历"><span class="post-toc-number">1.5.3.</span> <span class="post-toc-text">前序遍历</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#后续遍历"><span class="post-toc-number">1.5.4.</span> <span class="post-toc-text">后续遍历</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查找"><span class="post-toc-number">1.5.5.</span> <span class="post-toc-text">查找</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除"><span class="post-toc-number">1.5.6.</span> <span class="post-toc-text">删除</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#完整项目文件"><span class="post-toc-number">1.5.7.</span> <span class="post-toc-text">完整项目文件</span></a></li></ol></li></ol></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h1><p><a href="https://book.douban.com/subject/26639401/" target="_blank" rel="noopener">《学习JavaScri数据结构与算法》</a></p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><blockquote>
+<p>数据结构是计算机存储、组织数据的方式。数据结构是指相互之间存在一种或多种特定关系的数据元素的集合。通常情况下，精心选择的数据结构可以带来更高的运行或者存储效率。数据结构往往同高效的检索算法和索引技术有关。<a href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/1450" target="_blank" rel="noopener">百度百科：数据结构</a></p>
+</blockquote>
+<ul>
+<li>为什么要学习数据结构？<br>程序=算法+数据结构，计算机程序设计的本质是将业务逻辑转换成数理逻辑，通过逻辑推理以及数理运算解决客观世界存在的困难，而算法和数据解结构就是数理逻辑的推演模式和展现方式。</li>
+</ul>
+<h2 id="二叉搜索树-1"><a href="#二叉搜索树-1" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1512327709415.jpg" alt=""></p>
+<blockquote>
+<p>二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。<a href="https://baike.baidu.com/item/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91" target="_blank" rel="noopener">百度百科：二叉搜索树</a></p>
+</blockquote>
+<h2 id="一些名词概念"><a href="#一些名词概念" class="headerlink" title="一些名词概念"></a>一些名词概念</h2><p>一个节点可以有祖先及诶单和后台，一个节点的祖先（除了根节点）包括父节点、祖父节点、曾祖父节点…</p>
+<ul>
+<li><p>子树：子树由节点和它的后台组成</p>
+</li>
+<li><p>节点的深度：节点的深度取决于它的祖先节点的数量</p>
+</li>
+<li><p>树的高度：高度取决于所有节点深度的最大值</p>
+</li>
+</ul>
+<h2 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h2><ul>
+<li>前序遍历<br>前序遍历首先访问根结点然后遍历左子树，最后遍历右子树。在遍历左、右子树时，仍然先访问根结点，然后遍历左子树，最后遍历右子树。<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1512328183074.jpg" alt=""><br>前序遍历结果：ABDECF</li>
+</ul>
+<p>前序遍历可用于复制一棵已有的二叉树，或是打印一个结构化的文档。</p>
+<ul>
+<li>中序遍历<br>指先访问左（右）子树，然后访问根，最后访问右（左）子树的遍历方式<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1512328582853.jpg" alt=""></li>
+</ul>
+<p>以从最小到最大的顺序访问所有节点，中序遍历的一种应用就是排序操作。</p>
+<ul>
+<li>后序遍历<br>指先访问子树，然后访问根的遍历方式。<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1512328799677.jpg" alt=""><br>其中的一种应用是计算文件系统中一个目录和它的子目录中所有文件所占空间的大小。</li>
+</ul>
+<h2 id="JavaScript-实现搜索树"><a href="#JavaScript-实现搜索树" class="headerlink" title="JavaScript 实现搜索树"></a><code>JavaScript</code> 实现搜索树</h2><h3 id="创建一棵树"><a href="#创建一棵树" class="headerlink" title="创建一棵树"></a>创建一棵树</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">BinaryBree</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">           <span class="comment">//构造节点方法</span></span><br><span class="line">           <span class="keyword">var</span> Node = <span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123;</span><br><span class="line">               <span class="keyword">this</span>.key = key</span><br><span class="line">               <span class="keyword">this</span>.left = <span class="literal">null</span></span><br><span class="line">               <span class="keyword">this</span>.right = <span class="literal">null</span></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="comment">//二叉树根节点</span></span><br><span class="line">           <span class="keyword">var</span> root = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">           <span class="comment">//二叉树插入接口实现</span></span><br><span class="line">           <span class="keyword">var</span> insertNode = <span class="function"><span class="keyword">function</span> (<span class="params">node, newNode</span>) </span>&#123;</span><br><span class="line">               <span class="keyword">if</span> (newNode.key &lt; node.key) &#123;</span><br><span class="line">                   <span class="keyword">if</span> (node.left === <span class="literal">null</span>) &#123;</span><br><span class="line">                       node.left = newNode</span><br><span class="line">                   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                       insertNode(node.left, newNode)</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                   <span class="keyword">if</span> (node.right === <span class="literal">null</span>) &#123;</span><br><span class="line">                       node.right = newNode</span><br><span class="line">                   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                       insertNode(node.right, newNode)</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> nodes = [<span class="number">8</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">14</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">13</span>]</span><br><span class="line">       <span class="keyword">var</span> binaryBree = <span class="keyword">new</span> BinaryBree()</span><br><span class="line">	</span><br><span class="line">    nodes.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123;</span><br><span class="line">           binaryBree.insert(key)</span><br><span class="line">       &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//中序遍历接口</span></span><br><span class="line">          <span class="keyword">this</span>.inOrderTraverse = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">              inOrderTraverseNode(root, callback)</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">//中序遍历接口实现方法</span></span><br><span class="line">          <span class="keyword">var</span> inOrderTraverseNode = <span class="function"><span class="keyword">function</span> (<span class="params">node, callback</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;</span><br><span class="line">                  inOrderTraverseNode(node.left, callback)</span><br><span class="line"></span><br><span class="line">                  callback(node.key)</span><br><span class="line"></span><br><span class="line">                  inOrderTraverseNode(node.right, callback)</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//前序遍历接口</span></span><br><span class="line">         <span class="keyword">this</span>.preOrderTraverse = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">             preOrderTraverseNode(root, callback)</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         <span class="comment">//前序遍历接口实现</span></span><br><span class="line">         <span class="keyword">var</span> preOrderTraverseNode = <span class="function"><span class="keyword">function</span> (<span class="params">node, callback</span>) </span>&#123;</span><br><span class="line">             <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;</span><br><span class="line">                 callback(node.key)</span><br><span class="line">                 preOrderTraverseNode(node.left, callback)</span><br><span class="line">                 preOrderTraverseNode(node.right, callback)</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="后续遍历"><a href="#后续遍历" class="headerlink" title="后续遍历"></a>后续遍历</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//后续遍历接口</span></span><br><span class="line">          <span class="keyword">this</span>.postOrderTraverse = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">              postOrderTraverseNode(root, callback)</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">//前序遍历接口实现</span></span><br><span class="line">          <span class="keyword">var</span> postOrderTraverseNode = <span class="function"><span class="keyword">function</span> (<span class="params">node, callback</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">if</span> (node !== <span class="literal">null</span>) &#123;</span><br><span class="line">                  postOrderTraverseNode(node.left, callback)</span><br><span class="line">                  postOrderTraverseNode(node.right, callback)</span><br><span class="line">                  callback(node.key)</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找最小值</span></span><br><span class="line">         <span class="keyword">this</span>.min = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">             <span class="keyword">return</span> minNode(root)</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         <span class="keyword">var</span> minNode = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">             <span class="keyword">if</span> (node) &#123;</span><br><span class="line">                 <span class="comment">//如果当前节点存在左节点，继续执行循环</span></span><br><span class="line">                 <span class="keyword">while</span> (node &amp;&amp; node.left !== <span class="literal">null</span>) &#123;</span><br><span class="line">                     node = node.left</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">return</span> node.key</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         <span class="comment">//查找最大值</span></span><br><span class="line">         <span class="keyword">this</span>.max = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">             <span class="keyword">return</span> maxNode(root)</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">var</span> maxNode = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">             <span class="keyword">if</span> (node) &#123;</span><br><span class="line">                 <span class="comment">//如果当前节点存在右节点，继续执行循环</span></span><br><span class="line">                 <span class="keyword">while</span> (node &amp;&amp; node.right !== <span class="literal">null</span>) &#123;</span><br><span class="line">                     node = node.right</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">return</span> node.key</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         <span class="comment">//查找指定数值</span></span><br><span class="line">         <span class="keyword">this</span>.search = <span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123;</span><br><span class="line">             <span class="keyword">return</span> searchNode(root, key)</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         <span class="keyword">var</span> searchNode = <span class="function"><span class="keyword">function</span> (<span class="params">node, key</span>) </span>&#123;</span><br><span class="line">             <span class="keyword">if</span> (node === <span class="literal">null</span>) &#123;</span><br><span class="line">                 <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">if</span> (node &lt; node.key) &#123;</span><br><span class="line">                 <span class="keyword">return</span> searchNode(node.left, key)</span><br><span class="line">             &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key &gt; node.key) &#123;</span><br><span class="line">                 <span class="keyword">return</span> searchNode(node.right, key)</span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除指定指定节点接口</span></span><br><span class="line">          <span class="keyword">this</span>.remove = <span class="function"><span class="keyword">function</span> (<span class="params">key</span>) </span>&#123;</span><br><span class="line">              root = removeNode(root, key)</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">//查找排序二叉树中最小节点</span></span><br><span class="line">          <span class="keyword">var</span> finMinNode = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">if</span> (node) &#123;</span><br><span class="line">                  <span class="keyword">while</span> (node &amp;&amp; node.left !== <span class="literal">null</span>) &#123;</span><br><span class="line">                      node = node.left</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">return</span> node</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">//删除指定指定节点实现</span></span><br><span class="line">          <span class="keyword">var</span> removeNode = <span class="function"><span class="keyword">function</span> (<span class="params">node, key</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">if</span> (node === <span class="literal">null</span>) &#123;</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">if</span> (key &lt; node.key) &#123;</span><br><span class="line">                  node.left = removeNode(node.left, key)</span><br><span class="line">                  <span class="keyword">return</span> node</span><br><span class="line">              &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key &gt; node.key) &#123;</span><br><span class="line">                  node.right = removeNode(node.right, key)</span><br><span class="line">                  <span class="keyword">return</span> node</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  <span class="comment">//左右都没有节点则为叶子节点，可直接删除</span></span><br><span class="line">                  <span class="keyword">if</span> (node.left === <span class="literal">null</span> &amp;&amp; node.right === <span class="literal">null</span>) &#123;</span><br><span class="line">                      node = <span class="literal">null</span></span><br><span class="line">                      <span class="keyword">return</span> node</span><br><span class="line">                  &#125;</span><br><span class="line">                  <span class="comment">//只有右节点，将当前节点替换成右节点</span></span><br><span class="line">                  <span class="keyword">if</span> (node.left === <span class="literal">null</span>) &#123;</span><br><span class="line">                      node = node.right</span><br><span class="line">                      <span class="keyword">return</span> node</span><br><span class="line">                  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.right === <span class="literal">null</span>) &#123;</span><br><span class="line">                      <span class="comment">//只有左节点，将当前节点替换成做左节点</span></span><br><span class="line">                      node = node.left</span><br><span class="line">                      <span class="keyword">return</span> node</span><br><span class="line">                  &#125;</span><br><span class="line">                  <span class="comment">//拥有左右节点的情况</span></span><br><span class="line">                  <span class="keyword">var</span> aux = finMinNode(node.right)</span><br><span class="line">                  node.key = aux.key</span><br><span class="line">                  node.right = removeNode(node.right, aux.key)</span><br><span class="line">                  <span class="keyword">return</span> node</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="完整项目文件"><a href="#完整项目文件" class="headerlink" title="完整项目文件"></a><a href="https://github.com/lyctea/arithmetic/blob/master/binaryBree.html" target="_blank" rel="noopener">完整项目文件</a></h3>
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2017/12/04/cjivj3hr3005u006pbar883cs/" target="_blank" rel="external">https://luoyec.cn/2017/12/04/cjivj3hr3005u006pbar883cs/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2017/12/04/cjivj3hqf0048006py4oa7uo5/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">React路由过渡动画</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2017/11/19/cjivj3ho40001006pildbp2dp/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">All About React Router 4</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "二叉搜索树",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2017/12/04/cjivj3hr3005u006pbar883cs/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

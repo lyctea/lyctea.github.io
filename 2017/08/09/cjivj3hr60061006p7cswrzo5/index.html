@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>代码整洁之道三:函数 | 孤丶晴的网络日志 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="读书笔记,代码整洁,提高">
+  <meta name="description" content="如何写好函数？ 短小函数到底要多长每个程序每个函数只有两行、三行或者四行。每个函数都一目了然。每个函数都只说明一件事。而且，每隔函数都依序把你带到下一个函数。这就是函数应该达到的短小程度。  代码块和缩进  if语句、else语句、while语句等，其中的代码块应该只有一行。该行应该是一个函数调用。这样不能保持函数短小，而且，因为块内调用的函数拥有较具有说明性的名称，从而增加了文档上的价值。">
+<meta name="keywords" content="读书笔记,代码整洁,提高">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码整洁之道三:函数">
+<meta property="og:url" content="https://luoyec.cn/2017/08/09/cjivj3hr60061006p7cswrzo5/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="如何写好函数？ 短小函数到底要多长每个程序每个函数只有两行、三行或者四行。每个函数都一目了然。每个函数都只说明一件事。而且，每隔函数都依序把你带到下一个函数。这就是函数应该达到的短小程度。  代码块和缩进  if语句、else语句、while语句等，其中的代码块应该只有一行。该行应该是一个函数调用。这样不能保持函数短小，而且，因为块内调用的函数拥有较具有说明性的名称，从而增加了文档上的价值。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502272924373.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502275120642.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502288159582.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293054470.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293079369.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293141596.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293153919.jpg">
+<meta property="og:updated_time" content="2017-08-09T15:41:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码整洁之道三:函数">
+<meta name="twitter:description" content="如何写好函数？ 短小函数到底要多长每个程序每个函数只有两行、三行或者四行。每个函数都一目了然。每个函数都只说明一件事。而且，每隔函数都依序把你带到下一个函数。这就是函数应该达到的短小程度。  代码块和缩进  if语句、else语句、while语句等，其中的代码块应该只有一行。该行应该是一个函数调用。这样不能保持函数短小，而且，因为块内调用的函数拥有较具有说明性的名称，从而增加了文档上的价值。">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502272924373.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="孤丶晴的网络日志" type="application/atom+xml">
+  
+  <meta name="summary" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/images/panda.jpeg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">luoyecong</h5>
+        <a href="mailto:luoyecong@aliyun.com" title="luoyecong@aliyun.com" class="mail">luoyecong@aliyun.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              文章
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/lyctea" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>孤丶晴的网络日志 &copy; 2018</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">代码整洁之道三:函数</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">代码整洁之道三:函数</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2017-08-09T15:40:05.000Z" itemprop="datePublished" class="page-time">
+  2017-08-09
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/代码整洁之道/">代码整洁之道</a></li></ul>
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-代码整洁之道三:函数" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码整洁/">代码整洁</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/提高/">提高</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#短小"><span class="post-toc-number">1.</span> <span class="post-toc-text">短小</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#函数到底要多长"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">函数到底要多长</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码块和缩进"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">代码块和缩进</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#只做一件事"><span class="post-toc-number">2.</span> <span class="post-toc-text">只做一件事</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#每个函数一个抽象层级"><span class="post-toc-number">3.</span> <span class="post-toc-text">每个函数一个抽象层级</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自顶向下读代码：-向下原则"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">自顶向下读代码： 向下原则</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#switch-语句"><span class="post-toc-number">4.</span> <span class="post-toc-text">switch 语句</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用描述性的名称"><span class="post-toc-number">5.</span> <span class="post-toc-text">使用描述性的名称</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#函数参数"><span class="post-toc-number">6.</span> <span class="post-toc-text">函数参数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一元函数的普遍形式"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">一元函数的普遍形式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#标识参数"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">标识参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二元函数"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">二元函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三元函数"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">三元函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#无副作用"><span class="post-toc-number">7.</span> <span class="post-toc-text">无副作用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#输出参数"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">输出参数</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分隔指令与询问"><span class="post-toc-number">8.</span> <span class="post-toc-text">分隔指令与询问</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如何在实践中写好函数"><span class="post-toc-number">9.</span> <span class="post-toc-text">如何在实践中写好函数</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#小结"><span class="post-toc-number">10.</span> <span class="post-toc-text">小结</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SetupTeardownIncluder程序"><span class="post-toc-number">11.</span> <span class="post-toc-text">SetupTeardownIncluder程序</span></a></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <p>如何写好函数？</p>
+<h1 id="短小"><a href="#短小" class="headerlink" title="短小"></a>短小</h1><h2 id="函数到底要多长"><a href="#函数到底要多长" class="headerlink" title="函数到底要多长"></a>函数到底要多长</h2><p>每个程序每个函数只有两行、三行或者四行。每个函数都一目了然。每个函数都只说明一件事。而且，每隔函数都依序把你带到下一个函数。这就是函数应该达到的短小程度。</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502272924373.jpg" alt=""></p>
+<h2 id="代码块和缩进"><a href="#代码块和缩进" class="headerlink" title="代码块和缩进"></a>代码块和缩进</h2><p>  if语句、else语句、while语句等，其中的代码块应该只有一行。该行应该是一个函数调用。这样不能保持函数短小，而且，因为块内调用的函数拥有较具有说明性的名称，从而增加了文档上的价值。</p>
+<p>  这也意味着函数不应该大到足以容纳嵌套结构。所以，函数的缩进层级不应该多于一层或两层。当然这也的函数易于阅读和理解。</p>
+<h1 id="只做一件事"><a href="#只做一件事" class="headerlink" title="只做一件事"></a>只做一件事</h1><p>  函数应该做一件事。做好这件事。只做这件事。</p>
+<p>  如果函数只是做了该函数名下统一抽象层上的步骤，则函数还是只做了一件事。所以判断函数是否不止做了一件事，还有一个方法，==就是看是否能再拆除一个函数，该函数不仅只是单纯地重新诠释其实现==。</p>
+<p>  只做一件事的函数无法合理的切分为多个区段。</p>
+<h1 id="每个函数一个抽象层级"><a href="#每个函数一个抽象层级" class="headerlink" title="每个函数一个抽象层级"></a>每个函数一个抽象层级</h1><p>  ==要确保函数只做一件事，函数中的语句都要在同一抽象层级上。==</p>
+<p>  函数中混杂不同的抽象层级，往往让人迷惑。读者可能无法判断某个表达式是基础概念还是细节。</p>
+<h2 id="自顶向下读代码：-向下原则"><a href="#自顶向下读代码：-向下原则" class="headerlink" title="自顶向下读代码： 向下原则"></a>自顶向下读代码： 向下原则</h2><p>  每个函数后面都跟着位于下一抽象层级的函数，这样一来，在查看函数列表时，就能根据抽象层级向下阅读，这就叫向下规则。</p>
+<h1 id="switch-语句"><a href="#switch-语句" class="headerlink" title="switch 语句"></a>switch 语句</h1><p>  switch的几个问题。太长，当类型复杂起来时，会更长。其次，不止做了一件事。第三，违反了单一权责原则，因为有好几个修改它的理由。第四，违反了开放闭合原则，因为每次添加新类型时，就必须修改之。</p>
+<p>  解决方法，对于switch语句，如果只出现一次，用于创建多态对象，而且隐藏在某个继承关系中，在系统其它部分看不到。</p>
+<p>  <img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502275120642.jpg" alt=""></p>
+<h1 id="使用描述性的名称"><a href="#使用描述性的名称" class="headerlink" title="使用描述性的名称"></a>使用描述性的名称</h1><p>  testableHtml改为SetupTeardownIncluderender; isTestable或includeSetupAndTeardownPages，<br>  长的函数名具有描述性，要比描述性的长注释好。可以使用眸中约定，让函数名称中的多个单词更容易阅读，然后使用这些单词给函数取个能说清其功能的名称。</p>
+<p>  模块名用名词，而函数名用动词描述。</p>
+<h1 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h1><p>  最理想的参数数量是零，其次是一个，再次是两个。除非有足够的理由才能用三个以上参数。</p>
+<h2 id="一元函数的普遍形式"><a href="#一元函数的普遍形式" class="headerlink" title="一元函数的普遍形式"></a>一元函数的普遍形式</h2><p>  一元函数即单个参数的函数，大体上分为两种：</p>
+<ul>
+<li>操作该参数，将其输出</li>
+<li>事件，有输入参数而无输出参数，程序将函数看作是一个事件，使用参数修改系统状态</li>
+</ul>
+<h2 id="标识参数"><a href="#标识参数" class="headerlink" title="标识参数"></a>标识参数</h2><p>将布尔值作为参数用于标识是不值得推荐的做法，如果真要这么做， 应当把函数拆分成两个不带标识参数的函数。</p>
+<h2 id="二元函数"><a href="#二元函数" class="headerlink" title="二元函数"></a>二元函数</h2><p>拥有两个参数比拥有一个参数的函数更复杂难懂，可以利用一些机制转换成一元函数。</p>
+<h2 id="三元函数"><a href="#三元函数" class="headerlink" title="三元函数"></a>三元函数</h2><p>三个参数的函数，排序、琢磨、忽略的问题都会成倍体现。</p>
+<h1 id="无副作用"><a href="#无副作用" class="headerlink" title="无副作用"></a>无副作用</h1><p>函数承诺只做一件事，但有时，会对自己类中的变量做出未能预期的改动，或是对全局变量造成了影响。</p>
+<p>这种函数不能以简单的命名让人误解，并且也违法了一个函数只做一件事的规则。</p>
+<h2 id="输出参数"><a href="#输出参数" class="headerlink" title="输出参数"></a>输出参数</h2><p>应该避免使用输出参数，如果函数必须修改某种状态，就修改所属对象的状态吧</p>
+<h1 id="分隔指令与询问"><a href="#分隔指令与询问" class="headerlink" title="分隔指令与询问"></a>分隔指令与询问</h1><p>函数要么做什么事，要么回答什么事，但两者不可兼得。函数应该修改某对象状态或是返回该对象的有关信息。两样都干会导致混乱。</p>
+<p>把指令和询问拆分成两个函数<br><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502288159582.jpg" alt=""></p>
+<h1 id="如何在实践中写好函数"><a href="#如何在实践中写好函数" class="headerlink" title="如何在实践中写好函数"></a>如何在实践中写好函数</h1><p>  一开始都冗长而复杂，有太多的缩进和嵌套循环。有过长的参数列表，名称随意取的，也会有重复代码。</p>
+<p>  然后打磨这些代码，分解函数、修改名称、消除重复。缩短和安置方法，有时候还拆散类。同时保持测试通过。</p>
+<p>  最后，遵循本章的规则，组装好这些函数。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p> ==大师级程序员把系统当做故事来讲，而不是当做程序来写==。</p>
+<h1 id="SetupTeardownIncluder程序"><a href="#SetupTeardownIncluder程序" class="headerlink" title="SetupTeardownIncluder程序"></a>SetupTeardownIncluder程序</h1><p> <img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293054470.jpg" alt=""></p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293079369.jpg" alt=""></p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293141596.jpg" alt=""></p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293153919.jpg" alt=""></p>
+
+
+            
+            
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="https://luoyec.cn/2017/08/09/cjivj3hr60061006p7cswrzo5/" target="_blank" rel="external">https://luoyec.cn/2017/08/09/cjivj3hr60061006p7cswrzo5/</a>
+                </p>
+                <footer><cite><a href="https://luoyec.cn">@孤丶晴的网络日志</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+    <div class="waves-block waves-effect prev fl">
+      <a href="/2017/08/10/cjivj3hoy0010006pwd006mps/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Git常见问题</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2017/08/09/cjivj3hoq000n006p2n4c9i6n/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Express Getting Started实践</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+
+
+
+        </div>
+    </div>
+</article>
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "代码整洁之道三:函数",
+    pic: "/images/panda.jpeg",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "https://luoyec.cn/2017/08/09/cjivj3hr60061006p7cswrzo5/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
