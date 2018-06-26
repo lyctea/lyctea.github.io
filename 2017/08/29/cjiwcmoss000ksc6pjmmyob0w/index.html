@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="参考资料：URLLoader网络通讯Egret游戏通用开发框架–MVC篇 引  在原有MVC的基础上， 增加了一层Proxy用于进行通信。  BaseModel，是Model的基类，负责该Module的数据存储，每个Module只存在一个Model   BaseGuiView、BaseSpriteView，是View的基类，都实现了IBaseView接口，负责该Module的View层显示及Vie">
+<meta name="keywords" content="HTTP,Egret,MVC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Egret MVC通用框架HTTP请求实践（GET请求）">
+<meta property="og:url" content="https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="参考资料：URLLoader网络通讯Egret游戏通用开发框架–MVC篇 引  在原有MVC的基础上， 增加了一层Proxy用于进行通信。  BaseModel，是Model的基类，负责该Module的数据存储，每个Module只存在一个Model   BaseGuiView、BaseSpriteView，是View的基类，都实现了IBaseView接口，负责该Module的View层显示及Vie">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503997302487.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503998792642.jpg">
+<meta property="og:updated_time" content="2017-08-29T09:32:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Egret MVC通用框架HTTP请求实践（GET请求）">
+<meta name="twitter:description" content="参考资料：URLLoader网络通讯Egret游戏通用开发框架–MVC篇 引  在原有MVC的基础上， 增加了一层Proxy用于进行通信。  BaseModel，是Model的基类，负责该Module的数据存储，每个Module只存在一个Model   BaseGuiView、BaseSpriteView，是View的基类，都实现了IBaseView接口，负责该Module的View层显示及Vie">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503997302487.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>Egret MVC通用框架HTTP请求实践（GET请求）</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/08/30/cjiwcmozd0081sc6p2qff8jyd/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/08/26/cjiwcmowt0057sc6psusz4ycm/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&text=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&title=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&is_video=false&description=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Egret MVC通用框架HTTP请求实践（GET请求）&body=Check out this article: https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&title=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&title=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&title=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&title=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&name=Egret MVC通用框架HTTP请求实践（GET请求）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#引"><span class="toc-number">1.</span> <span class="toc-text">引</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例"><span class="toc-number">2.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#财富榜实例文件结构"><span class="toc-number">2.1.</span> <span class="toc-text">财富榜实例文件结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何请求数据"><span class="toc-number">2.2.</span> <span class="toc-text">如何请求数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据请求成功"><span class="toc-number">2.3.</span> <span class="toc-text">数据请求成功</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展框架的HTTP请求"><span class="toc-number">3.</span> <span class="toc-text">扩展框架的HTTP请求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#修改-core-net-http-Http-ts"><span class="toc-number">3.1.</span> <span class="toc-text">修改 /core/net/http/Http.ts</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#渲染结果"><span class="toc-number">4.</span> <span class="toc-text">渲染结果</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Egret MVC通用框架HTTP请求实践（GET请求）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-08-29T09:31:52.000Z" itemprop="datePublished">2017-08-29</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Egret/">Egret</a>, <a class="tag-link" href="/tags/HTTP/">HTTP</a>, <a class="tag-link" href="/tags/MVC/">MVC</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>参考资料：<br><a href="http://developer.egret.com/cn/github/egret-docs/extension/game/URLLoaderNetwork/index.html" target="_blank" rel="noopener">URLLoader网络通讯</a><br><a href="http://bbs.egret.com/forum.php?mod=viewthread&amp;tid=14929&amp;highlight=%E6%A1%86%E6%9E%B6" target="_blank" rel="noopener">Egret游戏通用开发框架–MVC篇</a></p>
+<h1 id="引"><a href="#引" class="headerlink" title="引"></a>引</h1><p>  在原有MVC的基础上， 增加了一层Proxy用于进行通信。</p>
+<ul>
+<li>BaseModel，是Model的基类，负责该Module的数据存储，每个Module只存在一个Model</li>
+</ul>
+<ul>
+<li>BaseGuiView、BaseSpriteView，是View的基类，都实现了IBaseView接口，负责该Module的View层显示及View层的基础逻辑，两个类的不同在于，BaseGuiView继承自egret.gui.SkinnableContainer，用于使用GUI的View，BaseSpriteView继承自egret.Sprite，用于不使用GUI的View，每个Module可以有多个View</li>
+</ul>
+<ul>
+<li>BaseController，是Controller的基类，负责Module内部、Module与Module之间的事件交互，每个Module只存在一个Controller</li>
+</ul>
+<ul>
+<li>BaseProxy，是Proxy的基类，负责该Module与服务器的数据通信交互，支持Http和WebSocket</li>
+</ul>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><h2 id="财富榜实例文件结构"><a href="#财富榜实例文件结构" class="headerlink" title="财富榜实例文件结构"></a>财富榜实例文件结构</h2><p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503997302487.jpg" alt=""></p>
+<h2 id="如何请求数据"><a href="#如何请求数据" class="headerlink" title="如何请求数据"></a>如何请求数据</h2><p>在Controller构造函数中初始化模块内的View、Proxy、Model，并且注册模块内、模块内部事件监听</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.registerFunc(JackWealthConst.GAMERANKING_C2S, <span class="keyword">this</span>.getGameRanking, <span class="keyword">this</span>)</span><br><span class="line">        <span class="keyword">this</span>.registerFunc(JackWealthConst.GAMERANKING_S2C, <span class="keyword">this</span>.getGameRankingSuccess, <span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在getGameRanking()方法中，调用Proxy的方法，用以HTTP请求，此时需要获取到GET请求所需的参数，这里只需要获取gameID</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 请求获取财富值排行榜处理</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">private</span> getGameRanking(): <span class="built_in">void</span> &#123;</span><br><span class="line">       <span class="keyword">let</span> userInfo:<span class="built_in">any</span> = egret.localStorage.getItem(JackGameConst.Get_User_Information)</span><br><span class="line">       <span class="keyword">let</span> gameId:<span class="built_in">string</span> = <span class="built_in">JSON</span>.parse(userInfo).gameId</span><br><span class="line"></span><br><span class="line">       <span class="keyword">this</span>.jackWealthProxy.getGameRanking(gameId)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//Proxy.ts</span></span><br><span class="line"><span class="keyword">public</span> getGameRanking(gameId: <span class="built_in">string</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">	<span class="keyword">let</span> param: <span class="built_in">string</span> = <span class="string">`/gameRanking?gameId=<span class="subst">$&#123;gameId&#125;</span>`</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.getHttpMsg(HttpConst.JACK_GAME_RANKING, param)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在Proxy中，需要注册从服务器返回的消息监听，并有相应的处理函数，用以通知Controller数据请求成功</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> JackWealthProxy <span class="keyword">extends</span> BaseProxy &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">constructor</span>(<span class="params">$controller: BaseController</span>) &#123;</span><br><span class="line">		<span class="keyword">super</span>($controller);</span><br><span class="line">		<span class="comment">//注册从服务器返回消息的监听</span></span><br><span class="line">		<span class="keyword">this</span>.receiveServerMsg(HttpConst.JACK_GAME_RANKING, <span class="keyword">this</span>.getGameRankingSuccess, <span class="keyword">this</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> getGameRanking(gameId: <span class="built_in">string</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">		<span class="keyword">let</span> param: <span class="built_in">string</span> = <span class="string">`/gameRanking?gameId=<span class="subst">$&#123;gameId&#125;</span>`</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>.getHttpMsg(HttpConst.JACK_GAME_RANKING, param)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> getGameRankingSuccess(obj: <span class="built_in">any</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">		<span class="keyword">this</span>.applyFunc(JackWealthConst.GAMERANKING_S2C, obj)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数据请求成功"><a href="#数据请求成功" class="headerlink" title="数据请求成功"></a>数据请求成功</h2><p>在Controller中已经注册了监听到数据请求成功的处理函数，在该处理函数中完成模块所需的逻辑处理</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 请求获取财富值排行榜成功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> getGameRankingSuccess(gameRanking: <span class="built_in">any</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="comment">//保存数据</span></span><br><span class="line">    <span class="keyword">this</span>.jackWealthModel.gameRanking = gameRanking</span><br><span class="line">    <span class="comment">//本模块UI的处理</span></span><br><span class="line">    <span class="keyword">this</span>.addItemToWealth()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="扩展框架的HTTP请求"><a href="#扩展框架的HTTP请求" class="headerlink" title="扩展框架的HTTP请求"></a>扩展框架的HTTP请求</h1><p>框架原有的请求方法中，只写了POST（可能有误？）</p>
+<p>参考<a href="http://developer.egret.com/cn/github/egret-docs/extension/game/URLLoaderNetwork/index.html" target="_blank" rel="noopener">URLLoader网络通讯</a></p>
+<h2 id="修改-core-net-http-Http-ts"><a href="#修改-core-net-http-Http-ts" class="headerlink" title="修改 /core/net/http/Http.ts"></a>修改 /core/net/http/Http.ts</h2><p>增加所需要的属性</p>
+<blockquote>
+<p>当我们需要创建一个网络连接的时候，我们需要创建一个 URLLoader 对象，该对象负责网络的连接状态操作， 同时负责接收网络回传的数据。网络通信时，需要的网络通信数据由 URLRequest 对象负责管理。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//GET请求相关属性</span></span><br><span class="line"><span class="keyword">private</span> _getRequest: egret.URLRequest  <span class="comment">//URL请求对象</span></span><br><span class="line"><span class="keyword">private</span> _getCache: <span class="built_in">Array</span>&lt;<span class="built_in">any</span>&gt;		<span class="comment">//请求缓存，其实数组，实现按顺序请求</span></span><br><span class="line"><span class="keyword">private</span> _isGetRequesting: <span class="built_in">boolean</span>  <span class="comment">//是否在请求的标志符</span></span><br><span class="line"><span class="keyword">private</span> _urlGetLoader: egret.URLLoader;  <span class="comment">//</span></span><br></pre></td></tr></table></figure>
+<p>初始化属性和添加事件监听</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>._getRequest = <span class="keyword">new</span> egret.URLRequest()</span><br><span class="line"><span class="keyword">this</span>._getRequest.method = egret.URLRequestMethod.GET</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>._getCache = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>._urlGetLoader = <span class="keyword">new</span> egret.URLLoader()</span><br><span class="line"><span class="keyword">this</span>._urlGetLoader.addEventListener(egret.IOErrorEvent.IO_ERROR, <span class="keyword">this</span>.onGetError, <span class="keyword">this</span>)</span><br></pre></td></tr></table></figure>
+<p>核心方法</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 增加HTTP  GET请求数据方法 </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> getData(<span class="keyword">type</span>: <span class="built_in">string</span>, param: <span class="built_in">string</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>._getCache.push([<span class="keyword">type</span>, param])</span><br><span class="line">    <span class="keyword">this</span>.get()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">get</span>(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._isGetRequesting) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._getCache.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> arr: <span class="built_in">Array</span>&lt;<span class="built_in">any</span>&gt; = <span class="keyword">this</span>._getCache.shift()</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">type</span>: <span class="built_in">string</span> = arr[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> getparam: <span class="built_in">string</span> = arr[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">this</span>._type = <span class="keyword">type</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>._getRequest.url = <span class="keyword">this</span>._serverUrl + getparam</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>._urlGetLoader.addEventListener(egret.Event.COMPLETE, <span class="keyword">this</span>.onGetLoaderComplete, <span class="keyword">this</span>)</span><br><span class="line">    <span class="keyword">this</span>._urlGetLoader.load(<span class="keyword">this</span>._getRequest)</span><br><span class="line">    <span class="keyword">this</span>._isGetRequesting = <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请求成功之后需要派发相应事件，需要注意的这个时间的类型，就是之前在Proxy方法中参数的 <code>this.getHttpMsg(HttpConst.JACK_GAME_RANKING, param)</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> onGetLoaderComplete(event: egret.Event): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>._urlGetLoader.removeEventListener(egret.Event.COMPLETE, <span class="keyword">this</span>.onGetLoaderComplete, <span class="keyword">this</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> msg: <span class="built_in">any</span> = <span class="built_in">JSON</span>.parse(<span class="keyword">this</span>._urlGetLoader.data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (msg) &#123;</span><br><span class="line">        App.MessageCenter.dispatch(<span class="keyword">this</span>._type, msg)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        Log.trace(<span class="string">"Http错误"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.nextGet();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>派发事件后，在相应注册了事件监听Controller中就能拿到请求成功的数据<code>msg</code>了，用以保存到Model、通知view进行相应的数据渲染</p>
+<h1 id="渲染结果"><a href="#渲染结果" class="headerlink" title="渲染结果"></a>渲染结果</h1><p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503998792642.jpg" alt=""></p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#引"><span class="toc-number">1.</span> <span class="toc-text">引</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例"><span class="toc-number">2.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#财富榜实例文件结构"><span class="toc-number">2.1.</span> <span class="toc-text">财富榜实例文件结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何请求数据"><span class="toc-number">2.2.</span> <span class="toc-text">如何请求数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据请求成功"><span class="toc-number">2.3.</span> <span class="toc-text">数据请求成功</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#扩展框架的HTTP请求"><span class="toc-number">3.</span> <span class="toc-text">扩展框架的HTTP请求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#修改-core-net-http-Http-ts"><span class="toc-number">3.1.</span> <span class="toc-text">修改 /core/net/http/Http.ts</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#渲染结果"><span class="toc-number">4.</span> <span class="toc-text">渲染结果</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&text=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&title=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&is_video=false&description=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Egret MVC通用框架HTTP请求实践（GET请求）&body=Check out this article: https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&title=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&title=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&title=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&title=Egret MVC通用框架HTTP请求实践（GET请求）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/08/29/cjiwcmoss000ksc6pjmmyob0w/&name=Egret MVC通用框架HTTP请求实践（GET请求）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

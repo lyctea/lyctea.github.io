@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="顺序与异步 回调是编写和处理 JavaScript 程序异步逻辑的最常用 方式。确实，回调是这门语言中最基础的异步模式   所以，如果说同步的大脑计划能够很好地映射到同步代码语句，那么我们的大脑在规划异 步代码方面又是怎样的呢?答案是代码(通过回调)表达异步的方式并不能很好地映射到同步的大脑计划行为。  嵌套回调与链式回调一种典型的回调地狱： 123456789listen( &quot;click&quot;, f">
+<meta name="keywords" content="回调">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript回调">
+<meta property="og:url" content="https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="顺序与异步 回调是编写和处理 JavaScript 程序异步逻辑的最常用 方式。确实，回调是这门语言中最基础的异步模式   所以，如果说同步的大脑计划能够很好地映射到同步代码语句，那么我们的大脑在规划异 步代码方面又是怎样的呢?答案是代码(通过回调)表达异步的方式并不能很好地映射到同步的大脑计划行为。  嵌套回调与链式回调一种典型的回调地狱： 123456789listen( &quot;click&quot;, f">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-13T12:19:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript回调">
+<meta name="twitter:description" content="顺序与异步 回调是编写和处理 JavaScript 程序异步逻辑的最常用 方式。确实，回调是这门语言中最基础的异步模式   所以，如果说同步的大脑计划能够很好地映射到同步代码语句，那么我们的大脑在规划异 步代码方面又是怎样的呢?答案是代码(通过回调)表达异步的方式并不能很好地映射到同步的大脑计划行为。  嵌套回调与链式回调一种典型的回调地狱： 123456789listen( &quot;click&quot;, f">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>JavaScript回调</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/10/23/cjiwcmozp008ksc6pjaojwjho/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/10/13/cjiwcmoup002rsc6p8wtddymp/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&text=JavaScript回调"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&title=JavaScript回调"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&is_video=false&description=JavaScript回调"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript回调&body=Check out this article: https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&title=JavaScript回调"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&title=JavaScript回调"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&title=JavaScript回调"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&title=JavaScript回调"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&name=JavaScript回调&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#顺序与异步"><span class="toc-number">1.</span> <span class="toc-text">顺序与异步</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#嵌套回调与链式回调"><span class="toc-number">1.1.</span> <span class="toc-text">嵌套回调与链式回调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#控制反转："><span class="toc-number">1.2.</span> <span class="toc-text">控制反转：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#省点回调"><span class="toc-number">2.</span> <span class="toc-text">省点回调</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JavaScript回调
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-10-13T12:19:25.000Z" itemprop="datePublished">2017-10-13</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/回调/">回调</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="顺序与异步"><a href="#顺序与异步" class="headerlink" title="顺序与异步"></a>顺序与异步</h1><blockquote>
+<p>回调是编写和处理 JavaScript 程序异步逻辑的最常用 方式。确实，回调是这门语言中最基础的异步模式</p>
+</blockquote>
+<blockquote>
+<p>所以，如果说同步的大脑计划能够很好地映射到同步代码语句，那么我们的大脑在规划异 步代码方面又是怎样的呢?<br>答案是代码(通过回调)表达异步的方式并不能很好地映射到同步的大脑计划行为。</p>
+</blockquote>
+<h2 id="嵌套回调与链式回调"><a href="#嵌套回调与链式回调" class="headerlink" title="嵌套回调与链式回调"></a>嵌套回调与链式回调</h2><p>一种典型的回调地狱：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">listen( <span class="string">"click"</span>, <span class="function"><span class="keyword">function</span> <span class="title">handler</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">         setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">             ajax( <span class="string">"http://some.url.1"</span>, <span class="function"><span class="keyword">function</span> <span class="title">response</span>(<span class="params">text</span>)</span>&#123;</span><br><span class="line">                 <span class="keyword">if</span> (text == <span class="string">"hello"</span>) &#123;</span><br><span class="line">handler(); &#125;</span><br><span class="line">                 <span class="keyword">else</span> <span class="keyword">if</span> (text == <span class="string">"world"</span>) &#123;</span><br><span class="line">                     request();</span><br><span class="line">&#125; &#125; );</span><br><span class="line">&#125;, <span class="number">500</span>) ; &#125; );</span><br></pre></td></tr></table></figure>
+<p>复杂的回调，对于程序的调试和追踪代理来很高的复杂度。</p>
+<p>这就是回调方式最主要的缺陷:对于它们在代码中表达异步的方式，我们的大脑 需要努力才能同步得上。</p>
+<h2 id="控制反转："><a href="#控制反转：" class="headerlink" title="控制反转："></a>控制反转：</h2><p>也就是把自己程序一部分的执行控制交给某 个第三方。在你的代码和第三方工具(一组你希望有人维护的东西)之间有一份并没有明 确表达的契约。</p>
+<p>利用代码的执行依赖于，ajax(..)返回的结果。</p>
+<h1 id="省点回调"><a href="#省点回调" class="headerlink" title="省点回调"></a>省点回调</h1><p>为了更优雅地处理错误，有些 API 设计提供了分离回调</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">success</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">         <span class="built_in">console</span>.log( data );</span><br><span class="line">&#125;</span><br><span class="line">     <span class="function"><span class="keyword">function</span> <span class="title">failure</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">         <span class="built_in">console</span>.error( err );</span><br><span class="line">     &#125;</span><br><span class="line">     ajax( <span class="string">"http://some.url.1"</span>, success, failure );</span><br></pre></td></tr></table></figure>
+<p>S6 Promise API使用的就是这种分离回调设计。</p>
+<p>还有一种常见的回调模式叫作“error-first 风格”（node风格），第一个参数保留用作错误对象，如果成功，这个参数会被清空或者置假（后面的参数就是成功数据）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">response</span>(<span class="params">err,data</span>) </span>&#123; <span class="comment">// 出错?</span></span><br><span class="line">         <span class="keyword">if</span> (err) &#123;</span><br><span class="line">             <span class="built_in">console</span>.error( err );</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 否则认为成功 else &#123;</span></span><br><span class="line">             <span class="built_in">console</span>.log( data );</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     ajax( <span class="string">"http://some.url.1"</span>, response );</span><br></pre></td></tr></table></figure>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>第一，大脑对于事情的计划方式是线性的、阻塞的、单线程的语义，但是回调表达异步流 程的方式是非线性的、非顺序的，这使得正确推导这样的代码难度很大。难于理解的代码 是坏代码，会导致坏 bug。</p>
+<p>第二，也是更重要的一点，回调会受到控制反转的影响，因为回调暗中把控制权交给第三 方(通常是不受你控制的第三方工具!)来调用你代码中的 continuation。这种控制转移导 致一系列麻烦的信任问题，比如回调被调用的次数是否会超出预期。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#顺序与异步"><span class="toc-number">1.</span> <span class="toc-text">顺序与异步</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#嵌套回调与链式回调"><span class="toc-number">1.1.</span> <span class="toc-text">嵌套回调与链式回调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#控制反转："><span class="toc-number">1.2.</span> <span class="toc-text">控制反转：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#省点回调"><span class="toc-number">2.</span> <span class="toc-text">省点回调</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&text=JavaScript回调"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&title=JavaScript回调"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&is_video=false&description=JavaScript回调"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript回调&body=Check out this article: https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&title=JavaScript回调"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&title=JavaScript回调"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&title=JavaScript回调"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&title=JavaScript回调"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/10/13/cjiwcmoun002osc6pmpdytl0v/&name=JavaScript回调&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

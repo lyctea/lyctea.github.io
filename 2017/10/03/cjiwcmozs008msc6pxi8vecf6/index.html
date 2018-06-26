@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="作用域共有两种主要的工作模型。第一种是最为普遍的，被大多数编程语言所采用的词法 作用域，我们会对这种作用域进行深入讨论。另外一种叫作动态作用域，仍有一些编程语 言在使用(比如 Bash 脚本、Perl 中的一些模式等)。 词法阶段词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变。 考虑一下代码：1234567891011function foo">
+<meta name="keywords" content="读书笔记,作用域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="词法作用域">
+<meta property="og:url" content="https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="作用域共有两种主要的工作模型。第一种是最为普遍的，被大多数编程语言所采用的词法 作用域，我们会对这种作用域进行深入讨论。另外一种叫作动态作用域，仍有一些编程语 言在使用(比如 Bash 脚本、Perl 中的一些模式等)。 词法阶段词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变。 考虑一下代码：1234567891011function foo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1507001339403.jpg">
+<meta property="og:updated_time" content="2017-10-03T06:30:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="词法作用域">
+<meta name="twitter:description" content="作用域共有两种主要的工作模型。第一种是最为普遍的，被大多数编程语言所采用的词法 作用域，我们会对这种作用域进行深入讨论。另外一种叫作动态作用域，仍有一些编程语 言在使用(比如 Bash 脚本、Perl 中的一些模式等)。 词法阶段词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变。 考虑一下代码：1234567891011function foo">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1507001339403.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>词法作用域</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/10/03/cjiwcmoyg006usc6pgpe4osuj/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/10/03/cjiwcmoy6006isc6pz25o43m1/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&text=词法作用域"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&title=词法作用域"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&is_video=false&description=词法作用域"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=词法作用域&body=Check out this article: https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&title=词法作用域"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&title=词法作用域"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&title=词法作用域"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&title=词法作用域"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&name=词法作用域&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#词法阶段"><span class="toc-number">1.</span> <span class="toc-text">词法阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查找"><span class="toc-number">2.</span> <span class="toc-text">查找</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#欺骗词法"><span class="toc-number">3.</span> <span class="toc-text">欺骗词法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#eval"><span class="toc-number">3.1.</span> <span class="toc-text">eval</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#with"><span class="toc-number">3.2.</span> <span class="toc-text">with</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        词法作用域
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-10-03T03:39:52.000Z" itemprop="datePublished">2017-10-03</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/作用域/">作用域</a>, <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>作用域共有两种主要的工作模型。第一种是最为普遍的，被大多数编程语言所采用的词法 作用域，我们会对这种作用域进行深入讨论。另外一种叫作动态作用域，仍有一些编程语 言在使用(比如 Bash 脚本、Perl 中的一些模式等)。</p>
+<h1 id="词法阶段"><a href="#词法阶段" class="headerlink" title="词法阶段"></a>词法阶段</h1><p>词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变。</p>
+<p>考虑一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line">	var b = a * 2</span><br><span class="line">	</span><br><span class="line">	function bar (c) &#123;</span><br><span class="line">		console.log(a, b, c)</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	bar(b * 3)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(2)</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中有三个逐级嵌套的作用域，为了帮助理解，可以将他们想象成几个逐级包含的气泡。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1507001339403.jpg" alt=""></p>
+<ul>
+<li>包含整个全局作用域，其中只有一个标识符： foo</li>
+<li>包含着foo所创建的作用域，其中有三个标识符： a、bar和b</li>
+<li>包含着由bar所常见的作用域，其中只有一个标识符： c</li>
+</ul>
+<p>下一章会讨论不同类型的作用域，但现在只是简单的假设没一个函数都会创建一个新的作用域气泡<br>bar的气泡位置被完全包含在foo所创建的气泡中，唯一的原因就是我们希望定义函数bar的位置</p>
+<h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><p>作用域气泡的结构和相互位置关系给引擎提供了足够的位置信息，引擎用这些信息来查找标识符的位置。f引擎会从最内部的作用域中查找，如果没有找到会依次沿着上一级所嵌套的作用域中查找。</p>
+<p>作用域查找会在找到第一个匹配的标识符时停止。</p>
+<p>多层的嵌套作用域中可以定义同名的 标识符，这叫作“遮蔽效应”(内部的标识符“遮蔽”了外部的标识符)。</p>
+<h1 id="欺骗词法"><a href="#欺骗词法" class="headerlink" title="欺骗词法"></a>欺骗词法</h1><p>量使用 eval(..) 或 with，那么运行起来一定会变得非常慢。无论引擎多聪 明，试图将这些悲观情况的副作用限制在最小范围内，也无法避免如果没有这些优化，代 码会运行得更慢这个事实。</p>
+<h2 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h2><p>JavaScript 中的 eval(..) 函数可以接受一个字符串为参数，并将其中的内容视为好像在书 写时就存在于程序中这个位置的代码。换句话说，可以在你写的代码中用程序生成代码并 运行，就好像代码是写在那个位置的一样。</p>
+<h2 id="with"><a href="#with" class="headerlink" title="with"></a>with</h2><p>with 通常被当作重复引用同一个对象中的多个属性的快捷方式，可以不需要重复引用对象 本身。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>JavaScript 中有两个机制可以“欺骗”词法作用域:eval(..) 和 with。前者可以对一段包 含一个或多个声明的“代码”字符串进行演算，并借此来修改已经存在的词法作用域(在 运行时)。后者本质上是通过将一个对象的引用当作作用域来处理，将对象的属性当作作 用域中的标识符来处理，从而创建了一个新的词法作用域(同样是在运行时)。</p>
+<p>这两个机制的副作用是引擎无法在编译时对作用域查找进行优化，因为引擎只能谨慎地认 为这样的优化是无效的。使用这其中任何一个机制都将导致代码运行变慢。不要使用它们。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#词法阶段"><span class="toc-number">1.</span> <span class="toc-text">词法阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查找"><span class="toc-number">2.</span> <span class="toc-text">查找</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#欺骗词法"><span class="toc-number">3.</span> <span class="toc-text">欺骗词法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#eval"><span class="toc-number">3.1.</span> <span class="toc-text">eval</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#with"><span class="toc-number">3.2.</span> <span class="toc-text">with</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&text=词法作用域"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&title=词法作用域"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&is_video=false&description=词法作用域"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=词法作用域&body=Check out this article: https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&title=词法作用域"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&title=词法作用域"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&title=词法作用域"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&title=词法作用域"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/10/03/cjiwcmozs008msc6pxi8vecf6/&name=词法作用域&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

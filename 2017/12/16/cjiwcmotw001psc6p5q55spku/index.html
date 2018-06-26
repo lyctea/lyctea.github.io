@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="JavaScript 模块JavaScript 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 JavaScript 模块 JS 模块发展史JavaScript 模块化七日谈前端模块化开发那点历史AMD, CMD, CommonJS 和 UMD CommonJS 模块系统N">
+<meta name="keywords" content="JavaScript,模块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript模块">
+<meta property="og:url" content="https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="JavaScript 模块JavaScript 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 JavaScript 模块 JS 模块发展史JavaScript 模块化七日谈前端模块化开发那点历史AMD, CMD, CommonJS 和 UMD CommonJS 模块系统N">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-15T17:03:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript模块">
+<meta name="twitter:description" content="JavaScript 模块JavaScript 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 JavaScript 模块 JS 模块发展史JavaScript 模块化七日谈前端模块化开发那点历史AMD, CMD, CommonJS 和 UMD CommonJS 模块系统N">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>JavaScript模块</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/12/24/cjiwcmouf002dsc6p8z080xwg/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/12/16/cjiwcmosj000esc6pj9h34h4c/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&text=JavaScript模块"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&title=JavaScript模块"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&is_video=false&description=JavaScript模块"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript模块&body=Check out this article: https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&title=JavaScript模块"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&title=JavaScript模块"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&title=JavaScript模块"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&title=JavaScript模块"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&name=JavaScript模块&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-模块"><span class="toc-number">1.</span> <span class="toc-text">JavaScript 模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JS-模块发展史"><span class="toc-number">1.1.</span> <span class="toc-text">JS 模块发展史</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CommonJS-模块系统"><span class="toc-number">1.2.</span> <span class="toc-text">CommonJS 模块系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步模块定义（AMD）"><span class="toc-number">1.3.</span> <span class="toc-text">异步模块定义（AMD）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript-模块"><span class="toc-number">1.4.</span> <span class="toc-text">TypeScript 模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6-模块系统"><span class="toc-number">1.5.</span> <span class="toc-text">ES6 模块系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#阻塞非阻塞与同步异步"><span class="toc-number">1.6.</span> <span class="toc-text">阻塞非阻塞与同步异步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#同步与异步"><span class="toc-number">1.6.1.</span> <span class="toc-text">同步与异步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#阻塞与非阻塞"><span class="toc-number">1.6.2.</span> <span class="toc-text">阻塞与非阻塞</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JavaScript模块
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-12-15T17:03:11.000Z" itemprop="datePublished">2017-12-16</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/模块/">模块</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="JavaScript-模块"><a href="#JavaScript-模块" class="headerlink" title="JavaScript 模块"></a>JavaScript 模块</h1><p><code>JavaScript</code> 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 <code>JavaScript</code> 模块</p>
+<h2 id="JS-模块发展史"><a href="#JS-模块发展史" class="headerlink" title="JS 模块发展史"></a>JS 模块发展史</h2><p><a href="https://huangxuan.me/js-module-7day/#/" target="_blank" rel="noopener"><code>JavaScript</code> 模块化七日谈</a><br><a href="https://github.com/seajs/seajs/issues/588" target="_blank" rel="noopener">前端模块化开发那点历史</a><br><a href="https://segmentfault.com/a/1190000004873947" target="_blank" rel="noopener"><code>AMD, CMD, CommonJS 和 UMD</code></a></p>
+<h2 id="CommonJS-模块系统"><a href="#CommonJS-模块系统" class="headerlink" title="CommonJS 模块系统"></a>CommonJS 模块系统</h2><p><a href="https://lyctea.github.io/2017/12/09/Node%E6%A8%A1%E5%9D%97/" target="_blank" rel="noopener">Node.js 模块</a></p>
+<p><code>CommonJs</code> 是一个由开源开发者组成的团队，主要围绕 <code>JavaScript</code> 实现一些 <code>API</code> 及开展研发实践。</p>
+<p>该团队提出了一个 <code>avaScript</code> 模块规范。每个文件都可当作一个模块，并且每个文件可以访问两个对象：<code>require</code> 和 <code>export</code>。<code>require</code> 用来接收字符串（模块名），并返回该模块输出的对象。</p>
+<p><code>export</code> 对象用来导出该模块的方法和变量。<code>require</code> 方法返回的就是 <code>export</code> 对象。模块同步加载。服务器端 <code>JavaScript</code> 引擎 <code>Node.js</code> 就是用的这个模块系统。</p>
+<h2 id="异步模块定义（AMD）"><a href="#异步模块定义（AMD）" class="headerlink" title="异步模块定义（AMD）"></a>异步模块定义（AMD）</h2><p><code>AMD</code> 是一个采用异步方式加载依赖模块的模块系统。</p>
+<p>如果模块在不同文件中，它们将采用 <code>XHR</code> 进行加载。某一模块将等其所依赖的模块一一加载后才会被执行。</p>
+<p><code>AMD</code> 模块必须是一个函数，并作为参数传入<code>define</code> 函数中。函数的返回值将传输给所有依赖的模块，所获得返回值又将作为参数传给模块方法。<code>Require.js</code> 库中实现了 <code>AMD</code></p>
+<blockquote>
+<p><code>XHR</code> 英文全名 <code>XmlHttpRequest</code>，中文可以解释为可扩展超文本传输请求。Xml 可扩展标记语言，Http 超文本传输协议，Request 请求。XMLHttpRequest 对象可以在不向服务器提交整个页面的情况下，实现局部更新网页。</p>
+<p><a href="https://baike.baidu.com/item/XMLHTTPRequest" target="_blank" rel="noopener">百度百科：XMLHTTPRequest</a></p>
+</blockquote>
+<h2 id="TypeScript-模块"><a href="#TypeScript-模块" class="headerlink" title="TypeScript 模块"></a>TypeScript 模块</h2><p><code>TypeScript</code>，作为 <code>JavaScript</code> 的超集，也提供了一个模块系统。</p>
+<p>当它被编译时，便开始使用 <code>JavaScript</code> 模块模式。<code>TypeScript</code> 模块使用 <code>module</code> 关键字定义，<code>任何被输出的对象必须使用export</code> 关键字定义。</p>
+<p><code>import</code> 关键字用来将其它模块加载入模块中，并捕捉该模块导出的对象。<code>TypeScript</code> 模块是同步加载的。</p>
+<h2 id="ES6-模块系统"><a href="#ES6-模块系统" class="headerlink" title="ES6 模块系统"></a>ES6 模块系统</h2><p><a href="https://lyctea.github.io/2017/12/16/ES6%20%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F/" target="_blank" rel="noopener">ES6 模块系统</a></p>
+<p><code>ES6</code> 模块系统启发于上述现有模块系统，它具有以下特性：</p>
+<ul>
+<li><p>使用 <code>export</code> 关键词导出对象。这个关键字可以无限次使用</p>
+</li>
+<li><p>使用 <code>import</code> 关键字将其它模块导入某一模块中。它可用来导入任意数量的模块</p>
+</li>
+<li><p>支持模块的异步加载</p>
+</li>
+<li><p>为加载模块提供编程支持</p>
+</li>
+</ul>
+<h2 id="阻塞非阻塞与同步异步"><a href="#阻塞非阻塞与同步异步" class="headerlink" title="阻塞非阻塞与同步异步"></a>阻塞非阻塞与同步异步</h2><p><a href="https://www.zhihu.com/question/19732473/answer/20851256" target="_blank" rel="noopener">怎样理解阻塞非阻塞与同步异步的区别？</a></p>
+<p>“阻塞”与”非阻塞”与”同步”与“异步”不能简单的从字面理解，提供一个从分布式系统角度的回答。</p>
+<h3 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h3><p>同步和异步关注的是消息通信机制 <code>(synchronous communication/ asynchronous communication)</code></p>
+<p>所谓同步，就是在发出一个 _调用_ 时，在没有得到结果之前，该 _调用_ 就不返回。但是一旦调用返回，就得到返回值了。换句话说，就是由 <em>调用者</em> 主动等待这个 _调用_ 的结果。</p>
+<p>而异步则是相反，_调用_ 在发出之后，这个调用就直接返回了，所以没有返回结果。</p>
+<p>换句话说，当一个异步过程调用发出后，调用者不会立刻得到结果。而是在<em>调用</em>发出后，<em>被调用者</em>通过状态、通知来通知调用者，或通过回调函数处理这个调用。</p>
+<p>典型的异步编程模型比如 <code>Node.js</code></p>
+<p>举个通俗的例子：你打电话问书店老板有没有《分布式系统》这本书，如果是同步通信机制，书店老板会说，你稍等，”我查一下”，然后开始查啊查，等查好了（可能是 5 秒，也可能是一天）告诉你结果（返回结果）。</p>
+<p>而异步通信机制，书店老板直接告诉你我查一下啊，查好了打电话给你，然后直接挂电话了（不返回结果）。然后查好了，他会主动打电话给你。在这里老板通过“回电”这种方式来回调。</p>
+<h3 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h3><p>阻塞和非阻塞关注的是程序在等待调用结果（消息，返回值）时的状态。</p>
+<p>阻塞调用是指调用结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会返回。</p>
+<p>非阻塞调用指在不能立刻得到结果之前，该调用不会阻塞当前线程。</p>
+<p>还是上面的例子，你打电话问书店老板有没有《分布式系统》这本书，你如果是阻塞式调用，你会一直把自己“挂起”，直到得到这本书有没有的结果，如果是非阻塞式调用，你不管老板有没有告诉你，你自己先一边去玩了， 当然你也要偶尔过几分钟 check 一下老板有没有返回结果。</p>
+<p>在这里阻塞与非阻塞与是否同步异步无关。跟老板通过什么方式回答你结果无关。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-模块"><span class="toc-number">1.</span> <span class="toc-text">JavaScript 模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JS-模块发展史"><span class="toc-number">1.1.</span> <span class="toc-text">JS 模块发展史</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CommonJS-模块系统"><span class="toc-number">1.2.</span> <span class="toc-text">CommonJS 模块系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步模块定义（AMD）"><span class="toc-number">1.3.</span> <span class="toc-text">异步模块定义（AMD）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript-模块"><span class="toc-number">1.4.</span> <span class="toc-text">TypeScript 模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6-模块系统"><span class="toc-number">1.5.</span> <span class="toc-text">ES6 模块系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#阻塞非阻塞与同步异步"><span class="toc-number">1.6.</span> <span class="toc-text">阻塞非阻塞与同步异步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#同步与异步"><span class="toc-number">1.6.1.</span> <span class="toc-text">同步与异步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#阻塞与非阻塞"><span class="toc-number">1.6.2.</span> <span class="toc-text">阻塞与非阻塞</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&text=JavaScript模块"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&title=JavaScript模块"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&is_video=false&description=JavaScript模块"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript模块&body=Check out this article: https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&title=JavaScript模块"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&title=JavaScript模块"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&title=JavaScript模块"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&title=JavaScript模块"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/12/16/cjiwcmotw001psc6p5q55spku/&name=JavaScript模块&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

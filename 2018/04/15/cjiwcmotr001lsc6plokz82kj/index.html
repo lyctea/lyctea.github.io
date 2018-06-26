@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="JavaScript 基本数据类型-对象对象是 JavaScript 的基本数据类型，对象可以看做是属性的无序集合。对象不仅仅是字符串到值的映射，除了保持自身的属性，JavaScript 对象还可从一个称谓原型的对象中继承属性。对象的方法通常是继承的属性。这种“原型式继承”是 JavaScript 的核心特征。 对象的常见方法：  创建 create 设置 set 查找 query 删除 dele">
+<meta name="keywords" content="JavaScript,对象,Object">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 基本数据类型-对象">
+<meta property="og:url" content="https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="JavaScript 基本数据类型-对象对象是 JavaScript 的基本数据类型，对象可以看做是属性的无序集合。对象不仅仅是字符串到值的映射，除了保持自身的属性，JavaScript 对象还可从一个称谓原型的对象中继承属性。对象的方法通常是继承的属性。这种“原型式继承”是 JavaScript 的核心特征。 对象的常见方法：  创建 create 设置 set 查找 query 删除 dele">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-14T19:03:45.105Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 基本数据类型-对象">
+<meta name="twitter:description" content="JavaScript 基本数据类型-对象对象是 JavaScript 的基本数据类型，对象可以看做是属性的无序集合。对象不仅仅是字符串到值的映射，除了保持自身的属性，JavaScript 对象还可从一个称谓原型的对象中继承属性。对象的方法通常是继承的属性。这种“原型式继承”是 JavaScript 的核心特征。 对象的常见方法：  创建 create 设置 set 查找 query 删除 dele">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>JavaScript 基本数据类型-对象</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/04/15/cjiwcmou1001xsc6pz4ixw57g/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/04/14/cjiwcmotl001fsc6p0sdc1lx4/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&text=JavaScript 基本数据类型-对象"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&title=JavaScript 基本数据类型-对象"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&is_video=false&description=JavaScript 基本数据类型-对象"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 基本数据类型-对象&body=Check out this article: https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&title=JavaScript 基本数据类型-对象"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&title=JavaScript 基本数据类型-对象"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&title=JavaScript 基本数据类型-对象"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&title=JavaScript 基本数据类型-对象"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&name=JavaScript 基本数据类型-对象&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-基本数据类型-对象"><span class="toc-number">1.</span> <span class="toc-text">JavaScript 基本数据类型-对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建对象"><span class="toc-number">1.1.</span> <span class="toc-text">创建对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对象字面量"><span class="toc-number">1.1.1.</span> <span class="toc-text">对象字面量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过-new-创建对象"><span class="toc-number">1.1.2.</span> <span class="toc-text">通过 new 创建对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型"><span class="toc-number">1.1.3.</span> <span class="toc-text">原型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-create"><span class="toc-number">1.1.4.</span> <span class="toc-text">Object.create()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性的查询和设置"><span class="toc-number">1.2.</span> <span class="toc-text">属性的查询和设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查询"><span class="toc-number">1.2.1.</span> <span class="toc-text">查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#属性访问错误"><span class="toc-number">1.2.2.</span> <span class="toc-text">属性访问错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除属性"><span class="toc-number">1.3.</span> <span class="toc-text">删除属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检测属性"><span class="toc-number">1.4.</span> <span class="toc-text">检测属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#序列化对象"><span class="toc-number">1.5.</span> <span class="toc-text">序列化对象</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JavaScript 基本数据类型-对象
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-04-14T19:03:40.058Z" itemprop="datePublished">2018-04-15</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/Object/">Object</a>, <a class="tag-link" href="/tags/对象/">对象</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="JavaScript-基本数据类型-对象"><a href="#JavaScript-基本数据类型-对象" class="headerlink" title="JavaScript 基本数据类型-对象"></a>JavaScript 基本数据类型-对象</h1><p>对象是 <code>JavaScript</code> 的基本数据类型，对象可以看做是属性的无序集合。对象不仅仅是字符串到值的映射，除了保持自身的属性，<code>JavaScript</code> 对象还可从一个称谓原型的对象中继承属性。对象的方法通常是继承的属性。这种“原型式继承”是 <code>JavaScript</code> 的核心特征。</p>
+<p>对象的常见方法：</p>
+<ul>
+<li>创建 <code>create</code></li>
+<li>设置 <code>set</code></li>
+<li>查找 <code>query</code></li>
+<li>删除 <code>delete</code></li>
+<li>检测 <code>test</code></li>
+<li>枚举 <code>enumerate</code></li>
+</ul>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><h3 id="对象字面量"><a href="#对象字面量" class="headerlink" title="对象字面量"></a>对象字面量</h3><p>创建对象最简单的方式就是使用对象字面量（直接量）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> empty = &#123;&#125;</span><br><span class="line"><span class="keyword">var</span> point = &#123; <span class="attr">x</span>: <span class="number">0</span>, <span class="attr">y</span>: <span class="number">0</span> &#125;</span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">    <span class="string">"min title"</span>: <span class="string">"JavaScript"</span>, <span class="comment">//属性名字有空格、连接符（-），必须要用字符串表示</span></span><br><span class="line">    <span class="keyword">for</span>: <span class="string">"all audiences"</span> <span class="comment">// for 是保留字，必须用引号</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对象字面量是一个表达式，每次运算都会创建并初始化一个新的对象。这就意味着，如果在一个重复调用的函数的循环内使用了对象字面量，它将创建很多对象，并且每次创建的对象的属性值都有可能不同。</p>
+<h3 id="通过-new-创建对象"><a href="#通过-new-创建对象" class="headerlink" title="通过 new 创建对象"></a>通过 new 创建对象</h3><p>new 运算符创建并初始化一个对象。new 后跟随一个函数调用，这个函数被称为构造函数（constructor），构造函数用以初始化一个新创建的对象。</p>
+<p>JavaScript 的原始类型都包含内置构造函数，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Arrya()</span><br><span class="line"><span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line"><span class="keyword">var</span> r = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"js"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>每一个 <code>JavaScript</code> 对象（<code>null</code> 除外）都和另一个对象相关联。</p>
+<p>所有通过对象字面量创建的对象，原型都指向 <code>Object.prototype</code> (<code>obj.__proto__ === Object.prototype</code>)，通过 <code>new</code> 关键字创建的对象，其原型就是构造函数的 <code>prototype</code> 属性的值。</p>
+<h3 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create()"></a>Object.create()</h3><p><code>ES6</code> 中新增的方法，它创建一个新对象，其中第一个采纳数是这个对象原型。 <code>Object.create()</code> 提供第二个参数，用以对对象的属性进行进一步描述。</p>
+<p>创建一个空对象，（例如和 <code>{}、new Object()</code> 一样） ，需要传入 <code>Object.prototype</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o3 = <span class="built_in">Object</span>.create(<span class="built_in">Object</span>.prototype)</span><br></pre></td></tr></table></figure>
+<p>使用该方法，可以使得任意对象得以被继承，这是一个强大的特性。</p>
+<h2 id="属性的查询和设置"><a href="#属性的查询和设置" class="headerlink" title="属性的查询和设置"></a>属性的查询和设置</h2><h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>可以通过 <code>.</code> 或者方括号 <code>[]（必须是一个计算结果为字符串的表达式）</code> 运算符来获取属性的值。</p>
+<h3 id="属性访问错误"><a href="#属性访问错误" class="headerlink" title="属性访问错误"></a>属性访问错误</h3><p>查询一个不存在属性并不会报错，会返回 undefined，但是如果对象不存在，那么使用查询这个不存对象的属性就会报错，null 和 undefined 都没有属性值，查询时均会报错。</p>
+<p>利用 <code>&amp;&amp;</code> 运算符的短路行为，可以解决这个问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> len = book &amp;&amp; book.subtitle &amp;&amp; book.subtitle.length</span><br></pre></td></tr></table></figure>
+<h2 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h2><p><code>delete</code> 运算符可以删除对象属性，但是只能删除自身属性，不能删除继承属性。（要删除继承属性，必须要定义这个属性的原型对象上删除它，但这回影响到所有继承这个原型的对象）。</p>
+<p><code>delete</code> 不能删除可配置属性为 <code>false</code> 的属性。</p>
+<h2 id="检测属性"><a href="#检测属性" class="headerlink" title="检测属性"></a>检测属性</h2><ul>
+<li><code>in</code> 运算符，如果对象自有属性或继承属性中包含这个属性则返回 <code>true</code><br><code>javascript var o = {x: 1} &#39;x&#39; in o // true &#39;toString&#39; in o</code></li>
+<li><code>hasOwnProperty()</code>， 用来检测给定的名字是否是对象自有的属性，继承属性将返回 <code>false</code><br><code>javascript o.hasOwnProperty(&#39;x&#39;) true o.hasOwnProperty(&#39;toString&#39;) false</code></li>
+<li><p><code>propertyIsEnumerable()</code>，是 <code>hasOwnProperty()</code> 的增强版，检测自有属性并且该属性是可枚举的 - 通过代码增加的属性都是可枚举的，除非手动修改属性的可枚举性</p>
+</li>
+<li><p>使用 <code>!==</code> 判断 - 判断属性是否为 <code>undefined</code>，可用于自有属性和继承属性 - 当属性值位 <code>undefined</code> 时，则这种方法失效</p>
+</li>
+</ul>
+<h2 id="序列化对象"><a href="#序列化对象" class="headerlink" title="序列化对象"></a>序列化对象</h2><p>对象序列化是指将对象的状态转换成字符串，使用 <code>JSON.stringify()</code> 和 <code>JSON.parse()</code> 进行序列化和还原 <code>JavaScript对</code> 对象。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-基本数据类型-对象"><span class="toc-number">1.</span> <span class="toc-text">JavaScript 基本数据类型-对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建对象"><span class="toc-number">1.1.</span> <span class="toc-text">创建对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对象字面量"><span class="toc-number">1.1.1.</span> <span class="toc-text">对象字面量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过-new-创建对象"><span class="toc-number">1.1.2.</span> <span class="toc-text">通过 new 创建对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型"><span class="toc-number">1.1.3.</span> <span class="toc-text">原型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-create"><span class="toc-number">1.1.4.</span> <span class="toc-text">Object.create()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性的查询和设置"><span class="toc-number">1.2.</span> <span class="toc-text">属性的查询和设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查询"><span class="toc-number">1.2.1.</span> <span class="toc-text">查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#属性访问错误"><span class="toc-number">1.2.2.</span> <span class="toc-text">属性访问错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除属性"><span class="toc-number">1.3.</span> <span class="toc-text">删除属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#检测属性"><span class="toc-number">1.4.</span> <span class="toc-text">检测属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#序列化对象"><span class="toc-number">1.5.</span> <span class="toc-text">序列化对象</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&text=JavaScript 基本数据类型-对象"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&title=JavaScript 基本数据类型-对象"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&is_video=false&description=JavaScript 基本数据类型-对象"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 基本数据类型-对象&body=Check out this article: https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&title=JavaScript 基本数据类型-对象"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&title=JavaScript 基本数据类型-对象"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&title=JavaScript 基本数据类型-对象"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&title=JavaScript 基本数据类型-对象"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2018/04/15/cjiwcmotr001lsc6plokz82kj/&name=JavaScript 基本数据类型-对象&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

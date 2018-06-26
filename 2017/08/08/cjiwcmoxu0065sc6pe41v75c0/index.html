@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="代码整洁这是本有关编写好程序的书，它充斥着代码。我们需要从各个方面来考察这些代码。从顶向下，从里而外。读完之后就知道许多关于代码的事了。 而且，我们还能说出好代码和糟糕代码之间的差异。我们将知道如何写出好代码，我们也会知道，如何将糟糕代码改成好代码。 要有代码有一种观点， 随着自动化发展，人工智能技术的进步， 代码是可以自动生成，而不再需要人工编写。 而问题在于，代码呈现了需求的细节，在某些层面上">
+<meta name="keywords" content="读书笔记,代码整洁,提高">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码整洁之道一:代码整洁">
+<meta property="og:url" content="https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="代码整洁这是本有关编写好程序的书，它充斥着代码。我们需要从各个方面来考察这些代码。从顶向下，从里而外。读完之后就知道许多关于代码的事了。 而且，我们还能说出好代码和糟糕代码之间的差异。我们将知道如何写出好代码，我们也会知道，如何将糟糕代码改成好代码。 要有代码有一种观点， 随着自动化发展，人工智能技术的进步， 代码是可以自动生成，而不再需要人工编写。 而问题在于，代码呈现了需求的细节，在某些层面上">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502168553540.jpg">
+<meta property="og:updated_time" content="2017-08-09T15:41:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码整洁之道一:代码整洁">
+<meta name="twitter:description" content="代码整洁这是本有关编写好程序的书，它充斥着代码。我们需要从各个方面来考察这些代码。从顶向下，从里而外。读完之后就知道许多关于代码的事了。 而且，我们还能说出好代码和糟糕代码之间的差异。我们将知道如何写出好代码，我们也会知道，如何将糟糕代码改成好代码。 要有代码有一种观点， 随着自动化发展，人工智能技术的进步， 代码是可以自动生成，而不再需要人工编写。 而问题在于，代码呈现了需求的细节，在某些层面上">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502168553540.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>代码整洁之道一:代码整洁</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/08/08/cjiwcmoxz006dsc6pbxmw6ils/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/08/05/cjiwcmovd003jsc6pab3a5inl/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&text=代码整洁之道一:代码整洁"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&title=代码整洁之道一:代码整洁"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&is_video=false&description=代码整洁之道一:代码整洁"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=代码整洁之道一:代码整洁&body=Check out this article: https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&title=代码整洁之道一:代码整洁"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&title=代码整洁之道一:代码整洁"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&title=代码整洁之道一:代码整洁"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&title=代码整洁之道一:代码整洁"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&name=代码整洁之道一:代码整洁&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#代码整洁"><span class="toc-number">1.</span> <span class="toc-text">代码整洁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#要有代码"><span class="toc-number">2.</span> <span class="toc-text">要有代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#糟糕的代码及混乱的代价"><span class="toc-number">3.</span> <span class="toc-text">糟糕的代码及混乱的代价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#作为程序员应有态度"><span class="toc-number">3.1.</span> <span class="toc-text">作为程序员应有态度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码整洁的艺术"><span class="toc-number">4.</span> <span class="toc-text">代码整洁的艺术</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是整洁代码"><span class="toc-number">5.</span> <span class="toc-text">什么是整洁代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        代码整洁之道一:代码整洁
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-08-08T06:23:46.000Z" itemprop="datePublished">2017-08-08</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/代码整洁/">代码整洁</a>, <a class="tag-link" href="/tags/提高/">提高</a>, <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="代码整洁"><a href="#代码整洁" class="headerlink" title="代码整洁"></a>代码整洁</h1><p>这是本有关编写好程序的书，它充斥着代码。我们需要从各个方面来考察这些代码。从顶向下，从里而外。读完之后就知道许多关于代码的事了。</p>
+<p>而且，我们还能说出好代码和糟糕代码之间的差异。我们将知道如何写出好代码，我们也会知道，如何将糟糕代码改成好代码。</p>
+<h1 id="要有代码"><a href="#要有代码" class="headerlink" title="要有代码"></a>要有代码</h1><p>有一种观点， 随着自动化发展，人工智能技术的进步， 代码是可以自动生成，而不再需要人工编写。</p>
+<p>而问题在于，代码呈现了需求的细节，在某些层面上，这些细节无法被忽略和抽象，并且将需求明确到机器可以执行的细节程度，这就是编程所做的工作。</p>
+<p>即使是人类，也造不出满足客户模糊感觉的成功系统。我们永远无法抛弃必要的精确性–所以代码永存。</p>
+<h1 id="糟糕的代码及混乱的代价"><a href="#糟糕的代码及混乱的代价" class="headerlink" title="糟糕的代码及混乱的代价"></a>糟糕的代码及混乱的代价</h1><p>随着混乱的增加，团队生产力也持续下降，趋向于零。当生产力下降的时，管理层只能增加更多的人手到项目中，期望提高生产力，可是新人并不熟悉系统的设计，也搞不清楚什么样的修改更符合设计的意图，什么样的修改违背设计意图。于是制造了更多的混乱。<br><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502168553540.jpg" alt=""></p>
+<h2 id="作为程序员应有态度"><a href="#作为程序员应有态度" class="headerlink" title="作为程序员应有态度"></a>作为程序员应有态度</h2><p>很多时候讲问题归咎于经理， 客户，其实他们期望从我们这里得到必要的信息，然后才能做出程度和保证，即便他们没有开口问，我们也不应该羞于告知自己的想法。对于项目的规划我们脱不了干系，并对失败负有责任，特别是当失败与糟糕的代码有关时！</p>
+<p>另一方面，程序员遵从不了解混乱风险的经理的意愿，也是不专业的做法。</p>
+<p>还需要注意的是，在项目开发中，制造混乱无助于赶上工期，混乱只会拖慢你，叫你错过期限。赶上期限的唯一方法–做得更快的方法–就是始终极可能的保持代码的整洁。</p>
+<h1 id="代码整洁的艺术"><a href="#代码整洁的艺术" class="headerlink" title="代码整洁的艺术"></a>代码整洁的艺术</h1><p>写整洁代码，需要遵循大量的小技巧，贯彻刻苦习得的“整洁感”。这种“代码感”就是关键所在。简而言之，==编写整洁代码的程序员就像是艺术家，他能用一系列变换把一块白板变作由优雅代码构成的系统==。</p>
+<h1 id="什么是整洁代码"><a href="#什么是整洁代码" class="headerlink" title="什么是整洁代码"></a>什么是整洁代码</h1><blockquote>
+<p>我喜欢优雅和搞笑的代码，代码逻辑应当直截了当，叫缺陷难以隐蔽，尽量减少依赖关系，使之便于维护；依据某种分层战略完善错误处理代码；性能调至最优，省的引诱别人做没规矩的优化，搞出一堆混乱来，整洁代码只做好一件事情。<br><em>Bjarne Stroustrup C++语言发明者</em></p>
+</blockquote>
+<p>优雅的定义：外表或举止令人愉悦的优美和雅观；令人愉悦的精致和简单。</p>
+<p>破窗理论：窗户破损的建筑让人觉得似乎无人照管，于是别人也不再关心，放任窗户继续破损。最终自己也参与破坏活动，在外墙上涂鸦，任垃圾堆积，一扇破损的窗户开辟了大厦走向倾颓的道路。</p>
+<p>整洁的代码力求集中，每个函数、每隔类和每个模块都全神贯注于一事，完全不受四周细节的干扰和污染。</p>
+<blockquote>
+<p>整洁的代码简单直接，整洁代码如同优雅的散文，整洁的代码从不隐藏设计者 的意图，充满干净利落的抽象和直截了当的控制语句。<br><em>Grady Booch 《面向对象分析与设计》作者</em></p>
+</blockquote>
+<blockquote>
+<p>简单代码，以其重要顺序：</p>
+<ul>
+<li>能通过所有测试</li>
+<li>没有重复代码</li>
+<li>体现系统中全部的设计理念</li>
+<li>包括尽量少的实体，比如类，方法，函数等<br>在以上诸项中，我最在意代码重复，如果同一段代码反复出现，就表示某种想法未在代码中得到良好表现，我尽力去找出到底那是什么，然后再尽力清晰地表达出来。<br>在我看来，有意义的命名是体现表达力的一种方式；如果对象功能太多，最好是切分为两个或多个对象；如果方法功能太多，我总是使用抽象手段重构之，从而得到一个较为清晰地说明自身功能的方法。以及另外数个说明如何实现这些功能的方法。<br>这么多年下来，我发现所有的程序都由极为相似的元素构成，例如“在集中中查找某元素”，不管是员工记录数据库，还是哈希表，或者是数组。我们都会发现自己想要从集合中查找某一特定条目，一旦出现这种情况，我通常会把实现手段封装到更抽象的方法或者类中<br><em>Ron Jeffries 《C#极限编程探险》作者</em></li>
+</ul>
+</blockquote>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>艺术书并不保证你读过之后能成为艺术家，只能告诉你其他艺术家用过的工具、技术和思维过程。本书同样也不担保你成为好程序员。它不担保能给你“代码感觉”。它能做的，只是展示好程序员的思维过程，还有他们使用的技巧、技术、工具。</p>
+<p>和艺术书一样，本书也充满细节。代码会很多，你会看到好代码，也会看到糟糕的代码。你会看到糟糕的代码如何装换成好代码。你会看到启发、规则和技巧的列表。你会看到一个又一个例子。但这始终取决于你。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#代码整洁"><span class="toc-number">1.</span> <span class="toc-text">代码整洁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#要有代码"><span class="toc-number">2.</span> <span class="toc-text">要有代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#糟糕的代码及混乱的代价"><span class="toc-number">3.</span> <span class="toc-text">糟糕的代码及混乱的代价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#作为程序员应有态度"><span class="toc-number">3.1.</span> <span class="toc-text">作为程序员应有态度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码整洁的艺术"><span class="toc-number">4.</span> <span class="toc-text">代码整洁的艺术</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是整洁代码"><span class="toc-number">5.</span> <span class="toc-text">什么是整洁代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&text=代码整洁之道一:代码整洁"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&title=代码整洁之道一:代码整洁"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&is_video=false&description=代码整洁之道一:代码整洁"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=代码整洁之道一:代码整洁&body=Check out this article: https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&title=代码整洁之道一:代码整洁"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&title=代码整洁之道一:代码整洁"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&title=代码整洁之道一:代码整洁"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&title=代码整洁之道一:代码整洁"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/08/08/cjiwcmoxu0065sc6pe41v75c0/&name=代码整洁之道一:代码整洁&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

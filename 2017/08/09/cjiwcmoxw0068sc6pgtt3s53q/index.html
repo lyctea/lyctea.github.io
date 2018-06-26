@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="如何写好函数？ 短小函数到底要多长每个程序每个函数只有两行、三行或者四行。每个函数都一目了然。每个函数都只说明一件事。而且，每隔函数都依序把你带到下一个函数。这就是函数应该达到的短小程度。  代码块和缩进  if语句、else语句、while语句等，其中的代码块应该只有一行。该行应该是一个函数调用。这样不能保持函数短小，而且，因为块内调用的函数拥有较具有说明性的名称，从而增加了文档上的价值。">
+<meta name="keywords" content="读书笔记,代码整洁,提高">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码整洁之道三:函数">
+<meta property="og:url" content="https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="如何写好函数？ 短小函数到底要多长每个程序每个函数只有两行、三行或者四行。每个函数都一目了然。每个函数都只说明一件事。而且，每隔函数都依序把你带到下一个函数。这就是函数应该达到的短小程度。  代码块和缩进  if语句、else语句、while语句等，其中的代码块应该只有一行。该行应该是一个函数调用。这样不能保持函数短小，而且，因为块内调用的函数拥有较具有说明性的名称，从而增加了文档上的价值。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502272924373.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502275120642.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502288159582.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293054470.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293079369.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293141596.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293153919.jpg">
+<meta property="og:updated_time" content="2017-08-09T15:41:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码整洁之道三:函数">
+<meta name="twitter:description" content="如何写好函数？ 短小函数到底要多长每个程序每个函数只有两行、三行或者四行。每个函数都一目了然。每个函数都只说明一件事。而且，每隔函数都依序把你带到下一个函数。这就是函数应该达到的短小程度。  代码块和缩进  if语句、else语句、while语句等，其中的代码块应该只有一行。该行应该是一个函数调用。这样不能保持函数短小，而且，因为块内调用的函数拥有较具有说明性的名称，从而增加了文档上的价值。">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502272924373.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>代码整洁之道三:函数</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/08/10/cjiwcmot80013sc6ppgvdtaxu/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/08/09/cjiwcmosw000rsc6p4phtl9g2/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&text=代码整洁之道三:函数"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&title=代码整洁之道三:函数"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&is_video=false&description=代码整洁之道三:函数"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=代码整洁之道三:函数&body=Check out this article: https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&title=代码整洁之道三:函数"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&title=代码整洁之道三:函数"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&title=代码整洁之道三:函数"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&title=代码整洁之道三:函数"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&name=代码整洁之道三:函数&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#短小"><span class="toc-number">1.</span> <span class="toc-text">短小</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数到底要多长"><span class="toc-number">1.1.</span> <span class="toc-text">函数到底要多长</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码块和缩进"><span class="toc-number">1.2.</span> <span class="toc-text">代码块和缩进</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#只做一件事"><span class="toc-number">2.</span> <span class="toc-text">只做一件事</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#每个函数一个抽象层级"><span class="toc-number">3.</span> <span class="toc-text">每个函数一个抽象层级</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#自顶向下读代码：-向下原则"><span class="toc-number">3.1.</span> <span class="toc-text">自顶向下读代码： 向下原则</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#switch-语句"><span class="toc-number">4.</span> <span class="toc-text">switch 语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用描述性的名称"><span class="toc-number">5.</span> <span class="toc-text">使用描述性的名称</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数参数"><span class="toc-number">6.</span> <span class="toc-text">函数参数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一元函数的普遍形式"><span class="toc-number">6.1.</span> <span class="toc-text">一元函数的普遍形式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标识参数"><span class="toc-number">6.2.</span> <span class="toc-text">标识参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二元函数"><span class="toc-number">6.3.</span> <span class="toc-text">二元函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三元函数"><span class="toc-number">6.4.</span> <span class="toc-text">三元函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无副作用"><span class="toc-number">7.</span> <span class="toc-text">无副作用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#输出参数"><span class="toc-number">7.1.</span> <span class="toc-text">输出参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分隔指令与询问"><span class="toc-number">8.</span> <span class="toc-text">分隔指令与询问</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何在实践中写好函数"><span class="toc-number">9.</span> <span class="toc-text">如何在实践中写好函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">10.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SetupTeardownIncluder程序"><span class="toc-number">11.</span> <span class="toc-text">SetupTeardownIncluder程序</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        代码整洁之道三:函数
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-08-09T15:40:05.000Z" itemprop="datePublished">2017-08-09</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/代码整洁/">代码整洁</a>, <a class="tag-link" href="/tags/提高/">提高</a>, <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>如何写好函数？</p>
+<h1 id="短小"><a href="#短小" class="headerlink" title="短小"></a>短小</h1><h2 id="函数到底要多长"><a href="#函数到底要多长" class="headerlink" title="函数到底要多长"></a>函数到底要多长</h2><p>每个程序每个函数只有两行、三行或者四行。每个函数都一目了然。每个函数都只说明一件事。而且，每隔函数都依序把你带到下一个函数。这就是函数应该达到的短小程度。</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502272924373.jpg" alt=""></p>
+<h2 id="代码块和缩进"><a href="#代码块和缩进" class="headerlink" title="代码块和缩进"></a>代码块和缩进</h2><p>  if语句、else语句、while语句等，其中的代码块应该只有一行。该行应该是一个函数调用。这样不能保持函数短小，而且，因为块内调用的函数拥有较具有说明性的名称，从而增加了文档上的价值。</p>
+<p>  这也意味着函数不应该大到足以容纳嵌套结构。所以，函数的缩进层级不应该多于一层或两层。当然这也的函数易于阅读和理解。</p>
+<h1 id="只做一件事"><a href="#只做一件事" class="headerlink" title="只做一件事"></a>只做一件事</h1><p>  函数应该做一件事。做好这件事。只做这件事。</p>
+<p>  如果函数只是做了该函数名下统一抽象层上的步骤，则函数还是只做了一件事。所以判断函数是否不止做了一件事，还有一个方法，==就是看是否能再拆除一个函数，该函数不仅只是单纯地重新诠释其实现==。</p>
+<p>  只做一件事的函数无法合理的切分为多个区段。</p>
+<h1 id="每个函数一个抽象层级"><a href="#每个函数一个抽象层级" class="headerlink" title="每个函数一个抽象层级"></a>每个函数一个抽象层级</h1><p>  ==要确保函数只做一件事，函数中的语句都要在同一抽象层级上。==</p>
+<p>  函数中混杂不同的抽象层级，往往让人迷惑。读者可能无法判断某个表达式是基础概念还是细节。</p>
+<h2 id="自顶向下读代码：-向下原则"><a href="#自顶向下读代码：-向下原则" class="headerlink" title="自顶向下读代码： 向下原则"></a>自顶向下读代码： 向下原则</h2><p>  每个函数后面都跟着位于下一抽象层级的函数，这样一来，在查看函数列表时，就能根据抽象层级向下阅读，这就叫向下规则。</p>
+<h1 id="switch-语句"><a href="#switch-语句" class="headerlink" title="switch 语句"></a>switch 语句</h1><p>  switch的几个问题。太长，当类型复杂起来时，会更长。其次，不止做了一件事。第三，违反了单一权责原则，因为有好几个修改它的理由。第四，违反了开放闭合原则，因为每次添加新类型时，就必须修改之。</p>
+<p>  解决方法，对于switch语句，如果只出现一次，用于创建多态对象，而且隐藏在某个继承关系中，在系统其它部分看不到。</p>
+<p>  <img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502275120642.jpg" alt=""></p>
+<h1 id="使用描述性的名称"><a href="#使用描述性的名称" class="headerlink" title="使用描述性的名称"></a>使用描述性的名称</h1><p>  testableHtml改为SetupTeardownIncluderender; isTestable或includeSetupAndTeardownPages，<br>  长的函数名具有描述性，要比描述性的长注释好。可以使用眸中约定，让函数名称中的多个单词更容易阅读，然后使用这些单词给函数取个能说清其功能的名称。</p>
+<p>  模块名用名词，而函数名用动词描述。</p>
+<h1 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h1><p>  最理想的参数数量是零，其次是一个，再次是两个。除非有足够的理由才能用三个以上参数。</p>
+<h2 id="一元函数的普遍形式"><a href="#一元函数的普遍形式" class="headerlink" title="一元函数的普遍形式"></a>一元函数的普遍形式</h2><p>  一元函数即单个参数的函数，大体上分为两种：</p>
+<ul>
+<li>操作该参数，将其输出</li>
+<li>事件，有输入参数而无输出参数，程序将函数看作是一个事件，使用参数修改系统状态</li>
+</ul>
+<h2 id="标识参数"><a href="#标识参数" class="headerlink" title="标识参数"></a>标识参数</h2><p>将布尔值作为参数用于标识是不值得推荐的做法，如果真要这么做， 应当把函数拆分成两个不带标识参数的函数。</p>
+<h2 id="二元函数"><a href="#二元函数" class="headerlink" title="二元函数"></a>二元函数</h2><p>拥有两个参数比拥有一个参数的函数更复杂难懂，可以利用一些机制转换成一元函数。</p>
+<h2 id="三元函数"><a href="#三元函数" class="headerlink" title="三元函数"></a>三元函数</h2><p>三个参数的函数，排序、琢磨、忽略的问题都会成倍体现。</p>
+<h1 id="无副作用"><a href="#无副作用" class="headerlink" title="无副作用"></a>无副作用</h1><p>函数承诺只做一件事，但有时，会对自己类中的变量做出未能预期的改动，或是对全局变量造成了影响。</p>
+<p>这种函数不能以简单的命名让人误解，并且也违法了一个函数只做一件事的规则。</p>
+<h2 id="输出参数"><a href="#输出参数" class="headerlink" title="输出参数"></a>输出参数</h2><p>应该避免使用输出参数，如果函数必须修改某种状态，就修改所属对象的状态吧</p>
+<h1 id="分隔指令与询问"><a href="#分隔指令与询问" class="headerlink" title="分隔指令与询问"></a>分隔指令与询问</h1><p>函数要么做什么事，要么回答什么事，但两者不可兼得。函数应该修改某对象状态或是返回该对象的有关信息。两样都干会导致混乱。</p>
+<p>把指令和询问拆分成两个函数<br><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502288159582.jpg" alt=""></p>
+<h1 id="如何在实践中写好函数"><a href="#如何在实践中写好函数" class="headerlink" title="如何在实践中写好函数"></a>如何在实践中写好函数</h1><p>  一开始都冗长而复杂，有太多的缩进和嵌套循环。有过长的参数列表，名称随意取的，也会有重复代码。</p>
+<p>  然后打磨这些代码，分解函数、修改名称、消除重复。缩短和安置方法，有时候还拆散类。同时保持测试通过。</p>
+<p>  最后，遵循本章的规则，组装好这些函数。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p> ==大师级程序员把系统当做故事来讲，而不是当做程序来写==。</p>
+<h1 id="SetupTeardownIncluder程序"><a href="#SetupTeardownIncluder程序" class="headerlink" title="SetupTeardownIncluder程序"></a>SetupTeardownIncluder程序</h1><p> <img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293054470.jpg" alt=""></p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293079369.jpg" alt=""></p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293141596.jpg" alt=""></p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1502293153919.jpg" alt=""></p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#短小"><span class="toc-number">1.</span> <span class="toc-text">短小</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数到底要多长"><span class="toc-number">1.1.</span> <span class="toc-text">函数到底要多长</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码块和缩进"><span class="toc-number">1.2.</span> <span class="toc-text">代码块和缩进</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#只做一件事"><span class="toc-number">2.</span> <span class="toc-text">只做一件事</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#每个函数一个抽象层级"><span class="toc-number">3.</span> <span class="toc-text">每个函数一个抽象层级</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#自顶向下读代码：-向下原则"><span class="toc-number">3.1.</span> <span class="toc-text">自顶向下读代码： 向下原则</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#switch-语句"><span class="toc-number">4.</span> <span class="toc-text">switch 语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用描述性的名称"><span class="toc-number">5.</span> <span class="toc-text">使用描述性的名称</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数参数"><span class="toc-number">6.</span> <span class="toc-text">函数参数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一元函数的普遍形式"><span class="toc-number">6.1.</span> <span class="toc-text">一元函数的普遍形式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标识参数"><span class="toc-number">6.2.</span> <span class="toc-text">标识参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二元函数"><span class="toc-number">6.3.</span> <span class="toc-text">二元函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三元函数"><span class="toc-number">6.4.</span> <span class="toc-text">三元函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无副作用"><span class="toc-number">7.</span> <span class="toc-text">无副作用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#输出参数"><span class="toc-number">7.1.</span> <span class="toc-text">输出参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分隔指令与询问"><span class="toc-number">8.</span> <span class="toc-text">分隔指令与询问</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何在实践中写好函数"><span class="toc-number">9.</span> <span class="toc-text">如何在实践中写好函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">10.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SetupTeardownIncluder程序"><span class="toc-number">11.</span> <span class="toc-text">SetupTeardownIncluder程序</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&text=代码整洁之道三:函数"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&title=代码整洁之道三:函数"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&is_video=false&description=代码整洁之道三:函数"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=代码整洁之道三:函数&body=Check out this article: https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&title=代码整洁之道三:函数"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&title=代码整洁之道三:函数"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&title=代码整洁之道三:函数"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&title=代码整洁之道三:函数"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/08/09/cjiwcmoxw0068sc6pgtt3s53q/&name=代码整洁之道三:函数&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
