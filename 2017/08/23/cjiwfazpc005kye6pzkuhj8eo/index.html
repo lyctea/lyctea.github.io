@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="类设计指导原则本章为如何设计健壮的类提供一些建议。 真实世界系统建模面向对象（OO）程序设计的主要目标之一就是以类似于人们真正的思维方式对真实世界的系统建模。设计类就是创建这些模型的面向对象方式。 第一次转向OO开发时，许多人倾向于采用一种结构化的方式思考。由此导致主要的错误之一就是创建的类只包含行为而没有数据。实际上，他们创建的只是结构化模型的一组函数或子例程。 明确公共接口设计类时，最重要的问">
+<meta name="keywords" content="读书笔记,面对对象,OO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）">
+<meta property="og:url" content="https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="类设计指导原则本章为如何设计健壮的类提供一些建议。 真实世界系统建模面向对象（OO）程序设计的主要目标之一就是以类似于人们真正的思维方式对真实世界的系统建模。设计类就是创建这些模型的面向对象方式。 第一次转向OO开发时，许多人倾向于采用一种结构化的方式思考。由此导致主要的错误之一就是创建的类只包含行为而没有数据。实际上，他们创建的只是结构化模型的一组函数或子例程。 明确公共接口设计类时，最重要的问">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-22T16:32:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）">
+<meta name="twitter:description" content="类设计指导原则本章为如何设计健壮的类提供一些建议。 真实世界系统建模面向对象（OO）程序设计的主要目标之一就是以类似于人们真正的思维方式对真实世界的系统建模。设计类就是创建这些模型的面向对象方式。 第一次转向OO开发时，许多人倾向于采用一种结构化的方式思考。由此导致主要的错误之一就是创建的类只包含行为而没有数据。实际上，他们创建的只是结构化模型的一组函数或子例程。 明确公共接口设计类时，最重要的问">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/08/23/cjiwfazpe005pye6pu2wpmokg/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/08/22/cjiwfazn1000vye6pvor6sjgl/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&text=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&is_video=false&description=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）&body=Check out this article: https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&name=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类设计指导原则"><span class="toc-number">1.</span> <span class="toc-text">类设计指导原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#真实世界系统建模"><span class="toc-number">2.</span> <span class="toc-text">真实世界系统建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#明确公共接口"><span class="toc-number">3.</span> <span class="toc-text">明确公共接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最小接口"><span class="toc-number">3.1.</span> <span class="toc-text">最小接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐藏实现"><span class="toc-number">3.2.</span> <span class="toc-text">隐藏实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计健壮的构造函数（和析构函数）"><span class="toc-number">4.</span> <span class="toc-text">设计健壮的构造函数（和析构函数）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在类中设计的错误处理"><span class="toc-number">5.</span> <span class="toc-text">在类中设计的错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对类建立文档以及使用注释"><span class="toc-number">5.1.</span> <span class="toc-text">对类建立文档以及使用注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建类要以合作为出发点"><span class="toc-number">5.2.</span> <span class="toc-text">构建类要以合作为出发点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计时充分考虑重用"><span class="toc-number">6.</span> <span class="toc-text">设计时充分考虑重用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计时充分考虑到可扩展性"><span class="toc-number">7.</span> <span class="toc-text">设计时充分考虑到可扩展性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#名字要有描述性"><span class="toc-number">7.1.</span> <span class="toc-text">名字要有描述性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽出不可移植的代码"><span class="toc-number">7.2.</span> <span class="toc-text">抽出不可移植的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提供一种复制和比较对象的方法"><span class="toc-number">7.3.</span> <span class="toc-text">提供一种复制和比较对象的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#让作用域尽可能小"><span class="toc-number">7.4.</span> <span class="toc-text">让作用域尽可能小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类应当对自己负责"><span class="toc-number">7.5.</span> <span class="toc-text">类应当对自己负责</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计时充分考虑可维护性"><span class="toc-number">8.</span> <span class="toc-text">设计时充分考虑可维护性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#采用迭代"><span class="toc-number">8.1.</span> <span class="toc-text">采用迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试接口"><span class="toc-number">8.2.</span> <span class="toc-text">测试接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使对象持久性"><span class="toc-number">9.</span> <span class="toc-text">使对象持久性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对象串行化和封送"><span class="toc-number">9.1.</span> <span class="toc-text">对象串行化和封送</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">10.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-08-22T16:31:50.000Z" itemprop="datePublished">2017-08-23</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/OO/">OO</a>, <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>, <a class="tag-link" href="/tags/面对对象/">面对对象</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="类设计指导原则"><a href="#类设计指导原则" class="headerlink" title="类设计指导原则"></a>类设计指导原则</h2><p>本章为如何设计健壮的类提供一些建议。</p>
+<h2 id="真实世界系统建模"><a href="#真实世界系统建模" class="headerlink" title="真实世界系统建模"></a>真实世界系统建模</h2><p>面向对象（OO）程序设计的主要目标之一就是以类似于人们真正的思维方式对真实世界的系统建模。设计类就是创建这些模型的面向对象方式。</p>
+<p>第一次转向OO开发时，许多人倾向于采用一种结构化的方式思考。由此导致主要的错误之一就是创建的类只包含行为而没有数据。实际上，他们创建的只是结构化模型的一组函数或子例程。</p>
+<h2 id="明确公共接口"><a href="#明确公共接口" class="headerlink" title="明确公共接口"></a>明确公共接口</h2><p>设计类时，最重要的问题可能就是保证公共接口的最小。构建类的根本目的就是提供一些有用而且简洁的功能。</p>
+<h3 id="最小接口"><a href="#最小接口" class="headerlink" title="最小接口"></a>最小接口</h3><p>提供最小接口可以使类尽可能简洁。</p>
+<blockquote>
+<p>扩展接口<br>对于一个特定应用，及时一个类的公共接口还不够，使用对象技术也能很容易的利用继承扩展并调整这个接口。简单来讲，如何设计时考虑到继承，新类可以继承一个原有的类，从而创建一个有扩展接口的新类。</p>
+</blockquote>
+<h3 id="隐藏实现"><a href="#隐藏实现" class="headerlink" title="隐藏实现"></a>隐藏实现</h3><h2 id="设计健壮的构造函数（和析构函数）"><a href="#设计健壮的构造函数（和析构函数）" class="headerlink" title="设计健壮的构造函数（和析构函数）"></a>设计健壮的构造函数（和析构函数）</h2><p>首先，也是最重要的，构造函数应当将对象置于一种安全的初始状态。这包括属性初始化和内存管理等问题。</p>
+<p>析构函数要包含适当的清理功能。</p>
+<blockquote>
+<p>内存泄露<br>如果一个对象未能适当地释放它在对象生存周期中获得的内存，那么只要创建这个对象这个对象的应用还在执行，对于整个操作系统来说这部分内容就丢失了。在极端情况，消耗掉系统所有可用的内存。</p>
+</blockquote>
+<h2 id="在类中设计的错误处理"><a href="#在类中设计的错误处理" class="headerlink" title="在类中设计的错误处理"></a>在类中设计的错误处理</h2><h3 id="对类建立文档以及使用注释"><a href="#对类建立文档以及使用注释" class="headerlink" title="对类建立文档以及使用注释"></a>对类建立文档以及使用注释</h3><blockquote>
+<p>过多的文档<br>要注意，如果注释过多也会有问题，看起来很杂乱，有可能影响建立文档的初衷</p>
+</blockquote>
+<h3 id="构建类要以合作为出发点"><a href="#构建类要以合作为出发点" class="headerlink" title="构建类要以合作为出发点"></a>构建类要以合作为出发点</h3><h2 id="设计时充分考虑重用"><a href="#设计时充分考虑重用" class="headerlink" title="设计时充分考虑重用"></a>设计时充分考虑重用</h2><h2 id="设计时充分考虑到可扩展性"><a href="#设计时充分考虑到可扩展性" class="headerlink" title="设计时充分考虑到可扩展性"></a>设计时充分考虑到可扩展性</h2><p>为一个类增加新特性可能很简单，只需扩展一个现有的类，增加一些新方法，并修改其他方法的行为。不必重写代码。这里使用继承。</p>
+<h3 id="名字要有描述性"><a href="#名字要有描述性" class="headerlink" title="名字要有描述性"></a>名字要有描述性</h3><blockquote>
+<p>好的命名<br>确保坚持一种命名约定很有意义。使名字具有描述性是一个很好的开发实践，这在各种开发泛型中都使用。</p>
+</blockquote>
+<h3 id="抽出不可移植的代码"><a href="#抽出不可移植的代码" class="headerlink" title="抽出不可移植的代码"></a>抽出不可移植的代码</h3><p>将这些不可移植的代码单独放在一个类中，或者至少放在一个方法中。</p>
+<h3 id="提供一种复制和比较对象的方法"><a href="#提供一种复制和比较对象的方法" class="headerlink" title="提供一种复制和比较对象的方法"></a>提供一种复制和比较对象的方法</h3><h3 id="让作用域尽可能小"><a href="#让作用域尽可能小" class="headerlink" title="让作用域尽可能小"></a>让作用域尽可能小</h3><p>这种思想是尽可能将属性和行为置于局部。采用这种方式，维护、测试和扩展类就会容易很多。</p>
+<h3 id="类应当对自己负责"><a href="#类应当对自己负责" class="headerlink" title="类应当对自己负责"></a>类应当对自己负责</h3><p>类的设计原则是：所有对象都应当尽可能自行负责自己的行为。</p>
+<h2 id="设计时充分考虑可维护性"><a href="#设计时充分考虑可维护性" class="headerlink" title="设计时充分考虑可维护性"></a>设计时充分考虑可维护性</h2><p>一个类中的修改不会对其他类产生影响，或者影响尽可能小。</p>
+<blockquote>
+<p>高度耦合的类<br>彼此相当依赖的类被认为是高度耦合（highly coupled）。因此对一个类的修改还要求对另一个类进行修改，这两个类就是高度耦合的。没有这种依赖关系的耦合度很低。</p>
+</blockquote>
+<h3 id="采用迭代"><a href="#采用迭代" class="headerlink" title="采用迭代"></a>采用迭代</h3><p>类设计推荐一种迭代过程，这与提供最小接口的概念恰好一致。</p>
+<h3 id="测试接口"><a href="#测试接口" class="headerlink" title="测试接口"></a>测试接口</h3><h2 id="使对象持久性"><a href="#使对象持久性" class="headerlink" title="使对象持久性"></a>使对象持久性</h2><p>保存对象状态以备以后使用的三种方法：</p>
+<ul>
+<li>平面文件系统：可以通过串行化对象将对象保存在一个平面文件中</li>
+<li>关系数据库：必须使用某种中间件将对象转换成关系模型</li>
+<li>OO数据库：这是保证对象持久化的最合理的做法</li>
+</ul>
+<h3 id="对象串行化和封送"><a href="#对象串行化和封送" class="headerlink" title="对象串行化和封送"></a>对象串行化和封送</h3><p>通过网络发送一个对象，然后在另一端重新合成。这个过程成为串行化（serializing）一个对象。通过网络发送对象的行为称为封送（marshaling）一个对象。</p>
+<p>主要的问题是，串行化和反串行化都必须使用相同的规范。这有些类似于加密算法。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这一章提供了许多指导原则。一类不会独立存在，类必须设计与其他类交互。彼此交互的一组类会作为系统的一部分。最后，再由这些系统为最终用户提供服务。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类设计指导原则"><span class="toc-number">1.</span> <span class="toc-text">类设计指导原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#真实世界系统建模"><span class="toc-number">2.</span> <span class="toc-text">真实世界系统建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#明确公共接口"><span class="toc-number">3.</span> <span class="toc-text">明确公共接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最小接口"><span class="toc-number">3.1.</span> <span class="toc-text">最小接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐藏实现"><span class="toc-number">3.2.</span> <span class="toc-text">隐藏实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计健壮的构造函数（和析构函数）"><span class="toc-number">4.</span> <span class="toc-text">设计健壮的构造函数（和析构函数）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在类中设计的错误处理"><span class="toc-number">5.</span> <span class="toc-text">在类中设计的错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对类建立文档以及使用注释"><span class="toc-number">5.1.</span> <span class="toc-text">对类建立文档以及使用注释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建类要以合作为出发点"><span class="toc-number">5.2.</span> <span class="toc-text">构建类要以合作为出发点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计时充分考虑重用"><span class="toc-number">6.</span> <span class="toc-text">设计时充分考虑重用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计时充分考虑到可扩展性"><span class="toc-number">7.</span> <span class="toc-text">设计时充分考虑到可扩展性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#名字要有描述性"><span class="toc-number">7.1.</span> <span class="toc-text">名字要有描述性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽出不可移植的代码"><span class="toc-number">7.2.</span> <span class="toc-text">抽出不可移植的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提供一种复制和比较对象的方法"><span class="toc-number">7.3.</span> <span class="toc-text">提供一种复制和比较对象的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#让作用域尽可能小"><span class="toc-number">7.4.</span> <span class="toc-text">让作用域尽可能小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类应当对自己负责"><span class="toc-number">7.5.</span> <span class="toc-text">类应当对自己负责</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计时充分考虑可维护性"><span class="toc-number">8.</span> <span class="toc-text">设计时充分考虑可维护性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#采用迭代"><span class="toc-number">8.1.</span> <span class="toc-text">采用迭代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试接口"><span class="toc-number">8.2.</span> <span class="toc-text">测试接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使对象持久性"><span class="toc-number">9.</span> <span class="toc-text">使对象持久性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对象串行化和封送"><span class="toc-number">9.1.</span> <span class="toc-text">对象串行化和封送</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">10.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&text=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&is_video=false&description=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）&body=Check out this article: https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/08/23/cjiwfazpc005kye6pzkuhj8eo/&name=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

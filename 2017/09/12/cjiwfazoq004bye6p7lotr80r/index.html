@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="TCP（Transmission Control Protocool）和IP（Internet Protocol）是互联网的众多通信协议中最为著名的。本章介绍TCP/IP 的发展历程及其协议概况。  TCP/IP 出现的背景及其历史从军用技术的应用谈起ARPANET的诞生TCP/IP 的诞生UNIX系统的普及及与互联网的扩张商用互联网服务的启蒙TCP/IP 的标准化 TCP/IP 协议分层模型 硬">
+<meta name="keywords" content="图解TCP&#x2F;IP,读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP&#x2F;IP 基础知识">
+<meta property="og:url" content="https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="TCP（Transmission Control Protocool）和IP（Internet Protocol）是互联网的众多通信协议中最为著名的。本章介绍TCP/IP 的发展历程及其协议概况。  TCP/IP 出现的背景及其历史从军用技术的应用谈起ARPANET的诞生TCP/IP 的诞生UNIX系统的普及及与互联网的扩张商用互联网服务的启蒙TCP/IP 的标准化 TCP/IP 协议分层模型 硬">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505087594668.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505179561962.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505179766310.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505195103235.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505195718502.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196194505.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196293863.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196280398.jpg">
+<meta property="og:updated_time" content="2017-09-12T06:08:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TCP&#x2F;IP 基础知识">
+<meta name="twitter:description" content="TCP（Transmission Control Protocool）和IP（Internet Protocol）是互联网的众多通信协议中最为著名的。本章介绍TCP/IP 的发展历程及其协议概况。  TCP/IP 出现的背景及其历史从军用技术的应用谈起ARPANET的诞生TCP/IP 的诞生UNIX系统的普及及与互联网的扩张商用互联网服务的启蒙TCP/IP 的标准化 TCP/IP 协议分层模型 硬">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505087594668.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>TCP/IP 基础知识</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/09/15/cjiwfazq8007cye6pj9s37nml/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/09/11/cjiwfazqk0088ye6pppuolr4r/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&text=TCP/IP 基础知识"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&title=TCP/IP 基础知识"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&is_video=false&description=TCP/IP 基础知识"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TCP/IP 基础知识&body=Check out this article: https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&title=TCP/IP 基础知识"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&title=TCP/IP 基础知识"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&title=TCP/IP 基础知识"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&title=TCP/IP 基础知识"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&name=TCP/IP 基础知识&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-出现的背景及其历史"><span class="toc-number">1.</span> <span class="toc-text">TCP/IP 出现的背景及其历史</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#从军用技术的应用谈起"><span class="toc-number">1.1.</span> <span class="toc-text">从军用技术的应用谈起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ARPANET的诞生"><span class="toc-number">1.2.</span> <span class="toc-text">ARPANET的诞生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP-的诞生"><span class="toc-number">1.3.</span> <span class="toc-text">TCP/IP 的诞生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UNIX系统的普及及与互联网的扩张"><span class="toc-number">1.4.</span> <span class="toc-text">UNIX系统的普及及与互联网的扩张</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#商用互联网服务的启蒙"><span class="toc-number">1.5.</span> <span class="toc-text">商用互联网服务的启蒙</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-的标准化"><span class="toc-number">2.</span> <span class="toc-text">TCP/IP 的标准化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-协议分层模型"><span class="toc-number">3.</span> <span class="toc-text">TCP/IP 协议分层模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#硬件（物理层）"><span class="toc-number">3.1.</span> <span class="toc-text">硬件（物理层）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络接口层（数据链路层）"><span class="toc-number">3.2.</span> <span class="toc-text">网络接口层（数据链路层）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#互联网层（网络层）"><span class="toc-number">3.3.</span> <span class="toc-text">互联网层（网络层）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IP"><span class="toc-number">3.3.1.</span> <span class="toc-text">IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICMP"><span class="toc-number">3.3.2.</span> <span class="toc-text">ICMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARP"><span class="toc-number">3.3.3.</span> <span class="toc-text">ARP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#传输层"><span class="toc-number">3.4.</span> <span class="toc-text">传输层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP"><span class="toc-number">3.4.1.</span> <span class="toc-text">TCP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP"><span class="toc-number">3.4.2.</span> <span class="toc-text">UDP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用层（会话层以上的分层）"><span class="toc-number">3.5.</span> <span class="toc-text">应用层（会话层以上的分层）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-分层模型与通信示例"><span class="toc-number">4.</span> <span class="toc-text">TCP/IP 分层模型与通信示例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据包首部"><span class="toc-number">4.1.</span> <span class="toc-text">数据包首部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发送数据包"><span class="toc-number">4.2.</span> <span class="toc-text">发送数据包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#经过数据链路的包"><span class="toc-number">4.3.</span> <span class="toc-text">经过数据链路的包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据包的接收处理"><span class="toc-number">4.4.</span> <span class="toc-text">数据包的接收处理</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        TCP/IP 基础知识
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-09-12T06:08:14.000Z" itemprop="datePublished">2017-09-12</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/图解TCP-IP/">图解TCP/IP</a>, <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>TCP（Transmission Control Protocool）和IP（Internet Protocol）是互联网的众多通信协议中最为著名的。本章介绍TCP/IP 的发展历程及其协议概况。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505087594668.jpg" alt=""></p>
+<h1 id="TCP-IP-出现的背景及其历史"><a href="#TCP-IP-出现的背景及其历史" class="headerlink" title="TCP/IP 出现的背景及其历史"></a>TCP/IP 出现的背景及其历史</h1><h2 id="从军用技术的应用谈起"><a href="#从军用技术的应用谈起" class="headerlink" title="从军用技术的应用谈起"></a>从军用技术的应用谈起</h2><h2 id="ARPANET的诞生"><a href="#ARPANET的诞生" class="headerlink" title="ARPANET的诞生"></a>ARPANET的诞生</h2><h2 id="TCP-IP-的诞生"><a href="#TCP-IP-的诞生" class="headerlink" title="TCP/IP 的诞生"></a>TCP/IP 的诞生</h2><h2 id="UNIX系统的普及及与互联网的扩张"><a href="#UNIX系统的普及及与互联网的扩张" class="headerlink" title="UNIX系统的普及及与互联网的扩张"></a>UNIX系统的普及及与互联网的扩张</h2><h2 id="商用互联网服务的启蒙"><a href="#商用互联网服务的启蒙" class="headerlink" title="商用互联网服务的启蒙"></a>商用互联网服务的启蒙</h2><h1 id="TCP-IP-的标准化"><a href="#TCP-IP-的标准化" class="headerlink" title="TCP/IP 的标准化"></a>TCP/IP 的标准化</h1><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505179561962.jpg" alt=""></p>
+<h1 id="TCP-IP-协议分层模型"><a href="#TCP-IP-协议分层模型" class="headerlink" title="TCP/IP 协议分层模型"></a>TCP/IP 协议分层模型</h1><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505179766310.jpg" alt=""></p>
+<h2 id="硬件（物理层）"><a href="#硬件（物理层）" class="headerlink" title="硬件（物理层）"></a>硬件（物理层）</h2><p>TCP/IP的最底层复杂数据传输的硬件。这种硬件就相当于以太网或电话线等物理层设备。</p>
+<h2 id="网络接口层（数据链路层）"><a href="#网络接口层（数据链路层）" class="headerlink" title="网络接口层（数据链路层）"></a>网络接口层（数据链路层）</h2><p>网络接口层利用以太网中的数据链路层进行通信，因此属于接口层。驱动程序是在操作系统与硬件之间起桥梁作用的软件。</p>
+<h2 id="互联网层（网络层）"><a href="#互联网层（网络层）" class="headerlink" title="互联网层（网络层）"></a>互联网层（网络层）</h2><p>互联网层使用IP协议，它相同于OSI模型中的第三层网络层。IP协议基于IP地址转发分包数据。</p>
+<h3 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h3><p>IP是跨越网络产送数据包，是整个互联网都能收到数据的协议。IP协议使数据能够发送到地球另一端，这期间它使用IP地址作为主机的标识。</p>
+<h3 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h3><p>IP数据包在发送途中一旦发生异常导致无法到底对端目标地址时，需要给发送端一个发生异常的通知。ICMP就是为了一功能而定制的，它有时也被用作诊断网络的健康状况。</p>
+<h3 id="ARP"><a href="#ARP" class="headerlink" title="ARP"></a>ARP</h3><p>从分组数据包IP地址中解析出物理地址（MAC地址）的一种协议。</p>
+<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505195103235.jpg" alt=""><br>传输层最主要的功能就是能够让应用程序之间实现通信。在计算机内部，通过应用程序端口号来区分哪些程序正在进行通信。</p>
+<h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><p>TCP是一种面向有链接的传输层协议，它既可以保证两端通信主机之间的通信可达，还可以正确处理传输过程中丢包、传输顺序乱掉的异常情况。此外TCP还能够有效利用带宽，环节网络拥堵。</p>
+<p>缺点是，为了建立连接和断开连接，需要至少7次的手包和发包，导致网络流量的浪费。这并不适用于视频会议等场合使用。</p>
+<h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><p>它是一种面向无连接的传输层协议。UDP不关注端是否真的收到了传送过去的数据。</p>
+<p>UDP常用于分组数据较少或多播、广播通信以及使用通信等多媒体领域。</p>
+<h2 id="应用层（会话层以上的分层）"><a href="#应用层（会话层以上的分层）" class="headerlink" title="应用层（会话层以上的分层）"></a>应用层（会话层以上的分层）</h2><p>-电子邮件（E-Mail）<br>    SMTP协议</p>
+<ul>
+<li>文件传输（FTP）<br>  在FTP中进行文件传输时会建立两个TCP链接，分别是发送传输请求时所要用到的控制链接与实际传输数据时所要用到的数据连接。</li>
+<li>远程登录（TELNET与SSH）</li>
+<li>网络管理（SNMP）</li>
+</ul>
+<h1 id="TCP-IP-分层模型与通信示例"><a href="#TCP-IP-分层模型与通信示例" class="headerlink" title="TCP/IP 分层模型与通信示例"></a>TCP/IP 分层模型与通信示例</h1><h2 id="数据包首部"><a href="#数据包首部" class="headerlink" title="数据包首部"></a>数据包首部</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505195718502.jpg" alt=""></p>
+<p>每个分层中，都会对所发送的数据附件一个首部，在这个首部中包含了该层必要的信息，如发送目标地址以及协议相关的信息。</p>
+<p>在数据包的首部，明确表明了协议应该如何读取数据，反过来，看到首部，也就能够了解协议必要的信息以及所要处理的内容。</p>
+<h2 id="发送数据包"><a href="#发送数据包" class="headerlink" title="发送数据包"></a>发送数据包</h2><p>以一封邮件的发送为例子：</p>
+<ul>
+<li>应用程序处理：鼠标点击送就开始了TCP/IP的通信了</li>
+<li>TCP模块的处理：TCP根据应用的指示，负责建立连接、发送数据以及断开连接。TCP提供将应用层发来的数据顺利发送至对端的可靠传输</li>
+<li>IP模块的处理：IP将TCP传过来的TCP首部和TCP数据合起来当做自己的数据，并在TCP首部的前端加上自己的IP首部</li>
+<li>网络接口（以太网驱动的处理）：给TP传过来的IP包附加上以太网首部并进行发送处理</li>
+</ul>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196194505.jpg" alt=""></p>
+<h2 id="经过数据链路的包"><a href="#经过数据链路的包" class="headerlink" title="经过数据链路的包"></a>经过数据链路的包</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196293863.jpg" alt=""></p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196280398.jpg" alt=""></p>
+<h2 id="数据包的接收处理"><a href="#数据包的接收处理" class="headerlink" title="数据包的接收处理"></a>数据包的接收处理</h2><p>包的接受流程是发送路程逆序过程。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-出现的背景及其历史"><span class="toc-number">1.</span> <span class="toc-text">TCP/IP 出现的背景及其历史</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#从军用技术的应用谈起"><span class="toc-number">1.1.</span> <span class="toc-text">从军用技术的应用谈起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ARPANET的诞生"><span class="toc-number">1.2.</span> <span class="toc-text">ARPANET的诞生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP-的诞生"><span class="toc-number">1.3.</span> <span class="toc-text">TCP/IP 的诞生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UNIX系统的普及及与互联网的扩张"><span class="toc-number">1.4.</span> <span class="toc-text">UNIX系统的普及及与互联网的扩张</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#商用互联网服务的启蒙"><span class="toc-number">1.5.</span> <span class="toc-text">商用互联网服务的启蒙</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-的标准化"><span class="toc-number">2.</span> <span class="toc-text">TCP/IP 的标准化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-协议分层模型"><span class="toc-number">3.</span> <span class="toc-text">TCP/IP 协议分层模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#硬件（物理层）"><span class="toc-number">3.1.</span> <span class="toc-text">硬件（物理层）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络接口层（数据链路层）"><span class="toc-number">3.2.</span> <span class="toc-text">网络接口层（数据链路层）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#互联网层（网络层）"><span class="toc-number">3.3.</span> <span class="toc-text">互联网层（网络层）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IP"><span class="toc-number">3.3.1.</span> <span class="toc-text">IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICMP"><span class="toc-number">3.3.2.</span> <span class="toc-text">ICMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARP"><span class="toc-number">3.3.3.</span> <span class="toc-text">ARP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#传输层"><span class="toc-number">3.4.</span> <span class="toc-text">传输层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP"><span class="toc-number">3.4.1.</span> <span class="toc-text">TCP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP"><span class="toc-number">3.4.2.</span> <span class="toc-text">UDP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用层（会话层以上的分层）"><span class="toc-number">3.5.</span> <span class="toc-text">应用层（会话层以上的分层）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-分层模型与通信示例"><span class="toc-number">4.</span> <span class="toc-text">TCP/IP 分层模型与通信示例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据包首部"><span class="toc-number">4.1.</span> <span class="toc-text">数据包首部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发送数据包"><span class="toc-number">4.2.</span> <span class="toc-text">发送数据包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#经过数据链路的包"><span class="toc-number">4.3.</span> <span class="toc-text">经过数据链路的包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据包的接收处理"><span class="toc-number">4.4.</span> <span class="toc-text">数据包的接收处理</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&text=TCP/IP 基础知识"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&title=TCP/IP 基础知识"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&is_video=false&description=TCP/IP 基础知识"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TCP/IP 基础知识&body=Check out this article: https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&title=TCP/IP 基础知识"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&title=TCP/IP 基础知识"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&title=TCP/IP 基础知识"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&title=TCP/IP 基础知识"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/09/12/cjiwfazoq004bye6p7lotr80r/&name=TCP/IP 基础知识&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

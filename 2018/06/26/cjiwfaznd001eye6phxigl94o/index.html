@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="参考：Are you Writing Accessible HTML?HTML5 语义化 w3cplus HTML5 语义化最佳实践最佳实践  使用 a 标签代替点击行为的 span 标签 使用 button 标签作为按钮 在表单元素中使用 label 所有的 img 标签都应有有 alt 属性描述图标本身 修饰作用的 img 如 loading.gif 应有用空的 alt=&amp;quot;&amp;quot">
+<meta name="keywords" content="语义化,图解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML5 语义化最佳实践">
+<meta property="og:url" content="https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="参考：Are you Writing Accessible HTML?HTML5 语义化 w3cplus HTML5 语义化最佳实践最佳实践  使用 a 标签代替点击行为的 span 标签 使用 button 标签作为按钮 在表单元素中使用 label 所有的 img 标签都应有有 alt 属性描述图标本身 修饰作用的 img 如 loading.gif 应有用空的 alt=&amp;quot;&amp;quot">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530005965493.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007424355.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007443683.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007485291.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007508909.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007609322.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007618112.jpg">
+<meta property="og:updated_time" content="2018-06-26T10:08:28.891Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML5 语义化最佳实践">
+<meta name="twitter:description" content="参考：Are you Writing Accessible HTML?HTML5 语义化 w3cplus HTML5 语义化最佳实践最佳实践  使用 a 标签代替点击行为的 span 标签 使用 button 标签作为按钮 在表单元素中使用 label 所有的 img 标签都应有有 alt 属性描述图标本身 修饰作用的 img 如 loading.gif 应有用空的 alt=&amp;quot;&amp;quot">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530005965493.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>HTML5 语义化最佳实践</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/06/11/cjiwfazok003xye6puyjbjr2f/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&text=HTML5 语义化最佳实践"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&title=HTML5 语义化最佳实践"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&is_video=false&description=HTML5 语义化最佳实践"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=HTML5 语义化最佳实践&body=Check out this article: https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&title=HTML5 语义化最佳实践"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&title=HTML5 语义化最佳实践"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&title=HTML5 语义化最佳实践"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&title=HTML5 语义化最佳实践"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&name=HTML5 语义化最佳实践&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML5-语义化最佳实践"><span class="toc-number">1.</span> <span class="toc-text">HTML5 语义化最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#最佳实践"><span class="toc-number">1.1.</span> <span class="toc-text">最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新元素"><span class="toc-number">1.2.</span> <span class="toc-text">新元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mark"><span class="toc-number">1.2.1.</span> <span class="toc-text">mark</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#time"><span class="toc-number">1.2.2.</span> <span class="toc-text">time</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#meter"><span class="toc-number">1.2.3.</span> <span class="toc-text">meter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#progress"><span class="toc-number">1.2.4.</span> <span class="toc-text">progress</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#figure-与-figcaption"><span class="toc-number">1.2.5.</span> <span class="toc-text">figure 与 figcaption</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        HTML5 语义化最佳实践
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-06-26T10:08:24.092Z" itemprop="datePublished">2018-06-26</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/图解/">图解</a>, <a class="tag-link" href="/tags/语义化/">语义化</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>参考：<br><a href="https://medium.com/beginners-guide-to-mobile-web-development/writing-accessible-html-5c8e99bf9944" target="_blank" rel="noopener">Are you Writing Accessible HTML?</a><br><a href="https://www.w3cplus.com/html5/semantics-tags.html" target="_blank" rel="noopener">HTML5 语义化 w3cplus</a></p>
+<h1 id="HTML5-语义化最佳实践"><a href="#HTML5-语义化最佳实践" class="headerlink" title="HTML5 语义化最佳实践"></a>HTML5 语义化最佳实践</h1><h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530005965493.jpg" alt=""></p>
+<ul>
+<li>使用 <code>a</code> 标签代替点击行为的 <code>span</code> 标签</li>
+<li>使用 <code>button</code> 标签作为按钮</li>
+<li>在表单元素中使用 <code>label</code></li>
+<li>所有的 <code>img</code> 标签都应有有 <code>alt</code> 属性描述图标本身</li>
+<li>修饰作用的 <code>img</code> 如 <code>loading.gif</code> 应有用空的 <code>alt=&quot;&quot;</code> 属性</li>
+<li>焦点管理 - 使用 <code>tabindex</code> 控制 <code>tab</code> 键切换焦点的顺序 - 将 <code>tabindex</code> 置为 <code>-1</code> 可以避免 <code>tab</code> 键获取焦点</li>
+</ul>
+<h2 id="新元素"><a href="#新元素" class="headerlink" title="新元素"></a>新元素</h2><h3 id="mark"><a href="#mark" class="headerlink" title="mark"></a>mark</h3><p><code>mark</code> 元素对其内容赋予任何重要性，仅仅是突出显示。用于替代 <code>em</code> 或 <code>strong</code></p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007424355.jpg" alt=""></p>
+<h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3><p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007443683.jpg" alt=""></p>
+<h3 id="meter"><a href="#meter" class="headerlink" title="meter"></a>meter</h3><p>元素可用于测量的标记，提供测量的最大值和最小值进行测量值的缩放。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007485291.jpg" alt=""></p>
+<h3 id="progress"><a href="#progress" class="headerlink" title="progress"></a>progress</h3><p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007508909.jpg" alt=""></p>
+<h3 id="figure-与-figcaption"><a href="#figure-与-figcaption" class="headerlink" title="figure 与 figcaption"></a>figure 与 figcaption</h3><p><code>figure</code> 元素标记文档中的一个图像<br><code>figcaption</code> 元素被用来为 <code>figure</code> 元素定义标题。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007609322.jpg" alt=""></p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1530007618112.jpg" alt=""></p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML5-语义化最佳实践"><span class="toc-number">1.</span> <span class="toc-text">HTML5 语义化最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#最佳实践"><span class="toc-number">1.1.</span> <span class="toc-text">最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新元素"><span class="toc-number">1.2.</span> <span class="toc-text">新元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mark"><span class="toc-number">1.2.1.</span> <span class="toc-text">mark</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#time"><span class="toc-number">1.2.2.</span> <span class="toc-text">time</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#meter"><span class="toc-number">1.2.3.</span> <span class="toc-text">meter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#progress"><span class="toc-number">1.2.4.</span> <span class="toc-text">progress</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#figure-与-figcaption"><span class="toc-number">1.2.5.</span> <span class="toc-text">figure 与 figcaption</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&text=HTML5 语义化最佳实践"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&title=HTML5 语义化最佳实践"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&is_video=false&description=HTML5 语义化最佳实践"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=HTML5 语义化最佳实践&body=Check out this article: https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&title=HTML5 语义化最佳实践"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&title=HTML5 语义化最佳实践"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&title=HTML5 语义化最佳实践"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&title=HTML5 语义化最佳实践"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2018/06/26/cjiwfaznd001eye6phxigl94o/&name=HTML5 语义化最佳实践&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

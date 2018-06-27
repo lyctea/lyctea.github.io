@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="异步编程对于JavaScript是极为重要的。JavaScript只有一个线程，如果异步编程，得卡死，基本没法用。  ES6诞生之前，异步编程的方法大概有以下几种：  回调函数 事件监听 发布/订阅 Promise对象   ES7中的async函数更是给出异步编程的终极解决方案  基本概念异步所谓“异步”，简单说就是一个任务分成两段执行，先执行第一段，然后转而执行其他任务，等做完准备工作再回过头">
+<meta name="keywords" content="异步,ES6,《ES 6标准入门》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异步操作和async函数">
+<meta property="og:url" content="https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="异步编程对于JavaScript是极为重要的。JavaScript只有一个线程，如果异步编程，得卡死，基本没法用。  ES6诞生之前，异步编程的方法大概有以下几种：  回调函数 事件监听 发布/订阅 Promise对象   ES7中的async函数更是给出异步编程的终极解决方案  基本概念异步所谓“异步”，简单说就是一个任务分成两段执行，先执行第一段，然后转而执行其他任务，等做完准备工作再回过头">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-03T16:03:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="异步操作和async函数">
+<meta name="twitter:description" content="异步编程对于JavaScript是极为重要的。JavaScript只有一个线程，如果异步编程，得卡死，基本没法用。  ES6诞生之前，异步编程的方法大概有以下几种：  回调函数 事件监听 发布/订阅 Promise对象   ES7中的async函数更是给出异步编程的终极解决方案  基本概念异步所谓“异步”，简单说就是一个任务分成两段执行，先执行第一段，然后转而执行其他任务，等做完准备工作再回过头">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>异步操作和async函数</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/09/06/cjiwfazpy006sye6pytm5zbod/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/09/02/cjiwfazqg007xye6puv528ojy/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&text=异步操作和async函数"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&title=异步操作和async函数"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&is_video=false&description=异步操作和async函数"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=异步操作和async函数&body=Check out this article: https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&title=异步操作和async函数"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&title=异步操作和async函数"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&title=异步操作和async函数"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&title=异步操作和async函数"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&name=异步操作和async函数&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本概念"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#异步"><span class="toc-number">1.1.</span> <span class="toc-text">异步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回调"><span class="toc-number">1.2.</span> <span class="toc-text">回调</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Promise"><span class="toc-number">2.</span> <span class="toc-text">Promise</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Thunk函数"><span class="toc-number">3.</span> <span class="toc-text">Thunk函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#传名调用和传值调用"><span class="toc-number">3.1.</span> <span class="toc-text">传名调用和传值调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Thunk函数的含义"><span class="toc-number">3.2.</span> <span class="toc-text">Thunk函数的含义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#async函数"><span class="toc-number">4.</span> <span class="toc-text">async函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#async函数实现"><span class="toc-number">4.1.</span> <span class="toc-text">async函数实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#asycn的用法"><span class="toc-number">4.2.</span> <span class="toc-text">asycn的用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意点"><span class="toc-number">4.3.</span> <span class="toc-text">注意点</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        异步操作和async函数
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-09-03T15:59:51.000Z" itemprop="datePublished">2017-09-03</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/ES6/">ES6</a>, <a class="tag-link" href="/tags/《ES-6标准入门》/">《ES 6标准入门》</a>, <a class="tag-link" href="/tags/异步/">异步</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>异步编程对于JavaScript是极为重要的。JavaScript只有一个线程，如果异步编程，得卡死，基本没法用。</p>
+</blockquote>
+<p>ES6诞生之前，异步编程的方法大概有以下几种：</p>
+<ul>
+<li>回调函数</li>
+<li>事件监听</li>
+<li>发布/订阅</li>
+<li>Promise对象</li>
+</ul>
+<blockquote>
+<p>ES7中的async函数更是给出异步编程的终极解决方案</p>
+</blockquote>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h2><p>所谓“异步”，简单说就是一个任务分成两段执行，先执行第一段，然后转而执行其他任务，等做完准备工作再回过头执行第二段。</p>
+<p>相应的，连续执行的就叫同步。</p>
+<h2 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h2><p>所谓“回调”就是把任务的第二段单独写在一个函数中，等到重新执行该任务时直接调用这个函数。</p>
+<p>读取文件进行处理是这样写的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'/etc/passwd'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (err) <span class="keyword">throw</span> err</span><br><span class="line">	<span class="built_in">console</span>.log(data)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>为什么nodejs约定回调函数的第一个参数必须是错误对象err（如果没有错误，该参数就是null）？原因是执行拆分成两段，在这两段之间抛出的错误程序无法捕获，只能当做参数传入第二段</p>
+</blockquote>
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><p>当回调函数过多，多重嵌套。代码不是纵向发展而是横向发展，很快代码就会乱成一团。Promise就是为了解决这个问题诞生的。</p>
+<p>Promise不是新的语法功能，而是一种新的写法，允许将回调函数的横向加载改成纵向加载。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> readFile = <span class="built_in">require</span>(<span class="string">'fs-readfile-promise'</span>)</span><br><span class="line"></span><br><span class="line">readFile(fileA)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(data.toString())</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> readFile(fileB)</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(data.toString())</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Promise最大的问题是代码冗余，原来的任务被Promise包装了一下，不管什么操作，一眼看去都是一堆then，原来的语义并不清楚。</p>
+<h1 id="Thunk函数"><a href="#Thunk函数" class="headerlink" title="Thunk函数"></a>Thunk函数</h1><h2 id="传名调用和传值调用"><a href="#传名调用和传值调用" class="headerlink" title="传名调用和传值调用"></a>传名调用和传值调用</h2><ul>
+<li>传值调用：在进入函数之前，就计算参数的值</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">f(x + <span class="number">5</span>) </span><br><span class="line"><span class="comment">//传值调用等同于</span></span><br><span class="line">f(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>传名调用：传值调用比较简单，但是对参数求值时并未使用这个参数，有可能造成性能损失。而传名调用就是只在执行时求值</li>
+</ul>
+<h2 id="Thunk函数的含义"><a href="#Thunk函数的含义" class="headerlink" title="Thunk函数的含义"></a>Thunk函数的含义</h2><p>编译器“传名调用”实现往往是先将参数放到一个临时函数中，在将这个临时函数传入函数体。这个临时函数就叫Thunk</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">m</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> m * <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f (x + <span class="number">5</span>)</span><br><span class="line"><span class="comment">//等同于  参数放到一个临时函数</span></span><br><span class="line"><span class="keyword">var</span> thunk = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x + <span class="number">5</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">thunk</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> thunk() * <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="async函数"><a href="#async函数" class="headerlink" title="async函数"></a>async函数</h1><p>async函数返回值是Promise，你可用then方法指定下一步操作。</p>
+<h2 id="async函数实现"><a href="#async函数实现" class="headerlink" title="async函数实现"></a>async函数实现</h2><p>async函数的实现就是将Generator函数和自动执行器包装在一个函数中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">args</span>) </span>&#123;</span><br><span class="line">	<span class="comment">//参数运算</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">args</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> spawn(<span class="function"><span class="keyword">function</span> *)</span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="asycn的用法"><a href="#asycn的用法" class="headerlink" title="asycn的用法"></a>asycn的用法</h2><p>同Generator函数一样，async函数返回一个Promise对象，可以使用then方法添加回调函数。当函数执行时，一旦遇到await就会先返回，等到触发的异步操作完成，再接着执行函数体内后台的语句</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getStokPriceByName</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> symbo = <span class="keyword">await</span> getStockSymbol(name)</span><br><span class="line">	<span class="keyword">var</span> stockPrice = <span class="keyword">await</span> getStockPrice(symbol)</span><br><span class="line">	<span class="keyword">return</span> stockPrice</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getStockPriceByName(<span class="string">'goog'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(result)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上面的代码是一个获取股票报价的函数，函数前面的async关键字表明该函数内部有异步操作。调用该函数时，会立即返回一个Promise对象。</p>
+<p>下面这个例子指定了多少毫秒后输出一个值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params">(resolve</span>) =&gt; </span>&#123;</span><br><span class="line">	setTimeout(resolve, ms)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncPrint</span>(<span class="params">value, ms</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">await</span> timeout(ms)</span><br><span class="line">	<span class="built_in">console</span>.log(valuse)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">asyncPrint(<span class="string">"Hello World!"</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//50毫秒后输出, "Hello World!"</span></span><br></pre></td></tr></table></figure>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>await命令后面的Promise对象，运行结果可能是Rejected，所以最好把await命令放在try…catch代码块中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">await</span>(</span><br><span class="line">			<span class="keyword">await</span> somethingThatReturnAPromise()</span><br><span class="line">		)<span class="keyword">catch</span> (err) &#123;</span><br><span class="line">			<span class="built_in">console</span>.log(err)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本概念"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#异步"><span class="toc-number">1.1.</span> <span class="toc-text">异步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回调"><span class="toc-number">1.2.</span> <span class="toc-text">回调</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Promise"><span class="toc-number">2.</span> <span class="toc-text">Promise</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Thunk函数"><span class="toc-number">3.</span> <span class="toc-text">Thunk函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#传名调用和传值调用"><span class="toc-number">3.1.</span> <span class="toc-text">传名调用和传值调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Thunk函数的含义"><span class="toc-number">3.2.</span> <span class="toc-text">Thunk函数的含义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#async函数"><span class="toc-number">4.</span> <span class="toc-text">async函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#async函数实现"><span class="toc-number">4.1.</span> <span class="toc-text">async函数实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#asycn的用法"><span class="toc-number">4.2.</span> <span class="toc-text">asycn的用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意点"><span class="toc-number">4.3.</span> <span class="toc-text">注意点</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&text=异步操作和async函数"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&title=异步操作和async函数"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&is_video=false&description=异步操作和async函数"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=异步操作和async函数&body=Check out this article: https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&title=异步操作和async函数"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&title=异步操作和async函数"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&title=异步操作和async函数"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&title=异步操作和async函数"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/09/03/cjiwfazq50076ye6p20a34w0h/&name=异步操作和async函数&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

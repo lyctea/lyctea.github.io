@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="如何以对象方式思考OO设计所期望的最终结果是一个健壮、功能完备的对象模型，换句话说，也就是一个完备的系统。 将会讨论以下几个问题：  了解接口和实现之间的区别 以更抽象的方式思考 尽可能为用户提供最小接口  了解接口和实现之间的区别在设计类时，必须了解用户需要知道什么以及用户不需要知道什么。 适当的构造类分为两个部分设计—-接口和实现 接口在最理想的情况下，应该只为最终用户提供他们所需要的服务。">
+<meta name="keywords" content="读书笔记,面对对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）">
+<meta property="og:url" content="https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="如何以对象方式思考OO设计所期望的最终结果是一个健壮、功能完备的对象模型，换句话说，也就是一个完备的系统。 将会讨论以下几个问题：  了解接口和实现之间的区别 以更抽象的方式思考 尽可能为用户提供最小接口  了解接口和实现之间的区别在设计类时，必须了解用户需要知道什么以及用户不需要知道什么。 适当的构造类分为两个部分设计—-接口和实现 接口在最理想的情况下，应该只为最终用户提供他们所需要的服务。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503271056492.jpg">
+<meta property="og:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503271314894.jpg">
+<meta property="og:updated_time" content="2017-08-20T23:32:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）">
+<meta name="twitter:description" content="如何以对象方式思考OO设计所期望的最终结果是一个健壮、功能完备的对象模型，换句话说，也就是一个完备的系统。 将会讨论以下几个问题：  了解接口和实现之间的区别 以更抽象的方式思考 尽可能为用户提供最小接口  了解接口和实现之间的区别在设计类时，必须了解用户需要知道什么以及用户不需要知道什么。 适当的构造类分为两个部分设计—-接口和实现 接口在最理想的情况下，应该只为最终用户提供他们所需要的服务。">
+<meta name="twitter:image" content="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503271056492.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/08/21/cjiwfazpb005hye6pyd8ceepc/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/08/20/cjiwfazpw006nye6pb9w4gujv/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&text=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&is_video=false&description=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）&body=Check out this article: https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&name=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何以对象方式思考"><span class="toc-number">1.</span> <span class="toc-text">如何以对象方式思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#了解接口和实现之间的区别"><span class="toc-number">2.</span> <span class="toc-text">了解接口和实现之间的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#接口"><span class="toc-number">2.1.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-number">2.2.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口-实现示例"><span class="toc-number">2.3.</span> <span class="toc-text">接口/实现示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计接口是使用抽象思维"><span class="toc-number">3.</span> <span class="toc-text">设计接口是使用抽象思维</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#尽可能为用户提供最小接口"><span class="toc-number">3.1.</span> <span class="toc-text">尽可能为用户提供最小接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-08-20T23:32:21.000Z" itemprop="datePublished">2017-08-21</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>, <a class="tag-link" href="/tags/面对对象/">面对对象</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="如何以对象方式思考"><a href="#如何以对象方式思考" class="headerlink" title="如何以对象方式思考"></a>如何以对象方式思考</h2><p>OO设计所期望的最终结果是一个健壮、功能完备的对象模型，换句话说，也就是一个完备的系统。</p>
+<p>将会讨论以下几个问题：</p>
+<ul>
+<li>了解接口和实现之间的区别</li>
+<li>以更抽象的方式思考</li>
+<li>尽可能为用户提供最小接口</li>
+</ul>
+<h2 id="了解接口和实现之间的区别"><a href="#了解接口和实现之间的区别" class="headerlink" title="了解接口和实现之间的区别"></a>了解接口和实现之间的区别</h2><p>在设计类时，必须了解用户需要知道什么以及用户不需要知道什么。</p>
+<p>适当的构造类分为两个部分设计—-接口和实现</p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>在最理想的情况下，应该只为最终用户提供他们所需要的服务。</p>
+<blockquote>
+<p>明确用户<br>在设计一个类时，也许最重要的就是明确类的受众或用户。</p>
+</blockquote>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>实现的细节对用户是隐藏的。需要记住的一个实现的目标：改变实现不需要同时改变用户的代码。</p>
+<h3 id="接口-实现示例"><a href="#接口-实现示例" class="headerlink" title="接口/实现示例"></a>接口/实现示例</h3><p>根据需求提供相应的接口，例如一个简单的数据库读取器：</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503271056492.jpg" alt=""></p>
+<p>DataBaseReader类的一个UML类图</p>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1503271314894.jpg" alt=""></p>
+<blockquote>
+<p>公共接口<br>如果一个方法是公共的，应用程序员就可以访问它，因此，它可以认为是类接口的一部分。</p>
+</blockquote>
+<blockquote>
+<p>对象持久性<br>是指保存对象的状态，从而可以在以后恢复并使用。没有持久存储的对象一旦出了作用域实际上就已经死亡了。例如可以把对象的状态保存在数据库中。</p>
+</blockquote>
+<h2 id="设计接口是使用抽象思维"><a href="#设计接口是使用抽象思维" class="headerlink" title="设计接口是使用抽象思维"></a>设计接口是使用抽象思维</h2><p>抽象接口通常是实现一个优秀可重用OO设计所采用的做法。</p>
+<h3 id="尽可能为用户提供最小接口"><a href="#尽可能为用户提供最小接口" class="headerlink" title="尽可能为用户提供最小接口"></a>尽可能为用户提供最小接口</h3><p>要做到这一点，需要遵守以下规则：</p>
+<ul>
+<li>只为用户提供他们确实需要的东西</li>
+<li>最好是当用户确实需要时才增加接口，而不要为用户提供他们不需要的接口</li>
+<li>公共接口定义用户能够访问的信息</li>
+<li>用用户角度设计类，而不要从信息系统的角度进行设计</li>
+<li>确保设计类时将与真正使用这个类的人（不只是开发人员）反复考虑需求和设计</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>关于OO思维过程的问题并不是固定的，采用OO方式做事与其说是一门科学不如说是一门艺术。你可以用自己的方式来描述OO思维。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何以对象方式思考"><span class="toc-number">1.</span> <span class="toc-text">如何以对象方式思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#了解接口和实现之间的区别"><span class="toc-number">2.</span> <span class="toc-text">了解接口和实现之间的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#接口"><span class="toc-number">2.1.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-number">2.2.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口-实现示例"><span class="toc-number">2.3.</span> <span class="toc-text">接口/实现示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计接口是使用抽象思维"><span class="toc-number">3.</span> <span class="toc-text">设计接口是使用抽象思维</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#尽可能为用户提供最小接口"><span class="toc-number">3.1.</span> <span class="toc-text">尽可能为用户提供最小接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&text=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&is_video=false&description=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）&body=Check out this article: https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/08/21/cjiwfazp9005bye6pqsl247zd/&name=《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="JavaScript 数组去重方法一 双循环，外循环遍历整个数组，内层循环进行比较，如果有相同的值则跳过，不同则 push 进结果数组 123456789101112131415161718Array.prototype.distinct = function() &amp;#123;    var arr = this,        result = [],        len = arr.leng">
+<meta name="keywords" content="JavaScript,排序算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 数组去重">
+<meta property="og:url" content="https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="JavaScript 数组去重方法一 双循环，外循环遍历整个数组，内层循环进行比较，如果有相同的值则跳过，不同则 push 进结果数组 123456789101112131415161718Array.prototype.distinct = function() &amp;#123;    var arr = this,        result = [],        len = arr.leng">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-06T11:50:23.573Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 数组去重">
+<meta name="twitter:description" content="JavaScript 数组去重方法一 双循环，外循环遍历整个数组，内层循环进行比较，如果有相同的值则跳过，不同则 push 进结果数组 123456789101112131415161718Array.prototype.distinct = function() &amp;#123;    var arr = this,        result = [],        len = arr.leng">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>JavaScript 数组去重</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/05/14/cjiwfazp70053ye6p5fx9joyw/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/05/06/cjiwfazoc003kye6pl3av2dvj/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&text=JavaScript 数组去重"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&title=JavaScript 数组去重"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&is_video=false&description=JavaScript 数组去重"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 数组去重&body=Check out this article: https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&title=JavaScript 数组去重"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&title=JavaScript 数组去重"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&title=JavaScript 数组去重"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&title=JavaScript 数组去重"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&name=JavaScript 数组去重&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-数组去重"><span class="toc-number">1.</span> <span class="toc-text">JavaScript 数组去重</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JavaScript 数组去重
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-05-06T11:50:18.040Z" itemprop="datePublished">2018-05-06</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/排序算法/">排序算法</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="JavaScript-数组去重"><a href="#JavaScript-数组去重" class="headerlink" title="JavaScript 数组去重"></a>JavaScript 数组去重</h1><p><strong>方法一</strong></p>
+<p>双循环，外循环遍历整个数组，内层循环进行比较，如果有相同的值则跳过，不同则 push 进结果数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.distinct = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">this</span>,</span><br><span class="line">        result = [],</span><br><span class="line">        len = arr.length</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i] == arr[j]) &#123;</span><br><span class="line">                j = ++i <span class="comment">// 如果后面的元素等于当前外层循环遍历的元素，则跳过该元素</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        result.push(arr[i]) <span class="comment">//i有两种请求，一直是正常遍历的，一种是经过跳跃的值</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> arra = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="built_in">console</span>.log(arra.distinct()) <span class="comment">//返回[3,4,2,1]</span></span><br></pre></td></tr></table></figure>
+<p><strong>方法二</strong><br>利用 <code>splice</code> 方法直接在原数组上将相同的元素删除</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.distinct = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">this</span>,</span><br><span class="line">        len = arr.length</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i] == arr[j]) &#123;</span><br><span class="line">                arr.splice(j, <span class="number">1</span>)</span><br><span class="line">                len--</span><br><span class="line">                j--</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> arra = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="built_in">console</span>.log(arra.distinct()) <span class="comment">//返回[3,4,2,1]</span></span><br></pre></td></tr></table></figure>
+<p><strong>方法三</strong><br>利用对象的属性不能相同的特点进行去重，但存在 数值型 1 和字符型 1 是同一个的问题</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.distinct = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">this</span>,</span><br><span class="line">        i,</span><br><span class="line">        obj = &#123;&#125;,</span><br><span class="line">        result = [],</span><br><span class="line">        len = arr.length</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!obj[arr[i]]) &#123;</span><br><span class="line">            <span class="comment">//如果能查找到，证明数组元素重复了,则不会放到结果数组中</span></span><br><span class="line">            obj[arr[i]] = <span class="number">1</span></span><br><span class="line">            result.push(arr[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">56</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="built_in">console</span>.log(a.distinct()) <span class="comment">//1,2,3,4,5,6,56</span></span><br></pre></td></tr></table></figure>
+<p><strong>方法四</strong><br>利用<code>ES6 Set</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">let</span> resultarr = [...new <span class="built_in">Set</span>(arr)]</span><br><span class="line"><span class="built_in">console</span>.log(resultarr) <span class="comment">//[1,2,3]</span></span><br></pre></td></tr></table></figure>
+<p><strong>方法五</strong><br>利用 <code>indexOf</code> 和 <code>forEach</code> 方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.distinct = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">this</span>,</span><br><span class="line">        result = [],</span><br><span class="line">        len = arr.length</span><br><span class="line"></span><br><span class="line">    arr.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">v, i, arr</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//这里利用map，filter方法也可以实现</span></span><br><span class="line">        <span class="keyword">var</span> bool = arr.indexOf(v, i + <span class="number">1</span>) <span class="comment">//从传入参数的下一个索引值开始寻找是否存在重复</span></span><br><span class="line">        <span class="keyword">if</span> (bool === <span class="number">-1</span>) &#123;</span><br><span class="line">            result.push(v)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">23</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">23</span>, <span class="number">1</span>, <span class="number">23</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">var</span> b = a.distinct()</span><br><span class="line"><span class="built_in">console</span>.log(b.toString()) <span class="comment">//1,23,2,3</span></span><br></pre></td></tr></table></figure>
+<p><strong>方法六</strong><br>利用数组递归去重，先排序，然后从最后开始比较，遇到相同则删除。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.distinct = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="keyword">this</span>,</span><br><span class="line">        len = arr.length</span><br><span class="line">    arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//对数组进行排序才能方便比较</span></span><br><span class="line">        <span class="keyword">return</span> a - b</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">loop</span>(<span class="params">index</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[index] === arr[index - <span class="number">1</span>]) &#123;</span><br><span class="line">                arr.splice(index, <span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            loop(index - <span class="number">1</span>) <span class="comment">//递归loop函数进行去重</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    loop(len - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">56</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">56</span>, <span class="number">45</span>, <span class="number">56</span>]</span><br><span class="line"><span class="keyword">var</span> b = a.distinct()</span><br><span class="line"><span class="built_in">console</span>.log(b.toString()) <span class="comment">//1,2,3,4,5,6,45,56</span></span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-数组去重"><span class="toc-number">1.</span> <span class="toc-text">JavaScript 数组去重</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&text=JavaScript 数组去重"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&title=JavaScript 数组去重"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&is_video=false&description=JavaScript 数组去重"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 数组去重&body=Check out this article: https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&title=JavaScript 数组去重"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&title=JavaScript 数组去重"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&title=JavaScript 数组去重"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&title=JavaScript 数组去重"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2018/05/06/cjiwfaznj001oye6p6ieqjysd/&name=JavaScript 数组去重&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

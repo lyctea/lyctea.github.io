@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="JavaScript事件处理上客户端 JavaScript 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，Web 浏览器就会产生事件。 如果 JavaScript 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。 术语了解相关的术语，有助于继续深入学习事件和事件处理。  事件类型（event type）">
+<meta name="keywords" content="JavaScript,事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript事件处理上">
+<meta property="og:url" content="https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="JavaScript事件处理上客户端 JavaScript 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，Web 浏览器就会产生事件。 如果 JavaScript 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。 术语了解相关的术语，有助于继续深入学习事件和事件处理。  事件类型（event type）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-26T14:33:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript事件处理上">
+<meta name="twitter:description" content="JavaScript事件处理上客户端 JavaScript 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，Web 浏览器就会产生事件。 如果 JavaScript 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。 术语了解相关的术语，有助于继续深入学习事件和事件处理。  事件类型（event type）">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>JavaScript事件处理上</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/12/26/cjiwfazo3002wye6pbqdqdqhf/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/12/16/cjiwfazne001gye6pxyxewl2q/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&text=JavaScript事件处理上"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&title=JavaScript事件处理上"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&is_video=false&description=JavaScript事件处理上"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript事件处理上&body=Check out this article: https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&title=JavaScript事件处理上"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&title=JavaScript事件处理上"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&title=JavaScript事件处理上"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&title=JavaScript事件处理上"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&name=JavaScript事件处理上&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript事件处理上"><span class="toc-number">1.</span> <span class="toc-text">JavaScript事件处理上</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#术语"><span class="toc-number">1.1.</span> <span class="toc-text">术语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件类型"><span class="toc-number">1.2.</span> <span class="toc-text">事件类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传统事件类型"><span class="toc-number">1.2.1.</span> <span class="toc-text">传统事件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM-事件"><span class="toc-number">1.2.2.</span> <span class="toc-text">DOM 事件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1级DOM："><span class="toc-number">1.2.2.1.</span> <span class="toc-text">1级DOM：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2级DOM"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">2级DOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3级DOM"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">3级DOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#“0级”DOM"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">“0级”DOM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML5-事件"><span class="toc-number">1.2.3.</span> <span class="toc-text">HTML5 事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#触摸屏和移动设备事件"><span class="toc-number">1.2.4.</span> <span class="toc-text">触摸屏和移动设备事件</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JavaScript事件处理上
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-12-24T14:54:12.000Z" itemprop="datePublished">2017-12-24</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/事件/">事件</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="JavaScript事件处理上"><a href="#JavaScript事件处理上" class="headerlink" title="JavaScript事件处理上"></a>JavaScript事件处理上</h1><p>客户端 <code>JavaScript</code> 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，<code>Web</code> 浏览器就会产生事件。</p>
+<p>如果 <code>JavaScript</code> 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。</p>
+<h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p>了解相关的术语，有助于继续深入学习事件和事件处理。</p>
+<ul>
+<li><p>事件类型<code>（event type）</code></p>
+<ul>
+<li>是一个用来说明发生什么事件的字符串，有时也被事件名字<code>（event name）</code></li>
+</ul>
+</li>
+<li><p>事件目标<code>（event targe）</code></p>
+<ul>
+<li>是发生的事件或与之相关的对象，当将事件是，必须同时指明类型和目标。</li>
+<li><code>Window、Document、Element</code>是最常见的事件目标</li>
+</ul>
+</li>
+<li><p>事件处理程序<code>（event handler）</code></p>
+<ul>
+<li>事件处理程序<code>（event handler）</code>或事件监听程序<code>（event listener）</code> 是处理响应事件的函数。</li>
+<li>当对象在注册的事件程序被调用时，我们有时会说浏览器“触发”和“派发”了事件</li>
+</ul>
+</li>
+<li><p>事件对象<code>（event object）</code></p>
+<ul>
+<li>事件对象<code>（event object）</code>是与特定事件并且包含有关该事件详细信息的对象。</li>
+<li>事件对象作为参数传递给事件处理程序</li>
+<li>所有的事件对象都有用来指定事件类型的 <code>type</code> 属性和指定事件目标的 <code>targe</code> 属性。</li>
+</ul>
+</li>
+<li><p>事件传播<code>（event propagation）</code></p>
+<ul>
+<li>事件传播<code>（event propagation）</code>是浏览器决定哪个对象触发其事件处理程序的过程。</li>
+<li>当文档元素发生某个类型的事件时，他们会在文档树上向上传播或“冒泡”<code>（bubble）</code></li>
+<li>事件处理程序能通过调用方法或设置事件对象属性来阻止事件传播，这样能停止冒泡并将无法再容器元素上触发的处理程序。</li>
+</ul>
+</li>
+<li><p>事件捕获<code>（event capturing）</code></p>
+<ul>
+<li>是事件传播的另一种形式，在容器元素上注册的特定处理程序有机会在事件传播到真实目标之前拦截（或“捕获”）它</li>
+<li><code>IE8</code> 版本之前不支持事件捕获</li>
+</ul>
+</li>
+<li><p>事件的默认操作</p>
+<ul>
+<li>例如在超链接的点击事件，浏览器的默认操作是按照超链接重新加载页面</li>
+<li>事件处理程序可以通过返回一个适当的值、调用事件对象的某个方法设置事件对象的某个属性来阻止默认操作的发生。</li>
+</ul>
+</li>
+</ul>
+<h2 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h2><p>随着 <code>Web</code> 平台发展到包含更强大的API，事件集合随之越来越大，这些新事件主要有三个来源：</p>
+<ul>
+<li>3级 <code>DOM</code> 事件规范</li>
+<li><code>HTML5</code> 规范衍生规范的大量新API定义的事件</li>
+<li>基于触摸和支持 <code>JavaScript</code> 的移动设备的出现</li>
+</ul>
+<p>事件大致可以分成几类，了解这些分类有助于理解和组织事件列表：</p>
+<ul>
+<li><p>依赖于设备的输入事件</p>
+<ul>
+<li>鼠标和键盘， <code>mousedown、mousemove、mouseup、keydown、keyup</code></li>
+</ul>
+</li>
+<li><p>独立与设备的输入事件</p>
+<ul>
+<li>这些事件没有直接相关的特定输入设备，如 <code>click</code> 事件，可以通过鼠标点击发生也可以通过键盘或者其他设备触发</li>
+</ul>
+</li>
+<li><p>用户界面事件</p>
+<ul>
+<li>用户界面事件，通常出现定义 <code>Web</code> 程序用户界面的 <code>HTML</code> 表单元素上。</li>
+<li>包括文本输入域获取键盘焦点的 <code>focus</code> 事件、用户改变表单元格的 <code>change</code> 事件、表单提交 <code>submit</code> 事件</li>
+</ul>
+</li>
+<li><p>状态变化事件</p>
+<ul>
+<li>不是由于用户活动而是由于网络或浏览器活动出发、用来标识某种声明周期或相关状态的变化</li>
+<li>例如，<code>window</code> 的 <code>onload</code> 事件，<code>loadstart、progress、loadend</code>等 <code>I/O</code> 过程的异步通知</li>
+</ul>
+</li>
+<li><p>特定的 <code>API</code> 事件</p>
+<ul>
+<li><code>HTML5</code> 及相关规范定义的大量 <code>Web API</code> 都有自己的事件类型</li>
+<li>如拖放 <code>API</code>，<code>dragstart、dragenter，&lt;video /&gt;</code> 等</li>
+</ul>
+</li>
+</ul>
+<h3 id="传统事件类型"><a href="#传统事件类型" class="headerlink" title="传统事件类型"></a>传统事件类型</h3><ul>
+<li><p>表单事件</p>
+<ul>
+<li>表单事件是所有事件类型中最稳定且得到最良好支持的那部分</li>
+<li>表单提交和重置，会触发 <code>submit</code> 和 <code>reset</code> 事件</li>
+<li>类按钮元素（如单选、复选）交互时，<code>click</code> 事件</li>
+<li>用户通过文字、选择选项或选择复选框改变表单元素状态时，通常会触发 <code>change</code> 事件</li>
+<li>对于文本输入域，只有当焦点移动到其他元素才会触发 <code>change</code> 事件</li>
+<li>改变表单元素焦点时会触发，<code>focus</code> 和 <code>blur</code> 事件</li>
+<li>通过事件处理程序能取消 <code>submit</code> 和 <code>reset</code> 事件的默认操作</li>
+</ul>
+</li>
+<li><p><code>Window</code> 事件 </p>
+<ul>
+<li><code>Window</code> 事件是指事件的发生于浏览器窗口本身而非窗口中显示的任何特定文档内容相关</li>
+<li><code>load</code> 事件，是当文档和其他所有的外部资源（比如图片）完全加载并显示给用户时才会触发</li>
+<li><code>unload事件</code>，是当用户离开文档转向其他文档是触发它</li>
+<li><code>resize</code>、<code>scroll事件</code>，当用户调整浏览器窗口大小、滚动时会被触发，但其事件对象时非常普通的 <code>Event</code> 对象，没有指定调整大小或发生滚动的详细信息属性</li>
+</ul>
+</li>
+<li><p>鼠标事件</p>
+<ul>
+<li>当用户在文档上移动单击鼠标都会产生鼠标事件，这些事件在鼠标指针所对应的最深嵌套元素上触发， 但他们会冒泡直到文档的最顶层</li>
+<li>事件对象中包含了，鼠标的位置和按键状态</li>
+<li>对于 <code>click</code> 事件， <code>detail</code> 属性制定了其是单击、双击、还是三击</li>
+<li><code>mousemove</code> 事件，当用户移动鼠标时触发，在该事件中，一定不能触发计算密集型任务</li>
+<li><code>mouseover</code> 事件，当用户鼠标指针悬停到新元素上时触发，<code>mouseout</code>，不在悬停在某个对象上时触发</li>
+<li><code>mousewhell</code> 事件，当用户鼠标滚轮时触发</li>
+</ul>
+</li>
+<li><p>键盘事件</p>
+<ul>
+<li>用户每次按下或释放键盘上的按键时都会产生事件</li>
+<li>传递给事件处理程序的对象中有 <code>keyCode</code> 字段 ， 它指定按下或释放的键是哪一个</li>
+<li><code>keydown</code>、<code>keyup</code>、<code>keypress</code> 事件，键盘按下、释放，<code>keypress</code> 按住时可以产生连续多个相同的字符</li>
+</ul>
+</li>
+</ul>
+<h3 id="DOM-事件"><a href="#DOM-事件" class="headerlink" title="DOM 事件"></a><code>DOM</code> 事件</h3><p><em>DOM的分级：根据W3C DOM规范，DOM是HTML与XML的应用编程接口（API），DOM将整个页面映射为一个由层次节点组成的文件。有1级、2级、3级共3个级别。</em></p>
+<h4 id="1级DOM："><a href="#1级DOM：" class="headerlink" title="1级DOM："></a>1级DOM：</h4><p><em>1级DOM在1998年10月份成为W3C的提议，由DOM核心与DOM HTML两个模块组成。DOM核心能映射以XML为基础的文档结构，允许获取和操作文档的任意部分。DOM HTML通过添加HTML专用的对象与函数对DOM核心进行了扩展。</em></p>
+<h4 id="2级DOM"><a href="#2级DOM" class="headerlink" title="2级DOM"></a>2级DOM</h4><p><em>鉴于1级DOM仅以映射文档结构为目标，DOM 2级面向更为宽广。通过对原有DOM的扩展，2级DOM通过对象接口增加了对鼠标和用户界面事件（DHTML长期支持鼠标与用户界面事件）、范围、遍历（重复执行DOM文档）和层叠样式表（CSS）的支持。同时也对DOM 1的核心进行了扩展，从而可支持XML命名空间。</em></p>
+<p>*2级DOM引进了几个新DOM模块来处理新的接口类型：</p>
+<ul>
+<li>DOM视图：描述跟踪一个文档的各种视图（使用CSS样式设计文档前后）的接口；</li>
+<li>DOM事件：描述事件接口；</li>
+<li>DOM样式：描述处理基于CSS样式的接口；</li>
+<li>DOM遍历与范围：描述遍历和操作文档树的接口；*</li>
+</ul>
+<h4 id="3级DOM"><a href="#3级DOM" class="headerlink" title="3级DOM"></a>3级DOM</h4><p><em>3级DOM通过引入统一方式载入和保存文档和文档验证方法对DOM进行进一步扩展，DOM3包含一个名为“DOM载入与保存”的新模块，DOM核心扩展后可支持XML1.0的所有内容，包括XML Infoset、 XPath、和XML Base。</em></p>
+<h4 id="“0级”DOM"><a href="#“0级”DOM" class="headerlink" title="“0级”DOM"></a>“0级”DOM</h4><p><em>当阅读与DOM有关的材料时，可能会遇到参考0级DOM的情况。需要注意的是并没有标准被称为0级DOM，它仅是DOM历史上一个参考点（0级DOM被认为是在Internet Explorer 4.0 与Netscape Navigator4.0支持的最早的DHTML）。</em></p>
+<h3 id="HTML5-事件"><a href="#HTML5-事件" class="headerlink" title="HTML5 事件"></a><code>HTML5</code> 事件</h3><p><code>HTML5</code> 及相关标准定义了大量新的 <code>Web</code> 应用 <code>API</code>，其中许多 <code>API</code> 都定义了事件。</p>
+<ul>
+<li>音频和视频 <code>&lt;audio&gt;</code> 和 <code>&lt;video&gt;</code></li>
+<li>拖放事件</li>
+<li>表单的新特性，表单验证机制，包括验证失败时在表单元素上会触发 <code>invalid</code> 事件</li>
+<li>离线 Web 应用的支持</li>
+<li>许多新的API应用使用 <code>message</code> 事件进行异步通信。跨文档通信 <code>API</code> 允许一台服务器上的文档能通过和另一台服务器上的文档脚本交换消息。</li>
+<li><code>XMLHttpRequest</code> 规范定义了一系列事件来追踪异步的 <code>I/O</code> 进度，<code>loadstart、progress、loadend</code></li>
+</ul>
+<h3 id="触摸屏和移动设备事件"><a href="#触摸屏和移动设备事件" class="headerlink" title="触摸屏和移动设备事件"></a>触摸屏和移动设备事件</h3><p>可以在 <code>Apple</code> <a href="http://developer.apple.com" target="_blank" rel="noopener">开发者中心</a> 查询更多信息</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript事件处理上"><span class="toc-number">1.</span> <span class="toc-text">JavaScript事件处理上</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#术语"><span class="toc-number">1.1.</span> <span class="toc-text">术语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件类型"><span class="toc-number">1.2.</span> <span class="toc-text">事件类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传统事件类型"><span class="toc-number">1.2.1.</span> <span class="toc-text">传统事件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM-事件"><span class="toc-number">1.2.2.</span> <span class="toc-text">DOM 事件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1级DOM："><span class="toc-number">1.2.2.1.</span> <span class="toc-text">1级DOM：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2级DOM"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">2级DOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3级DOM"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">3级DOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#“0级”DOM"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">“0级”DOM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML5-事件"><span class="toc-number">1.2.3.</span> <span class="toc-text">HTML5 事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#触摸屏和移动设备事件"><span class="toc-number">1.2.4.</span> <span class="toc-text">触摸屏和移动设备事件</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&text=JavaScript事件处理上"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&title=JavaScript事件处理上"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&is_video=false&description=JavaScript事件处理上"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript事件处理上&body=Check out this article: https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&title=JavaScript事件处理上"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&title=JavaScript事件处理上"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&title=JavaScript事件处理上"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&title=JavaScript事件处理上"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/12/24/cjiwfaznt0029ye6psxfe5avs/&name=JavaScript事件处理上&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

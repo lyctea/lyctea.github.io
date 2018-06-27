@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="魔术师的幕后藏着一个人，我们将要揭开他的伪装  启示 JavaScript中闭包无处不在，你只需要能够识别并拥抱它。  闭包是基于词法作用域书写代码时所产生的自然结果，你甚至不需要为了利用它们而有意 识地创建闭包。闭包的创建和使用在你的代码中随处可见。你缺少的是根据你自己的意愿 来识别、拥抱和影响闭包的思维环境。 实质问题一个闭包的直接定义，当函数可以记住并访问所在的词法作用域时，就产生了闭包，">
+<meta name="keywords" content="作用域,闭包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="作用域闭包">
+<meta property="og:url" content="https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="魔术师的幕后藏着一个人，我们将要揭开他的伪装  启示 JavaScript中闭包无处不在，你只需要能够识别并拥抱它。  闭包是基于词法作用域书写代码时所产生的自然结果，你甚至不需要为了利用它们而有意 识地创建闭包。闭包的创建和使用在你的代码中随处可见。你缺少的是根据你自己的意愿 来识别、拥抱和影响闭包的思维环境。 实质问题一个闭包的直接定义，当函数可以记住并访问所在的词法作用域时，就产生了闭包，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1507082188486.jpg">
+<meta property="og:updated_time" content="2017-10-06T15:29:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="作用域闭包">
+<meta name="twitter:description" content="魔术师的幕后藏着一个人，我们将要揭开他的伪装  启示 JavaScript中闭包无处不在，你只需要能够识别并拥抱它。  闭包是基于词法作用域书写代码时所产生的自然结果，你甚至不需要为了利用它们而有意 识地创建闭包。闭包的创建和使用在你的代码中随处可见。你缺少的是根据你自己的意愿 来识别、拥抱和影响闭包的思维环境。 实质问题一个闭包的直接定义，当函数可以记住并访问所在的词法作用域时，就产生了闭包，">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1507082188486.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>作用域闭包</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/10/06/cjiwfazpv006kye6p77jt0h1y/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/10/03/cjiwfazqb007jye6pjw7jc0xn/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&text=作用域闭包"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&title=作用域闭包"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&is_video=false&description=作用域闭包"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=作用域闭包&body=Check out this article: https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&title=作用域闭包"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&title=作用域闭包"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&title=作用域闭包"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&title=作用域闭包"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&name=作用域闭包&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#启示"><span class="toc-number">1.</span> <span class="toc-text">启示</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实质问题"><span class="toc-number">2.</span> <span class="toc-text">实质问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包小结"><span class="toc-number">2.1.</span> <span class="toc-text">闭包小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环和闭包"><span class="toc-number">3.</span> <span class="toc-text">循环和闭包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重返块作用域"><span class="toc-number">4.</span> <span class="toc-text">重返块作用域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模块"><span class="toc-number">5.</span> <span class="toc-text">模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#改写为单例模式"><span class="toc-number">5.1.</span> <span class="toc-text">改写为单例模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#现代的模块机制"><span class="toc-number">5.2.</span> <span class="toc-text">现代的模块机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#未来的模块机制"><span class="toc-number">5.3.</span> <span class="toc-text">未来的模块机制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        作用域闭包
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-10-04T03:16:16.000Z" itemprop="datePublished">2017-10-04</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/作用域/">作用域</a>, <a class="tag-link" href="/tags/闭包/">闭包</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>魔术师的幕后藏着一个人，我们将要揭开他的伪装</p>
+</blockquote>
+<h1 id="启示"><a href="#启示" class="headerlink" title="启示"></a>启示</h1><blockquote>
+<p>JavaScript中闭包无处不在，你只需要能够识别并拥抱它。</p>
+</blockquote>
+<p>闭包是基于词法作用域书写代码时所产生的自然结果，你甚至不需要为了利用它们而有意 识地创建闭包。闭包的创建和使用在你的代码中随处可见。你缺少的是根据你自己的意愿 来识别、拥抱和影响闭包的思维环境。</p>
+<h1 id="实质问题"><a href="#实质问题" class="headerlink" title="实质问题"></a>实质问题</h1><p>一个闭包的直接定义，当函数可以记住并访问所在的词法作用域时，就产生了闭包，即使喊你数是在当前词法作用域之外执行</p>
+<p>以下的例子是闭包吗？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">bar</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(a)  <span class="comment">//2</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	bar()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+<p>这是闭包吗?<br>技术上来讲，也许是。但根据前面的定义，确切地说并不是。我认为最准确地用来解释 bar() 对 a 的引用的方法是词法作用域的查找规则，而这些规则只是闭包的一部分。(但却 是非常重要的一部分!)</p>
+<p>以下代码清晰展示了闭包:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a  = <span class="number">2</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">bar</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(a)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> bar</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar baz = foo()</span><br><span class="line"></span><br><span class="line">baz()  <span class="comment">//2  ,这就是闭包的效果</span></span><br></pre></td></tr></table></figure>
+<p>函数bar（）的词法作用域能够访问foo（）的内部作用域，然后将bar（）函数本身当做一个值类型来进行传递。<br>在这个例子中，bar（）函数在自己定义的词法作用域以外的地方执行。</p>
+<p>闭包阻止了foo（）的内存回收</p>
+<p>引申出来的一点，无论使用何种方式对函数类型的值进行传递，当函数在别处被调用时都可以观察到闭包</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    barz(bar)</span><br><span class="line">&#125;)()	<span class="comment">//立即执行</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">barz</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    fn()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>把内部函数 baz 传递给 bar，当调用这个内部函数时(现在叫作 fn)，它涵盖的 foo() 内部<br>作用域的闭包就可以观察到了，因为它能够访问 a。</p>
+<p>也可以是间接的传递函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">baz</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(a)</span><br><span class="line">	&#125;</span><br><span class="line">	fn = baz		<span class="comment">//将baz分配给全局变量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	fn()		<span class="comment">//闭包</span></span><br><span class="line">&#125;</span><br><span class="line">foo()</span><br><span class="line">bar()</span><br></pre></td></tr></table></figure>
+<p>无论通过何种手段将内部函数传递到所在词法作用域以外，它都会持有对原始定义作用域的引用，无论在何处执行 这个函数都会使用闭包。</p>
+<h2 id="闭包小结"><a href="#闭包小结" class="headerlink" title="闭包小结"></a>闭包小结</h2><p>本质上无论何时何地，如果将函数(访问它们各自的词法作用域)当作第一 级的值类型并到处传递，你就会看到闭包在这些函数中的应用。在定时器、事件监听器、 Ajax请求、跨窗口通信、Web Workers或者任何其他的异步(或者同步)任务中，只要使 用了回调函数，实际上就是在使用闭包!</p>
+<h1 id="循环和闭包"><a href="#循环和闭包" class="headerlink" title="循环和闭包"></a>循环和闭包</h1><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1507082188486.jpg" alt=""></p>
+<p>输出结果为5次6，延迟函数会在循环结束时才执行，即使将延时时间设为0，也会等待循环结束之后才执行。它们都被封闭在一个共享的全局作用域中，因此实际上只有一个 i。</p>
+<p>  以下方法是否可行？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=<span class="number">5</span>; i++) &#123; (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log( i );</span><br><span class="line">             &#125;, i*<span class="number">1000</span> );</span><br><span class="line">         &#125;)();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>依然是输出5次6，这个IIFE只是一个什么都没有的空作用域，需要包含一点实质性内容才能为我们所用，它需要有自己的变量</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=<span class="number">5</span>; i++) &#123; (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> j = i;</span><br><span class="line">setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                 <span class="built_in">console</span>.log( j );</span><br><span class="line">             &#125;, j*<span class="number">1000</span> );</span><br><span class="line">&#125;)(); &#125;</span><br></pre></td></tr></table></figure>
+<p>ok，再对IIFE进行改进！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=<span class="number">5</span>; i++) &#123; (<span class="function"><span class="keyword">function</span>(<span class="params">j</span>) </span>&#123;</span><br><span class="line">setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log( j );</span><br><span class="line">             &#125;, j*<span class="number">1000</span> );</span><br><span class="line">         &#125;)( i );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在迭代内使用 IIFE 会为每个迭代都生成一个新的作用域，使得延迟函数的回调可以将新的<br>作用域封闭在每个迭代内部，每个迭代中都会含有一个具有正确值的变量供我们访问。</p>
+<h1 id="重返块作用域"><a href="#重返块作用域" class="headerlink" title="重返块作用域"></a>重返块作用域</h1><p>仔细思考我们对前面的解决方案，我们使用IIFe在每次迭代时都创建了一个新的作用域，换句话说，每次迭代我们都需要一个块作用域。 使用let，可以用来劫持块作用域，并且在这个块作用域中声明一个变量。</p>
+<blockquote>
+<p>本质上这是将一个块转换成一个可以被关闭的作用域</p>
+</blockquote>
+<p>因此，上面的循环闭包可以写成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=<span class="number">5</span>; i++) &#123;</span><br><span class="line"><span class="keyword">let</span> j = i; <span class="comment">// 是的，闭包的块作用域! setTimeout( function timer() &#123;</span></span><br><span class="line">             <span class="built_in">console</span>.log( j );</span><br><span class="line">         &#125;, j*<span class="number">1000</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>for 循环头部的 let 声明还会有一 个特殊的行为。这个行为指出变量在循环过程中不止被声明一次，每次迭代都会声明。随 后的每个迭代都会使用上一个迭代结束时的值来初始化这个变量。因此可以改写成:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">1</span>; i&lt;=<span class="number">5</span>; i++) &#123; setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">             <span class="built_in">console</span>.log( i );</span><br><span class="line">         &#125;, i*<span class="number">1000</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><p>一个模块的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CoolModult</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> something = <span class="string">'cool'</span></span><br><span class="line">    <span class="keyword">var</span> anoter = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(something)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doAnohter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(anoter.join(<span class="string">' ! '</span>))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        doSomething: doSomething,</span><br><span class="line">        doAnohter: doAnohter</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = CoolModult()</span><br><span class="line"></span><br><span class="line">foo.doSomething()</span><br><span class="line">foo.doAnohter()</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">cool</span></span><br><span class="line"><span class="comment">1 ! 2 ! 3</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>首先，CoolModule() 只是一个函数，必须要通过调用它来创建一个模块实例。如果不执行 外部函数，内部作用域和闭包都无法被创建。</p>
+<p>其次，CoolModule() 返回一个用对象字面量语法 { key: value, … } 来表示的对象。</p>
+<p>引申出来的，模块模式需要具备两个必要条件：</p>
+<ul>
+<li>必须有外部的封闭函数，该函数必须至少被调用一次（每次调用都会创建一个新的模块实例）</li>
+<li>封闭函数必须返回至少一个内部函数，这样的内部函数才能在私有作用于中形成闭包，并且可以访问或者修改私有状态</li>
+</ul>
+<h2 id="改写为单例模式"><a href="#改写为单例模式" class="headerlink" title="改写为单例模式"></a>改写为单例模式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = (<span class="function"><span class="keyword">function</span> <span class="title">CoolModult</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> something = <span class="string">'cool'</span></span><br><span class="line">    <span class="keyword">var</span> anoter = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(something)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">doAnohter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(anoter.join(<span class="string">' ! '</span>))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        doSomething: doSomething,</span><br><span class="line">        doAnohter: doAnohter</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">foo.doSomething()</span><br><span class="line">foo.doAnohter()</span><br></pre></td></tr></table></figure>
+<p>将模块函数转换成了 IIFE(参见第 3 章)，立即调用这个函数并将返回值直接赋值给 单例的模块实例标识符 foo。</p>
+<h2 id="现代的模块机制"><a href="#现代的模块机制" class="headerlink" title="现代的模块机制"></a>现代的模块机制</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MyModules = (<span class="function"><span class="keyword">function</span> <span class="title">Manager</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> modules = &#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">define</span>(<span class="params">name, deps, impl</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; deps.length; i++) &#123;</span><br><span class="line">			deps[i] = modules[deps[i]]</span><br><span class="line">		&#125;</span><br><span class="line">		modules[name] = impl.apply(impl, deps)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> modules[name]</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		define: define,</span><br><span class="line">		get: get</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">MyModules.define(<span class="string">'bar'</span>, [], <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params">who</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Let me introduce: '</span> + who</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        hello: hello</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">MyModules.define(<span class="string">'foo'</span>, [<span class="string">'bar'</span>], <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> hungry = <span class="string">'hippo'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">awesome</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(bar.hello(hungry).toUpperCase())</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        awesome: awesome</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bar = MyModules.get(<span class="string">'bar'</span>)</span><br><span class="line"><span class="keyword">var</span> foo = MyModules.get(<span class="string">'foo'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">    bar.hello(<span class="string">'hippo'</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">foo.awesome()</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Let me introduce: hippo</span></span><br><span class="line"><span class="comment"> * LET ME INTRODUCE: HIPPO</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>这段代码的核心是modules[name] = impl.apply(impl, deps)。为了模块的定义引入了包装 函数(可以传入任何依赖)，并且将返回值，也就是模块的 API，储存在一个根据名字来管 理的模块列表中。</p>
+<h2 id="未来的模块机制"><a href="#未来的模块机制" class="headerlink" title="未来的模块机制"></a>未来的模块机制</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">bar.js</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params">who</span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="string">"Let me introduce: "</span> + who;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> hello; foo.js</span><br><span class="line"><span class="comment">// 仅从 "bar" 模块导入 hello() import hello from "bar";</span></span><br><span class="line"><span class="keyword">var</span> hungry = <span class="string">"hippo"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">awesome</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(</span><br><span class="line">             hello( hungry ).toUpperCase()</span><br><span class="line">         );</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> awesome;</span><br><span class="line">baz.js</span><br><span class="line"><span class="comment">// 导入完整的 "foo" 和 "bar" 模块 56 | 第 5 章</span></span><br><span class="line">    </span><br><span class="line"><span class="built_in">module</span> foo <span class="keyword">from</span> <span class="string">"foo"</span>;</span><br><span class="line">     <span class="built_in">module</span> bar <span class="keyword">from</span> <span class="string">"bar"</span>;</span><br><span class="line">     <span class="built_in">console</span>.log(</span><br><span class="line">         bar.hello( <span class="string">"rhino"</span> )</span><br><span class="line">     ); <span class="comment">// Let me introduce: rhino</span></span><br><span class="line">     foo.awesome(); <span class="comment">// LET ME INTRODUCE: HIPPO</span></span><br></pre></td></tr></table></figure>
+<p>import 可以将一个模块中的一个或多个 API 导入到当前作用域中，并分别绑定在一个变量 上(在我们的例子里是 hello)。module 会将整个模块的 API 导入并绑定到一个变量上(在 我们的例子里是 foo 和 bar)。export 会将当前模块的一个标识符(变量、函数)导出为公 共 API。这些操作可以在模块定义中根据需要使用任意多次。</p>
+<p>模块文件中的内容会被当作好像包含在作用域闭包中一样来处理，就和前面介绍的函数闭 包模块一样。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><blockquote>
+<p>当函数可以记住并访问所在的词法作用域，即使函数是在当前词法作用域之外执行，这时 就产生了闭包。</p>
+</blockquote>
+<p>模块有两个主要特征:</p>
+<ul>
+<li>为创建内部作用域而调用了一个包装函数;</li>
+<li>包装函数的返回 值必须至少包括一个对内部函数的引用，这样就会创建涵盖整个包装函数内部作用域的闭 包。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#启示"><span class="toc-number">1.</span> <span class="toc-text">启示</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实质问题"><span class="toc-number">2.</span> <span class="toc-text">实质问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包小结"><span class="toc-number">2.1.</span> <span class="toc-text">闭包小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环和闭包"><span class="toc-number">3.</span> <span class="toc-text">循环和闭包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重返块作用域"><span class="toc-number">4.</span> <span class="toc-text">重返块作用域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模块"><span class="toc-number">5.</span> <span class="toc-text">模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#改写为单例模式"><span class="toc-number">5.1.</span> <span class="toc-text">改写为单例模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#现代的模块机制"><span class="toc-number">5.2.</span> <span class="toc-text">现代的模块机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#未来的模块机制"><span class="toc-number">5.3.</span> <span class="toc-text">未来的模块机制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&text=作用域闭包"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&title=作用域闭包"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&is_video=false&description=作用域闭包"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=作用域闭包&body=Check out this article: https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&title=作用域闭包"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&title=作用域闭包"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&title=作用域闭包"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&title=作用域闭包"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/10/04/cjiwfazq0006vye6pwgnabsua/&name=作用域闭包&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

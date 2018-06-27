@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="参考： 你真的会使用 XMLHttpRequest 吗？ AJAX 工作原理及概述AJAX 使用 XMLHttpRequest 对象与服务器通信，它可以使用 JSON、XML、HTML和文本等多种格式发送和接受。AJAX 最吸引人的是它的异步特性，也就是说可以在不重新刷新页面的情况下雨服务器通信，交换数据，更新页面。 最主要的两个特性：  在不重新加载页面的情况下发送请求给服务器 接受并使用从服务">
+<meta name="keywords" content="ajax,JavaScript,XMLHttpRequest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AJAX 工作原理及概述">
+<meta property="og:url" content="https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="参考： 你真的会使用 XMLHttpRequest 吗？ AJAX 工作原理及概述AJAX 使用 XMLHttpRequest 对象与服务器通信，它可以使用 JSON、XML、HTML和文本等多种格式发送和接受。AJAX 最吸引人的是它的异步特性，也就是说可以在不重新刷新页面的情况下雨服务器通信，交换数据，更新页面。 最主要的两个特性：  在不重新加载页面的情况下发送请求给服务器 接受并使用从服务">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1525417528673.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1525417713166.jpg">
+<meta property="og:updated_time" content="2018-05-04T07:11:33.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AJAX 工作原理及概述">
+<meta name="twitter:description" content="参考： 你真的会使用 XMLHttpRequest 吗？ AJAX 工作原理及概述AJAX 使用 XMLHttpRequest 对象与服务器通信，它可以使用 JSON、XML、HTML和文本等多种格式发送和接受。AJAX 最吸引人的是它的异步特性，也就是说可以在不重新刷新页面的情况下雨服务器通信，交换数据，更新页面。 最主要的两个特性：  在不重新加载页面的情况下发送请求给服务器 接受并使用从服务">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/luoyec/1525417528673.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>AJAX 工作原理及概述</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/05/06/cjiwfazoc003kye6pl3av2dvj/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/05/01/cjiwfazqq008oye6pybnp79qw/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&text=AJAX 工作原理及概述"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&title=AJAX 工作原理及概述"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&is_video=false&description=AJAX 工作原理及概述"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=AJAX 工作原理及概述&body=Check out this article: https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&title=AJAX 工作原理及概述"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&title=AJAX 工作原理及概述"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&title=AJAX 工作原理及概述"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&title=AJAX 工作原理及概述"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&name=AJAX 工作原理及概述&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AJAX-工作原理及概述"><span class="toc-number">1.</span> <span class="toc-text">AJAX 工作原理及概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#工作原理"><span class="toc-number">1.1.</span> <span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发送-HTTP-请求"><span class="toc-number">1.2.</span> <span class="toc-text">发送 HTTP 请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何获取-response-数据"><span class="toc-number">1.3.</span> <span class="toc-text">如何获取 response 数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何追踪-ajax-请求的当前状态"><span class="toc-number">1.4.</span> <span class="toc-text">如何追踪 ajax 请求的当前状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可以发送什么类型的数据"><span class="toc-number">1.5.</span> <span class="toc-text">可以发送什么类型的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件触发顺序"><span class="toc-number">1.6.</span> <span class="toc-text">事件触发顺序</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        AJAX 工作原理及概述
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-05-04T07:11:14.446Z" itemprop="datePublished">2018-05-04</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/XMLHttpRequest/">XMLHttpRequest</a>, <a class="tag-link" href="/tags/ajax/">ajax</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>参考： <a href="https://segmentfault.com/a/1190000004322487" target="_blank" rel="noopener">你真的会使用 XMLHttpRequest 吗？</a></p>
+<h1 id="AJAX-工作原理及概述"><a href="#AJAX-工作原理及概述" class="headerlink" title="AJAX 工作原理及概述"></a>AJAX 工作原理及概述</h1><p><code>AJAX</code> 使用 <code>XMLHttpRequest</code> 对象与服务器通信，它可以使用 <code>JSON、XML、HTML</code>和文本等多种格式发送和接受。<code>AJAX</code> 最吸引人的是它的异步特性，也就是说可以在不重新刷新页面的情况下雨服务器通信，交换数据，更新页面。</p>
+<p>最主要的两个特性：</p>
+<ul>
+<li>在不重新加载页面的情况下发送请求给服务器</li>
+<li>接受并使用从服务器发来的数据</li>
+</ul>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p><code>Ajax</code> 的原理简单来说通过 <code>XmlHttpRequest</code> 对象来向服务器发异步请求，从服务器获得数据，然后用 <code>javascript</code> 来操作 <code>DOM</code> 而更新页面。这其中最关键的一步就是从服务器获得请求数据。</p>
+<h2 id="发送-HTTP-请求"><a href="#发送-HTTP-请求" class="headerlink" title="发送 HTTP 请求"></a>发送 HTTP 请求</h2><p>创建 <code>XMLHttpRequest</code> 对象，需要注意兼容性问题</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendAjax</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 构造表单数据</span></span><br><span class="line">    <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData()</span><br><span class="line">    formData.append(<span class="string">'username'</span>, <span class="string">'johndoe'</span>)</span><br><span class="line">    formData.append(<span class="string">'id'</span>, <span class="number">123456</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建 xhr 对象</span></span><br><span class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">    xhr.timeout = <span class="number">3000</span></span><br><span class="line">    xhr.responseType = <span class="string">'text'</span></span><br><span class="line">    <span class="comment">//创建一个 post 请求， 第三个布尔值参数是同步还是异步, 默认是异步</span></span><br><span class="line">    xhr.open(<span class="string">'POST'</span>, <span class="string">'/server'</span>, <span class="literal">true</span>)</span><br><span class="line">    xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.status == <span class="number">200</span> || <span class="keyword">this</span>.status == <span class="number">304</span>) &#123;</span><br><span class="line">            alert(<span class="keyword">this</span>.responseText)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    xhr.ontimeout = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;&#125;</span><br><span class="line">    xhr.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;&#125;</span><br><span class="line">    xhr.upload.onprogress = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    xhr.send(formData)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置请求头 xhr.setRequestHeader('X-Text', 'one')</span></span><br><span class="line"><span class="comment"> * 获取响应头</span></span><br><span class="line"><span class="comment">*/</span><span class="string">``</span><span class="string">`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 指定响应类型</span></span><br><span class="line"><span class="string">`</span>responseType<span class="string">` 是 `</span>xhr level <span class="number">2</span><span class="string">` 新增的属性，用来指定 `</span>xhr.response<span class="string">` 的数据类型</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">![][2]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span> javascript</span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'GET'</span>, <span class="string">'/path/to/image.png'</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="comment">//可以将`xhr.responseType`设置为`"blob"`也可以设置为`" arrayBuffer"`</span></span><br><span class="line"><span class="comment">//xhr.responseType = 'arrayBuffer';</span></span><br><span class="line">xhr.responseType = <span class="string">'blob'</span>;</span><br><span class="line"></span><br><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.status == <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> blob = <span class="keyword">this</span>.response;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
+<h2 id="如何获取-response-数据"><a href="#如何获取-response-数据" class="headerlink" title="如何获取 response 数据"></a>如何获取 response 数据</h2><p><code>xhr</code> 提供了 3 个属性来获取请求返回的数据，分别是：<code>xhr.response、xhr.responseText、xhr.responseXML</code></p>
+<ul>
+<li><p><code>xhr.response</code> - 默认值：空字符串<code>&quot;&quot;</code> - 当请求完成时，此属性才有正确的值 - 请求未完成时，此属性的值可能是<code>&quot;&quot;</code>或者 <code>null</code>，具体与 <code>xhr.responseType</code>有关：当<code>responseType</code>为<code>&quot;&quot;</code>或<code>&quot;text&quot;</code>时，值为<code>&quot;&quot;</code>；<code>responseType</code>为其他值时，值为 <code>null</code></p>
+</li>
+<li><p><code>xhr.responseText</code> - 默认值为空字符串<code>&quot;&quot;</code> - 只有当 <code>responseType</code> 为<code>&quot;text&quot;</code>、””时，<code>xhr</code> 对象上才有此属性，此时才能调用<code>xhr.responseText</code>，否则抛错 - 只有当请求成功时，才能拿到正确值。以下 2 种情况下值都为空字符串<code>&quot;&quot;</code>：请求未完成、请求失败</p>
+</li>
+<li><p><code>xhr.responseXML</code> - 默认值为 <code>null</code> - 只有当 <code>responseType</code> 为<code>&quot;text&quot;</code>、<code>&quot;&quot;</code>、<code>&quot;document&quot;</code>时，<code>xhr</code> 对象上才有此属性，此时才能调用 <code>xhr.responseXML</code>，否则抛错 - 只有当请求成功且返回数据被正确解析时，才能拿到正确值。以下 3 种情况下值都为 <code>null</code>：请求未完成、请求失败、请求成功但返回数据无法被正确解析时</p>
+</li>
+</ul>
+<h2 id="如何追踪-ajax-请求的当前状态"><a href="#如何追踪-ajax-请求的当前状态" class="headerlink" title="如何追踪 ajax 请求的当前状态"></a>如何追踪 ajax 请求的当前状态</h2><p>用 <code>xhr.readyState</code> 这个属性即可追踪到。这个属性是只读属性，总共有 5 种可能值，分别对应 xhr 不同的不同阶段。每次 <code>xhr.readyState</code> 的值发生变化时，都会触发 <code>xhr.onreadystatechange</code> 事件，我们可以在这个事件中进行相关状态判断。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span>(xhr.readyState)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:<span class="comment">//OPENED</span></span><br><span class="line">      <span class="comment">//do something</span></span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:<span class="comment">//HEADERS_RECEIVED</span></span><br><span class="line">      <span class="comment">//do something</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:<span class="comment">//LOADING</span></span><br><span class="line">      <span class="comment">//do something</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:<span class="comment">//DONE</span></span><br><span class="line">      <span class="comment">//do something</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1525417528673.jpg" alt=""></p>
+<h2 id="可以发送什么类型的数据"><a href="#可以发送什么类型的数据" class="headerlink" title="可以发送什么类型的数据"></a>可以发送什么类型的数据</h2><p><code>xhr.send(data)</code>的参数 <code>data</code> 可以是以下几种类型：</p>
+<ul>
+<li><code>ArrayBuffer</code></li>
+<li><code>Blob</code></li>
+<li><code>Document</code></li>
+<li><code>DOMString</code></li>
+<li><code>FormData</code></li>
+<li><code>null</code></li>
+</ul>
+<h2 id="事件触发顺序"><a href="#事件触发顺序" class="headerlink" title="事件触发顺序"></a>事件触发顺序</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1525417713166.jpg" alt=""></p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AJAX-工作原理及概述"><span class="toc-number">1.</span> <span class="toc-text">AJAX 工作原理及概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#工作原理"><span class="toc-number">1.1.</span> <span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发送-HTTP-请求"><span class="toc-number">1.2.</span> <span class="toc-text">发送 HTTP 请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何获取-response-数据"><span class="toc-number">1.3.</span> <span class="toc-text">如何获取 response 数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何追踪-ajax-请求的当前状态"><span class="toc-number">1.4.</span> <span class="toc-text">如何追踪 ajax 请求的当前状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可以发送什么类型的数据"><span class="toc-number">1.5.</span> <span class="toc-text">可以发送什么类型的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件触发顺序"><span class="toc-number">1.6.</span> <span class="toc-text">事件触发顺序</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&text=AJAX 工作原理及概述"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&title=AJAX 工作原理及概述"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&is_video=false&description=AJAX 工作原理及概述"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=AJAX 工作原理及概述&body=Check out this article: https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&title=AJAX 工作原理及概述"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&title=AJAX 工作原理及概述"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&title=AJAX 工作原理及概述"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&title=AJAX 工作原理及概述"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2018/05/04/cjiwfazmp000bye6p5sfodxm3/&name=AJAX 工作原理及概述&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+

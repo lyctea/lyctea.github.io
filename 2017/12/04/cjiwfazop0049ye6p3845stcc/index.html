@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="React 路由过渡动画 Animated page transitions with React Router 4, ReactTransitionGroup andAnimated  中文翻译： 英文原文： Animated.template文档 演示 Demo 原文中使用 create-react-app 从头构建路由动画，本文档只在如何在实际项目中使用路由过渡动画。 安装 react-tr">
+<meta name="keywords" content="React,路由动画">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React路由过渡动画">
+<meta property="og:url" content="https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/index.html">
+<meta property="og:site_name" content="孤丶晴的网络日志">
+<meta property="og:description" content="React 路由过渡动画 Animated page transitions with React Router 4, ReactTransitionGroup andAnimated  中文翻译： 英文原文： Animated.template文档 演示 Demo 原文中使用 create-react-app 从头构建路由动画，本文档只在如何在实际项目中使用路由过渡动画。 安装 react-tr">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-04T05:40:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React路由过渡动画">
+<meta name="twitter:description" content="React 路由过渡动画 Animated page transitions with React Router 4, ReactTransitionGroup andAnimated  中文翻译： 英文原文： Animated.template文档 演示 Demo 原文中使用 create-react-app 从头构建路由动画，本文档只在如何在实际项目中使用路由过渡动画。 安装 react-tr">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+          
+        
+    
+    <!-- title -->
+    <title>React路由过渡动画</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/12/09/cjiwfazol0042ye6pna71hch1/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/12/04/cjiwfazpm0062ye6p3xpp4mpa/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&text=React路由过渡动画"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&title=React路由过渡动画"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&is_video=false&description=React路由过渡动画"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=React路由过渡动画&body=Check out this article: https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&title=React路由过渡动画"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&title=React路由过渡动画"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&title=React路由过渡动画"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&title=React路由过渡动画"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&name=React路由过渡动画&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#React-路由过渡动画"><span class="toc-number">1.</span> <span class="toc-text">React 路由过渡动画</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-react-transition-group"><span class="toc-number">1.1.</span> <span class="toc-text">安装 react-transition-group</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-TransitionGroup-gt"><span class="toc-number">1.2.</span> <span class="toc-text">&lt;TransitionGroup /&gt;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新的生命周期方法"><span class="toc-number">1.3.</span> <span class="toc-text">新的生命周期方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建高阶Animated组件"><span class="toc-number">1.4.</span> <span class="toc-text">创建高阶Animated组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在路由组件中的使用"><span class="toc-number">1.5.</span> <span class="toc-text">在路由组件中的使用</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        React路由过渡动画
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">孤丶晴的网络日志</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-12-04T05:40:18.000Z" itemprop="datePublished">2017-12-04</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/React/">React</a>, <a class="tag-link" href="/tags/路由动画/">路由动画</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="React-路由过渡动画"><a href="#React-路由过渡动画" class="headerlink" title="React 路由过渡动画"></a><code>React</code> 路由过渡动画</h1><blockquote>
+<p>Animated page transitions with React Router 4, ReactTransitionGroup and<br>Animated</p>
+</blockquote>
+<p><a href="https://segmentfault.com/a/1190000010539892" target="_blank" rel="noopener">中文翻译：</a> <a href="https://hackernoon.com/animated-page-transitions-with-react-router-4-reacttransitiongroup-and-animated-1ca17bd97a1a" target="_blank" rel="noopener">英文原文：</a> <a href="http://animatedjs.github.io/interactive-docs/" target="_blank" rel="noopener"><code>Animated.template</code>文档</a> <a href="https://github.com/mhaagens/animated_routes_react" target="_blank" rel="noopener">演示 Demo</a></p>
+<p>原文中使用 <code>create-react-app</code> 从头构建路由动画，本文档只在如何在实际项目中使用路<br>由过渡动画。</p>
+<h2 id="安装-react-transition-group"><a href="#安装-react-transition-group" class="headerlink" title="安装 react-transition-group"></a>安装 <code>react-transition-group</code></h2><p>需要注意的是开源作者修改了 V2 版本的 API，目前只能使用 V1 版本。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> yarn add react-transition-group@^1.2.0</span><br></pre></td></tr></table></figure>
+<h2 id="lt-TransitionGroup-gt"><a href="#lt-TransitionGroup-gt" class="headerlink" title="&lt;TransitionGroup /&gt;"></a><code>&lt;TransitionGroup /&gt;</code></h2><p>接下来只需简单的几个步骤</p>
+<ul>
+<li><p>替换路由默认的渲染方式，使用 <code>&lt;TransitionGroup /&gt;</code> 包裹路由组件并使用其中的路<br>由渲染方法来渲染我们的组件。</p>
+<pre><code>在路由入口文件 `src/App.js` 或是 `App.js` 中引入 `TransitionGroup`
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> TransitionGroup <span class="keyword">from</span> <span class="string">'react-transition-  group/TransitionGroup'</span>;</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>为 <code>Transition Group</code> 渲染 添加一个特殊的方法，其只渲染单个 child，在 <code>class
+App extends ...</code> 之前添加。</p>
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    	<span class="keyword">const</span> firstChild = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">    	<span class="keyword">const</span> childrenArray =      React.Children.toArray(props.children);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> childrenArray[<span class="number">0</span>] || <span class="literal">null</span>; &#125;;</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>修改原有的路由，并用 <code>TransitionGroup</code> 包裹</p>
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">    	&lt;Route</span><br><span class="line"></span><br><span class="line">exact path=<span class="string">"/"</span> children=&#123;(&#123; match, ...rest &#125;) =&gt; (</span><br><span class="line">&lt;TransitionGroup component=&#123;firstChild&#125;&gt; &#123;match &amp;&amp; &lt;Home &#123;...rest&#125; /&gt;&#125;</span><br><span class="line">&lt;/TransitionGroup&gt; )&#125;/&gt;</span><br><span class="line"></span><br><span class="line">    	&lt;Route</span><br><span class="line"></span><br><span class="line">path=<span class="string">"/subpage"</span> children=&#123;(&#123; match, ...rest &#125;) =&gt; (</span><br><span class="line">&lt;TransitionGroup component=&#123;firstChild&#125;&gt; &#123;match &amp;&amp; &lt;Subpage &#123;...rest&#125; /&gt;&#125;</span><br><span class="line">&lt;/TransitionGroup&gt; )&#125;/&gt;</span><br></pre></td></tr></table></figure>
+</code></pre><p>  附：实际项目中的配置：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Root = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">    &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">        &lt;Router&gt;</span><br><span class="line">            &lt;Switch&gt;</span><br><span class="line">                &#123;routeList.mainRoute.map(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> (</span><br><span class="line">                        &lt;Route</span><br><span class="line">                            path=&#123;item.path&#125;</span><br><span class="line">                            key=&#123;item.path&#125;</span><br><span class="line">                            children=&#123;(&#123; match, ...rest &#125;) =&gt; (</span><br><span class="line">									&lt;TransitionGroup component=&#123;firstChild&#125;&gt;</span><br><span class="line">                                    &#123;match &amp;&amp; (</span><br><span class="line">                                        &lt;item.component</span><br><span class="line">                                            &#123;...rest&#125;</span><br><span class="line">                                            match=&#123;match&#125;</span><br><span class="line">                                        /&gt;</span><br><span class="line">                                    )&#125;</span><br><span class="line">                                &lt;<span class="regexp">/TransitionGroup&gt;</span></span><br><span class="line"><span class="regexp">                            )&#125;</span></span><br><span class="line"><span class="regexp">                        /</span>&gt;</span><br><span class="line">                    );</span><br><span class="line">                &#125;)&#125;</span><br><span class="line"></span><br><span class="line">                &#123;&lt;Redirect <span class="keyword">from</span>=<span class="string">"/"</span> to=&#123;routePath.App&#125; /&gt;&#125;</span><br><span class="line">            &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Router&gt;</span><br><span class="line">    &lt;<span class="regexp">/Provider&gt;</span></span><br><span class="line"><span class="regexp">	);</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="新的生命周期方法"><a href="#新的生命周期方法" class="headerlink" title="新的生命周期方法"></a>新的生命周期方法</h2><p>完成上面的工作，现在你有全访问新的生命周期方法了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">componentWillAppear() , componentWillEnter() and componentWillLeave()</span><br></pre></td></tr></table></figure>
+<h2 id="创建高阶Animated组件"><a href="#创建高阶Animated组件" class="headerlink" title="创建高阶Animated组件"></a>创建高阶<code>Animated</code>组件</h2><p>创建 <code>AnimatedWrapper.js</code> 组件代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Animated <span class="keyword">from</span> <span class="string">'animated/lib/targets/react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> TransitionGroup <span class="keyword">from</span> <span class="string">'react-transition-group/TransitionGroup'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AnimatedWrapper = <span class="function"><span class="params">WrappedComponent</span> =&gt;</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">AnimatedWrapper</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">        <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">            <span class="keyword">super</span>(props);</span><br><span class="line">            <span class="keyword">this</span>.state = &#123;</span><br><span class="line">                animate: <span class="keyword">new</span> Animated.Value(<span class="number">0</span>)</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        componentWillAppear(cb) &#123;</span><br><span class="line">            <span class="comment">// console.log('componentWillAppear');</span></span><br><span class="line">            Animated.spring(<span class="keyword">this</span>.state.animate, &#123; <span class="attr">toValue</span>: <span class="number">1</span> &#125;).start();</span><br><span class="line">            cb();</span><br><span class="line">        &#125;</span><br><span class="line">        componentWillEnter(cb) &#123;</span><br><span class="line">            <span class="comment">// console.log('componentWillEnter');</span></span><br><span class="line">            setTimeout(</span><br><span class="line">                () =&gt;</span><br><span class="line">                    Animated.spring(<span class="keyword">this</span>.state.animate, &#123; <span class="attr">toValue</span>: <span class="number">1</span> &#125;).start(),</span><br><span class="line">                <span class="number">250</span></span><br><span class="line">            );</span><br><span class="line">            cb();</span><br><span class="line">        &#125;</span><br><span class="line">        componentWillLeave(cb) &#123;</span><br><span class="line">            <span class="comment">// console.log('componentWillLeave');</span></span><br><span class="line">            Animated.spring(<span class="keyword">this</span>.state.animate, &#123; <span class="attr">toValue</span>: <span class="number">0</span> &#125;).start();</span><br><span class="line">            setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> cb(), <span class="number">175</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        render() &#123;</span><br><span class="line">            <span class="keyword">const</span> style = &#123;</span><br><span class="line">                opacity: Animated.template<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.state.animate&#125;</span>`</span>,</span><br><span class="line">                transform: Animated.template<span class="string">`</span></span><br><span class="line"><span class="string">				translate3d(0,<span class="subst">$&#123;<span class="keyword">this</span>.state.animate.interpolate(&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">                    inputRange: [<span class="number">0</span>, <span class="number">1</span>],</span></span></span><br><span class="line"><span class="string"><span class="subst">                    outputRange: [<span class="string">'12px'</span>, <span class="string">'0px'</span>]</span></span></span><br><span class="line"><span class="string"><span class="subst">                &#125;</span>)&#125;,0)</span></span><br><span class="line"><span class="string">			    `</span>,</span><br><span class="line">                height: Animated.template<span class="string">`100%`</span></span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="keyword">return</span> (</span><br><span class="line">                &lt;Animated.div style=&#123;style&#125; className=<span class="string">"animated-page-wrapper"</span>&gt;</span><br><span class="line">                    &lt;WrappedComponent &#123;...this.props&#125; /&gt;</span><br><span class="line">                &lt;<span class="regexp">/Animated.div&gt;</span></span><br><span class="line"><span class="regexp">            );</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default AnimatedWrapper;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码主要做了这几件事</p>
+<ul>
+<li>创建一个组件包裹我们的路由组件</li>
+<li>从 <code>TransitionGroup</code> 接收声明周期方法，用以完成<code>animation</code></li>
+<li>使用 <code>Animated</code> 创建一个变量，可以用它来对封装的子组件中的 div 的不同样式属性<br>实现动画效果</li>
+</ul>
+<h2 id="在路由组件中的使用"><a href="#在路由组件中的使用" class="headerlink" title="在路由组件中的使用"></a>在路由组件中的使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> AnimatedWrapper <span class="keyword">from</span> <span class="string">'./AnimatedWrapper'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"page"</span>&gt;</span><br><span class="line">                &lt;h1&gt;Home&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">                &lt;p&gt;Hello from the home page!&lt;/</span>p&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">const Home = AnimatedWrapper(HomeComponent);</span></span><br><span class="line"><span class="regexp">export default Home;</span></span><br></pre></td></tr></table></figure>
+<p>当路由切换的的时候，我们就能看到过渡效果了！</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#React-路由过渡动画"><span class="toc-number">1.</span> <span class="toc-text">React 路由过渡动画</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-react-transition-group"><span class="toc-number">1.1.</span> <span class="toc-text">安装 react-transition-group</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-TransitionGroup-gt"><span class="toc-number">1.2.</span> <span class="toc-text">&lt;TransitionGroup /&gt;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新的生命周期方法"><span class="toc-number">1.3.</span> <span class="toc-text">新的生命周期方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建高阶Animated组件"><span class="toc-number">1.4.</span> <span class="toc-text">创建高阶Animated组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在路由组件中的使用"><span class="toc-number">1.5.</span> <span class="toc-text">在路由组件中的使用</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&text=React路由过渡动画"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&title=React路由过渡动画"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&is_video=false&description=React路由过渡动画"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=React路由过渡动画&body=Check out this article: https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&title=React路由过渡动画"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&title=React路由过渡动画"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&title=React路由过渡动画"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&title=React路由过渡动画"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://luoyec.cn/2017/12/04/cjiwfazop0049ye6p3845stcc/&name=React路由过渡动画&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 luoyecong
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/Search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2e6da3c375c8a87f5b664cea6d4cb29c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
