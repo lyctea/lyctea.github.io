@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="en">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            Git常见问题 | 
+        
+        孤丶晴 网络日志
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.ico">
+    <link rel="icon" href="/img/favicon.ico">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+    <meta name="keywords" content=",Git,基础,命令">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.en.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(/img/bg.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="孤丶晴 网络日志">
+    <meta name="msapplication-starturl" content="https://luoyec.cn/2017/08/10/cjiws27is000ye46p2x1ov6yg/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="孤丶晴 网络日志">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.ico">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://luoyec.cn/2017/08/10/cjiws27is000ye46p2x1ov6yg/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Git常见问题 | 孤丶晴 网络日志">
+    <meta property="og:image" content="/img/favicon.ico">
+    <meta property="og:description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+    <meta property="og:article:tag" content="Git"> <meta property="og:article:tag" content="基础"> <meta property="og:article:tag" content="命令"> 
+
+    
+        <meta property="article:published_time" content="Thu Aug 10 2017 23:09:05 GMT+0800">
+        <meta property="article:modified_time" content="Thu Aug 10 2017 23:16:26 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://luoyec.cn/2017/08/10/cjiws27is000ye46p2x1ov6yg/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://luoyec.cn/2017/08/10/cjiws27is000ye46p2x1ov6yg/index.html",
+    "headline": "Git常见问题",
+    "datePublished": "Thu Aug 10 2017 23:09:05 GMT+0800",
+    "dateModified": "Thu Aug 10 2017 23:16:26 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "luoyecong",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "孤丶晴 网络日志",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.ico"
+        }
+    },
+    "keywords": ",Git,基础,命令",
+    "description": "Hope is a good thing, maybe the best of things, and no good thing ever dies.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#引子：git和svn的区别（集中式vs分布式），谈谈优劣？"><span class="post-toc-number">1.</span> <span class="post-toc-text">引子：git和svn的区别（集中式vs分布式），谈谈优劣？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#工作区、暂存区、版本库的概念？"><span class="post-toc-number">2.</span> <span class="post-toc-text">工作区、暂存区、版本库的概念？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分支的概念？"><span class="post-toc-number">3.</span> <span class="post-toc-text">分支的概念？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-status-、git-add-、git-commit-三个命令的作用及区别，详细谈谈？"><span class="post-toc-number">4.</span> <span class="post-toc-text">git status 、git add 、git commit 三个命令的作用及区别，详细谈谈？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#HEAD的概念"><span class="post-toc-number">5.</span> <span class="post-toc-text">HEAD的概念</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git中最常用的命令-12个"><span class="post-toc-number">6.</span> <span class="post-toc-text">git中最常用的命令(12个)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如何初始化项目，如何连接远程仓库？"><span class="post-toc-number">7.</span> <span class="post-toc-text">如何初始化项目，如何连接远程仓库？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#gitignore文件的作用写法？"><span class="post-toc-number">8.</span> <span class="post-toc-text">.gitignore文件的作用写法？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Git冲突及如何解决冲突"><span class="post-toc-number">9.</span> <span class="post-toc-text">Git冲突及如何解决冲突</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Gti下游的概念"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">Gti下游的概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#merge的几种方式"><span class="post-toc-number">9.2.</span> <span class="post-toc-text">merge的几种方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-pull"><span class="post-toc-number">9.3.</span> <span class="post-toc-text">git pull</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#冲突发生的场景"><span class="post-toc-number">9.4.</span> <span class="post-toc-text">冲突发生的场景</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何解决冲突"><span class="post-toc-number">9.5.</span> <span class="post-toc-text">如何解决冲突</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#不借助第三方工具"><span class="post-toc-number">9.5.1.</span> <span class="post-toc-text">不借助第三方工具</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#借助第三方工具（场景二）"><span class="post-toc-number">9.5.2.</span> <span class="post-toc-text">借助第三方工具（场景二）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#图形化工具diffmerge"><span class="post-toc-number">9.5.2.1.</span> <span class="post-toc-text">图形化工具diffmerge</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决冲突中的异常处理"><span class="post-toc-number">9.5.3.</span> <span class="post-toc-text">解决冲突中的异常处理</span></a></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Git常见问题
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>luoyecong</strong>
+        <span>Aug 10, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Git/">Git</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/命令/">命令</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/基础/">基础</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Git常见问题&url=https://luoyec.cn/2017/08/10/cjiws27is000ye46p2x1ov6yg/index.html&pic=https://luoyec.cn/img/favicon.ico&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Weibo
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Git常见问题&url=https://luoyec.cn/2017/08/10/cjiws27is000ye46p2x1ov6yg/index.html&via=luoyecong" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://luoyec.cn/2017/08/10/cjiws27is000ye46p2x1ov6yg/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://luoyec.cn/2017/08/10/cjiws27is000ye46p2x1ov6yg/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=孤丶晴 网络日志&title=Git常见问题&summary=Hope is a good thing, maybe the best of things, and no good thing ever dies.&pics=https://luoyec.cn/img/favicon.ico&url=https://luoyec.cn/2017/08/10/cjiws27is000ye46p2x1ov6yg/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="引子：git和svn的区别（集中式vs分布式），谈谈优劣？"><a href="#引子：git和svn的区别（集中式vs分布式），谈谈优劣？" class="headerlink" title="引子：git和svn的区别（集中式vs分布式），谈谈优劣？"></a>引子：git和svn的区别（集中式vs分布式），谈谈优劣？</h1><p><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001374027586935cf69c53637d8458c9aec27dd546a6cd6000" target="_blank" rel="noopener">廖雪峰 git集中式vs分布式</a><br><a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">阮一峰 git分支管理策略</a></p>
+<blockquote>
+<p>其中很显著的一点，就是版本的分支（branch）和合并（merge）十分方便。有些传统的版本管理软件，分支操作实际上会生成一份现有代码的物理拷贝，而Git只生成一个指向当前版本（又称”快照”）的指针，因此非常快捷易用。</p>
+</blockquote>
+<h1 id="工作区、暂存区、版本库的概念？"><a href="#工作区、暂存区、版本库的概念？" class="headerlink" title="工作区、暂存区、版本库的概念？"></a>工作区、暂存区、版本库的概念？</h1><p><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013745374151782eb658c5a5ca454eaa451661275886c6000" target="_blank" rel="noopener">参考</a><br><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1501300963266.jpg" alt=""></p>
+<h1 id="分支的概念？"><a href="#分支的概念？" class="headerlink" title="分支的概念？"></a>分支的概念？</h1><p><a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">阮一峰 git分支管理策略</a><br><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1501298977415.jpg" alt="gitflow"></p>
+<h1 id="git-status-、git-add-、git-commit-三个命令的作用及区别，详细谈谈？"><a href="#git-status-、git-add-、git-commit-三个命令的作用及区别，详细谈谈？" class="headerlink" title="git status 、git add 、git commit 三个命令的作用及区别，详细谈谈？"></a>git status 、git add 、git commit 三个命令的作用及区别，详细谈谈？</h1><ul>
+<li><p>git status命令能展示工作目录和stage区的状态. 使用他你能看到那些修改被staged到， git status不显示已经commit到项目历史中去的信息. 看项目历史的信息要使用git log.<a href="http://www.cnblogs.com/irocker/p/git-status.html" target="_blank" rel="noopener">参考</a></p>
+</li>
+<li><p>git add 文件welcome.txt从工作区被提交到暂存区，但此时文件并没有真正进入到版本库当中，文件目前只处于一个中间状态。</p>
+</li>
+<li><p>git commit(将暂存区文件提交到版本库中) 这个命令将处于中间状态的文件（暂存区的文件)提交到版本库中,这时才算真正完成了一次提交过程。</p>
+</li>
+</ul>
+<h1 id="HEAD的概念"><a href="#HEAD的概念" class="headerlink" title="HEAD的概念"></a>HEAD的概念</h1><p><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000" target="_blank" rel="noopener">参考</a></p>
+<blockquote>
+<p>HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支。<br>一开始的时候，master分支是一条线，Git用master指向最新的提交，再用HEAD指向master，就能确定当前分支，以及当前分支的提交点：</p>
+</blockquote>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1501299603131.jpg" alt=""></p>
+<blockquote>
+<p>每次提交，master分支都会向前移动一步，这样，随着你不断提交，master分支的线也越来越长：</p>
+</blockquote>
+<h1 id="git中最常用的命令-12个"><a href="#git中最常用的命令-12个" class="headerlink" title="git中最常用的命令(12个)"></a>git中最常用的命令(12个)</h1><p><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="noopener">常用Git命令清单by阮一峰</a><br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add</span><br><span class="line">git commit</span><br><span class="line"></span><br><span class="line">git checkout   //切换到指定分支，并更新工作区</span><br><span class="line">git reset		//重制文件 重置暂缓区 工作区</span><br><span class="line">git rm 			//删除工作区文件</span><br><span class="line">git push    	//推送到远程仓库</span><br><span class="line">git pull		//拉取远程仓库</span><br><span class="line">git <span class="keyword">clone</span>		<span class="title">//下载一个项目和它的整个代码历史</span></span><br><span class="line"><span class="title">git</span> branch	//分支管理</span><br><span class="line">git merge   //合并冲突</span><br><span class="line">git <span class="keyword">tag</span>		<span class="title">//标签管理</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="如何初始化项目，如何连接远程仓库？"><a href="#如何初始化项目，如何连接远程仓库？" class="headerlink" title="如何初始化项目，如何连接远程仓库？"></a>如何初始化项目，如何连接远程仓库？</h1><ul>
+<li>初始化一个空项目，所有的开发者clone到本地，这种方式自动连接到远程仓库</li>
+<li>本地目录下git init一个空项目，配置开发环境后 add–&gt;commit； 新建一个远程仓库，使用git remote add ,连接到远程仓库，第一次推送 git push -u origin master</li>
+</ul>
+<h1 id="gitignore文件的作用写法？"><a href="#gitignore文件的作用写法？" class="headerlink" title=".gitignore文件的作用写法？"></a>.gitignore文件的作用写法？</h1><ul>
+<li><ol>
+<li>在已忽略文件夹中不忽略指定文件夹</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/node_modules/</span>*</span><br><span class="line">!<span class="regexp">/node_modules/</span>layer/</span><br></pre></td></tr></table></figure>
+<ul>
+<li><ol start="2">
+<li>在已忽略文件夹中不忽略指定文件</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/node_modules/</span>*</span><br><span class="line">!<span class="regexp">/node_modules/</span>layer/layer.js</span><br></pre></td></tr></table></figure>
+<p>【注意项】注意写法 要忽略的文件夹一定要结尾 /* ，否则不忽略规则将无法生效</p>
+<ul>
+<li><ol start="3">
+<li>其他规则写法 (附)</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">　以斜杠“/”开头表示目录；</span><br><span class="line"></span><br><span class="line">　以星号“*”通配多个字符；</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">　以问号“?”通配单个字符</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">　以方括号“<span class="comment">[]</span>”包含单个字符的匹配列表；</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">　以叹号“!”表示不忽略(跟踪)匹配到的文件或目录；</span><br></pre></td></tr></table></figure>
+<h1 id="Git冲突及如何解决冲突"><a href="#Git冲突及如何解决冲突" class="headerlink" title="Git冲突及如何解决冲突"></a>Git冲突及如何解决冲突</h1><h2 id="Gti下游的概念"><a href="#Gti下游的概念" class="headerlink" title="Gti下游的概念"></a>Gti下游的概念</h2><p>当dev分支是基于master分支，dev分支不断的commit，但是master分支没有修改，这时候可以直接合并分支，不会产生冲突。 即dev上的节点是master的下游时可以直接合并</p>
+<p>当master也进行了commit， 这时候可能会产生冲突</p>
+<h2 id="merge的几种方式"><a href="#merge的几种方式" class="headerlink" title="merge的几种方式"></a>merge的几种方式</h2><ul>
+<li>fast-forword 快速合并， 改变HEAD指针指向</li>
+<li>no-ff 新创建一个commit，再改变HEAD指针指向</li>
+</ul>
+<h2 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h2><p>拆分成两个操作： git fetch（拉取更新，新建一个分支）  git merge（合并“远程分支”到本地master分支）</p>
+<h2 id="冲突发生的场景"><a href="#冲突发生的场景" class="headerlink" title="冲突发生的场景"></a>冲突发生的场景</h2><ul>
+<li><p>当需要合并分支的时候，另一个分支上的同一份代码已经被修改过</p>
+</li>
+<li><p>执行git push， 提交代码时，最新仓库中的代码与本地工作区代码存在冲突</p>
+</li>
+</ul>
+<h2 id="如何解决冲突"><a href="#如何解决冲突" class="headerlink" title="如何解决冲突"></a>如何解决冲突</h2><h3 id="不借助第三方工具"><a href="#不借助第三方工具" class="headerlink" title="不借助第三方工具"></a>不借助第三方工具</h3><p><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840202368c74be33fbd884e71b570f2cc3c0d1dcf000" target="_blank" rel="noopener">廖雪峰git教程，分支合并解决冲突（场景一）</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">//新建并切换到新分支</span><br><span class="line">git checkout -v dev</span><br><span class="line"></span><br><span class="line">//修改data.js 并且add commit</span><br><span class="line">git add data.js</span><br><span class="line">git commit -m 'edit data'</span><br><span class="line"></span><br><span class="line">//dev分支完成开发，此时检出到master分支</span><br><span class="line">git checkout master</span><br><span class="line"></span><br><span class="line">//修改master分支同一个文件，也add commit</span><br><span class="line">git add data.js</span><br><span class="line">git commit -m 'add something'</span><br><span class="line"></span><br><span class="line">//尝试合并dev分支到master分支</span><br><span class="line">git merge dev</span><br><span class="line"></span><br><span class="line">//提示需要手动解决冲突，解决完成后，将修改到冲突文件add commit</span><br><span class="line">git add data.js</span><br><span class="line">git commit -m 'fixed merge'</span><br><span class="line"></span><br><span class="line">//冲突解决之后，推送到远程仓库</span><br><span class="line">git push </span><br><span class="line"></span><br><span class="line">//当不在需要dev分支，则可以删除之</span><br><span class="line">git branch -d dev</span><br><span class="line"></span><br><span class="line">//如果仍然需要dev分支继续开发，则需要同步远程仓库到dev分支上</span><br><span class="line">git pull orign master</span><br></pre></td></tr></table></figure>
+<h3 id="借助第三方工具（场景二）"><a href="#借助第三方工具（场景二）" class="headerlink" title="借助第三方工具（场景二）"></a>借助第三方工具（场景二）</h3><p>拉取远程仓库中最新的代码，提示冲突，查看冲突<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase origin master</span><br><span class="line">git status  <span class="comment">//查看当前冲突文件</span></span><br><span class="line">git mergetool  <span class="comment">//打开diffmerge工具合并解决冲突</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="图形化工具diffmerge"><a href="#图形化工具diffmerge" class="headerlink" title="图形化工具diffmerge"></a>图形化工具diffmerge</h4><p><a href="https://www.sourcegear.com/diffmerge/" target="_blank" rel="noopener">下载地址DMG版</a><br>全局配置</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git config --global merge<span class="selector-class">.tool</span> diffmerge</span><br><span class="line">git config --global mergetool<span class="selector-class">.diffmerge</span><span class="selector-class">.cmd</span> <span class="string">"/Applications/DiffMerge.app/Contents/MacOS/diffmerge --merge --result=\$MERGED \$LOCAL \$BASE \$REMOTE"</span></span><br><span class="line">git config --global mergetool<span class="selector-class">.keepBackup</span> false</span><br><span class="line"> </span><br><span class="line">git config --global diff<span class="selector-class">.tool</span> diffmerge</span><br><span class="line">git config --global difftool<span class="selector-class">.diffmerge</span><span class="selector-class">.cmd</span> <span class="string">"/Applications/DiffMerge.app/Contents/MacOS/diffmerge \$LOCAL \$REMOTE"</span></span><br></pre></td></tr></table></figure>
+<p>当出现冲突时，执行命令，弹出窗口手动解决冲突</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> mergetool</span><br></pre></td></tr></table></figure>
+<p><img src="http://image.talkmoney.cn/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1501260875775.jpg" alt="中间是合并后结果"></p>
+<p>完成合并，保存退出图形化工具<br>已经手动解决了冲突，这是让rebase继续工作，执行命令</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;冲突文件/.  表示所有修改文件&gt;</span><br><span class="line">git rebase --continue   <span class="comment">//rebase继续工作</span></span><br><span class="line">git push    <span class="comment">//代码成功提交</span></span><br></pre></td></tr></table></figure>
+<h3 id="解决冲突中的异常处理"><a href="#解决冲突中的异常处理" class="headerlink" title="解决冲突中的异常处理"></a>解决冲突中的异常处理</h3><blockquote>
+<p>如果你碰到了冲突，但发现搞不定，不要惊慌。只要执行下面这条命令，就可以回到你执行git pull –rebase命令前的样子：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//解决冲突失败，或者向重新解决冲突</span><br><span class="line"><span class="meta">$</span>git rebase --abort</span><br><span class="line">//Skip是跳过这个错误，继续本次操作</span><br><span class="line"><span class="meta">$</span>git rebase --skip</span><br></pre></td></tr></table></figure>
+<p>==git rebase –abort 是无风险的操作，会回到rebase操作之前的状态，2个分支的commits毫发无损。<br>git rebase –skip 是高风险的操作，引起冲突的commits会被丢弃（这部分代码修改会丢失）。==</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/08/10/cjiws27ir000we46pobm3jdbh/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Newer
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/08/09/cjiws27l70063e46pd1lgu6wz/" id="post_nav-older" class="next-content">
+            Older
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="luoyecong's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        luoyecong@aliyun.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                Home
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    Archives
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/06/">June 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">May 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">April 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">March 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">February 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">January 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">December 2017<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">November 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">October 2017<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">September 2017<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">August 2017<span class="sidebar_archives-count">29</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                Categories
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/ES6/">ES6<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Egret/">Egret<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/Eslint/">Eslint<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Git/">Git<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/HTML5/">HTML5<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/JS数据结构与算法/">JS数据结构与算法<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/JavaScript/">JavaScript<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/Nodejs/">Nodejs<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/React/">React<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/mongodb/">mongodb<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/mysql/">mysql<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/node/">node<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/vue/">vue<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码大全/">代码大全<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码整洁之道/">代码整洁之道<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/你不知道的JavaScript/">你不知道的JavaScript<span class="sidebar_archives-count">15</span></a></li><li><a class="sidebar_archives-link" href="/categories/前端工程化/">前端工程化<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/前端性能优化/">前端性能优化<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/图解TCP-IP/">图解TCP/IP<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/工程化/">工程化<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/开发实践分享/">开发实践分享<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/模块/">模块<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/算法导论/">算法导论<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/经验分享/">经验分享<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/脚手架/">脚手架<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/读书笔记/">读书笔记<span class="sidebar_archives-count">10</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="Tags">
+                
+                    <i class="material-icons sidebar-material-icons">card_membership</i>
+                
+                Tags
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="About">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                About
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                Number of articles
+                <span class="sidebar-badge">101</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/lyctea" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>孤丶晴 网络日志
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

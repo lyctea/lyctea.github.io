@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="en">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            《写给大家看的面向对象编程书》总结&amp;&amp;实践（5） | 
+        
+        孤丶晴 网络日志
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.ico">
+    <link rel="icon" href="/img/favicon.ico">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+    <meta name="keywords" content=",读书笔记,面对对象,OO">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.en.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(/img/bg.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="孤丶晴 网络日志">
+    <meta name="msapplication-starturl" content="https://luoyec.cn/2017/08/23/cjiws27ky005fe46pxo97zfuq/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="孤丶晴 网络日志">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.ico">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://luoyec.cn/2017/08/23/cjiws27ky005fe46pxo97zfuq/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（5） | 孤丶晴 网络日志">
+    <meta property="og:image" content="/img/favicon.ico">
+    <meta property="og:description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+    <meta property="og:article:tag" content="读书笔记"> <meta property="og:article:tag" content="面对对象"> <meta property="og:article:tag" content="OO"> 
+
+    
+        <meta property="article:published_time" content="Wed Aug 23 2017 00:31:50 GMT+0800">
+        <meta property="article:modified_time" content="Wed Aug 23 2017 00:32:02 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://luoyec.cn/2017/08/23/cjiws27ky005fe46pxo97zfuq/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://luoyec.cn/2017/08/23/cjiws27ky005fe46pxo97zfuq/index.html",
+    "headline": "《写给大家看的面向对象编程书》总结&&实践（5）",
+    "datePublished": "Wed Aug 23 2017 00:31:50 GMT+0800",
+    "dateModified": "Wed Aug 23 2017 00:32:02 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "luoyecong",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "孤丶晴 网络日志",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.ico"
+        }
+    },
+    "keywords": ",读书笔记,面对对象,OO",
+    "description": "Hope is a good thing, maybe the best of things, and no good thing ever dies.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类设计指导原则"><span class="post-toc-number">1.</span> <span class="post-toc-text">类设计指导原则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#真实世界系统建模"><span class="post-toc-number">2.</span> <span class="post-toc-text">真实世界系统建模</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#明确公共接口"><span class="post-toc-number">3.</span> <span class="post-toc-text">明确公共接口</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#最小接口"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">最小接口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#隐藏实现"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">隐藏实现</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计健壮的构造函数（和析构函数）"><span class="post-toc-number">4.</span> <span class="post-toc-text">设计健壮的构造函数（和析构函数）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在类中设计的错误处理"><span class="post-toc-number">5.</span> <span class="post-toc-text">在类中设计的错误处理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对类建立文档以及使用注释"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">对类建立文档以及使用注释</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#构建类要以合作为出发点"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">构建类要以合作为出发点</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计时充分考虑重用"><span class="post-toc-number">6.</span> <span class="post-toc-text">设计时充分考虑重用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计时充分考虑到可扩展性"><span class="post-toc-number">7.</span> <span class="post-toc-text">设计时充分考虑到可扩展性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#名字要有描述性"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">名字要有描述性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#抽出不可移植的代码"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">抽出不可移植的代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#提供一种复制和比较对象的方法"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">提供一种复制和比较对象的方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#让作用域尽可能小"><span class="post-toc-number">7.4.</span> <span class="post-toc-text">让作用域尽可能小</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类应当对自己负责"><span class="post-toc-number">7.5.</span> <span class="post-toc-text">类应当对自己负责</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计时充分考虑可维护性"><span class="post-toc-number">8.</span> <span class="post-toc-text">设计时充分考虑可维护性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#采用迭代"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">采用迭代</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#测试接口"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">测试接口</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使对象持久性"><span class="post-toc-number">9.</span> <span class="post-toc-text">使对象持久性</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象串行化和封送"><span class="post-toc-number">9.1.</span> <span class="post-toc-text">对象串行化和封送</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小结"><span class="post-toc-number">10.</span> <span class="post-toc-text">小结</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                《写给大家看的面向对象编程书》总结&&实践（5）
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>luoyecong</strong>
+        <span>Aug 23, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/OO/">OO</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/读书笔记/">读书笔记</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/面对对象/">面对对象</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）&url=https://luoyec.cn/2017/08/23/cjiws27ky005fe46pxo97zfuq/index.html&pic=https://luoyec.cn/img/favicon.ico&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Weibo
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）&url=https://luoyec.cn/2017/08/23/cjiws27ky005fe46pxo97zfuq/index.html&via=luoyecong" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://luoyec.cn/2017/08/23/cjiws27ky005fe46pxo97zfuq/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://luoyec.cn/2017/08/23/cjiws27ky005fe46pxo97zfuq/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=孤丶晴 网络日志&title=《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）&summary=Hope is a good thing, maybe the best of things, and no good thing ever dies.&pics=https://luoyec.cn/img/favicon.ico&url=https://luoyec.cn/2017/08/23/cjiws27ky005fe46pxo97zfuq/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="类设计指导原则"><a href="#类设计指导原则" class="headerlink" title="类设计指导原则"></a>类设计指导原则</h2><p>本章为如何设计健壮的类提供一些建议。</p>
+<h2 id="真实世界系统建模"><a href="#真实世界系统建模" class="headerlink" title="真实世界系统建模"></a>真实世界系统建模</h2><p>面向对象（OO）程序设计的主要目标之一就是以类似于人们真正的思维方式对真实世界的系统建模。设计类就是创建这些模型的面向对象方式。</p>
+<p>第一次转向OO开发时，许多人倾向于采用一种结构化的方式思考。由此导致主要的错误之一就是创建的类只包含行为而没有数据。实际上，他们创建的只是结构化模型的一组函数或子例程。</p>
+<h2 id="明确公共接口"><a href="#明确公共接口" class="headerlink" title="明确公共接口"></a>明确公共接口</h2><p>设计类时，最重要的问题可能就是保证公共接口的最小。构建类的根本目的就是提供一些有用而且简洁的功能。</p>
+<h3 id="最小接口"><a href="#最小接口" class="headerlink" title="最小接口"></a>最小接口</h3><p>提供最小接口可以使类尽可能简洁。</p>
+<blockquote>
+<p>扩展接口<br>对于一个特定应用，及时一个类的公共接口还不够，使用对象技术也能很容易的利用继承扩展并调整这个接口。简单来讲，如何设计时考虑到继承，新类可以继承一个原有的类，从而创建一个有扩展接口的新类。</p>
+</blockquote>
+<h3 id="隐藏实现"><a href="#隐藏实现" class="headerlink" title="隐藏实现"></a>隐藏实现</h3><h2 id="设计健壮的构造函数（和析构函数）"><a href="#设计健壮的构造函数（和析构函数）" class="headerlink" title="设计健壮的构造函数（和析构函数）"></a>设计健壮的构造函数（和析构函数）</h2><p>首先，也是最重要的，构造函数应当将对象置于一种安全的初始状态。这包括属性初始化和内存管理等问题。</p>
+<p>析构函数要包含适当的清理功能。</p>
+<blockquote>
+<p>内存泄露<br>如果一个对象未能适当地释放它在对象生存周期中获得的内存，那么只要创建这个对象这个对象的应用还在执行，对于整个操作系统来说这部分内容就丢失了。在极端情况，消耗掉系统所有可用的内存。</p>
+</blockquote>
+<h2 id="在类中设计的错误处理"><a href="#在类中设计的错误处理" class="headerlink" title="在类中设计的错误处理"></a>在类中设计的错误处理</h2><h3 id="对类建立文档以及使用注释"><a href="#对类建立文档以及使用注释" class="headerlink" title="对类建立文档以及使用注释"></a>对类建立文档以及使用注释</h3><blockquote>
+<p>过多的文档<br>要注意，如果注释过多也会有问题，看起来很杂乱，有可能影响建立文档的初衷</p>
+</blockquote>
+<h3 id="构建类要以合作为出发点"><a href="#构建类要以合作为出发点" class="headerlink" title="构建类要以合作为出发点"></a>构建类要以合作为出发点</h3><h2 id="设计时充分考虑重用"><a href="#设计时充分考虑重用" class="headerlink" title="设计时充分考虑重用"></a>设计时充分考虑重用</h2><h2 id="设计时充分考虑到可扩展性"><a href="#设计时充分考虑到可扩展性" class="headerlink" title="设计时充分考虑到可扩展性"></a>设计时充分考虑到可扩展性</h2><p>为一个类增加新特性可能很简单，只需扩展一个现有的类，增加一些新方法，并修改其他方法的行为。不必重写代码。这里使用继承。</p>
+<h3 id="名字要有描述性"><a href="#名字要有描述性" class="headerlink" title="名字要有描述性"></a>名字要有描述性</h3><blockquote>
+<p>好的命名<br>确保坚持一种命名约定很有意义。使名字具有描述性是一个很好的开发实践，这在各种开发泛型中都使用。</p>
+</blockquote>
+<h3 id="抽出不可移植的代码"><a href="#抽出不可移植的代码" class="headerlink" title="抽出不可移植的代码"></a>抽出不可移植的代码</h3><p>将这些不可移植的代码单独放在一个类中，或者至少放在一个方法中。</p>
+<h3 id="提供一种复制和比较对象的方法"><a href="#提供一种复制和比较对象的方法" class="headerlink" title="提供一种复制和比较对象的方法"></a>提供一种复制和比较对象的方法</h3><h3 id="让作用域尽可能小"><a href="#让作用域尽可能小" class="headerlink" title="让作用域尽可能小"></a>让作用域尽可能小</h3><p>这种思想是尽可能将属性和行为置于局部。采用这种方式，维护、测试和扩展类就会容易很多。</p>
+<h3 id="类应当对自己负责"><a href="#类应当对自己负责" class="headerlink" title="类应当对自己负责"></a>类应当对自己负责</h3><p>类的设计原则是：所有对象都应当尽可能自行负责自己的行为。</p>
+<h2 id="设计时充分考虑可维护性"><a href="#设计时充分考虑可维护性" class="headerlink" title="设计时充分考虑可维护性"></a>设计时充分考虑可维护性</h2><p>一个类中的修改不会对其他类产生影响，或者影响尽可能小。</p>
+<blockquote>
+<p>高度耦合的类<br>彼此相当依赖的类被认为是高度耦合（highly coupled）。因此对一个类的修改还要求对另一个类进行修改，这两个类就是高度耦合的。没有这种依赖关系的耦合度很低。</p>
+</blockquote>
+<h3 id="采用迭代"><a href="#采用迭代" class="headerlink" title="采用迭代"></a>采用迭代</h3><p>类设计推荐一种迭代过程，这与提供最小接口的概念恰好一致。</p>
+<h3 id="测试接口"><a href="#测试接口" class="headerlink" title="测试接口"></a>测试接口</h3><h2 id="使对象持久性"><a href="#使对象持久性" class="headerlink" title="使对象持久性"></a>使对象持久性</h2><p>保存对象状态以备以后使用的三种方法：</p>
+<ul>
+<li>平面文件系统：可以通过串行化对象将对象保存在一个平面文件中</li>
+<li>关系数据库：必须使用某种中间件将对象转换成关系模型</li>
+<li>OO数据库：这是保证对象持久化的最合理的做法</li>
+</ul>
+<h3 id="对象串行化和封送"><a href="#对象串行化和封送" class="headerlink" title="对象串行化和封送"></a>对象串行化和封送</h3><p>通过网络发送一个对象，然后在另一端重新合成。这个过程成为串行化（serializing）一个对象。通过网络发送对象的行为称为封送（marshaling）一个对象。</p>
+<p>主要的问题是，串行化和反串行化都必须使用相同的规范。这有些类似于加密算法。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这一章提供了许多指导原则。一类不会独立存在，类必须设计与其他类交互。彼此交互的一组类会作为系统的一部分。最后，再由这些系统为最终用户提供服务。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/08/23/cjiws27kz005ie46pwv295r30/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Newer
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/08/22/cjiws27il000ie46pubsgpnoq/" id="post_nav-older" class="next-content">
+            Older
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="luoyecong's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        luoyecong@aliyun.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                Home
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    Archives
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/06/">June 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">May 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">April 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">March 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">February 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">January 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">December 2017<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">November 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">October 2017<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">September 2017<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">August 2017<span class="sidebar_archives-count">29</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                Categories
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/ES6/">ES6<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Egret/">Egret<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/Eslint/">Eslint<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Git/">Git<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/HTML5/">HTML5<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/JS数据结构与算法/">JS数据结构与算法<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/JavaScript/">JavaScript<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/Nodejs/">Nodejs<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/React/">React<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/mongodb/">mongodb<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/mysql/">mysql<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/node/">node<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/vue/">vue<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码大全/">代码大全<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码整洁之道/">代码整洁之道<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/你不知道的JavaScript/">你不知道的JavaScript<span class="sidebar_archives-count">15</span></a></li><li><a class="sidebar_archives-link" href="/categories/前端工程化/">前端工程化<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/前端性能优化/">前端性能优化<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/图解TCP-IP/">图解TCP/IP<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/工程化/">工程化<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/开发实践分享/">开发实践分享<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/模块/">模块<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/算法导论/">算法导论<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/经验分享/">经验分享<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/脚手架/">脚手架<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/读书笔记/">读书笔记<span class="sidebar_archives-count">10</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="Tags">
+                
+                    <i class="material-icons sidebar-material-icons">card_membership</i>
+                
+                Tags
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="About">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                About
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                Number of articles
+                <span class="sidebar-badge">101</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/lyctea" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>孤丶晴 网络日志
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="en">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            函数作用域和块作用域 | 
+        
+        孤丶晴 网络日志
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.ico">
+    <link rel="icon" href="/img/favicon.ico">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+    <meta name="keywords" content=",读书笔记,作用域">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.en.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(/img/bg.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="孤丶晴 网络日志">
+    <meta name="msapplication-starturl" content="https://luoyec.cn/2017/10/03/cjiws27lf006qe46p01wgj7kr/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="孤丶晴 网络日志">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.ico">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://luoyec.cn/2017/10/03/cjiws27lf006qe46p01wgj7kr/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="函数作用域和块作用域 | 孤丶晴 网络日志">
+    <meta property="og:image" content="/img/favicon.ico">
+    <meta property="og:description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+    <meta property="og:article:tag" content="读书笔记"> <meta property="og:article:tag" content="作用域"> 
+
+    
+        <meta property="article:published_time" content="Tue Oct 03 2017 14:02:42 GMT+0800">
+        <meta property="article:modified_time" content="Tue Oct 03 2017 14:30:43 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://luoyec.cn/2017/10/03/cjiws27lf006qe46p01wgj7kr/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://luoyec.cn/2017/10/03/cjiws27lf006qe46p01wgj7kr/index.html",
+    "headline": "函数作用域和块作用域",
+    "datePublished": "Tue Oct 03 2017 14:02:42 GMT+0800",
+    "dateModified": "Tue Oct 03 2017 14:30:43 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "luoyecong",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "孤丶晴 网络日志",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.ico"
+        }
+    },
+    "keywords": ",读书笔记,作用域",
+    "description": "Hope is a good thing, maybe the best of things, and no good thing ever dies.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#函数中的作用域"><span class="post-toc-number">1.</span> <span class="post-toc-text">函数中的作用域</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#隐藏内部实现"><span class="post-toc-number">2.</span> <span class="post-toc-text">隐藏内部实现</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#规避冲突"><span class="post-toc-number">3.</span> <span class="post-toc-text">规避冲突</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#全局命名空间"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">全局命名空间</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模块管理"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">模块管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#两种模式的共性"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">两种模式的共性</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#函数作用域"><span class="post-toc-number">4.</span> <span class="post-toc-text">函数作用域</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#函数声明和函数表达式的区别"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">函数声明和函数表达式的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#匿名和具名"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">匿名和具名</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#行内函数表达式"><span class="post-toc-number">4.2.1.</span> <span class="post-toc-text">行内函数表达式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#立即执行函数表达式"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">立即执行函数表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IIFE（立即执行函数表达式）"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">IIFE（立即执行函数表达式）</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#块级作用域"><span class="post-toc-number">5.</span> <span class="post-toc-text">块级作用域</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#try-catch"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">try/catch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#let"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">let</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#const"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">const</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#小结"><span class="post-toc-number">6.</span> <span class="post-toc-text">小结</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                函数作用域和块作用域
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>luoyecong</strong>
+        <span>Oct 03, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/作用域/">作用域</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/读书笔记/">读书笔记</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=函数作用域和块作用域&url=https://luoyec.cn/2017/10/03/cjiws27lf006qe46p01wgj7kr/index.html&pic=https://luoyec.cn/img/favicon.ico&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Weibo
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=函数作用域和块作用域&url=https://luoyec.cn/2017/10/03/cjiws27lf006qe46p01wgj7kr/index.html&via=luoyecong" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://luoyec.cn/2017/10/03/cjiws27lf006qe46p01wgj7kr/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://luoyec.cn/2017/10/03/cjiws27lf006qe46p01wgj7kr/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=孤丶晴 网络日志&title=函数作用域和块作用域&summary=Hope is a good thing, maybe the best of things, and no good thing ever dies.&pics=https://luoyec.cn/img/favicon.ico&url=https://luoyec.cn/2017/10/03/cjiws27lf006qe46p01wgj7kr/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>本章讨论的问题是，是否只有函数会生成新的作用域，在Javas中其他的结构能生成作用域吗？</p>
+<h1 id="函数中的作用域"><a href="#函数中的作用域" class="headerlink" title="函数中的作用域"></a>函数中的作用域</h1><p>考虑一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function foo(a)&#123;</span><br><span class="line">	var b = 2</span><br><span class="line">	//一些代码</span><br><span class="line">	</span><br><span class="line">	function bar ()&#123;</span><br><span class="line">		//...</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//更多的代码</span><br><span class="line">	</span><br><span class="line">	var c = 3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这个代码片段中，foo（…） 的作用域气泡中包含了标识符a、b、c和bar，无论标志服声明出现在作用域中的何处，这个标识符所代表的变量或函数都将属于所处作用域的气泡。</p>
+<p>所以，这些在foo中定义的标识符无法从全局作用域中进行访问，这会导致ReferenceError</p>
+<p>总结一下函数作用域，属于这个函数的全局变量都可以在整个函数的范围内使用以及复用。但与此同时，如果不细心处理那些可以在整个作用域范围内被访问的变量，可能导致意想不到的问题。</p>
+<h1 id="隐藏内部实现"><a href="#隐藏内部实现" class="headerlink" title="隐藏内部实现"></a>隐藏内部实现</h1><p>对函数的传统认知就是先声明一个函数，然后再向里面添加代码。但反过来想也可以带来 一些启示：从所写的代码中挑选出任意一个片段，然后利用函数声明对它进行包装，实际上就是把代码隐藏起来了。</p>
+<p>这其实就是在这个代码片段周围创建了一个作用域气泡，也就是说任何声明（变量或者函数）都将绑定在这个新创建的包装函数的作用域中。</p>
+<p>出发点以及目的，为什么要对代码进行隐藏：应该最小限度的暴露必要内容，而将其他内容都“隐藏起来”，这类似于某个模块或者对象的API设计。</p>
+<h1 id="规避冲突"><a href="#规避冲突" class="headerlink" title="规避冲突"></a>规避冲突</h1><p>“隐藏”作用域中的变量和函数所带来的另一个好处是，是可以避免同名标识符之间的冲突。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">i = <span class="number">3</span>; <span class="comment">//修改for循环所属作用域中的i</span></span><br><span class="line">              <span class="built_in">console</span>.log( a + i );</span><br><span class="line">          &#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</span><br><span class="line">bar( i * <span class="number">2</span> ); <span class="comment">// 糟糕，无限循环了!</span></span><br><span class="line">&#125; &#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+<p>这段代码的问题在于，函数bar修改了变量i，这会导致for循环没法满足终止的条件，出现无限循环。</p>
+<p>解决这问题的几种方法：</p>
+<ul>
+<li>将函数bar中的i，声明为var i= 3； 这个i就是之前提过的“遮蔽变量”，及在当前作用域和上层作用域重复定义的变量，屏蔽上层的作用域定义的变量。</li>
+<li>但是更好的方法，是应该讲作用域“隐藏”起来，内部声明是唯一最佳的选择。</li>
+</ul>
+<p>以下是在软件开发中常见的需要进行冲突管理的情况：</p>
+<h2 id="全局命名空间"><a href="#全局命名空间" class="headerlink" title="全局命名空间"></a>全局命名空间</h2><p>变量冲突的一个典型例子存在于全局作用域中。当程序中加载了多个第三方库时，如果它 们没有妥善地将内部私有的函数或变量隐藏起来，就会很容易引发冲突。</p>
+<p>这些库通常会在全局作用域中声明一个名字足够独特的变量，通常是一个对象，这个对象就被用作库的命名空间，所有需要暴露给外界的功能都会成为这个对象（命名空间的）属性。</p>
+<p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var MyreallyCoolLibrary = &#123;</span><br><span class="line">	awesome: &quot;stuff&quot;,</span><br><span class="line">	dosometing: functino () &#123;</span><br><span class="line">		//...</span><br><span class="line">	&#125;,</span><br><span class="line">	doAnoterhThing: fucntion() &#123;</span><br><span class="line">		//..</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="模块管理"><a href="#模块管理" class="headerlink" title="模块管理"></a>模块管理</h2><p>另外一种避免冲突的办法和现代的模块机制很接近，就是从众多模块管理器中挑选一个来 使用。使用这些工具，任何库都无需将标识符加入到全局作用域中，而是通过依赖管理器 的机制将库的标识符显式地导入到另外一个特定的作用域中。</p>
+<h2 id="两种模式的共性"><a href="#两种模式的共性" class="headerlink" title="两种模式的共性"></a>两种模式的共性</h2><p>显而易见，这些工具并没有能够违反词法作用域规则的“神奇”功能。它们只是利用作用 域的规则强制所有标识符都不能注入到共享作用域中，而是保持在私有、无冲突的作用域 中，这样可以有效规避掉所有的意外冲突。</p>
+<h1 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h1><p>虽然利用函数可以生成作用域，但这种方法有两个弊端，首先必须声明一个具名函数foo，这意味着这个名称本身“污染”了所在的作用域，这是不必要的。其实，必须显示地通过函数名（foo（））调用这个函数才能运行其中代码。</p>
+<p>为解决以上问题，Javas提供了方案：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">3</span></span><br><span class="line">	<span class="built_in">console</span>.log(a)  <span class="comment">//3</span></span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a)  <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>将函数用（）包裹起来，这会将函数当做函数表达式而不是一个标准的函数声明来处理。</p>
+<p>如果 function 是声明中 的第一个词，那么就是一个函数声明，否则就是一个函数表达式。</p>
+<h2 id="函数声明和函数表达式的区别"><a href="#函数声明和函数表达式的区别" class="headerlink" title="函数声明和函数表达式的区别"></a>函数声明和函数表达式的区别</h2><p>函数声明和函数表达式之间最重要的区别是它们的名称标识符将会绑定在何处</p>
+<p>比较一下前面两个代码片段。第一个片段中 foo 被绑定在所在作用域中，可以直接通过<br>foo() 来调用它。第二个片段中 foo 被绑定在函数表达式自身的函数中而不是所在作用域中。<br>换句话说，(function foo(){ .. })作为函数表达式意味着foo只能在..所代表的位置中 被访问，外部作用域则不行。foo 变量名被隐藏在自身中意味着不会非必要地污染外部作 用域。</p>
+<p><a href="http://www.cnblogs.com/isaboy/p/javascript_function.html" target="_blank" rel="noopener">参考：详解Javascript 函数声明和函数表达式的区别</a></p>
+<h2 id="匿名和具名"><a href="#匿名和具名" class="headerlink" title="匿名和具名"></a>匿名和具名</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">     setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">"I waited 1 second!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span> );</span><br></pre></td></tr></table></figure>
+<p>这叫做匿名函数表达式，因为声明也名称标识符。函数表达式可以是匿名的，而函数声明则不可以省略函数名——在 JavaScript 的语法中这是非法的。</p>
+<p>匿名函数书写起来简单便捷，但是有几个确定需要考虑：</p>
+<ul>
+<li>匿名函数在栈追踪中不会显示出有意义的函数名，调试变得困难</li>
+<li>如果没有函数名，当函数需要引用自身时只能使用已经过期的arguments.callee引用， 比如在递归中。另一个函数需要引用自身的例子，是在事件触发后事件监听器需要解绑 自身。</li>
+<li>匿名函数省略了对于代码可读性/可理解性而言很重要的函数名，一个描述性的名称可以让代码不言自明。</li>
+</ul>
+<h3 id="行内函数表达式"><a href="#行内函数表达式" class="headerlink" title="行内函数表达式"></a>行内函数表达式</h3><p>行内函数表达式非常强大且有用——匿名和具名之间的区别并不会对这点有任何影响。给函 数表达式指定一个函数名可以有效解决以上问题。始终给函数表达式命名是一个最佳实践:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timeoutHandler</span>(<span class="params"></span>) </span>&#123; <span class="comment">// &lt;-- 快看，我有名字了! </span></span><br><span class="line"><span class="built_in">console</span>.log( <span class="string">"I waited 1 second!"</span> );</span><br><span class="line">&#125;, <span class="number">1000</span> );</span><br></pre></td></tr></table></figure>
+<h2 id="立即执行函数表达式"><a href="#立即执行函数表达式" class="headerlink" title="立即执行函数表达式"></a>立即执行函数表达式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span> </span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">3</span></span><br><span class="line">	<span class="built_in">console</span>.log(a)  <span class="comment">//3 </span></span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a) <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>由于函数被包含在一对（）内部，一次成为一个表达式，通过在欧威加上另一个（）可以立即执行这个函数，比如 (function foo(){ .. })()。第一个 ( ) 将函数变成表 达式，第二个 ( ) 执行了这个函数。</p>
+<h2 id="IIFE（立即执行函数表达式）"><a href="#IIFE（立即执行函数表达式）" class="headerlink" title="IIFE（立即执行函数表达式）"></a>IIFE（立即执行函数表达式）</h2><p>这种模式很常见，几年前社区给它规定了一个术语:IIFE，代表立即执行函数表达式 (Immediately Invoked Function Expression);</p>
+<p>函数名对 IIFE 当然不是必须的，IIFE 最常见的用法是使用一个匿名函数表达式。虽然使 用具名函数的 IIFE 并不常见，但它具有上述匿名函数表达式的所有优势，因此也是一个值 得推广的实践。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>; (<span class="function"><span class="keyword">function</span> <span class="title">IIFE</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>; <span class="built_in">console</span>.log( a ); <span class="comment">// 3</span></span><br><span class="line">      &#125;)();</span><br><span class="line">      <span class="built_in">console</span>.log( a ); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>相较于传统的 IIFE 形式，很多人都更喜欢另一个改进的形式:(function(){ .. }())， 第一种形式中函数表达式被包含在( )中，然后在后面用另一个()括 号来调用。第二种形式中用来调用的()括号被移进了用来包装的( )括号中。<br>这两种形式在功能上是一致的。选择哪个全凭个人喜好。</p>
+<p>IIFE 的另一个非常普遍的进阶用法是把它们当作函数调用并传递参数进去。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">IIFE</span>(<span class="params"> global </span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log( a ); <span class="comment">// 3 console.log( global.a ); // 2</span></span><br><span class="line">     &#125;)( <span class="built_in">window</span> );</span><br><span class="line">     <span class="built_in">console</span>.log( a ); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>IIFE 还有一种变化的用途是倒置代码的运行顺序，将需要运行的函数放在第二位，在 IIFE 执行之后当作参数传递进去。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">IIFE</span>(<span class="params"> def </span>) </span>&#123; def( <span class="built_in">window</span> );</span><br><span class="line">&#125;)(<span class="function"><span class="keyword">function</span> <span class="title">def</span>(<span class="params"> global </span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log( a ); <span class="comment">// 3 console.log( global.a ); // 2</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>函数表达式 def 定义在片段的第二部分，然后当作参数(这个参数也叫作 def)被传递进 IIFE 函数定义的第一部分中。最后，参数 def(也就是传递进去的函数)被调用，并将 window 传入当作 global 参数的值。</p>
+<h1 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h1><p>块作用域是一个用来对之前的最小授权原则进行扩展的工具，将代码从在函数中隐藏信息 扩展为在块中隐藏信息。</p>
+<h2 id="try-catch"><a href="#try-catch" class="headerlink" title="try/catch"></a>try/catch</h2><p>非常少有人会注意到 JavaScript 的 ES3 规范中规定 try/catch 的 catch 分句会创建一个块作<br>用域，其中声明的变量仅在 catch 内部有效。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line"><span class="literal">undefined</span>(); <span class="comment">// 执行一个非法操作来强制制造一个异常</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (err) &#123;</span><br><span class="line"><span class="built_in">console</span>.log( err ); <span class="comment">// 能够正常执行! &#125;</span></span><br><span class="line">     <span class="built_in">console</span>.log( err ); <span class="comment">// ReferenceError: err not found</span></span><br></pre></td></tr></table></figure>
+<p>err仅仅存在于catch分句内部，当视图从别处引用它时会抛出错误</p>
+<h2 id="let"><a href="#let" class="headerlink" title="let"></a>let</h2><p>let关键字可以将变量绑定到任意作用域中，通常是{…}内部，换句话说，let为其生命的变量隐式生成所在块作用域</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">if</span> (foo) &#123;</span><br><span class="line"><span class="keyword">let</span> bar = foo * <span class="number">2</span>;</span><br><span class="line">bar = something( bar ); <span class="built_in">console</span>.log( bar );</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="built_in">console</span>.log( bar ); <span class="comment">// ReferenceError</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>变量提升：提升是指声明会被视为存在于其所出现的作用域的整个范围内</p>
+</blockquote>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><p>除了 let 以外，ES6 还引入了 const，同样可以用来创建块作用域变量，但其值是固定的 (常量)。之后任何试图修改值的操作都会引起错误。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>函数是 JavaScript 中最常见的作用域单元。本质上，声明在一个函数内部的变量或函数会<br>在所处的作用域中“隐藏”起来，这是有意为之的良好软件的设计原则。</p>
+<p>但函数不是唯一的作用域单元。块作用域指的是变量和函数不仅可以属于所处的作用域，<br>也可以属于某个代码块(通常指{ .. }内部)。</p>
+<p>从 ES3 开始，try/catch 结构在 catch 分句中具有块作用域。</p>
+<p>在 ES6 中引入了 let 关键字(var 关键字的表亲)，用来在任意代码块中声明变量。if (..) { let a = 2; }会声明一个劫持了if的{ .. }块的变量，并且将变量添加到这个块中。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/10/03/cjiws27m5008pe46py4ndzvgl/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Newer
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/10/03/cjiws27m4008le46pxscz4vrz/" id="post_nav-older" class="next-content">
+            Older
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="luoyecong's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        luoyecong@aliyun.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                Home
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    Archives
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/06/">June 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">May 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">April 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">March 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">February 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">January 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">December 2017<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">November 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">October 2017<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">September 2017<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">August 2017<span class="sidebar_archives-count">29</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                Categories
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/ES6/">ES6<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Egret/">Egret<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/Eslint/">Eslint<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Git/">Git<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/HTML5/">HTML5<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/JS数据结构与算法/">JS数据结构与算法<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/JavaScript/">JavaScript<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/Nodejs/">Nodejs<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/React/">React<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/mongodb/">mongodb<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/mysql/">mysql<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/node/">node<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/vue/">vue<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码大全/">代码大全<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码整洁之道/">代码整洁之道<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/你不知道的JavaScript/">你不知道的JavaScript<span class="sidebar_archives-count">15</span></a></li><li><a class="sidebar_archives-link" href="/categories/前端工程化/">前端工程化<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/前端性能优化/">前端性能优化<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/图解TCP-IP/">图解TCP/IP<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/工程化/">工程化<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/开发实践分享/">开发实践分享<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/模块/">模块<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/算法导论/">算法导论<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/经验分享/">经验分享<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/脚手架/">脚手架<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/读书笔记/">读书笔记<span class="sidebar_archives-count">10</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="Tags">
+                
+                    <i class="material-icons sidebar-material-icons">card_membership</i>
+                
+                Tags
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="About">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                About
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                Number of articles
+                <span class="sidebar-badge">101</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/lyctea" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>孤丶晴 网络日志
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

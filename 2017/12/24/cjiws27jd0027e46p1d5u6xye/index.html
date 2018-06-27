@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="en">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            JavaScript事件处理上 | 
+        
+        孤丶晴 网络日志
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.ico">
+    <link rel="icon" href="/img/favicon.ico">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+    <meta name="keywords" content=",JavaScript,事件">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.en.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(/img/bg.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="孤丶晴 网络日志">
+    <meta name="msapplication-starturl" content="https://luoyec.cn/2017/12/24/cjiws27jd0027e46p1d5u6xye/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="孤丶晴 网络日志">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.ico">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://luoyec.cn/2017/12/24/cjiws27jd0027e46p1d5u6xye/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="JavaScript事件处理上 | 孤丶晴 网络日志">
+    <meta property="og:image" content="/img/favicon.ico">
+    <meta property="og:description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
+    <meta property="og:article:tag" content="JavaScript"> <meta property="og:article:tag" content="事件"> 
+
+    
+        <meta property="article:published_time" content="Sun Dec 24 2017 22:54:12 GMT+0800">
+        <meta property="article:modified_time" content="Tue Dec 26 2017 22:33:08 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://luoyec.cn/2017/12/24/cjiws27jd0027e46p1d5u6xye/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://luoyec.cn/2017/12/24/cjiws27jd0027e46p1d5u6xye/index.html",
+    "headline": "JavaScript事件处理上",
+    "datePublished": "Sun Dec 24 2017 22:54:12 GMT+0800",
+    "dateModified": "Tue Dec 26 2017 22:33:08 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "luoyecong",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "孤丶晴 网络日志",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.ico"
+        }
+    },
+    "keywords": ",JavaScript,事件",
+    "description": "Hope is a good thing, maybe the best of things, and no good thing ever dies.",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#JavaScript事件处理上"><span class="post-toc-number">1.</span> <span class="post-toc-text">JavaScript事件处理上</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#术语"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">术语</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事件类型"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">事件类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#传统事件类型"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">传统事件类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DOM-事件"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">DOM 事件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1级DOM："><span class="post-toc-number">1.2.2.1.</span> <span class="post-toc-text">1级DOM：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2级DOM"><span class="post-toc-number">1.2.2.2.</span> <span class="post-toc-text">2级DOM</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3级DOM"><span class="post-toc-number">1.2.2.3.</span> <span class="post-toc-text">3级DOM</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#“0级”DOM"><span class="post-toc-number">1.2.2.4.</span> <span class="post-toc-text">“0级”DOM</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HTML5-事件"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">HTML5 事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#触摸屏和移动设备事件"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">触摸屏和移动设备事件</span></a></li></ol></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                JavaScript事件处理上
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>luoyecong</strong>
+        <span>Dec 24, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/JavaScript/">JavaScript</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/事件/">事件</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=JavaScript事件处理上&url=https://luoyec.cn/2017/12/24/cjiws27jd0027e46p1d5u6xye/index.html&pic=https://luoyec.cn/img/favicon.ico&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Weibo
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=JavaScript事件处理上&url=https://luoyec.cn/2017/12/24/cjiws27jd0027e46p1d5u6xye/index.html&via=luoyecong" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://luoyec.cn/2017/12/24/cjiws27jd0027e46p1d5u6xye/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://luoyec.cn/2017/12/24/cjiws27jd0027e46p1d5u6xye/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=孤丶晴 网络日志&title=JavaScript事件处理上&summary=Hope is a good thing, maybe the best of things, and no good thing ever dies.&pics=https://luoyec.cn/img/favicon.ico&url=https://luoyec.cn/2017/12/24/cjiws27jd0027e46p1d5u6xye/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                Share to QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="JavaScript事件处理上"><a href="#JavaScript事件处理上" class="headerlink" title="JavaScript事件处理上"></a>JavaScript事件处理上</h1><p>客户端 <code>JavaScript</code> 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，<code>Web</code> 浏览器就会产生事件。</p>
+<p>如果 <code>JavaScript</code> 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。</p>
+<h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p>了解相关的术语，有助于继续深入学习事件和事件处理。</p>
+<ul>
+<li><p>事件类型<code>（event type）</code></p>
+<ul>
+<li>是一个用来说明发生什么事件的字符串，有时也被事件名字<code>（event name）</code></li>
+</ul>
+</li>
+<li><p>事件目标<code>（event targe）</code></p>
+<ul>
+<li>是发生的事件或与之相关的对象，当将事件是，必须同时指明类型和目标。</li>
+<li><code>Window、Document、Element</code>是最常见的事件目标</li>
+</ul>
+</li>
+<li><p>事件处理程序<code>（event handler）</code></p>
+<ul>
+<li>事件处理程序<code>（event handler）</code>或事件监听程序<code>（event listener）</code> 是处理响应事件的函数。</li>
+<li>当对象在注册的事件程序被调用时，我们有时会说浏览器“触发”和“派发”了事件</li>
+</ul>
+</li>
+<li><p>事件对象<code>（event object）</code></p>
+<ul>
+<li>事件对象<code>（event object）</code>是与特定事件并且包含有关该事件详细信息的对象。</li>
+<li>事件对象作为参数传递给事件处理程序</li>
+<li>所有的事件对象都有用来指定事件类型的 <code>type</code> 属性和指定事件目标的 <code>targe</code> 属性。</li>
+</ul>
+</li>
+<li><p>事件传播<code>（event propagation）</code></p>
+<ul>
+<li>事件传播<code>（event propagation）</code>是浏览器决定哪个对象触发其事件处理程序的过程。</li>
+<li>当文档元素发生某个类型的事件时，他们会在文档树上向上传播或“冒泡”<code>（bubble）</code></li>
+<li>事件处理程序能通过调用方法或设置事件对象属性来阻止事件传播，这样能停止冒泡并将无法再容器元素上触发的处理程序。</li>
+</ul>
+</li>
+<li><p>事件捕获<code>（event capturing）</code></p>
+<ul>
+<li>是事件传播的另一种形式，在容器元素上注册的特定处理程序有机会在事件传播到真实目标之前拦截（或“捕获”）它</li>
+<li><code>IE8</code> 版本之前不支持事件捕获</li>
+</ul>
+</li>
+<li><p>事件的默认操作</p>
+<ul>
+<li>例如在超链接的点击事件，浏览器的默认操作是按照超链接重新加载页面</li>
+<li>事件处理程序可以通过返回一个适当的值、调用事件对象的某个方法设置事件对象的某个属性来阻止默认操作的发生。</li>
+</ul>
+</li>
+</ul>
+<h2 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h2><p>随着 <code>Web</code> 平台发展到包含更强大的API，事件集合随之越来越大，这些新事件主要有三个来源：</p>
+<ul>
+<li>3级 <code>DOM</code> 事件规范</li>
+<li><code>HTML5</code> 规范衍生规范的大量新API定义的事件</li>
+<li>基于触摸和支持 <code>JavaScript</code> 的移动设备的出现</li>
+</ul>
+<p>事件大致可以分成几类，了解这些分类有助于理解和组织事件列表：</p>
+<ul>
+<li><p>依赖于设备的输入事件</p>
+<ul>
+<li>鼠标和键盘， <code>mousedown、mousemove、mouseup、keydown、keyup</code></li>
+</ul>
+</li>
+<li><p>独立与设备的输入事件</p>
+<ul>
+<li>这些事件没有直接相关的特定输入设备，如 <code>click</code> 事件，可以通过鼠标点击发生也可以通过键盘或者其他设备触发</li>
+</ul>
+</li>
+<li><p>用户界面事件</p>
+<ul>
+<li>用户界面事件，通常出现定义 <code>Web</code> 程序用户界面的 <code>HTML</code> 表单元素上。</li>
+<li>包括文本输入域获取键盘焦点的 <code>focus</code> 事件、用户改变表单元格的 <code>change</code> 事件、表单提交 <code>submit</code> 事件</li>
+</ul>
+</li>
+<li><p>状态变化事件</p>
+<ul>
+<li>不是由于用户活动而是由于网络或浏览器活动出发、用来标识某种声明周期或相关状态的变化</li>
+<li>例如，<code>window</code> 的 <code>onload</code> 事件，<code>loadstart、progress、loadend</code>等 <code>I/O</code> 过程的异步通知</li>
+</ul>
+</li>
+<li><p>特定的 <code>API</code> 事件</p>
+<ul>
+<li><code>HTML5</code> 及相关规范定义的大量 <code>Web API</code> 都有自己的事件类型</li>
+<li>如拖放 <code>API</code>，<code>dragstart、dragenter，&lt;video /&gt;</code> 等</li>
+</ul>
+</li>
+</ul>
+<h3 id="传统事件类型"><a href="#传统事件类型" class="headerlink" title="传统事件类型"></a>传统事件类型</h3><ul>
+<li><p>表单事件</p>
+<ul>
+<li>表单事件是所有事件类型中最稳定且得到最良好支持的那部分</li>
+<li>表单提交和重置，会触发 <code>submit</code> 和 <code>reset</code> 事件</li>
+<li>类按钮元素（如单选、复选）交互时，<code>click</code> 事件</li>
+<li>用户通过文字、选择选项或选择复选框改变表单元素状态时，通常会触发 <code>change</code> 事件</li>
+<li>对于文本输入域，只有当焦点移动到其他元素才会触发 <code>change</code> 事件</li>
+<li>改变表单元素焦点时会触发，<code>focus</code> 和 <code>blur</code> 事件</li>
+<li>通过事件处理程序能取消 <code>submit</code> 和 <code>reset</code> 事件的默认操作</li>
+</ul>
+</li>
+<li><p><code>Window</code> 事件 </p>
+<ul>
+<li><code>Window</code> 事件是指事件的发生于浏览器窗口本身而非窗口中显示的任何特定文档内容相关</li>
+<li><code>load</code> 事件，是当文档和其他所有的外部资源（比如图片）完全加载并显示给用户时才会触发</li>
+<li><code>unload事件</code>，是当用户离开文档转向其他文档是触发它</li>
+<li><code>resize</code>、<code>scroll事件</code>，当用户调整浏览器窗口大小、滚动时会被触发，但其事件对象时非常普通的 <code>Event</code> 对象，没有指定调整大小或发生滚动的详细信息属性</li>
+</ul>
+</li>
+<li><p>鼠标事件</p>
+<ul>
+<li>当用户在文档上移动单击鼠标都会产生鼠标事件，这些事件在鼠标指针所对应的最深嵌套元素上触发， 但他们会冒泡直到文档的最顶层</li>
+<li>事件对象中包含了，鼠标的位置和按键状态</li>
+<li>对于 <code>click</code> 事件， <code>detail</code> 属性制定了其是单击、双击、还是三击</li>
+<li><code>mousemove</code> 事件，当用户移动鼠标时触发，在该事件中，一定不能触发计算密集型任务</li>
+<li><code>mouseover</code> 事件，当用户鼠标指针悬停到新元素上时触发，<code>mouseout</code>，不在悬停在某个对象上时触发</li>
+<li><code>mousewhell</code> 事件，当用户鼠标滚轮时触发</li>
+</ul>
+</li>
+<li><p>键盘事件</p>
+<ul>
+<li>用户每次按下或释放键盘上的按键时都会产生事件</li>
+<li>传递给事件处理程序的对象中有 <code>keyCode</code> 字段 ， 它指定按下或释放的键是哪一个</li>
+<li><code>keydown</code>、<code>keyup</code>、<code>keypress</code> 事件，键盘按下、释放，<code>keypress</code> 按住时可以产生连续多个相同的字符</li>
+</ul>
+</li>
+</ul>
+<h3 id="DOM-事件"><a href="#DOM-事件" class="headerlink" title="DOM 事件"></a><code>DOM</code> 事件</h3><p><em>DOM的分级：根据W3C DOM规范，DOM是HTML与XML的应用编程接口（API），DOM将整个页面映射为一个由层次节点组成的文件。有1级、2级、3级共3个级别。</em></p>
+<h4 id="1级DOM："><a href="#1级DOM：" class="headerlink" title="1级DOM："></a>1级DOM：</h4><p><em>1级DOM在1998年10月份成为W3C的提议，由DOM核心与DOM HTML两个模块组成。DOM核心能映射以XML为基础的文档结构，允许获取和操作文档的任意部分。DOM HTML通过添加HTML专用的对象与函数对DOM核心进行了扩展。</em></p>
+<h4 id="2级DOM"><a href="#2级DOM" class="headerlink" title="2级DOM"></a>2级DOM</h4><p><em>鉴于1级DOM仅以映射文档结构为目标，DOM 2级面向更为宽广。通过对原有DOM的扩展，2级DOM通过对象接口增加了对鼠标和用户界面事件（DHTML长期支持鼠标与用户界面事件）、范围、遍历（重复执行DOM文档）和层叠样式表（CSS）的支持。同时也对DOM 1的核心进行了扩展，从而可支持XML命名空间。</em></p>
+<p>*2级DOM引进了几个新DOM模块来处理新的接口类型：</p>
+<ul>
+<li>DOM视图：描述跟踪一个文档的各种视图（使用CSS样式设计文档前后）的接口；</li>
+<li>DOM事件：描述事件接口；</li>
+<li>DOM样式：描述处理基于CSS样式的接口；</li>
+<li>DOM遍历与范围：描述遍历和操作文档树的接口；*</li>
+</ul>
+<h4 id="3级DOM"><a href="#3级DOM" class="headerlink" title="3级DOM"></a>3级DOM</h4><p><em>3级DOM通过引入统一方式载入和保存文档和文档验证方法对DOM进行进一步扩展，DOM3包含一个名为“DOM载入与保存”的新模块，DOM核心扩展后可支持XML1.0的所有内容，包括XML Infoset、 XPath、和XML Base。</em></p>
+<h4 id="“0级”DOM"><a href="#“0级”DOM" class="headerlink" title="“0级”DOM"></a>“0级”DOM</h4><p><em>当阅读与DOM有关的材料时，可能会遇到参考0级DOM的情况。需要注意的是并没有标准被称为0级DOM，它仅是DOM历史上一个参考点（0级DOM被认为是在Internet Explorer 4.0 与Netscape Navigator4.0支持的最早的DHTML）。</em></p>
+<h3 id="HTML5-事件"><a href="#HTML5-事件" class="headerlink" title="HTML5 事件"></a><code>HTML5</code> 事件</h3><p><code>HTML5</code> 及相关标准定义了大量新的 <code>Web</code> 应用 <code>API</code>，其中许多 <code>API</code> 都定义了事件。</p>
+<ul>
+<li>音频和视频 <code>&lt;audio&gt;</code> 和 <code>&lt;video&gt;</code></li>
+<li>拖放事件</li>
+<li>表单的新特性，表单验证机制，包括验证失败时在表单元素上会触发 <code>invalid</code> 事件</li>
+<li>离线 Web 应用的支持</li>
+<li>许多新的API应用使用 <code>message</code> 事件进行异步通信。跨文档通信 <code>API</code> 允许一台服务器上的文档能通过和另一台服务器上的文档脚本交换消息。</li>
+<li><code>XMLHttpRequest</code> 规范定义了一系列事件来追踪异步的 <code>I/O</code> 进度，<code>loadstart、progress、loadend</code></li>
+</ul>
+<h3 id="触摸屏和移动设备事件"><a href="#触摸屏和移动设备事件" class="headerlink" title="触摸屏和移动设备事件"></a>触摸屏和移动设备事件</h3><p>可以在 <code>Apple</code> <a href="http://developer.apple.com" target="_blank" rel="noopener">开发者中心</a> 查询更多信息</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2017/12/26/cjiws27jo002ve46px4tiw4ma/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Newer
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/12/16/cjiws27j3001je46p68opx59a/" id="post_nav-older" class="next-content">
+            Older
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="luoyecong's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        luoyecong@aliyun.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                Home
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    Archives
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/06/">June 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/05/">May 2018<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/04/">April 2018<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">March 2018<span class="sidebar_archives-count">8</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">February 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">January 2018<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">December 2017<span class="sidebar_archives-count">9</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">November 2017<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">October 2017<span class="sidebar_archives-count">16</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">September 2017<span class="sidebar_archives-count">11</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">August 2017<span class="sidebar_archives-count">29</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                Categories
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/ES6/">ES6<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Egret/">Egret<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/Eslint/">Eslint<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/Git/">Git<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/HTML5/">HTML5<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/JS数据结构与算法/">JS数据结构与算法<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/JavaScript/">JavaScript<span class="sidebar_archives-count">19</span></a></li><li><a class="sidebar_archives-link" href="/categories/Nodejs/">Nodejs<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/React/">React<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/mongodb/">mongodb<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/mysql/">mysql<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/node/">node<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/vue/">vue<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码大全/">代码大全<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/代码整洁之道/">代码整洁之道<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/categories/你不知道的JavaScript/">你不知道的JavaScript<span class="sidebar_archives-count">15</span></a></li><li><a class="sidebar_archives-link" href="/categories/前端工程化/">前端工程化<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/前端性能优化/">前端性能优化<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/图解TCP-IP/">图解TCP/IP<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/工程化/">工程化<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/开发实践分享/">开发实践分享<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/模块/">模块<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/算法导论/">算法导论<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/经验分享/">经验分享<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/脚手架/">脚手架<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/读书笔记/">读书笔记<span class="sidebar_archives-count">10</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="Tags">
+                
+                    <i class="material-icons sidebar-material-icons">card_membership</i>
+                
+                Tags
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="/about" title="About">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                About
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                Number of articles
+                <span class="sidebar-badge">101</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/lyctea" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>孤丶晴 网络日志
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
