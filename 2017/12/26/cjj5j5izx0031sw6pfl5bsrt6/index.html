@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,脚本文档化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孤丶晴 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="《 JavaScript 权威指南 第十五章》 本文介绍了文档的概念，以及如何获取问题，Node 节点的属性，如何通过Node属性快速定位的相关节点。 JavaScript脚本化文档每个 Window 对象由一个 document 属性引用了 Document 对象，它是一个巨大的 API 中的核心对象，就做文档模型，它代表和操作文档的内容。本章涉及到的知识点：  如何在文档中查询或选取单独的元素">
+<meta name="keywords" content="JavaScript,脚本文档化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript脚本化文档上">
+<meta property="og:url" content="https://luoyec.cn/2017/12/26/cjj5j5izx0031sw6pfl5bsrt6/index.html">
+<meta property="og:site_name" content="孤丶晴 网络日志">
+<meta property="og:description" content="《 JavaScript 权威指南 第十五章》 本文介绍了文档的概念，以及如何获取问题，Node 节点的属性，如何通过Node属性快速定位的相关节点。 JavaScript脚本化文档每个 Window 对象由一个 document 属性引用了 Document 对象，它是一个巨大的 API 中的核心对象，就做文档模型，它代表和操作文档的内容。本章涉及到的知识点：  如何在文档中查询或选取单独的元素">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1514159496869.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1514160529427.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1514297111601.jpg">
+<meta property="og:updated_time" content="2017-12-26T14:28:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript脚本化文档上">
+<meta name="twitter:description" content="《 JavaScript 权威指南 第十五章》 本文介绍了文档的概念，以及如何获取问题，Node 节点的属性，如何通过Node属性快速定位的相关节点。 JavaScript脚本化文档每个 Window 对象由一个 document 属性引用了 Document 对象，它是一个巨大的 API 中的核心对象，就做文档模型，它代表和操作文档的内容。本章涉及到的知识点：  如何在文档中查询或选取单独的元素">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1514159496869.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2017/12/26/cjj5j5izx0031sw6pfl5bsrt6/"/>
+
+
+
+
+
+  <title>JavaScript脚本化文档上 | 孤丶晴 网络日志</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孤丶晴 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/12/26/cjj5j5izx0031sw6pfl5bsrt6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤丶晴 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JavaScript脚本化文档上</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-26T22:28:16+08:00">
+                2017-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/26/cjj5j5izx0031sw6pfl5bsrt6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/12/26/cjj5j5izx0031sw6pfl5bsrt6/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1,198
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>《 <code>JavaScript</code> 权威指南 第十五章》</p>
+<p>本文介绍了文档的概念，以及如何获取问题，Node 节点的属性，如何通过Node属性快速定位的相关节点。</p>
+<h1 id="JavaScript脚本化文档"><a href="#JavaScript脚本化文档" class="headerlink" title="JavaScript脚本化文档"></a>JavaScript脚本化文档</h1><p>每个 <code>Window</code> 对象由一个 <code>document</code> 属性引用了 <code>Document</code> 对象，它是一个巨大的 <code>API</code> 中的核心对象，就做文档模型，它代表和操作文档的内容。<br>本章涉及到的知识点：</p>
+<ul>
+<li>如何在文档中查询或选取单独的元素</li>
+<li>如何将文档作为节点树遍历，如何找到任何文档元素的祖先、兄弟和后台元素</li>
+<li>如何查询和设置文档元素的属性</li>
+<li>如何查询、设置和修改文档的内容</li>
+<li>如何通过创建、插入和删除节点来修改文档结构</li>
+<li>如何与HTML表单一起工作  </li>
+<li>文档特性，<code>referrershuxing、write()</code>方法、和查询当前文档中选取的文档文本</li>
+</ul>
+<h2 id="DOM-概述"><a href="#DOM-概述" class="headerlink" title="DOM 概述"></a>DOM 概述</h2><p>DOM：文档对象模型</p>
+<p>一个简单的 <code>HTML</code> 文档的 <code>DOM</code> 树状图：<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1514159496869.jpg" alt=""></p>
+<p>文档中的每一个节点，表示一个 <code>Node</code> 对象，每个 <code>Node</code> 对象由四大属性，详细请查阅相关章节：</p>
+<ul>
+<li><code>Document</code></li>
+<li><code>CharaterData</code></li>
+<li><code>Element</code></li>
+<li><code>Attr</code></li>
+</ul>
+<h2 id="选取文档元素"><a href="#选取文档元素" class="headerlink" title="选取文档元素"></a>选取文档元素</h2><ul>
+<li>用指定的 <code>ID</code> 属性</li>
+<li>用指定的 <code>name</code> 属性</li>
+<li>用指定的标签名字</li>
+<li>用指定的 <code>CSS</code> 类</li>
+<li>匹配指定的 <code>CSS</code> 选择器</li>
+</ul>
+<h3 id="通过-ID-选取元素"><a href="#通过-ID-选取元素" class="headerlink" title="通过 ID 选取元素"></a>通过 <code>ID</code> 选取元素</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> section1 = <span class="built_in">document</span>.getElementById(<span class="string">'section1'</span>);</span><br></pre></td></tr></table></figure>
+<p><code>id</code> 属性是 <code>HTML</code> 元素唯一的，这是最简单和常用的选取元素的方法。</p>
+<p>通过 <code>id</code> 查找多个元素：</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1514160529427.jpg" alt=""></p>
+<h3 id="通过名字选取元素"><a href="#通过名字选取元素" class="headerlink" title="通过名字选取元素"></a>通过名字选取元素</h3><p> <code>name</code> 属性不是必须唯一，但是只有少数 <code>HTML</code> 元素中有效，包括表单、表单元素、<code>&lt;ifarme&gt;、&lt;img&gt;</code>元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> radiobuttons = <span class="built_in">document</span>.getElementByName(<span class="string">'favorite_color'</span>);</span><br></pre></td></tr></table></figure>
+<p>有些元素自动设置 <code>name</code> 属性到 <code>Window</code> 对象中，所有可以仅仅通过名字获取，但是最好显示的通过 <code>getElementByName()</code> 获取：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 针对  &lt;form name='shipping_address'&gt; 元素,获得Element对象</span></span><br><span class="line"><span class="keyword">var</span> form = docuemnt.shipping_address;</span><br></pre></td></tr></table></figure>
+<h3 id="通过标签名选取元素"><a href="#通过标签名选取元素" class="headerlink" title="通过标签名选取元素"></a>通过标签名选取元素</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> spans = <span class="built_in">document</span>.getElementByTagName(<span class="string">'span'</span>);</span><br></pre></td></tr></table></figure>
+<p>只能返回数组对象，并且排列顺序是文档中的顺序。<code>HTML</code> 标签是不区分大小写的。</p>
+<p>传递通配符参数 <code>*</code> 将获取代表文档中所有元素的 <code>NodeList</code> 对象。</p>
+<h3 id="通过-CSS-类选取元素"><a href="#通过-CSS-类选取元素" class="headerlink" title="通过 CSS 类选取元素"></a>通过 CSS 类选取元素</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找其class属性值中包含“awrning”的所有元素</span></span><br><span class="line"><span class="keyword">var</span> warning = <span class="built_in">document</span>.getElementByClassName(<span class="string">'warning'</span>)</span><br></pre></td></tr></table></figure>
+<p>参数可以是一个字符串，也可以是多个由空格隔开的标识符组成，只有当元素的 <code>class</code> 属性值包含所有指定的标识符时才会匹配，但是与标识符的顺序是无关的。</p>
+<blockquote>
+<p>现代Web浏览器中以&lt;!DOCTYPE&gt;声明的严格程度来选择“怪异模式”或者“标准模式”方式显示HTML文档。<br>怪异模式是为了向后兼容性而存在的。</p>
+</blockquote>
+<h3 id="通过-CSS-选择器选取元素"><a href="#通过-CSS-选择器选取元素" class="headerlink" title="通过 CSS 选择器选取元素"></a>通过 CSS 选择器选取元素</h3><p>选择器用来描述文档中的若干或多组元素，元素可以用ID、标签名或类来描述</p>
+<p><a href="http://www.w3school.com.cn/cssref/css_selectors.asp" target="_blank" rel="noopener">css选择器</a></p>
+<p><code>querySelectorAll()</code> :返回与指定的选择器组匹配的文档中的元素列表 (使用深度优先的先序遍历文档的节点)。返回的对象是 NodeList 。需要注意的是，一些伪元素无法匹配，如 <code>:first-line  :first-letter</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> matches = <span class="built_in">document</span>.querySelectorAll(<span class="string">"div.note, div.alert"</span>);</span><br></pre></td></tr></table></figure>
+<p>📌  获取某个元素下包含的所有子元素，查看其属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> form = <span class="built_in">document</span>.getElementById(<span class="string">'sub-form'</span>)</span><br><span class="line"><span class="keyword">let</span> arr = <span class="built_in">Array</span>.prototype.slice.call(form)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> [input#sb_form_q.b_searchbox, input#sb_form_go.b_searchboxSubmit, input#sa_qs, input]</span></span><br><span class="line"><span class="comment">0:input#sb_form_q.b_searchbox</span></span><br><span class="line"><span class="comment">1:input#sb_form_go.b_searchboxSubmit</span></span><br><span class="line"><span class="comment">2:input#sa_qs</span></span><br><span class="line"><span class="comment">3:input  */</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1514297111601.jpg" alt=""></p>
+<h2 id="文档结构和遍历"><a href="#文档结构和遍历" class="headerlink" title="文档结构和遍历"></a>文档结构和遍历</h2><p>有时需要查找文档中与之结构上相关的部分（父亲、兄弟、子女）。</p>
+<p>文档从概念上可以看做是一棵节点对象树。</p>
+<h3 id="作为节点树的文档"><a href="#作为节点树的文档" class="headerlink" title="作为节点树的文档"></a>作为节点树的文档</h3><p><code>Document</code>对象、它的 <code>Element</code> 对象和文档中表示文本的 <code>Text</code> 对象都是 <code>Node</code> 对象（见上图），<code>Node</code> 定义了几个重要属性：</p>
+<ul>
+<li><p><code>parentNode</code></p>
+<ul>
+<li>节点的父节点</li>
+</ul>
+</li>
+<li><p><code>childNodes</code></p>
+<ul>
+<li>只读的子节点数组对象</li>
+</ul>
+</li>
+<li><p><code>firstChild、lastChild</code></p>
+<ul>
+<li>该节点的第一个和最后一个子节点</li>
+</ul>
+</li>
+<li><p><code>nextSlibling、previpursSlibling</code> 📌 </p>
+<ul>
+<li>节点的兄弟节点中的前一个和下一个</li>
+<li>具有相同父节点的两个节点为兄弟节点</li>
+<li>节点的顺序反映了它们在文档中出现的顺序</li>
+</ul>
+</li>
+<li><p><code>nodeType</code></p>
+<ul>
+<li>该节点的类型</li>
+</ul>
+</li>
+<li><p><code>nodeValue</code></p>
+<ul>
+<li><code>Text</code> 节点或 <code>Comment</code> 节点的文本内容</li>
+</ul>
+</li>
+<li><p><code>nodeName</code></p>
+<ul>
+<li>元素的标签名，以大写形式表示</li>
+</ul>
+</li>
+</ul>
+<p>快速获取元素的实践：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一个子节点下面的第二个子节点</span></span><br><span class="line"><span class="built_in">document</span>.childNodes[<span class="number">0</span>].childNodes[<span class="number">1</span>];</span><br><span class="line"><span class="comment">//第一个子节点下面的第一个子节点的前一个兄弟节点</span></span><br><span class="line"><span class="built_in">document</span>.firstChild.firstChild.nextSibling</span><br></pre></td></tr></table></figure></p>
+<h3 id="作为元素树的文档"><a href="#作为元素树的文档" class="headerlink" title="作为元素树的文档"></a>作为元素树的文档</h3><p>etc… 似乎在开发中用不到</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/脚本文档化/" rel="tag"># 脚本文档化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/24/cjj5j5izo002dsw6pr7dhyd7y/" rel="next" title="JavaScript事件处理上">
+                <i class="fa fa-chevron-left"></i> JavaScript事件处理上
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/26/cjj5j5izp002gsw6pk6u3fdtn/" rel="prev" title="JavaScript事件处理下">
+                JavaScript事件处理下 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpeg"
+                alt="luoyecong" />
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">121</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
+                      
+                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript脚本化文档"><span class="nav-number">1.</span> <span class="nav-text">JavaScript脚本化文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM-概述"><span class="nav-number">1.1.</span> <span class="nav-text">DOM 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选取文档元素"><span class="nav-number">1.2.</span> <span class="nav-text">选取文档元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-ID-选取元素"><span class="nav-number">1.2.1.</span> <span class="nav-text">通过 ID 选取元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过名字选取元素"><span class="nav-number">1.2.2.</span> <span class="nav-text">通过名字选取元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过标签名选取元素"><span class="nav-number">1.2.3.</span> <span class="nav-text">通过标签名选取元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-CSS-类选取元素"><span class="nav-number">1.2.4.</span> <span class="nav-text">通过 CSS 类选取元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-CSS-选择器选取元素"><span class="nav-number">1.2.5.</span> <span class="nav-text">通过 CSS 选择器选取元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档结构和遍历"><span class="nav-number">1.3.</span> <span class="nav-text">文档结构和遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作为节点树的文档"><span class="nav-number">1.3.1.</span> <span class="nav-text">作为节点树的文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作为元素树的文档"><span class="nav-number">1.3.2.</span> <span class="nav-text">作为元素树的文档</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a></div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'lyctea',
+            repo: 'lyctea.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '70a5af9699aa09c449e4eabc62b0a3ddc0529594',
+            
+                client_id: 'b2cd2b1da89eab81af71'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
