@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="en">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,19 +14,8 @@
 
 
 
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
 
 
-
-
-  
-  
-  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
 
 
 
@@ -64,16 +53,16 @@
 <link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
 
 
 
@@ -85,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孤丶晴 网络日志" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
 
 
 
@@ -94,13 +83,13 @@
 
 <meta name="description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="孤丶晴 网络日志">
+<meta property="og:title" content="Aries 网络日志">
 <meta property="og:url" content="https://luoyec.cn/page/5/index.html">
-<meta property="og:site_name" content="孤丶晴 网络日志">
+<meta property="og:site_name" content="Aries 网络日志">
 <meta property="og:description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="孤丶晴 网络日志">
+<meta name="twitter:title" content="Aries 网络日志">
 <meta name="twitter:description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
 
 
@@ -111,13 +100,13 @@
     root: '/',
     scheme: 'Mist',
     version: '5.1.4',
-    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -137,36 +126,26 @@
 
 
 
-  <title>孤丶晴 网络日志</title>
+  <title>Aries 网络日志</title>
   
 
 
 
 
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
 
 
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-right 
+  <div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -178,12 +157,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">孤丶晴 网络日志</span>
+        <span class="site-title">Aries 网络日志</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <p class="site-subtitle"></p>
       
   </div>
 
@@ -208,37 +187,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
+            首页
           </a>
         </li>
       
@@ -248,7 +197,37 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -285,16 +264,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/19/cjj5j5iyj0008sw6p06h2prnl/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/12/04/cjkxdt36b0063n96poh3hzudn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -302,9 +281,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/19/cjj5j5iyj0008sw6p06h2prnl/" itemprop="url">All About React Router 4</a></h2>
+                <a class="post-title-link" href="/2017/12/04/cjkxdt36b0063n96poh3hzudn/" itemprop="url">二叉搜索树</a></h1>
         
 
         <div class="post-meta">
@@ -314,9 +293,162 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-19T00:08:35+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T03:30:51+08:00">
+                2017-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">JS数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          二叉搜索树《学习JavaScri数据结构与算法》
+数据结构
+数据结构是计算机存储、组织数据的方式。数据结构是指相互之间存在一种或多种特定关系的数据元素的集合。通常情况下，精心选择的数据结构可以带来更高的运行或者存储效率。数据结构往往同高效的检索算法和索引技术有关。百度百科：数据结构
+
+
+为什么要学习
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/12/04/cjkxdt36b0063n96poh3hzudn/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/19/cjkxdt3340004n96p3m5evgla/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/19/cjkxdt3340004n96p3m5evgla/" itemprop="url">All About React Router 4</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-19T00:08:35+08:00">
                 2017-11-19
               </time>
             
@@ -335,7 +467,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -360,37 +492,6 @@
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,549
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  7
-                </span>
-              
-            </div>
-          
 
           
 
@@ -401,7 +502,7 @@
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -417,8 +518,8 @@ Inclusive Routing 引入路由123456789101112 const PrimaryLayout = () =&gt; (  
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/19/cjj5j5iyj0008sw6p06h2prnl/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/11/19/cjkxdt3340004n96p3m5evgla/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -468,16 +569,16 @@ Inclusive Routing 引入路由123456789101112 const PrimaryLayout = () =&gt; (  
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/18/cjj5j5j0b003wsw6p47u08wcu/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/18/cjkxdt358003yn96p9v6auy1r/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -485,9 +586,9 @@ Inclusive Routing 引入路由123456789101112 const PrimaryLayout = () =&gt; (  
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/18/cjj5j5j0b003wsw6p47u08wcu/" itemprop="url">Nginx反向代理</a></h2>
+                <a class="post-title-link" href="/2017/11/18/cjkxdt358003yn96p9v6auy1r/" itemprop="url">Nginx反向代理</a></h1>
         
 
         <div class="post-meta">
@@ -497,9 +598,9 @@ Inclusive Routing 引入路由123456789101112 const PrimaryLayout = () =&gt; (  
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-18T09:46:05+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-18T09:46:05+08:00">
                 2017-11-18
               </time>
             
@@ -518,7 +619,7 @@ Inclusive Routing 引入路由123456789101112 const PrimaryLayout = () =&gt; (  
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -543,37 +644,6 @@ Inclusive Routing 引入路由123456789101112 const PrimaryLayout = () =&gt; (  
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  2,982
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  12
-                </span>
-              
-            </div>
-          
 
           
 
@@ -584,7 +654,7 @@ Inclusive Routing 引入路由123456789101112 const PrimaryLayout = () =&gt; (  
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -601,8 +671,8 @@ Mac Nginx 安装（Brew）
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/18/cjj5j5j0b003wsw6p47u08wcu/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/11/18/cjkxdt358003yn96p9v6auy1r/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -652,16 +722,16 @@ Mac Nginx 安装（Brew）
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/11/cjj5j5iyw000rsw6pctfuory9/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/11/cjkxdt33r000rn96px78l4fxc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -669,9 +739,9 @@ Mac Nginx 安装（Brew）
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/11/cjj5j5iyw000rsw6pctfuory9/" itemprop="url">Eslint代码检查及格式化</a></h2>
+                <a class="post-title-link" href="/2017/11/11/cjkxdt33r000rn96px78l4fxc/" itemprop="url">Eslint代码检查及格式化</a></h1>
         
 
         <div class="post-meta">
@@ -681,9 +751,9 @@ Mac Nginx 安装（Brew）
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-11T23:31:18+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-11T23:31:18+08:00">
                 2017-11-11
               </time>
             
@@ -702,7 +772,7 @@ Mac Nginx 安装（Brew）
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -727,37 +797,6 @@ Mac Nginx 安装（Brew）
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,642
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  7
-                </span>
-              
-            </div>
-          
 
           
 
@@ -768,7 +807,7 @@ Mac Nginx 安装（Brew）
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -783,8 +822,8 @@ Airbnb’s J
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/11/cjj5j5iyw000rsw6pctfuory9/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/11/11/cjkxdt33r000rn96px78l4fxc/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -834,16 +873,16 @@ Airbnb’s J
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/10/cjj5j5iyb0002sw6po3p7yvwo/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/10/cjkxdt33a0008n96pait4dsam/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -851,9 +890,9 @@ Airbnb’s J
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/10/cjj5j5iyb0002sw6po3p7yvwo/" itemprop="url">58脚手架分享讲义</a></h2>
+                <a class="post-title-link" href="/2017/11/10/cjkxdt33a0008n96pait4dsam/" itemprop="url">58脚手架分享讲义</a></h1>
         
 
         <div class="post-meta">
@@ -863,9 +902,9 @@ Airbnb’s J
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-10T01:08:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-10T01:08:09+08:00">
                 2017-11-10
               </time>
             
@@ -884,7 +923,7 @@ Airbnb’s J
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -909,37 +948,6 @@ Airbnb’s J
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  3,700
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  15
-                </span>
-              
-            </div>
-          
 
           
 
@@ -950,7 +958,7 @@ Airbnb’s J
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -971,8 +979,8 @@ dev和prod环境如何搞
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/10/cjj5j5iyb0002sw6po3p7yvwo/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/11/10/cjkxdt33a0008n96pait4dsam/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1022,16 +1030,16 @@ dev和prod环境如何搞
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/09/cjj5j5izm0029sw6p4iy1404b/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/09/cjkxdt34g0027n96p1cwfhf1g/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1039,9 +1047,9 @@ dev和prod环境如何搞
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/09/cjj5j5izm0029sw6p4iy1404b/" itemprop="url">JavaScript:Promise</a></h2>
+                <a class="post-title-link" href="/2017/11/09/cjkxdt34g0027n96p1cwfhf1g/" itemprop="url">JavaScript:Promise</a></h1>
         
 
         <div class="post-meta">
@@ -1051,9 +1059,9 @@ dev和prod环境如何搞
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-09T13:28:18+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-09T13:28:18+08:00">
                 2017-11-09
               </time>
             
@@ -1072,7 +1080,7 @@ dev和prod环境如何搞
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1097,37 +1105,6 @@ dev和prod环境如何搞
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  976
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  3
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1138,7 +1115,7 @@ dev和prod环境如何搞
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1154,8 +1131,8 @@ dev和prod环境如何搞
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/09/cjj5j5izm0029sw6p4iy1404b/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/11/09/cjkxdt34g0027n96p1cwfhf1g/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1205,16 +1182,16 @@ dev和prod环境如何搞
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/10/23/cjj5j5j2b008ksw6pfj6vqqfq/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/10/23/cjkxdt37h008hn96pkcir0bd4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1222,9 +1199,9 @@ dev和prod环境如何搞
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/23/cjj5j5j2b008ksw6pfj6vqqfq/" itemprop="url">2017-10-21表驱动法</a></h2>
+                <a class="post-title-link" href="/2017/10/23/cjkxdt37h008hn96pkcir0bd4/" itemprop="url">2017-10-21表驱动法</a></h1>
         
 
         <div class="post-meta">
@@ -1234,9 +1211,9 @@ dev和prod环境如何搞
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-23T21:51:02+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T21:51:02+08:00">
                 2017-10-23
               </time>
             
@@ -1255,7 +1232,7 @@ dev和prod环境如何搞
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1280,37 +1257,6 @@ dev和prod环境如何搞
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  806
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  3
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1321,7 +1267,7 @@ dev和prod环境如何搞
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1338,8 +1284,8 @@ dev和prod环境如何搞
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/23/cjj5j5j2b008ksw6pfj6vqqfq/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/10/23/cjkxdt37h008hn96pkcir0bd4/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1389,16 +1335,16 @@ dev和prod环境如何搞
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/10/13/cjj5j5izs002osw6p6rhyroel/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/10/13/cjkxdt34n002on96px0gaok36/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1406,9 +1352,9 @@ dev和prod环境如何搞
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/13/cjj5j5izs002osw6p6rhyroel/" itemprop="url">JavaScript回调</a></h2>
+                <a class="post-title-link" href="/2017/10/13/cjkxdt34n002on96px0gaok36/" itemprop="url">JavaScript回调</a></h1>
         
 
         <div class="post-meta">
@@ -1418,9 +1364,9 @@ dev和prod环境如何搞
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-13T20:19:25+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-13T20:19:25+08:00">
                 2017-10-13
               </time>
             
@@ -1439,7 +1385,7 @@ dev和prod环境如何搞
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1464,37 +1410,6 @@ dev和prod环境如何搞
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  668
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  3
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1505,7 +1420,7 @@ dev和prod环境如何搞
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1521,8 +1436,8 @@ dev和prod环境如何搞
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/13/cjj5j5izs002osw6p6rhyroel/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/10/13/cjkxdt34n002on96px0gaok36/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1572,16 +1487,16 @@ dev和prod环境如何搞
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/10/13/cjj5j5izt002rsw6pguc0zy1w/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/10/13/cjkxdt34o002rn96praq7mbj5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1589,9 +1504,9 @@ dev和prod环境如何搞
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/13/cjj5j5izt002rsw6pguc0zy1w/" itemprop="url">JavaScript异步：现在与未来</a></h2>
+                <a class="post-title-link" href="/2017/10/13/cjkxdt34o002rn96praq7mbj5/" itemprop="url">JavaScript异步：现在与未来</a></h1>
         
 
         <div class="post-meta">
@@ -1601,9 +1516,9 @@ dev和prod环境如何搞
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-13T19:46:32+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-13T19:46:32+08:00">
                 2017-10-13
               </time>
             
@@ -1622,7 +1537,7 @@ dev和prod环境如何搞
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1647,37 +1562,6 @@ dev和prod环境如何搞
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  2,543
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  9
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1688,7 +1572,7 @@ dev和prod环境如何搞
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1704,8 +1588,8 @@ dev和prod环境如何搞
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/13/cjj5j5izt002rsw6pguc0zy1w/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/10/13/cjkxdt34o002rn96praq7mbj5/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1755,16 +1639,16 @@ dev和prod环境如何搞
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/10/11/cjj5j5iz8001hsw6p81tzulpm/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/10/11/cjkxdt344001hn96p5n8kkvbt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1772,9 +1656,9 @@ dev和prod环境如何搞
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/11/cjj5j5iz8001hsw6p81tzulpm/" itemprop="url">JavaScript 原生函数</a></h2>
+                <a class="post-title-link" href="/2017/10/11/cjkxdt344001hn96p5n8kkvbt/" itemprop="url">JavaScript 原生函数</a></h1>
         
 
         <div class="post-meta">
@@ -1784,9 +1668,9 @@ dev和prod环境如何搞
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-11T22:50:14+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T22:50:14+08:00">
                 2017-10-11
               </time>
             
@@ -1805,7 +1689,7 @@ dev和prod环境如何搞
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1830,37 +1714,6 @@ dev和prod环境如何搞
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  537
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  2
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1871,7 +1724,7 @@ dev和prod环境如何搞
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1896,193 +1749,8 @@ Symbol()
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/11/cjj5j5iz8001hsw6p81tzulpm/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/10/11/cjj5j5izr002lsw6pqm7lddre/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="luoyecong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/11/cjj5j5izr002lsw6pqm7lddre/" itemprop="url">JavaScript 值</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-11T13:17:29+08:00">
-                2017-10-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/你不知道的JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">你不知道的JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,936
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  8
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          数组
-数组可以容纳任何类型的值，可以是字符串、 数字、对象(object)，甚至是其他数组(多维数组就是通过这种方式来实现的)
-
-
-使用 delete 运算符可以将单元从数组中删除，但是请注意，单元删除后，数 组的 length 属性并不会发生变化。
-
-可以通过下标对数组元素进行索引，但是同时，数组
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/11/cjj5j5izr002lsw6pqm7lddre/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/10/11/cjkxdt344001hn96p5n8kkvbt/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -2148,8 +1816,6 @@ Symbol()
 
   <aside id="sidebar" class="sidebar">
     
-      <div id="sidebar-dimmer"></div>
-    
     <div class="sidebar-inner">
 
       
@@ -2160,12 +1826,8 @@ Symbol()
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/panda.jpeg"
-                alt="luoyecong" />
-            
               <p class="site-author-name" itemprop="name">luoyecong</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -2175,8 +1837,8 @@ Symbol()
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -2185,10 +1847,10 @@ Symbol()
               
               
               <div class="site-state-item site-state-categories">
-                
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">26</span>
-                  <span class="site-state-item-name">categories</span>
-                
+                  <span class="site-state-item-name">分类</span>
+                </a>
               </div>
             
 
@@ -2196,10 +1858,10 @@ Symbol()
               
               
               <div class="site-state-item site-state-tags">
-                
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">121</span>
-                  <span class="site-state-item-name">tags</span>
-                
+                  <span class="site-state-item-name">标签</span>
+                </a>
               </div>
             
 
@@ -2215,65 +1877,11 @@ Symbol()
           
 
           
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
-                      
-                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
-                      
-                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
-                  </span>
-                
-            </div>
-          
 
           
           
 
           
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
-                  </li>
-                
-              </ul>
-            </div>
           
 
           
@@ -2283,13 +1891,6 @@ Symbol()
 
       
 
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
       
 
     </div>
@@ -2312,38 +1913,20 @@ Symbol()
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
+  <span class="post-meta-divider">|</span>
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a></div>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
-    </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
 
 
 
@@ -2355,6 +1938,11 @@ Symbol()
       </div>
     </footer>
 
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
     
@@ -2380,11 +1968,16 @@ Symbol()
   
 
 
+  
 
 
 
 
 
+
+
+  
+  
 
 
 
@@ -2418,6 +2011,21 @@ Symbol()
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
   
 
 
@@ -2470,19 +2078,6 @@ Symbol()
 
 
 
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-
-    
-
-
 
 
 
@@ -2499,21 +2094,6 @@ Symbol()
   
 
   
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
 
   
   
@@ -2521,9 +2101,6 @@ Symbol()
   
 
   
-  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
-
 
   
 

@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="en">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,19 +14,8 @@
 
 
 
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
 
 
-
-
-  
-  
-  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
 
 
 
@@ -64,16 +53,16 @@
 <link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
 
 
 
@@ -85,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孤丶晴 网络日志" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
 
 
 
@@ -94,13 +83,13 @@
 
 <meta name="description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="孤丶晴 网络日志">
+<meta property="og:title" content="Aries 网络日志">
 <meta property="og:url" content="https://luoyec.cn/page/3/index.html">
-<meta property="og:site_name" content="孤丶晴 网络日志">
+<meta property="og:site_name" content="Aries 网络日志">
 <meta property="og:description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="孤丶晴 网络日志">
+<meta name="twitter:title" content="Aries 网络日志">
 <meta name="twitter:description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
 
 
@@ -111,13 +100,13 @@
     root: '/',
     scheme: 'Mist',
     version: '5.1.4',
-    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -137,36 +126,26 @@
 
 
 
-  <title>孤丶晴 网络日志</title>
+  <title>Aries 网络日志</title>
   
 
 
 
 
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
 
 
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-right 
+  <div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -178,12 +157,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">孤丶晴 网络日志</span>
+        <span class="site-title">Aries 网络日志</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <p class="site-subtitle"></p>
       
   </div>
 
@@ -208,37 +187,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
+            首页
           </a>
         </li>
       
@@ -248,7 +197,37 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -285,16 +264,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/03/07/cjj5j5j03003fsw6pkj3n1ah1/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/03/08/cjkxdt34e0024n96pqsj62yt8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -302,9 +281,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/07/cjj5j5j03003fsw6pkj3n1ah1/" itemprop="url">Jenkins安装及基础配置</a></h2>
+                <a class="post-title-link" href="/2018/03/08/cjkxdt34e0024n96pqsj62yt8/" itemprop="url">JavaScript 递归上</a></h1>
         
 
         <div class="post-meta">
@@ -314,10 +293,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-07T09:55:41+08:00">
-                2018-03-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T09:01:16+08:00">
+                2018-03-08
               </time>
             
 
@@ -335,12 +314,12 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端工程化/" itemprop="url" rel="index">
-                    <span itemprop="name">前端工程化</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -360,37 +339,6 @@
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  199
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
 
           
 
@@ -401,7 +349,7 @@
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -409,13 +357,15 @@
       
         
           
-          参考资料：
-CentOS 上安装 JenkinsRedHat Linux RPM packages for JenkinsJenkins+Node.js持续集成Getting started with Jenkins and NodeCentOS 7 安装 GitlabJenkins、Git ssh
+          参考资料：翻译连载 | 第 9 章：递归（上）－《JavaScript轻量级函数式编程》 |《你不知道的JS》姊妹篇
+JavaScript 递归上定义所谓递归，是当一个函数调用自身，并且该调用做了同样的事情，这个循环持续到基本条件满足时，调用循环返回。
+
+⚠️  警告： 如果你不能确保基本条件是递归
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/07/cjj5j5j03003fsw6pkj3n1ah1/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2018/03/08/cjkxdt34e0024n96pqsj62yt8/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -465,16 +415,16 @@ CentOS 上安装 JenkinsRedHat Linux RPM packages for JenkinsJenkins+Node.js持�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/03/05/cjj5j5j08003qsw6p1r9q545j/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/03/07/cjkxdt34z003hn96pa9ga906i/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -482,9 +432,9 @@ CentOS 上安装 JenkinsRedHat Linux RPM packages for JenkinsJenkins+Node.js持�
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/05/cjj5j5j08003qsw6p1r9q545j/" itemprop="url">NPM 数组模块学习与使用</a></h2>
+                <a class="post-title-link" href="/2018/03/07/cjkxdt34z003hn96pa9ga906i/" itemprop="url">Jenkins安装及基础配置</a></h1>
         
 
         <div class="post-meta">
@@ -494,9 +444,158 @@ CentOS 上安装 JenkinsRedHat Linux RPM packages for JenkinsJenkins+Node.js持�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-05T10:36:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T09:55:41+08:00">
+                2018-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端工程化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端工程化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          参考资料：
+CentOS 上安装 JenkinsRedHat Linux RPM packages for JenkinsJenkins+Node.js持续集成Getting started with Jenkins and NodeCentOS 7 安装 GitlabJenkins、Git ssh
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/07/cjkxdt34z003hn96pa9ga906i/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/03/05/cjkxdt353003qn96p1mc8p59c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/05/cjkxdt353003qn96p1mc8p59c/" itemprop="url">NPM 数组模块学习与使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T10:36:36+08:00">
                 2018-03-05
               </time>
             
@@ -515,7 +614,7 @@ CentOS 上安装 JenkinsRedHat Linux RPM packages for JenkinsJenkins+Node.js持�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -540,37 +639,6 @@ CentOS 上安装 JenkinsRedHat Linux RPM packages for JenkinsJenkins+Node.js持�
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  818
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  3
-                </span>
-              
-            </div>
-          
 
           
 
@@ -581,7 +649,7 @@ CentOS 上安装 JenkinsRedHat Linux RPM packages for JenkinsJenkins+Node.js持�
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -613,8 +681,8 @@ array-first
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/05/cjj5j5j08003qsw6p1r9q545j/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2018/03/05/cjkxdt353003qn96p1mc8p59c/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -664,16 +732,16 @@ array-first
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/02/27/cjj5j5j0f0042sw6padjs6rdz/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/02/27/cjkxdt35e004an96psogikwfg/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -681,9 +749,9 @@ array-first
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/27/cjj5j5j0f0042sw6padjs6rdz/" itemprop="url">Object.assign() 与 扩展操作符（...）</a></h2>
+                <a class="post-title-link" href="/2018/02/27/cjkxdt35e004an96psogikwfg/" itemprop="url">Object.assign() 与 扩展操作符（...）</a></h1>
         
 
         <div class="post-meta">
@@ -693,9 +761,9 @@ array-first
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-27T10:49:38+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-27T10:49:38+08:00">
                 2018-02-27
               </time>
             
@@ -714,7 +782,7 @@ array-first
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -739,37 +807,6 @@ array-first
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  698
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  3
-                </span>
-              
-            </div>
-          
 
           
 
@@ -780,7 +817,7 @@ array-first
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -799,8 +836,8 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/02/27/cjj5j5j0f0042sw6padjs6rdz/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2018/02/27/cjkxdt35e004an96psogikwfg/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -850,16 +887,16 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/02/10/cjj5j5j000039sw6p3ojonshv/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/02/10/cjkxdt34w0039n96pynhfzte2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -867,9 +904,9 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/10/cjj5j5j000039sw6p3ojonshv/" itemprop="url">Jenkins NodeJS Plugin 插件安装使用</a></h2>
+                <a class="post-title-link" href="/2018/02/10/cjkxdt34w0039n96pynhfzte2/" itemprop="url">Jenkins NodeJS Plugin 插件安装使用</a></h1>
         
 
         <div class="post-meta">
@@ -879,9 +916,9 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-10T11:33:37+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-10T11:33:37+08:00">
                 2018-02-10
               </time>
             
@@ -900,7 +937,7 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -925,37 +962,6 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  181
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
 
           
 
@@ -966,7 +972,7 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -984,8 +990,8 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/02/10/cjj5j5j000039sw6p3ojonshv/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2018/02/10/cjkxdt34w0039n96pynhfzte2/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1035,16 +1041,16 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/02/10/cjj5j5j01003csw6p8vohkfpj/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/02/10/cjkxdt34x003dn96pac5j33hq/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1052,9 +1058,9 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/10/cjj5j5j01003csw6p8vohkfpj/" itemprop="url">Jenkins publish over ssh 插件使用</a></h2>
+                <a class="post-title-link" href="/2018/02/10/cjkxdt34x003dn96pac5j33hq/" itemprop="url">Jenkins publish over ssh 插件使用</a></h1>
         
 
         <div class="post-meta">
@@ -1064,9 +1070,9 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-10T11:06:25+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-10T11:06:25+08:00">
                 2018-02-10
               </time>
             
@@ -1085,7 +1091,7 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1110,37 +1116,6 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  256
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1151,7 +1126,7 @@ React 提倡不可变的数据结构。因此你不应该改变一个对象(或�
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1165,8 +1140,8 @@ Jenkins publish over ssh 插件使用系统：CentOS Linux release 7.4.1708 (Cor
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/02/10/cjj5j5j01003csw6p8vohkfpj/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2018/02/10/cjkxdt34x003dn96pac5j33hq/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1216,16 +1191,16 @@ Jenkins publish over ssh 插件使用系统：CentOS Linux release 7.4.1708 (Cor
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/01/28/cjj5j5j0g0044sw6pa45uck6l/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/01/28/cjkxdt357003wn96petimjhcv/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1233,9 +1208,9 @@ Jenkins publish over ssh 插件使用系统：CentOS Linux release 7.4.1708 (Cor
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/28/cjj5j5j0g0044sw6pa45uck6l/" itemprop="url">React 事件处理</a></h2>
+                <a class="post-title-link" href="/2018/01/28/cjkxdt357003wn96petimjhcv/" itemprop="url">React 事件处理</a></h1>
         
 
         <div class="post-meta">
@@ -1245,9 +1220,9 @@ Jenkins publish over ssh 插件使用系统：CentOS Linux release 7.4.1708 (Cor
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-28T01:23:29+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T01:23:29+08:00">
                 2018-01-28
               </time>
             
@@ -1266,7 +1241,7 @@ Jenkins publish over ssh 插件使用系统：CentOS Linux release 7.4.1708 (Cor
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1291,37 +1266,6 @@ Jenkins publish over ssh 插件使用系统：CentOS Linux release 7.4.1708 (Cor
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,348
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  6
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1332,7 +1276,7 @@ Jenkins publish over ssh 插件使用系统：CentOS Linux release 7.4.1708 (Cor
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1348,8 +1292,8 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/28/cjj5j5j0g0044sw6pa45uck6l/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2018/01/28/cjkxdt357003wn96petimjhcv/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1399,16 +1343,16 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/01/10/cjj5j5j2h0091sw6pmt3ywq3n/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/01/10/cjkxdt37s0093n96pqyr054vy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1416,9 +1360,9 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/10/cjj5j5j2h0091sw6pmt3ywq3n/" itemprop="url">高性能 Webpack3 配置</a></h2>
+                <a class="post-title-link" href="/2018/01/10/cjkxdt37s0093n96pqyr054vy/" itemprop="url">高性能 Webpack3 配置</a></h1>
         
 
         <div class="post-meta">
@@ -1428,9 +1372,9 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-10T00:17:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-10T00:17:00+08:00">
                 2018-01-10
               </time>
             
@@ -1449,7 +1393,7 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1474,37 +1418,6 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  2,152
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  9
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1515,7 +1428,7 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1530,8 +1443,8 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/10/cjj5j5j2h0091sw6pmt3ywq3n/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2018/01/10/cjkxdt37s0093n96pqyr054vy/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1581,16 +1494,16 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/01/07/cjj5j5izz0035sw6pe7t7jm9m/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/01/07/cjkxdt34u0035n96p7r7lxbu5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1598,9 +1511,9 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/07/cjj5j5izz0035sw6pe7t7jm9m/" itemprop="url">JavaScript脚本化文档下</a></h2>
+                <a class="post-title-link" href="/2018/01/07/cjkxdt34u0035n96p7r7lxbu5/" itemprop="url">JavaScript脚本化文档下</a></h1>
         
 
         <div class="post-meta">
@@ -1610,9 +1523,9 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-07T22:31:53+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T22:31:53+08:00">
                 2018-01-07
               </time>
             
@@ -1631,7 +1544,7 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1656,37 +1569,6 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,147
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  5
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1697,7 +1579,7 @@ React 事件处理事件包含了许多细节，在实际开发中容易忽略�
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1710,8 +1592,8 @@ HTML 属性作为 Element 的属性表示 HTML 文档元素的 HTML Element 对�
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/07/cjj5j5izz0035sw6pe7t7jm9m/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2018/01/07/cjkxdt34u0035n96p7r7lxbu5/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1761,16 +1643,16 @@ HTML 属性作为 Element 的属性表示 HTML 文档元素的 HTML Element 对�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/01/06/cjj5j5iyn000bsw6p677w5dct/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/01/06/cjkxdt33e000bn96pql4uyse7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1778,9 +1660,9 @@ HTML 属性作为 Element 的属性表示 HTML 文档元素的 HTML Element 对�
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/06/cjj5j5iyn000bsw6p677w5dct/" itemprop="url">CentOS7 服务器安装 Node.js</a></h2>
+                <a class="post-title-link" href="/2018/01/06/cjkxdt33e000bn96pql4uyse7/" itemprop="url">CentOS7 服务器安装 Node.js</a></h1>
         
 
         <div class="post-meta">
@@ -1790,9 +1672,9 @@ HTML 属性作为 Element 的属性表示 HTML 文档元素的 HTML Element 对�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-06T14:51:49+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T14:51:49+08:00">
                 2018-01-06
               </time>
             
@@ -1811,7 +1693,7 @@ HTML 属性作为 Element 的属性表示 HTML 文档元素的 HTML Element 对�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1836,37 +1718,6 @@ HTML 属性作为 Element 的属性表示 HTML 文档元素的 HTML Element 对�
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  255
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1877,7 +1728,7 @@ HTML 属性作为 Element 的属性表示 HTML 文档元素的 HTML Element 对�
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1891,188 +1742,8 @@ CentOS7 服务器安装 Node.jswget 命令下载 Node.js 安装包
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/06/cjj5j5iyn000bsw6p677w5dct/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/01/06/cjj5j5iym000asw6p4zu0l77a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="luoyecong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/06/cjj5j5iym000asw6p4zu0l77a/" itemprop="url">CentOS7 服务器安装 MySQL</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-06T12:24:04+08:00">
-                2018-01-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,060
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          扩展阅读：How to Install MySQL on CentOS 7云服务器 ECS &gt; 用户指南 &gt; 安全组 &gt; 添加安全组规则MySQL安全配置向导mysql_secure_installation详解centos7 mysql数据库安装和配置
-CentOS7 服务器安装
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/06/cjj5j5iym000asw6p4zu0l77a/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2018/01/06/cjkxdt33e000bn96pql4uyse7/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -2138,8 +1809,6 @@ CentOS7 服务器安装
 
   <aside id="sidebar" class="sidebar">
     
-      <div id="sidebar-dimmer"></div>
-    
     <div class="sidebar-inner">
 
       
@@ -2150,12 +1819,8 @@ CentOS7 服务器安装
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/panda.jpeg"
-                alt="luoyecong" />
-            
               <p class="site-author-name" itemprop="name">luoyecong</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -2165,8 +1830,8 @@ CentOS7 服务器安装
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -2175,10 +1840,10 @@ CentOS7 服务器安装
               
               
               <div class="site-state-item site-state-categories">
-                
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">26</span>
-                  <span class="site-state-item-name">categories</span>
-                
+                  <span class="site-state-item-name">分类</span>
+                </a>
               </div>
             
 
@@ -2186,10 +1851,10 @@ CentOS7 服务器安装
               
               
               <div class="site-state-item site-state-tags">
-                
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">121</span>
-                  <span class="site-state-item-name">tags</span>
-                
+                  <span class="site-state-item-name">标签</span>
+                </a>
               </div>
             
 
@@ -2205,65 +1870,11 @@ CentOS7 服务器安装
           
 
           
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
-                      
-                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
-                      
-                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
-                  </span>
-                
-            </div>
-          
 
           
           
 
           
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
-                  </li>
-                
-              </ul>
-            </div>
           
 
           
@@ -2273,13 +1884,6 @@ CentOS7 服务器安装
 
       
 
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
       
 
     </div>
@@ -2302,38 +1906,20 @@ CentOS7 服务器安装
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
+  <span class="post-meta-divider">|</span>
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a></div>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
-    </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
 
 
 
@@ -2345,6 +1931,11 @@ CentOS7 服务器安装
       </div>
     </footer>
 
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
     
@@ -2370,11 +1961,16 @@ CentOS7 服务器安装
   
 
 
+  
 
 
 
 
 
+
+
+  
+  
 
 
 
@@ -2408,6 +2004,21 @@ CentOS7 服务器安装
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
   
 
 
@@ -2460,19 +2071,6 @@ CentOS7 服务器安装
 
 
 
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-
-    
-
-
 
 
 
@@ -2489,21 +2087,6 @@ CentOS7 服务器安装
   
 
   
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
 
   
   
@@ -2511,9 +2094,6 @@ CentOS7 服务器安装
   
 
   
-  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
-
 
   
 

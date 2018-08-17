@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="en">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,19 +14,8 @@
 
 
 
-  
-  
-    
-    
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
 
 
-
-
-  
-  
-  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
 
 
 
@@ -64,16 +53,16 @@
 <link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
 
 
 
@@ -85,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孤丶晴 网络日志" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
 
 
 
@@ -94,13 +83,13 @@
 
 <meta name="description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="孤丶晴 网络日志">
+<meta property="og:title" content="Aries 网络日志">
 <meta property="og:url" content="https://luoyec.cn/page/9/index.html">
-<meta property="og:site_name" content="孤丶晴 网络日志">
+<meta property="og:site_name" content="Aries 网络日志">
 <meta property="og:description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="孤丶晴 网络日志">
+<meta name="twitter:title" content="Aries 网络日志">
 <meta name="twitter:description" content="Hope is a good thing, maybe the best of things, and no good thing ever dies.">
 
 
@@ -111,13 +100,13 @@
     root: '/',
     scheme: 'Mist',
     version: '5.1.4',
-    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -137,36 +126,26 @@
 
 
 
-  <title>孤丶晴 网络日志</title>
+  <title>Aries 网络日志</title>
   
 
 
 
 
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?081d65b74f1003130b8f4bb9fdeaedcf";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
 
 
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-right 
+  <div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -178,12 +157,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">孤丶晴 网络日志</span>
+        <span class="site-title">Aries 网络日志</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <h1 class="site-subtitle" itemprop="description"></h1>
+        <p class="site-subtitle"></p>
       
   </div>
 
@@ -208,37 +187,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
+            首页
           </a>
         </li>
       
@@ -248,7 +197,37 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -285,16 +264,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/22/cjj5j5iyv000osw6puz4a965f/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/23/cjkxdt363005mn96p69ufg00g/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -302,9 +281,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/22/cjj5j5iyv000osw6puz4a965f/" itemprop="url">Egret 图片缓动动画实现</a></h2>
+                <a class="post-title-link" href="/2017/08/23/cjkxdt363005mn96p69ufg00g/" itemprop="url">《写给大家看的面向对象编程书》总结&&实践（5）</a></h1>
         
 
         <div class="post-meta">
@@ -314,9 +293,159 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T18:18:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-23T00:31:50+08:00">
+                2017-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          类设计指导原则本章为如何设计健壮的类提供一些建议。
+真实世界系统建模面向对象（OO）程序设计的主要目标之一就是以类似于人们真正的思维方式对真实世界的系统建模。设计类就是创建这些模型的面向对象方式。
+第一次转向OO开发时，许多人倾向于采用一种结构化的方式思考。由此导致主要的错误之一就是创建的类只包含行
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/23/cjkxdt363005mn96p69ufg00g/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/22/cjkxdt33p000on96puxvd0a0z/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/22/cjkxdt33p000on96puxvd0a0z/" itemprop="url">Egret 图片缓动动画实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T18:18:36+08:00">
                 2017-08-22
               </time>
             
@@ -335,7 +464,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -360,37 +489,6 @@
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,122
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  5
-                </span>
-              
-            </div>
-          
 
           
 
@@ -401,7 +499,7 @@
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -416,8 +514,8 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/22/cjj5j5iyv000osw6puz4a965f/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/08/22/cjkxdt33p000on96puxvd0a0z/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -467,16 +565,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/22/cjj5j5j12005hsw6paak1wcyt/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/22/cjkxdt360005en96pinyny9mt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -484,9 +582,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/22/cjj5j5j12005hsw6paak1wcyt/" itemprop="url">《写给大家看的面向对象编程书》总结&&实践（4）</a></h2>
+                <a class="post-title-link" href="/2017/08/22/cjkxdt360005en96pinyny9mt/" itemprop="url">《写给大家看的面向对象编程书》总结&&实践（4）</a></h1>
         
 
         <div class="post-meta">
@@ -496,9 +594,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T14:27:50+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T14:27:50+08:00">
                 2017-08-22
               </time>
             
@@ -517,7 +615,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -542,37 +640,6 @@
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  598
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  2
-                </span>
-              
-            </div>
-          
 
           
 
@@ -583,7 +650,7 @@
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -600,8 +667,8 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/22/cjj5j5j12005hsw6paak1wcyt/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/08/22/cjkxdt360005en96pinyny9mt/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -651,16 +718,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/21/cjj5j5j11005dsw6pjm2j6im9/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/21/cjkxdt362005jn96p88apa3do/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -668,9 +735,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/21/cjj5j5j11005dsw6pjm2j6im9/" itemprop="url">《写给大家看的面向对象编程书》总结&&实践（3）</a></h2>
+                <a class="post-title-link" href="/2017/08/21/cjkxdt362005jn96p88apa3do/" itemprop="url">《写给大家看的面向对象编程书》总结&&实践（3）</a></h1>
         
 
         <div class="post-meta">
@@ -680,9 +747,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-21T08:25:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T08:25:09+08:00">
                 2017-08-21
               </time>
             
@@ -701,7 +768,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -726,37 +793,6 @@
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,102
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  4
-                </span>
-              
-            </div>
-          
 
           
 
@@ -767,7 +803,7 @@
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -784,8 +820,8 @@ ne
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/21/cjj5j5j11005dsw6pjm2j6im9/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/08/21/cjkxdt362005jn96p88apa3do/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -835,16 +871,16 @@ ne
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/21/cjj5j5j10005bsw6pmm1vqi4s/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/21/cjkxdt35y005bn96pvz0smgxm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -852,9 +888,9 @@ ne
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/21/cjj5j5j10005bsw6pmm1vqi4s/" itemprop="url">《写给大家看的面向对象编程书》总结&&实践（2）</a></h2>
+                <a class="post-title-link" href="/2017/08/21/cjkxdt35y005bn96pvz0smgxm/" itemprop="url">《写给大家看的面向对象编程书》总结&&实践（2）</a></h1>
         
 
         <div class="post-meta">
@@ -864,9 +900,9 @@ ne
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-21T07:32:21+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T07:32:21+08:00">
                 2017-08-21
               </time>
             
@@ -885,7 +921,7 @@ ne
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -910,37 +946,6 @@ ne
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  629
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  2
-                </span>
-              
-            </div>
-          
 
           
 
@@ -951,7 +956,7 @@ ne
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -971,8 +976,8 @@ ne
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/21/cjj5j5j10005bsw6pmm1vqi4s/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/08/21/cjkxdt35y005bn96pvz0smgxm/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1022,16 +1027,16 @@ ne
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/20/cjj5j5j1k006rsw6p7s28d8zl/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/20/cjkxdt36m006sn96p0oazdo5a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1039,9 +1044,9 @@ ne
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/20/cjj5j5j1k006rsw6p7s28d8zl/" itemprop="url">《写给大家看的面向对象编程书》总结&&实践（1）</a></h2>
+                <a class="post-title-link" href="/2017/08/20/cjkxdt36m006sn96p0oazdo5a/" itemprop="url">《写给大家看的面向对象编程书》总结&&实践（1）</a></h1>
         
 
         <div class="post-meta">
@@ -1051,9 +1056,9 @@ ne
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-20T23:50:04+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-20T23:50:04+08:00">
                 2017-08-20
               </time>
             
@@ -1072,7 +1077,7 @@ ne
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1097,37 +1102,6 @@ ne
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,703
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  6
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1138,7 +1112,7 @@ ne
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1156,8 +1130,8 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/20/cjj5j5j1k006rsw6p7s28d8zl/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/08/20/cjkxdt36m006sn96p0oazdo5a/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1207,16 +1181,16 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/16/cjj5j5j0w0050sw6pe7agibgo/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/16/cjkxdt35v0055n96p76xv2mih/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1224,9 +1198,9 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/16/cjj5j5j0w0050sw6pe7agibgo/" itemprop="url">mongodb二（命令行操作）</a></h2>
+                <a class="post-title-link" href="/2017/08/16/cjkxdt35v0055n96p76xv2mih/" itemprop="url">mongodb二（命令行操作）</a></h1>
         
 
         <div class="post-meta">
@@ -1236,9 +1210,9 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T21:58:13+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T21:58:13+08:00">
                 2017-08-16
               </time>
             
@@ -1257,7 +1231,7 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1282,37 +1256,6 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  961
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  4
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1323,7 +1266,7 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1336,8 +1279,8 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/16/cjj5j5j0w0050sw6pe7agibgo/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/08/16/cjkxdt35v0055n96p76xv2mih/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1387,16 +1330,16 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/16/cjj5j5j0v004xsw6pgdd864z3/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/16/cjkxdt35t0051n96p1dmq9psx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1404,9 +1347,9 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/16/cjj5j5j0v004xsw6pgdd864z3/" itemprop="url">mongodb一（命令行操作）</a></h2>
+                <a class="post-title-link" href="/2017/08/16/cjkxdt35t0051n96p1dmq9psx/" itemprop="url">mongodb一（命令行操作）</a></h1>
         
 
         <div class="post-meta">
@@ -1416,9 +1359,9 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T21:46:13+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T21:46:13+08:00">
                 2017-08-16
               </time>
             
@@ -1437,7 +1380,7 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1462,37 +1405,6 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  4,511
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  19
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1503,7 +1415,7 @@ OO和过程式程序设计的区别在OO设计中，属性和行为都包含在�
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1518,8 +1430,8 @@ show dbs 查看所有数据库
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/16/cjj5j5j0v004xsw6pgdd864z3/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/08/16/cjkxdt35t0051n96p1dmq9psx/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1569,16 +1481,16 @@ show dbs 查看所有数据库
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/16/cjj5j5j1r0078sw6pv884w8vw/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/16/cjkxdt36v0079n96pscqkwbxg/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1586,9 +1498,9 @@ show dbs 查看所有数据库
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/16/cjj5j5j1r0078sw6pv884w8vw/" itemprop="url">安卓App内嵌Egret</a></h2>
+                <a class="post-title-link" href="/2017/08/16/cjkxdt36v0079n96pscqkwbxg/" itemprop="url">安卓App内嵌Egret</a></h1>
         
 
         <div class="post-meta">
@@ -1598,9 +1510,9 @@ show dbs 查看所有数据库
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T21:40:34+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T21:40:34+08:00">
                 2017-08-16
               </time>
             
@@ -1619,7 +1531,7 @@ show dbs 查看所有数据库
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1644,37 +1556,6 @@ show dbs 查看所有数据库
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,131
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  6
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1685,7 +1566,7 @@ show dbs 查看所有数据库
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1700,8 +1581,8 @@ webview介绍的原文如下：A View that displays web pages. This class is the
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/16/cjj5j5j1r0078sw6pv884w8vw/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/08/16/cjkxdt36v0079n96pscqkwbxg/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1751,16 +1632,16 @@ webview介绍的原文如下：A View that displays web pages. This class is the
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/16/cjj5j5iyq000fsw6px10qks08/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/16/cjkxdt33l000fn96pi7vfk246/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
+      <meta itemprop="name" content="Aries 网络日志">
     </span>
 
     
@@ -1768,9 +1649,9 @@ webview介绍的原文如下：A View that displays web pages. This class is the
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/16/cjj5j5iyq000fsw6px10qks08/" itemprop="url">Egret HTTP简单请求</a></h2>
+                <a class="post-title-link" href="/2017/08/16/cjkxdt33l000fn96pi7vfk246/" itemprop="url">Egret HTTP简单请求</a></h1>
         
 
         <div class="post-meta">
@@ -1780,9 +1661,9 @@ webview介绍的原文如下：A View that displays web pages. This class is the
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T11:49:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T11:49:36+08:00">
                 2017-08-16
               </time>
             
@@ -1801,7 +1682,7 @@ webview介绍的原文如下：A View that displays web pages. This class is the
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">分类于</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1826,37 +1707,6 @@ webview介绍的原文如下：A View that displays web pages. This class is the
           
 
           
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  354
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  2
-                </span>
-              
-            </div>
-          
 
           
 
@@ -1867,7 +1717,7 @@ webview介绍的原文如下：A View that displays web pages. This class is the
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -1882,189 +1732,8 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/16/cjj5j5iyq000fsw6px10qks08/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/16/cjj5j5iys000jsw6pfnolxv7r/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="luoyecong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤丶晴 网络日志">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/16/cjj5j5iys000jsw6pfnolxv7r/" itemprop="url">Egret Loading 页面实现方法</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T11:29:48+08:00">
-                2017-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Egret/" itemprop="url" rel="index">
-                    <span itemprop="name">Egret</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  1,037
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          实现Loading页面的方法有好多，这里的方法是，使用EUI皮肤的加载页，可配置型和可定制型程度更高，也更易用。但不是最好的方法。
-资源的处理加载页的UI资源是限于preload组资源加载的，所以这两个资源组需要分开处理。加载完并处理相关动画之后才开始加载preload资源组。
-资源分组将loadi
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/16/cjj5j5iys000jsw6pfnolxv7r/#more" rel="contents">
-              Read more &raquo;
+            <a class="btn" href="/2017/08/16/cjkxdt33l000fn96pi7vfk246/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -2130,8 +1799,6 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
 
   <aside id="sidebar" class="sidebar">
     
-      <div id="sidebar-dimmer"></div>
-    
     <div class="sidebar-inner">
 
       
@@ -2142,12 +1809,8 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image"
-                src="/images/panda.jpeg"
-                alt="luoyecong" />
-            
               <p class="site-author-name" itemprop="name">luoyecong</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -2157,8 +1820,8 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -2167,10 +1830,10 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
               
               
               <div class="site-state-item site-state-categories">
-                
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">26</span>
-                  <span class="site-state-item-name">categories</span>
-                
+                  <span class="site-state-item-name">分类</span>
+                </a>
               </div>
             
 
@@ -2178,10 +1841,10 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
               
               
               <div class="site-state-item site-state-tags">
-                
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">121</span>
-                  <span class="site-state-item-name">tags</span>
-                
+                  <span class="site-state-item-name">标签</span>
+                </a>
               </div>
             
 
@@ -2197,65 +1860,11 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
           
 
           
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/lyctea" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="luoyecong@aliyun.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://www.zhihu.com/people/gu-zhu-qing-89/activities" target="_blank" title="zhihu">
-                      
-                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://segmentfault.com/u/lyctea" target="_blank" title="segmentfault">
-                      
-                        <i class="fa fa-fw fa-globe"></i>segmentfault</a>
-                  </span>
-                
-            </div>
-          
 
           
           
 
           
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://segmentfault.com" title="🌟segmentfault" target="_blank">🌟segmentfault</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://yq.aliyun.com" title="🌟云栖社区" target="_blank">🌟云栖社区</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://medium.com" title="🌟medium" target="_blank">🌟medium</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://juejin.im" title="🌟掘金" target="_blank">🌟掘金</a>
-                  </li>
-                
-              </ul>
-            </div>
           
 
           
@@ -2265,13 +1874,6 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
 
       
 
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
       
 
     </div>
@@ -2294,38 +1896,20 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
+  <span class="post-meta-divider">|</span>
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a></div>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
-    </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
 
 
 
@@ -2337,6 +1921,11 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
       </div>
     </footer>
 
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
     
@@ -2362,11 +1951,16 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
   
 
 
+  
 
 
 
 
 
+
+
+  
+  
 
 
 
@@ -2400,6 +1994,21 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
   
 
 
@@ -2452,19 +2061,6 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
 
 
 
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-
-    
-
-
 
 
 
@@ -2481,21 +2077,6 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
   
 
   
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
 
   
   
@@ -2503,9 +2084,6 @@ GET方法 新建请求对象，设置参数，请求方法，注册监听事件
   
 
   
-  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
-
 
   
 
