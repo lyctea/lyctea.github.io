@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://luoyec.cn/"/>
-  <updated>2018-08-17T03:11:12.075Z</updated>
+  <updated>2018-08-21T08:07:14.273Z</updated>
   <id>https://luoyec.cn/</id>
   
   <author>
@@ -17,9 +17,40 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Vue源码解析-数据驱动</title>
+    <link href="https://luoyec.cn/2018/08/21/cjl3ff83p004kkr6p2ej58m9a/"/>
+    <id>https://luoyec.cn/2018/08/21/cjl3ff83p004kkr6p2ej58m9a/</id>
+    <published>2018-08-21T08:06:57.691Z</published>
+    <updated>2018-08-21T08:07:14.273Z</updated>
+    
+    <content type="html"><![CDATA[<p>资源列表：<br><a href="https://coding.imooc.com/learn/list/228.html" target="_blank" rel="noopener">慕课网：Vue.js 源码全方位深入解析</a><br><a href="https://ustbhuangyi.github.io/vue-analysis/data-driven/" target="_blank" rel="noopener">Vue.js 技术揭秘</a><br><a href="https://zhuanlan.zhihu.com/p/29450092" target="_blank" rel="noopener">知乎：染陌同学 VirtualDOM与diff(Vue实现)</a></p><h1 id="Vue源码解析-数据驱动"><a href="#Vue源码解析-数据驱动" class="headerlink" title="Vue源码解析-数据驱动"></a>Vue源码解析-数据驱动</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>现代前端框架抛弃里如使用 <code>JQuery</code> 等前端库直接修改 <code>DOM</code>，而是由数据驱动视图。<br>本章节主要研究 <code>Vue</code> 中模板和数据如果渲染成最红的 <code>DOM</code>。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &#123;&#123; message &#125;&#125;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var app = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">  el: '#app',</span></span><br><span class="line"><span class="regexp">  data: &#123;</span></span><br><span class="line"><span class="regexp">    message: 'Hello Vue!'</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br></pre></td></tr></table></figure><h2 id="new-Vue-发生了什么"><a href="#new-Vue-发生了什么" class="headerlink" title="new Vue 发生了什么"></a>new Vue 发生了什么</h2><p><code>new</code> 关键字在 <code>JavaScript</code> 中实例化一个对象，而 <code>Vue</code> 本质是一个 <code>Function</code> 模拟的类，在其上扩展静态方法和原型方法。</p><blockquote><p>源码，在<code>src/core/instance/index.js</code></p></blockquote><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span> &amp;&amp;</span><br><span class="line">    !(<span class="keyword">this</span> <span class="keyword">instanceof</span> Vue)</span><br><span class="line">  ) &#123;</span><br><span class="line">    warn(<span class="string">'Vue is a constructor and should be called with the `new` keyword'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>._init(options)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最后 <code>new Vue()</code> 调用的是 <code>this._init</code> 方法。</p><blockquote><p>源码：<code>src/core/instance/init.js</code>。</p></blockquote><p><strong><code>Vue</code> 初始化主要做了几件事</strong></p><ul><li>合并配置</li><li>初始化生命周期</li><li>初始化事件中心</li><li>初始化渲染</li><li>初始化 <code>data</code>、<code>props</code>、<code>computed</code>、<code>watcher</code> 等</li></ul><p>最后判断是否有 <code>el</code> 属性，如果有则调用 <code>vm.$mount</code> 方法挂载 <code>vm</code>，挂载的目标就是把模板渲染成最终的 <code>DOM</code></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 68</span></span><br><span class="line">   <span class="keyword">if</span> (vm.$options.el) &#123;</span><br><span class="line">     vm.$mount(vm.$options.el)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure><h3 id="el、template"><a href="#el、template" class="headerlink" title="el、template"></a>el、template</h3><p><a href="https://cn.vuejs.org/v2/api/#el" target="_blank" rel="noopener">Vue 文档</a></p><p><strong>el</strong></p><p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1534834313420.jpg" alt=""></p><p><strong>template</strong></p><p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1534834324670.jpg" alt=""></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;hello-world&gt;&lt;/hello-world&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    Vue.component(&apos;hello-world&apos;, &#123;</span><br><span class="line">      template: &quot;&lt;h1&gt;hello world&lt;/h1&gt;&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">    var app = new Vue(&#123;</span><br><span class="line">      el: &apos;#app&apos;,</span><br><span class="line">      data: &#123;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure><h2 id="Vue-实例挂载的实现"><a href="#Vue-实例挂载的实现" class="headerlink" title="Vue 实例挂载的实现"></a>Vue 实例挂载的实现</h2><p><code>$mount</code> 方法的实现是和平台、构建方式相关，不同平台如 <code>weex</code> 有不同的 <code>$mount</code> 实现，底层使用的 <code>API</code> 也不尽相同，这里研究 <code>compiler</code> 的实现。</p><blockquote><p>源码： src/platform/web/entry-runtime-with-compiler.js</p></blockquote><ul><li>对 <code>el</code> 做了限制，不能挂载到 <code>body</code>、<code>html</code> 根节点上</li><li><code>如果没有render</code> 方法，则会把 <code>el</code> 或者 <code>template</code> 字符串转成 <code>render</code> 方法，在 <code>Vue 2.0</code> 版本中，所有 <code>Vue</code> 的组件的渲染最终都需要 <code>render</code> 方法</li></ul><p><code>$mount</code> 方法实际上会去调用 <code>mountComponent</code> 方法，</p><blockquote><p>源码：src/core/instance/lifecycle.js</p></blockquote><ul><li>先调用 <code>vm._render</code> 方法生成虚拟 <code>Node</code></li><li>再实例化一个渲染 <code>Watcher</code>，在它的回调函数中调用了 <code>updateComponent</code></li><li>最后调用 <code>vm._update</code> 更新 <code>DOM</code></li><li>最后的判断，<code>vm._isMounted</code> 为 <code>true</code>， 表示已经挂载，同时执行 <code>mounted</code> 钩子函数。</li></ul><blockquote><p>⚠️ 这里注意 <code>vm.$vnode</code> 表示 <code>Vue</code> 实例的父虚拟 <code>Node</code>，所以它为 <code>Null</code> 则表示当前是根 <code>Vue</code> 的实例。</p></blockquote><h2 id="render"><a href="#render" class="headerlink" title="render"></a>render</h2><p>它用来把实例渲染成一个虚拟 <code>Node</code>，</p><blockquote><p>源码： src/core/instance/render.js</p></blockquote><p>Vue 文档中的 render 方法，第一个参数 createElement，用来创建 Vnode，模板中的写法：</p><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="built_in">id</span>=<span class="string">"app"</span>&gt;</span><br><span class="line">  &#123;&#123; message &#125;&#125;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure><p>等同于 <code>render</code> 函数的写法</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">render: <span class="function"><span class="keyword">function</span> (<span class="params">createElement</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> createElement(<span class="string">'div'</span>, &#123;</span><br><span class="line">     attrs: &#123;</span><br><span class="line">        id: <span class="string">'app'</span></span><br><span class="line">      &#125;,</span><br><span class="line">  &#125;, <span class="keyword">this</span>.message)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>📌 Vue 2.0 相比 Vue 1.0 最大的升级就是利用了 Virtual DOM</p></blockquote><h2 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h2><p>为什么要使用虚拟 <code>DOM</code> ？<br>在文档中，一个真实的 <code>DOM</code> 元素是很庞大的，直接修改该元素成本很高，使用 虚拟 <code>DOM</code>，只需要维护一个真实 <code>DOM</code> 映射的对象，这要比维护真实 <code>DOM</code> 成本小得多。</p><p><code>Virtual DOM</code> 是用 <code>VNode</code> 这么一个 <code>Class</code> 去描述</p><blockquote><p>定义在 src/core/vdom/vnode.js</p></blockquote><p><code>VNode</code> 是对真实 <code>DOM</code> 的一种抽象描述，核心无非就是几个关键属性，标签名、数据、子节点、键值等。</p><p>映射到真实的 <code>DOM</code> 实际上要经历 <code>VNode</code> 的 <code>create</code>、<code>diff</code>、<code>patch</code> 等过程。</p><h2 id="createElement"><a href="#createElement" class="headerlink" title="createElement"></a>createElement</h2><p><code>Vue.js</code> 利用 <code>createElement</code> 方法创建 <code>VNode</code>，</p><blockquote><p>它定义在 src/core/vdom/create-elemenet.js 中：</p></blockquote><p>每个 <code>VNode</code> 都有 <code>children</code>，每个 <code>children</code> 也是一个 <code>VNode</code>，这样就形成了 <code>VNode tree</code>。</p><p>最后通过 <code>vm._update</code>， 将 <code>VNode</code> 渲染成真实的 <code>DOM</code> 并渲染出来。</p><h2 id="update"><a href="#update" class="headerlink" title="update"></a>update</h2><p>该方法被调用的时机有两次，一次是首次渲染，一次是在数据更新的时候。</p><blockquote><p>源码： src/core/instance/lifecycle.js</p></blockquote><p>核心是调用了 <code>vm.__patch__</code>，该方法根据平台的不同有区别。</p><p>在该方法中实现了 diff 算法，具体参考： <a href="https://ustbhuangyi.github.io/vue-analysis/data-driven/" target="_blank" rel="noopener">Vue.js 技术揭秘</a></p><h3 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h3><p><code>diff</code> 算法是通过同层的树节点进行比较而非对树进行逐层搜索遍历，所以时间复杂度只有 <code>O(n)</code>，是一种高效的算法。</p><p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1534838321680.jpg" alt=""></p><p><strong>判断为同一个 VNode的依据</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">判断两个VNode节点是否是同一个节点，需要满足以下条件</span></span><br><span class="line"><span class="comment">key相同</span></span><br><span class="line"><span class="comment">tag（当前节点的标签名）相同</span></span><br><span class="line"><span class="comment">isComment（是否为注释节点）相同</span></span><br><span class="line"><span class="comment">是否data（当前节点对应的对象，包含了具体的一些数据信息，是一个VNodeData类型，可以参考VNodeData类型中的数据信息）都有定义</span></span><br><span class="line"><span class="comment">当标签是&lt;input&gt;的时候，type必须相同</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">判断当标签是&lt;input&gt;的时候，type是否相同</span></span><br><span class="line"><span class="comment">某些浏览器不支持动态修改&lt;input&gt;类型，所以他们被视为不同类型</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure><p><strong>如何进行对比？</strong></p><ul><li><p>1.如果新旧 <code>VNode</code> 都是静态的，同时它们的 <code>key</code> 相同（代表同一节点），并且新的 <code>VNode</code> 是 <code>clone</code> <code>或者是标记了once</code>（标记 <code>v-once</code> 属性，只渲染一次），那么只需要替换 <code>elm</code> 以及 <code>componentInstance</code> 即可。</p></li><li><p>2.新老节点均有 <code>children</code> 子节点，<code>则对子节点进行diff</code> 操作，调用 <code>updateChildren</code>，<code>这个updateChildren</code> 也是 <code>diff</code> 的核心。</p></li><li><p>3.如果老节点没有子节点而新节点存在子节点，先清空老节点 <code>DOM</code> 的文本内容，然后为当前 <code>DOM</code> 节点加入子节点。</p></li><li><p>4.当新节点没有子节点而老节点有子节点的时候，则移除该 <code>DOM</code> 节点的所有子节点。</p></li><li><p>5.当新老节点都无子节点的时候，只是文本的替换。</p></li></ul><p>其他对比细节参考博客文章。</p><h3 id="DOM操作"><a href="#DOM操作" class="headerlink" title="DOM操作"></a>DOM操作</h3><p>我们只是将虚拟 <code>DOM</code> 映射成了真实的 <code>DOM</code>。那如何给这些 <code>DOM</code> 加入 <code>attr</code>、<code>class</code>、<code>style</code> 等 <code>DOM</code> 属性呢？</p><p>需要在 <code>create</code> 以及 <code>update</code> 钩子被调用时更新 <code>DOM</code> 的 <code>attr</code> 属性即可</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>模板和数据如何渲染成最终的 <code>DOM</code> 的过程分析完毕了，我们可以通过下图更直观地看到从初始化 <code>Vue</code> 到最终渲染的整个过程。</p><p><img src="http://oudfgqwcq.bkt.clouddn.com/luoyec/1534838168846.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;资源列表：&lt;br&gt;&lt;a href=&quot;https://coding.imooc.com/learn/list/228.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;慕课网：Vue.js 源码全方位深入解析&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https
+      
+    
+    </summary>
+    
+      <category term="Vue源码解析" scheme="https://luoyec.cn/categories/Vue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+    
+    
+      <category term="vue" scheme="https://luoyec.cn/tags/vue/"/>
+    
+      <category term="数据驱动" scheme="https://luoyec.cn/tags/%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8/"/>
+    
+      <category term="虚拟DOM" scheme="https://luoyec.cn/tags/%E8%99%9A%E6%8B%9FDOM/"/>
+    
+      <category term="diff算法" scheme="https://luoyec.cn/tags/diff%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Object.defineProperty()</title>
-    <link href="https://luoyec.cn/2018/08/17/cjkxmesbe0043h26p3q92j875/"/>
-    <id>https://luoyec.cn/2018/08/17/cjkxmesbe0043h26p3q92j875/</id>
+    <link href="https://luoyec.cn/2018/08/17/cjl3ff83j0047kr6prs0g9qcc/"/>
+    <id>https://luoyec.cn/2018/08/17/cjl3ff83j0047kr6prs0g9qcc/</id>
     <published>2018-08-17T03:11:06.085Z</published>
     <updated>2018-08-17T03:11:12.075Z</updated>
     
@@ -43,8 +74,8 @@
   
   <entry>
     <title>HTML5 语义化最佳实践</title>
-    <link href="https://luoyec.cn/2018/06/26/cjkxmesa20013h26pzhrltq9y/"/>
-    <id>https://luoyec.cn/2018/06/26/cjkxmesa20013h26pzhrltq9y/</id>
+    <link href="https://luoyec.cn/2018/06/26/cjl3ff8210014kr6po3h1pzi2/"/>
+    <id>https://luoyec.cn/2018/06/26/cjl3ff8210014kr6po3h1pzi2/</id>
     <published>2018-06-26T10:08:24.092Z</published>
     <updated>2018-06-26T10:08:28.891Z</updated>
     
@@ -70,8 +101,8 @@
   
   <entry>
     <title>Nginx 部署静态页面</title>
-    <link href="https://luoyec.cn/2018/06/11/cjkxmesb9003sh26pgmz7yokh/"/>
-    <id>https://luoyec.cn/2018/06/11/cjkxmesb9003sh26pgmz7yokh/</id>
+    <link href="https://luoyec.cn/2018/06/11/cjl3ff83d003skr6pc3b8wdor/"/>
+    <id>https://luoyec.cn/2018/06/11/cjl3ff83d003skr6pc3b8wdor/</id>
     <published>2018-06-11T09:14:01.244Z</published>
     <updated>2018-06-11T09:14:07.265Z</updated>
     
@@ -97,8 +128,8 @@
   
   <entry>
     <title>Vue.js 快速入门与专业应用</title>
-    <link href="https://luoyec.cn/2018/05/14/cjkxmesbp004xh26pxjbtn82m/"/>
-    <id>https://luoyec.cn/2018/05/14/cjkxmesbp004xh26pxjbtn82m/</id>
+    <link href="https://luoyec.cn/2018/05/14/cjl3ff83z0052kr6p5k8amkfm/"/>
+    <id>https://luoyec.cn/2018/05/14/cjl3ff83z0052kr6p5k8amkfm/</id>
     <published>2018-05-14T02:03:57.255Z</published>
     <updated>2018-05-14T02:09:43.470Z</updated>
     
@@ -125,8 +156,8 @@
   
   <entry>
     <title>JavaScript 数组去重</title>
-    <link href="https://luoyec.cn/2018/05/06/cjkxmesaa001lh26p909xevd2/"/>
-    <id>https://luoyec.cn/2018/05/06/cjkxmesaa001lh26p909xevd2/</id>
+    <link href="https://luoyec.cn/2018/05/06/cjl3ff82e001pkr6pnr70oxrv/"/>
+    <id>https://luoyec.cn/2018/05/06/cjl3ff82e001pkr6pnr70oxrv/</id>
     <published>2018-05-06T11:50:18.040Z</published>
     <updated>2018-05-06T11:50:23.573Z</updated>
     
@@ -152,8 +183,8 @@
   
   <entry>
     <title>JavaScript排序算法</title>
-    <link href="https://luoyec.cn/2018/05/06/cjkxmesat002th26pv9d502vq/"/>
-    <id>https://luoyec.cn/2018/05/06/cjkxmesat002th26pv9d502vq/</id>
+    <link href="https://luoyec.cn/2018/05/06/cjl3ff82y002xkr6pn0twxf6k/"/>
+    <id>https://luoyec.cn/2018/05/06/cjl3ff82y002xkr6pn0twxf6k/</id>
     <published>2018-05-06T03:59:25.542Z</published>
     <updated>2018-05-06T03:59:37.568Z</updated>
     
@@ -180,8 +211,8 @@
   
   <entry>
     <title>AJAX 工作原理及概述</title>
-    <link href="https://luoyec.cn/2018/05/04/cjkxmes9h0009h26pbc5trljt/"/>
-    <id>https://luoyec.cn/2018/05/04/cjkxmes9h0009h26pbc5trljt/</id>
+    <link href="https://luoyec.cn/2018/05/04/cjl3ff8150002kr6pwbu6enhp/"/>
+    <id>https://luoyec.cn/2018/05/04/cjl3ff8150002kr6pwbu6enhp/</id>
     <published>2018-05-04T07:11:14.446Z</published>
     <updated>2018-05-04T07:11:33.599Z</updated>
     
@@ -210,8 +241,8 @@
   
   <entry>
     <title>正则表达式练习题</title>
-    <link href="https://luoyec.cn/2018/05/01/cjkxmesd9007xh26p71p6oeug/"/>
-    <id>https://luoyec.cn/2018/05/01/cjkxmesd9007xh26p71p6oeug/</id>
+    <link href="https://luoyec.cn/2018/05/01/cjl3ff85w008fkr6pfds7wjs8/"/>
+    <id>https://luoyec.cn/2018/05/01/cjl3ff85w008fkr6pfds7wjs8/</id>
     <published>2018-05-01T06:31:39.761Z</published>
     <updated>2018-05-01T06:31:52.739Z</updated>
     
@@ -237,8 +268,8 @@
   
   <entry>
     <title>JavaScript 类的继承</title>
-    <link href="https://luoyec.cn/2018/04/17/cjkxmesag0020h26pbcn5a88l/"/>
-    <id>https://luoyec.cn/2018/04/17/cjkxmesag0020h26pbcn5a88l/</id>
+    <link href="https://luoyec.cn/2018/04/17/cjl3ff82m0029kr6pbg03p85q/"/>
+    <id>https://luoyec.cn/2018/04/17/cjl3ff82m0029kr6pbg03p85q/</id>
     <published>2018-04-17T05:16:30.391Z</published>
     <updated>2018-04-17T05:59:53.545Z</updated>
     
@@ -267,8 +298,8 @@
   
   <entry>
     <title>JavaScript 类的封装</title>
-    <link href="https://luoyec.cn/2018/04/15/cjkxmesae001wh26pdj4kk76h/"/>
-    <id>https://luoyec.cn/2018/04/15/cjkxmesae001wh26pdj4kk76h/</id>
+    <link href="https://luoyec.cn/2018/04/15/cjl3ff82i0021kr6p4sqhwdu1/"/>
+    <id>https://luoyec.cn/2018/04/15/cjl3ff82i0021kr6p4sqhwdu1/</id>
     <published>2018-04-15T13:51:01.501Z</published>
     <updated>2018-04-15T13:51:43.000Z</updated>
     
@@ -296,8 +327,8 @@
   
   <entry>
     <title>JavaScript 基本数据类型-对象</title>
-    <link href="https://luoyec.cn/2018/04/15/cjkxmesa9001kh26php6o93e6/"/>
-    <id>https://luoyec.cn/2018/04/15/cjkxmesa9001kh26php6o93e6/</id>
+    <link href="https://luoyec.cn/2018/04/15/cjl3ff82d001mkr6pk4e3i1ux/"/>
+    <id>https://luoyec.cn/2018/04/15/cjl3ff82d001mkr6pk4e3i1ux/</id>
     <published>2018-04-14T19:03:40.058Z</published>
     <updated>2018-04-14T19:03:45.105Z</updated>
     
@@ -325,8 +356,8 @@
   
   <entry>
     <title>JavaScript 原型及原型链</title>
-    <link href="https://luoyec.cn/2018/04/14/cjkxmesa6001eh26p11kn1cms/"/>
-    <id>https://luoyec.cn/2018/04/14/cjkxmesa6001eh26p11kn1cms/</id>
+    <link href="https://luoyec.cn/2018/04/14/cjl3ff827001fkr6pot2x8i6b/"/>
+    <id>https://luoyec.cn/2018/04/14/cjl3ff827001fkr6pot2x8i6b/</id>
     <published>2018-04-14T08:15:53.601Z</published>
     <updated>2018-04-14T10:28:43.620Z</updated>
     
@@ -354,8 +385,8 @@
   
   <entry>
     <title>前端跨域通信原理及示例</title>
-    <link href="https://luoyec.cn/2018/04/14/cjkxmescs0076h26p9ywzczsl/"/>
-    <id>https://luoyec.cn/2018/04/14/cjkxmescs0076h26p9ywzczsl/</id>
+    <link href="https://luoyec.cn/2018/04/14/cjl3ff85g007gkr6p29qfyphl/"/>
+    <id>https://luoyec.cn/2018/04/14/cjl3ff85g007gkr6p29qfyphl/</id>
     <published>2018-04-14T04:45:50.875Z</published>
     <updated>2018-04-14T04:46:15.411Z</updated>
     
@@ -382,8 +413,8 @@
   
   <entry>
     <title>XMLHttpRequest请求</title>
-    <link href="https://luoyec.cn/2018/04/13/cjkxmesbm004qh26ponhvko60/"/>
-    <id>https://luoyec.cn/2018/04/13/cjkxmesbm004qh26ponhvko60/</id>
+    <link href="https://luoyec.cn/2018/04/13/cjl3ff83x004zkr6pfkuv0jva/"/>
+    <id>https://luoyec.cn/2018/04/13/cjl3ff83x004zkr6pfkuv0jva/</id>
     <published>2018-04-13T15:38:53.944Z</published>
     <updated>2018-04-13T15:39:14.839Z</updated>
     
@@ -407,8 +438,8 @@
   
   <entry>
     <title>React 服务端渲染理论</title>
-    <link href="https://luoyec.cn/2018/04/05/cjkxmesbg004ah26psm5qenq4/"/>
-    <id>https://luoyec.cn/2018/04/05/cjkxmesbg004ah26psm5qenq4/</id>
+    <link href="https://luoyec.cn/2018/04/05/cjl3ff83n004ikr6ptewhhdc3/"/>
+    <id>https://luoyec.cn/2018/04/05/cjl3ff83n004ikr6ptewhhdc3/</id>
     <published>2018-04-05T07:09:31.232Z</published>
     <updated>2018-04-05T07:09:35.413Z</updated>
     
@@ -436,8 +467,8 @@
   
   <entry>
     <title>JavaScript 正则表达式</title>
-    <link href="https://luoyec.cn/2018/03/31/cjkxmesad001sh26pezdlny8d/"/>
-    <id>https://luoyec.cn/2018/03/31/cjkxmesad001sh26pezdlny8d/</id>
+    <link href="https://luoyec.cn/2018/03/31/cjl3ff82f001tkr6p0hw411zl/"/>
+    <id>https://luoyec.cn/2018/03/31/cjl3ff82f001tkr6p0hw411zl/</id>
     <published>2018-03-31T03:02:24.965Z</published>
     <updated>2018-03-31T03:03:06.000Z</updated>
     
@@ -465,8 +496,8 @@
   
   <entry>
     <title>浏览器存储、HTTP缓存、SSR</title>
-    <link href="https://luoyec.cn/2018/03/24/cjkxmesdb0080h26pmbjsaktv/"/>
-    <id>https://luoyec.cn/2018/03/24/cjkxmesdb0080h26pmbjsaktv/</id>
+    <link href="https://luoyec.cn/2018/03/24/cjl3ff85q0081kr6p7cbdcdl1/"/>
+    <id>https://luoyec.cn/2018/03/24/cjl3ff85q0081kr6p7cbdcdl1/</id>
     <published>2018-03-24T14:32:19.000Z</published>
     <updated>2018-03-24T14:32:22.000Z</updated>
     
@@ -492,8 +523,8 @@
   
   <entry>
     <title>懒加载与预加载，重绘与回流</title>
-    <link href="https://luoyec.cn/2018/03/24/cjkxmesd3007ih26pa8t02hqz/"/>
-    <id>https://luoyec.cn/2018/03/24/cjkxmesd3007ih26pa8t02hqz/</id>
+    <link href="https://luoyec.cn/2018/03/24/cjl3ff85j007nkr6pubxqksdi/"/>
+    <id>https://luoyec.cn/2018/03/24/cjl3ff85j007nkr6pubxqksdi/</id>
     <published>2018-03-23T16:40:34.000Z</published>
     <updated>2018-03-23T16:40:46.000Z</updated>
     
@@ -519,8 +550,8 @@
   
   <entry>
     <title>资源合并与压缩</title>
-    <link href="https://luoyec.cn/2018/03/23/cjkxmesdr008zh26pkbaz5bjo/"/>
-    <id>https://luoyec.cn/2018/03/23/cjkxmesdr008zh26pkbaz5bjo/</id>
+    <link href="https://luoyec.cn/2018/03/23/cjl3ff86a0095kr6pf55frt8q/"/>
+    <id>https://luoyec.cn/2018/03/23/cjl3ff86a0095kr6pf55frt8q/</id>
     <published>2018-03-23T05:31:52.000Z</published>
     <updated>2018-03-23T05:33:26.000Z</updated>
     
@@ -550,8 +581,8 @@
   
   <entry>
     <title>JavaScript 迭代器与生成器</title>
-    <link href="https://luoyec.cn/2018/03/21/cjkxmesah0023h26p7y2iwtxo/"/>
-    <id>https://luoyec.cn/2018/03/21/cjkxmesah0023h26p7y2iwtxo/</id>
+    <link href="https://luoyec.cn/2018/03/21/cjl3ff82h001xkr6pa0vm4s3q/"/>
+    <id>https://luoyec.cn/2018/03/21/cjl3ff82h001xkr6pa0vm4s3q/</id>
     <published>2018-03-21T08:58:44.000Z</published>
     <updated>2018-03-21T08:58:55.000Z</updated>
     
@@ -579,8 +610,8 @@
   
   <entry>
     <title>JavaScript 递归上</title>
-    <link href="https://luoyec.cn/2018/03/08/cjkxmesai0026h26p40ogj6gb/"/>
-    <id>https://luoyec.cn/2018/03/08/cjkxmesai0026h26p40ogj6gb/</id>
+    <link href="https://luoyec.cn/2018/03/08/cjl3ff82k0024kr6ps4tknvl7/"/>
+    <id>https://luoyec.cn/2018/03/08/cjl3ff82k0024kr6ps4tknvl7/</id>
     <published>2018-03-08T01:01:16.000Z</published>
     <updated>2018-03-08T01:01:21.000Z</updated>
     
@@ -606,8 +637,8 @@
   
   <entry>
     <title>Jenkins安装及基础配置</title>
-    <link href="https://luoyec.cn/2018/03/07/cjkxmesb2003eh26p8op1alvg/"/>
-    <id>https://luoyec.cn/2018/03/07/cjkxmesb2003eh26p8op1alvg/</id>
+    <link href="https://luoyec.cn/2018/03/07/cjl3ff836003hkr6p9pzx29ur/"/>
+    <id>https://luoyec.cn/2018/03/07/cjl3ff836003hkr6p9pzx29ur/</id>
     <published>2018-03-07T01:55:41.000Z</published>
     <updated>2018-03-07T01:55:44.000Z</updated>
     
@@ -634,8 +665,8 @@
   
   <entry>
     <title>NPM 数组模块学习与使用</title>
-    <link href="https://luoyec.cn/2018/03/05/cjkxmesb6003ph26p0ewttz76/"/>
-    <id>https://luoyec.cn/2018/03/05/cjkxmesb6003ph26p0ewttz76/</id>
+    <link href="https://luoyec.cn/2018/03/05/cjl3ff83b003qkr6pw6wlwf9x/"/>
+    <id>https://luoyec.cn/2018/03/05/cjl3ff83b003qkr6pw6wlwf9x/</id>
     <published>2018-03-05T02:36:36.000Z</published>
     <updated>2018-03-05T02:37:17.000Z</updated>
     
@@ -661,8 +692,8 @@
   
   <entry>
     <title>Object.assign() 与 扩展操作符（...）</title>
-    <link href="https://luoyec.cn/2018/02/27/cjkxmesbc0041h26pzmb6eluw/"/>
-    <id>https://luoyec.cn/2018/02/27/cjkxmesbc0041h26pzmb6eluw/</id>
+    <link href="https://luoyec.cn/2018/02/27/cjl3ff83h0045kr6pbtb3aiqr/"/>
+    <id>https://luoyec.cn/2018/02/27/cjl3ff83h0045kr6pbtb3aiqr/</id>
     <published>2018-02-27T02:49:38.000Z</published>
     <updated>2018-02-27T03:04:15.000Z</updated>
     
@@ -692,8 +723,8 @@
   
   <entry>
     <title>Jenkins NodeJS Plugin 插件安装使用</title>
-    <link href="https://luoyec.cn/2018/02/10/cjkxmesaz0038h26p5eioyb17/"/>
-    <id>https://luoyec.cn/2018/02/10/cjkxmesaz0038h26p5eioyb17/</id>
+    <link href="https://luoyec.cn/2018/02/10/cjl3ff8330039kr6pxsifnkkl/"/>
+    <id>https://luoyec.cn/2018/02/10/cjl3ff8330039kr6pxsifnkkl/</id>
     <published>2018-02-10T03:33:37.000Z</published>
     <updated>2018-02-10T03:33:40.000Z</updated>
     
@@ -719,8 +750,8 @@
   
   <entry>
     <title>Jenkins publish over ssh 插件使用</title>
-    <link href="https://luoyec.cn/2018/02/10/cjkxmesb1003bh26pdsnqj2tu/"/>
-    <id>https://luoyec.cn/2018/02/10/cjkxmesb1003bh26pdsnqj2tu/</id>
+    <link href="https://luoyec.cn/2018/02/10/cjl3ff835003dkr6pnw5c3lmr/"/>
+    <id>https://luoyec.cn/2018/02/10/cjl3ff835003dkr6pnw5c3lmr/</id>
     <published>2018-02-10T03:06:25.000Z</published>
     <updated>2018-02-10T03:07:50.000Z</updated>
     
@@ -746,8 +777,8 @@
   
   <entry>
     <title>React 事件处理</title>
-    <link href="https://luoyec.cn/2018/01/28/cjkxmesbf0047h26p5obxhdan/"/>
-    <id>https://luoyec.cn/2018/01/28/cjkxmesbf0047h26p5obxhdan/</id>
+    <link href="https://luoyec.cn/2018/01/28/cjl3ff83l004bkr6pzy86rhz8/"/>
+    <id>https://luoyec.cn/2018/01/28/cjl3ff83l004bkr6pzy86rhz8/</id>
     <published>2018-01-27T17:23:29.000Z</published>
     <updated>2018-01-27T17:24:07.000Z</updated>
     
@@ -776,8 +807,8 @@
   
   <entry>
     <title>高性能 Webpack3 配置</title>
-    <link href="https://luoyec.cn/2018/01/10/cjkxmesdu0096h26paxap72vz/"/>
-    <id>https://luoyec.cn/2018/01/10/cjkxmesdu0096h26paxap72vz/</id>
+    <link href="https://luoyec.cn/2018/01/10/cjl3ff86d009ckr6p2qqzjarg/"/>
+    <id>https://luoyec.cn/2018/01/10/cjl3ff86d009ckr6p2qqzjarg/</id>
     <published>2018-01-09T16:17:00.000Z</published>
     <updated>2018-01-09T16:17:40.000Z</updated>
     
@@ -801,8 +832,8 @@
   
   <entry>
     <title>JavaScript脚本化文档下</title>
-    <link href="https://luoyec.cn/2018/01/07/cjkxmesay0034h26pnzb1sj3p/"/>
-    <id>https://luoyec.cn/2018/01/07/cjkxmesay0034h26pnzb1sj3p/</id>
+    <link href="https://luoyec.cn/2018/01/07/cjl3ff8320035kr6pywlyycod/"/>
+    <id>https://luoyec.cn/2018/01/07/cjl3ff8320035kr6pywlyycod/</id>
     <published>2018-01-07T14:31:53.000Z</published>
     <updated>2018-01-07T14:32:08.000Z</updated>
     
@@ -828,8 +859,8 @@
   
   <entry>
     <title>CentOS7 服务器安装 Node.js</title>
-    <link href="https://luoyec.cn/2018/01/06/cjkxmes9l000bh26pddm8zc13/"/>
-    <id>https://luoyec.cn/2018/01/06/cjkxmes9l000bh26pddm8zc13/</id>
+    <link href="https://luoyec.cn/2018/01/06/cjl3ff81m000bkr6pcoigmgxj/"/>
+    <id>https://luoyec.cn/2018/01/06/cjl3ff81m000bkr6pcoigmgxj/</id>
     <published>2018-01-06T06:51:49.000Z</published>
     <updated>2018-01-06T07:10:08.000Z</updated>
     
@@ -857,8 +888,8 @@
   
   <entry>
     <title>CentOS7 服务器安装 MySQL</title>
-    <link href="https://luoyec.cn/2018/01/06/cjkxmes9k000ah26p10veevff/"/>
-    <id>https://luoyec.cn/2018/01/06/cjkxmes9k000ah26p10veevff/</id>
+    <link href="https://luoyec.cn/2018/01/06/cjl3ff81k000akr6pdrv7kgl9/"/>
+    <id>https://luoyec.cn/2018/01/06/cjl3ff81k000akr6pdrv7kgl9/</id>
     <published>2018-01-06T04:24:04.000Z</published>
     <updated>2018-01-06T04:24:22.000Z</updated>
     
@@ -886,8 +917,8 @@
   
   <entry>
     <title>YEOMAN实践一</title>
-    <link href="https://luoyec.cn/2018/01/02/cjkxmesbn004sh26ph9t030jo/"/>
-    <id>https://luoyec.cn/2018/01/02/cjkxmesbn004sh26ph9t030jo/</id>
+    <link href="https://luoyec.cn/2018/01/02/cjl3ff83u004ukr6po2c15oog/"/>
+    <id>https://luoyec.cn/2018/01/02/cjl3ff83u004ukr6po2c15oog/</id>
     <published>2018-01-02T01:16:45.000Z</published>
     <updated>2018-01-02T01:16:50.000Z</updated>
     
@@ -914,8 +945,8 @@
   
   <entry>
     <title>JavaScript事件处理下</title>
-    <link href="https://luoyec.cn/2017/12/26/cjkxmesao002fh26pxcz5scu1/"/>
-    <id>https://luoyec.cn/2017/12/26/cjkxmesao002fh26pxcz5scu1/</id>
+    <link href="https://luoyec.cn/2017/12/26/cjl3ff82o002dkr6pwm3neh01/"/>
+    <id>https://luoyec.cn/2017/12/26/cjl3ff82o002dkr6pwm3neh01/</id>
     <published>2017-12-26T14:35:21.000Z</published>
     <updated>2017-12-26T15:35:42.000Z</updated>
     
@@ -941,8 +972,8 @@
   
   <entry>
     <title>JavaScript脚本化文档上</title>
-    <link href="https://luoyec.cn/2017/12/26/cjkxmesaw0030h26poxbdd6ck/"/>
-    <id>https://luoyec.cn/2017/12/26/cjkxmesaw0030h26poxbdd6ck/</id>
+    <link href="https://luoyec.cn/2017/12/26/cjl3ff8300031kr6p5nqsvcf8/"/>
+    <id>https://luoyec.cn/2017/12/26/cjl3ff8300031kr6p5nqsvcf8/</id>
     <published>2017-12-26T14:28:16.000Z</published>
     <updated>2017-12-26T14:28:31.000Z</updated>
     
@@ -970,8 +1001,8 @@
   
   <entry>
     <title>JavaScript事件处理上</title>
-    <link href="https://luoyec.cn/2017/12/24/cjkxmesam002ch26pr7fpix1k/"/>
-    <id>https://luoyec.cn/2017/12/24/cjkxmesam002ch26pr7fpix1k/</id>
+    <link href="https://luoyec.cn/2017/12/24/cjl3ff82q002gkr6pg6ztdyiz/"/>
+    <id>https://luoyec.cn/2017/12/24/cjl3ff82q002gkr6pg6ztdyiz/</id>
     <published>2017-12-24T14:54:12.000Z</published>
     <updated>2017-12-26T14:33:08.000Z</updated>
     
@@ -997,8 +1028,8 @@
   
   <entry>
     <title>JavaScript模块</title>
-    <link href="https://luoyec.cn/2017/12/16/cjkxmesac001oh26pbardqysd/"/>
-    <id>https://luoyec.cn/2017/12/16/cjkxmesac001oh26pbardqysd/</id>
+    <link href="https://luoyec.cn/2017/12/16/cjl3ff82b001lkr6pgksavoo4/"/>
+    <id>https://luoyec.cn/2017/12/16/cjl3ff82b001lkr6pgksavoo4/</id>
     <published>2017-12-15T17:03:11.000Z</published>
     <updated>2017-12-15T17:03:17.000Z</updated>
     
@@ -1024,8 +1055,8 @@
   
   <entry>
     <title>ES6 模块系统</title>
-    <link href="https://luoyec.cn/2017/12/16/cjkxmes9m000eh26p4g1fyvik/"/>
-    <id>https://luoyec.cn/2017/12/16/cjkxmes9m000eh26p4g1fyvik/</id>
+    <link href="https://luoyec.cn/2017/12/16/cjl3ff81o000ekr6pfirtc54c/"/>
+    <id>https://luoyec.cn/2017/12/16/cjl3ff81o000ekr6pfirtc54c/</id>
     <published>2017-12-15T16:56:35.000Z</published>
     <updated>2017-12-15T16:56:42.000Z</updated>
     
@@ -1051,8 +1082,8 @@
   
   <entry>
     <title>MySQL 基础 一</title>
-    <link href="https://luoyec.cn/2017/12/12/cjkxmesb5003mh26pvnh75evs/"/>
-    <id>https://luoyec.cn/2017/12/12/cjkxmesb5003mh26pvnh75evs/</id>
+    <link href="https://luoyec.cn/2017/12/12/cjl3ff839003nkr6p346zrmtk/"/>
+    <id>https://luoyec.cn/2017/12/12/cjl3ff839003nkr6p346zrmtk/</id>
     <published>2017-12-11T23:56:10.000Z</published>
     <updated>2017-12-11T23:56:19.000Z</updated>
     
@@ -1080,8 +1111,8 @@
   
   <entry>
     <title>Node.js 模块</title>
-    <link href="https://luoyec.cn/2017/12/09/cjkxmesbb003xh26pf2vekufo/"/>
-    <id>https://luoyec.cn/2017/12/09/cjkxmesbb003xh26pf2vekufo/</id>
+    <link href="https://luoyec.cn/2017/12/09/cjl3ff83g0040kr6peobx33uz/"/>
+    <id>https://luoyec.cn/2017/12/09/cjl3ff83g0040kr6peobx33uz/</id>
     <published>2017-12-09T06:40:43.000Z</published>
     <updated>2017-12-09T06:40:47.000Z</updated>
     
@@ -1109,8 +1140,8 @@
   
   <entry>
     <title>React路由过渡动画</title>
-    <link href="https://luoyec.cn/2017/12/04/cjkxmesbi004fh26plgu1hovr/"/>
-    <id>https://luoyec.cn/2017/12/04/cjkxmesbi004fh26plgu1hovr/</id>
+    <link href="https://luoyec.cn/2017/12/04/cjl3ff83m004ekr6pctl6lfya/"/>
+    <id>https://luoyec.cn/2017/12/04/cjl3ff83m004ekr6pctl6lfya/</id>
     <published>2017-12-04T05:40:18.000Z</published>
     <updated>2017-12-04T05:40:29.000Z</updated>
     
@@ -1137,8 +1168,8 @@
   
   <entry>
     <title>二叉搜索树</title>
-    <link href="https://luoyec.cn/2017/12/04/cjkxmescd0068h26pfqkzowwg/"/>
-    <id>https://luoyec.cn/2017/12/04/cjkxmescd0068h26pfqkzowwg/</id>
+    <link href="https://luoyec.cn/2017/12/04/cjl3ff84t006ekr6pz5v6cqly/"/>
+    <id>https://luoyec.cn/2017/12/04/cjl3ff84t006ekr6pz5v6cqly/</id>
     <published>2017-12-03T19:30:51.000Z</published>
     <updated>2017-12-03T19:31:11.000Z</updated>
     
@@ -1164,8 +1195,8 @@
   
   <entry>
     <title>All About React Router 4</title>
-    <link href="https://luoyec.cn/2017/11/19/cjkxmes9d0006h26pyoocr3pb/"/>
-    <id>https://luoyec.cn/2017/11/19/cjkxmes9d0006h26pyoocr3pb/</id>
+    <link href="https://luoyec.cn/2017/11/19/cjl3ff81h0008kr6pb3fotqj1/"/>
+    <id>https://luoyec.cn/2017/11/19/cjl3ff81h0008kr6pb3fotqj1/</id>
     <published>2017-11-18T16:08:35.000Z</published>
     <updated>2018-02-27T02:50:05.000Z</updated>
     
@@ -1195,8 +1226,8 @@
   
   <entry>
     <title>Nginx反向代理</title>
-    <link href="https://luoyec.cn/2017/11/18/cjkxmesba003vh26p2xn6whe1/"/>
-    <id>https://luoyec.cn/2017/11/18/cjkxmesba003vh26p2xn6whe1/</id>
+    <link href="https://luoyec.cn/2017/11/18/cjl3ff83f003xkr6pfyk4a9z5/"/>
+    <id>https://luoyec.cn/2017/11/18/cjl3ff83f003xkr6pfyk4a9z5/</id>
     <published>2017-11-18T01:46:05.000Z</published>
     <updated>2018-06-11T09:07:45.309Z</updated>
     
@@ -1226,8 +1257,8 @@
   
   <entry>
     <title>Eslint代码检查及格式化</title>
-    <link href="https://luoyec.cn/2017/11/11/cjkxmes9x000vh26pay9xntcx/"/>
-    <id>https://luoyec.cn/2017/11/11/cjkxmes9x000vh26pay9xntcx/</id>
+    <link href="https://luoyec.cn/2017/11/11/cjl3ff81x000wkr6pcnhm767m/"/>
+    <id>https://luoyec.cn/2017/11/11/cjl3ff81x000wkr6pcnhm767m/</id>
     <published>2017-11-11T15:31:18.000Z</published>
     <updated>2017-11-11T15:31:36.000Z</updated>
     
@@ -1256,8 +1287,8 @@
   
   <entry>
     <title>58脚手架分享讲义</title>
-    <link href="https://luoyec.cn/2017/11/10/cjkxmes990005h26p4pjvtyp0/"/>
-    <id>https://luoyec.cn/2017/11/10/cjkxmes990005h26p4pjvtyp0/</id>
+    <link href="https://luoyec.cn/2017/11/10/cjl3ff81b0004kr6pshn2guv1/"/>
+    <id>https://luoyec.cn/2017/11/10/cjl3ff81b0004kr6pshn2guv1/</id>
     <published>2017-11-09T17:08:09.000Z</published>
     <updated>2017-11-09T17:08:14.000Z</updated>
     
@@ -1286,8 +1317,8 @@
   
   <entry>
     <title>JavaScript:Promise</title>
-    <link href="https://luoyec.cn/2017/11/09/cjkxmesak0029h26p4tghv5cm/"/>
-    <id>https://luoyec.cn/2017/11/09/cjkxmesak0029h26p4tghv5cm/</id>
+    <link href="https://luoyec.cn/2017/11/09/cjl3ff82l0027kr6pf7vf26vn/"/>
+    <id>https://luoyec.cn/2017/11/09/cjl3ff82l0027kr6pf7vf26vn/</id>
     <published>2017-11-09T05:28:18.000Z</published>
     <updated>2017-11-09T05:28:26.000Z</updated>
     
@@ -1315,8 +1346,8 @@
   
   <entry>
     <title>2017-10-21表驱动法</title>
-    <link href="https://luoyec.cn/2017/10/23/cjkxmesdl008nh26pzklfpoes/"/>
-    <id>https://luoyec.cn/2017/10/23/cjkxmesdl008nh26pzklfpoes/</id>
+    <link href="https://luoyec.cn/2017/10/23/cjl3ff864008tkr6pm892r7s3/"/>
+    <id>https://luoyec.cn/2017/10/23/cjl3ff864008tkr6pm892r7s3/</id>
     <published>2017-10-23T13:51:02.000Z</published>
     <updated>2017-11-09T17:08:20.000Z</updated>
     
@@ -1349,8 +1380,8 @@
   
   <entry>
     <title>JavaScript回调</title>
-    <link href="https://luoyec.cn/2017/10/13/cjkxmesaq002nh26p0h8wfh05/"/>
-    <id>https://luoyec.cn/2017/10/13/cjkxmesaq002nh26p0h8wfh05/</id>
+    <link href="https://luoyec.cn/2017/10/13/cjl3ff82s002lkr6p7gcr7bfd/"/>
+    <id>https://luoyec.cn/2017/10/13/cjl3ff82s002lkr6p7gcr7bfd/</id>
     <published>2017-10-13T12:19:25.000Z</published>
     <updated>2017-10-13T12:19:31.000Z</updated>
     
@@ -1375,8 +1406,8 @@
   
   <entry>
     <title>JavaScript异步：现在与未来</title>
-    <link href="https://luoyec.cn/2017/10/13/cjkxmesas002qh26pkog5i2et/"/>
-    <id>https://luoyec.cn/2017/10/13/cjkxmesas002qh26pkog5i2et/</id>
+    <link href="https://luoyec.cn/2017/10/13/cjl3ff82v002rkr6pbuxsnodq/"/>
+    <id>https://luoyec.cn/2017/10/13/cjl3ff82v002rkr6pbuxsnodq/</id>
     <published>2017-10-13T11:46:32.000Z</published>
     <updated>2017-10-13T11:46:43.000Z</updated>
     
@@ -1403,8 +1434,8 @@
   
   <entry>
     <title>JavaScript 原生函数</title>
-    <link href="https://luoyec.cn/2017/10/11/cjkxmesa7001gh26pphlvact4/"/>
-    <id>https://luoyec.cn/2017/10/11/cjkxmesa7001gh26pphlvact4/</id>
+    <link href="https://luoyec.cn/2017/10/11/cjl3ff828001hkr6ptb69cayi/"/>
+    <id>https://luoyec.cn/2017/10/11/cjl3ff828001hkr6ptb69cayi/</id>
     <published>2017-10-11T14:50:14.000Z</published>
     <updated>2017-10-11T14:50:56.000Z</updated>
     
@@ -1436,8 +1467,8 @@
   
   <entry>
     <title>JavaScript 值</title>
-    <link href="https://luoyec.cn/2017/10/11/cjkxmesap002kh26pjq88ilf0/"/>
-    <id>https://luoyec.cn/2017/10/11/cjkxmesap002kh26pjq88ilf0/</id>
+    <link href="https://luoyec.cn/2017/10/11/cjl3ff82t002okr6p7fdqqams/"/>
+    <id>https://luoyec.cn/2017/10/11/cjl3ff82t002okr6p7fdqqams/</id>
     <published>2017-10-11T05:17:29.000Z</published>
     <updated>2017-10-11T05:17:48.000Z</updated>
     
@@ -1462,8 +1493,8 @@
   
   <entry>
     <title>JavaScript类型</title>
-    <link href="https://luoyec.cn/2017/10/10/cjkxmesav002wh26ptd1pqw9z/"/>
-    <id>https://luoyec.cn/2017/10/10/cjkxmesav002wh26ptd1pqw9z/</id>
+    <link href="https://luoyec.cn/2017/10/10/cjl3ff82x002ukr6pcj7lcd48/"/>
+    <id>https://luoyec.cn/2017/10/10/cjl3ff82x002ukr6pcj7lcd48/</id>
     <published>2017-10-10T05:27:27.000Z</published>
     <updated>2017-10-10T05:27:38.000Z</updated>
     
@@ -1488,8 +1519,8 @@
   
   <entry>
     <title>行为委托</title>
-    <link href="https://luoyec.cn/2017/10/08/cjkxmesdj008lh26p0hgrtl20/"/>
-    <id>https://luoyec.cn/2017/10/08/cjkxmesdj008lh26p0hgrtl20/</id>
+    <link href="https://luoyec.cn/2017/10/08/cjl3ff860008pkr6pd1q6mjpl/"/>
+    <id>https://luoyec.cn/2017/10/08/cjl3ff860008pkr6pd1q6mjpl/</id>
     <published>2017-10-08T07:10:13.000Z</published>
     <updated>2017-10-08T07:10:22.000Z</updated>
     
@@ -1518,8 +1549,8 @@
   
   <entry>
     <title>原型</title>
-    <link href="https://luoyec.cn/2017/10/08/cjkxmescu0079h26p03qahpuu/"/>
-    <id>https://luoyec.cn/2017/10/08/cjkxmescu0079h26p03qahpuu/</id>
+    <link href="https://luoyec.cn/2017/10/08/cjl3ff85c007akr6pfplybz43/"/>
+    <id>https://luoyec.cn/2017/10/08/cjl3ff85c007akr6pfplybz43/</id>
     <published>2017-10-08T06:04:27.000Z</published>
     <updated>2017-10-08T06:04:30.000Z</updated>
     
@@ -1546,8 +1577,8 @@
   
   <entry>
     <title>混合对象“类”</title>
-    <link href="https://luoyec.cn/2017/10/06/cjkxmesdc0082h26pew0m9tyv/"/>
-    <id>https://luoyec.cn/2017/10/06/cjkxmesdc0082h26pew0m9tyv/</id>
+    <link href="https://luoyec.cn/2017/10/06/cjl3ff85r0083kr6pj24f0pa9/"/>
+    <id>https://luoyec.cn/2017/10/06/cjl3ff85r0083kr6pj24f0pa9/</id>
     <published>2017-10-06T15:50:15.000Z</published>
     <updated>2017-10-06T15:50:22.000Z</updated>
     
@@ -1574,8 +1605,8 @@
   
   <entry>
     <title>关于this</title>
-    <link href="https://luoyec.cn/2017/10/06/cjkxmescl006rh26pzlnl3w9k/"/>
-    <id>https://luoyec.cn/2017/10/06/cjkxmescl006rh26pzlnl3w9k/</id>
+    <link href="https://luoyec.cn/2017/10/06/cjl3ff853006xkr6ph7p6sjae/"/>
+    <id>https://luoyec.cn/2017/10/06/cjl3ff853006xkr6ph7p6sjae/</id>
     <published>2017-10-06T15:24:44.000Z</published>
     <updated>2017-10-06T15:24:51.000Z</updated>
     
@@ -1604,8 +1635,8 @@
   
   <entry>
     <title>作用域闭包</title>
-    <link href="https://luoyec.cn/2017/10/04/cjkxmesck006qh26pldrhaubm/"/>
-    <id>https://luoyec.cn/2017/10/04/cjkxmesck006qh26pldrhaubm/</id>
+    <link href="https://luoyec.cn/2017/10/04/cjl3ff851006tkr6psjkk1nho/"/>
+    <id>https://luoyec.cn/2017/10/04/cjl3ff851006tkr6psjkk1nho/</id>
     <published>2017-10-04T03:16:16.000Z</published>
     <updated>2017-10-06T15:29:13.000Z</updated>
     
@@ -1635,8 +1666,8 @@
   
   <entry>
     <title>提升</title>
-    <link href="https://luoyec.cn/2017/10/03/cjkxmesd5007mh26p3n6vx89t/"/>
-    <id>https://luoyec.cn/2017/10/03/cjkxmesd5007mh26p3n6vx89t/</id>
+    <link href="https://luoyec.cn/2017/10/03/cjl3ff85l007rkr6pk8ci7t3j/"/>
+    <id>https://luoyec.cn/2017/10/03/cjl3ff85l007rkr6pk8ci7t3j/</id>
     <published>2017-10-03T07:25:48.000Z</published>
     <updated>2017-10-06T15:25:04.000Z</updated>
     
@@ -1663,8 +1694,8 @@
   
   <entry>
     <title>谈项目中如何选择框架和库</title>
-    <link href="https://luoyec.cn/2017/10/03/cjkxmesdp008uh26ps36qn56g/"/>
-    <id>https://luoyec.cn/2017/10/03/cjkxmesdp008uh26ps36qn56g/</id>
+    <link href="https://luoyec.cn/2017/10/03/cjl3ff8670090kr6p1urklh4w/"/>
+    <id>https://luoyec.cn/2017/10/03/cjl3ff8670090kr6p1urklh4w/</id>
     <published>2017-10-03T06:43:25.000Z</published>
     <updated>2017-10-03T06:43:33.000Z</updated>
     
@@ -1690,8 +1721,8 @@
   
   <entry>
     <title>函数作用域和块作用域</title>
-    <link href="https://luoyec.cn/2017/10/03/cjkxmescp006yh26phr2wcaep/"/>
-    <id>https://luoyec.cn/2017/10/03/cjkxmescp006yh26phr2wcaep/</id>
+    <link href="https://luoyec.cn/2017/10/03/cjl3ff8580073kr6py9y9b4dh/"/>
+    <id>https://luoyec.cn/2017/10/03/cjl3ff8580073kr6py9y9b4dh/</id>
     <published>2017-10-03T06:02:42.000Z</published>
     <updated>2017-10-03T06:30:43.000Z</updated>
     
@@ -1718,8 +1749,8 @@
   
   <entry>
     <title>词法作用域</title>
-    <link href="https://luoyec.cn/2017/10/03/cjkxmesdn008rh26ph6osd7fm/"/>
-    <id>https://luoyec.cn/2017/10/03/cjkxmesdn008rh26ph6osd7fm/</id>
+    <link href="https://luoyec.cn/2017/10/03/cjl3ff865008xkr6pq77l9o4v/"/>
+    <id>https://luoyec.cn/2017/10/03/cjl3ff865008xkr6pq77l9o4v/</id>
     <published>2017-10-03T03:39:52.000Z</published>
     <updated>2017-10-03T06:30:58.000Z</updated>
     
@@ -1746,8 +1777,8 @@
   
   <entry>
     <title>作用域是什么</title>
-    <link href="https://luoyec.cn/2017/10/03/cjkxmesci006lh26pjz0emvoy/"/>
-    <id>https://luoyec.cn/2017/10/03/cjkxmesci006lh26pjz0emvoy/</id>
+    <link href="https://luoyec.cn/2017/10/03/cjl3ff850006skr6p1364308d/"/>
+    <id>https://luoyec.cn/2017/10/03/cjl3ff850006skr6p1364308d/</id>
     <published>2017-10-03T02:49:13.000Z</published>
     <updated>2017-10-03T06:31:16.000Z</updated>
     
@@ -1776,8 +1807,8 @@
   
   <entry>
     <title>礼物说分享</title>
-    <link href="https://luoyec.cn/2017/09/25/cjkxmesdh008fh26pww4eiya6/"/>
-    <id>https://luoyec.cn/2017/09/25/cjkxmesdh008fh26pww4eiya6/</id>
+    <link href="https://luoyec.cn/2017/09/25/cjl3ff85u008bkr6phmp5s99w/"/>
+    <id>https://luoyec.cn/2017/09/25/cjl3ff85u008bkr6phmp5s99w/</id>
     <published>2017-09-25T03:37:13.000Z</published>
     <updated>2017-10-03T06:42:09.000Z</updated>
     
@@ -1808,8 +1839,8 @@
   
   <entry>
     <title>路由协议与应用协议</title>
-    <link href="https://luoyec.cn/2017/09/19/cjkxmesdt0092h26pe1aaee29/"/>
-    <id>https://luoyec.cn/2017/09/19/cjkxmesdt0092h26pe1aaee29/</id>
+    <link href="https://luoyec.cn/2017/09/19/cjl3ff86b0098kr6pfpjxi2ts/"/>
+    <id>https://luoyec.cn/2017/09/19/cjl3ff86b0098kr6pfpjxi2ts/</id>
     <published>2017-09-19T12:51:45.000Z</published>
     <updated>2017-09-19T12:52:25.000Z</updated>
     
@@ -1835,8 +1866,8 @@
   
   <entry>
     <title>TCP与UDP</title>
-    <link href="https://luoyec.cn/2017/09/19/cjkxmesbl004nh26p8e9hi9tf/"/>
-    <id>https://luoyec.cn/2017/09/19/cjkxmesbl004nh26p8e9hi9tf/</id>
+    <link href="https://luoyec.cn/2017/09/19/cjl3ff83s004rkr6psgnhmieb/"/>
+    <id>https://luoyec.cn/2017/09/19/cjl3ff83s004rkr6psgnhmieb/</id>
     <published>2017-09-19T11:53:34.000Z</published>
     <updated>2017-09-19T11:53:51.000Z</updated>
     
@@ -1863,8 +1894,8 @@
   
   <entry>
     <title>IP协议相关技术</title>
-    <link href="https://luoyec.cn/2017/09/18/cjkxmesa50019h26psain0jye/"/>
-    <id>https://luoyec.cn/2017/09/18/cjkxmesa50019h26psain0jye/</id>
+    <link href="https://luoyec.cn/2017/09/18/cjl3ff825001akr6py5h0odzq/"/>
+    <id>https://luoyec.cn/2017/09/18/cjl3ff825001akr6py5h0odzq/</id>
     <published>2017-09-18T12:42:21.000Z</published>
     <updated>2017-09-18T12:42:30.000Z</updated>
     
@@ -1891,8 +1922,8 @@
   
   <entry>
     <title>IP协议</title>
-    <link href="https://luoyec.cn/2017/09/18/cjkxmesa30017h26p2hm2onhb/"/>
-    <id>https://luoyec.cn/2017/09/18/cjkxmesa30017h26p2hm2onhb/</id>
+    <link href="https://luoyec.cn/2017/09/18/cjl3ff8200013kr6ps2h7qj7g/"/>
+    <id>https://luoyec.cn/2017/09/18/cjl3ff8200013kr6ps2h7qj7g/</id>
     <published>2017-09-18T12:07:00.000Z</published>
     <updated>2017-09-18T12:07:05.000Z</updated>
     
@@ -1919,8 +1950,8 @@
   
   <entry>
     <title>数据链路</title>
-    <link href="https://luoyec.cn/2017/09/15/cjkxmesd6007qh26pafc26k7h/"/>
-    <id>https://luoyec.cn/2017/09/15/cjkxmesd6007qh26pafc26k7h/</id>
+    <link href="https://luoyec.cn/2017/09/15/cjl3ff85n007vkr6p7nrxj7jq/"/>
+    <id>https://luoyec.cn/2017/09/15/cjl3ff85n007vkr6p7nrxj7jq/</id>
     <published>2017-09-15T05:17:56.000Z</published>
     <updated>2017-09-15T05:18:05.000Z</updated>
     
@@ -1946,8 +1977,8 @@
   
   <entry>
     <title>TCP/IP 基础知识</title>
-    <link href="https://luoyec.cn/2017/09/12/cjkxmesbj004ih26pvbpwz2bd/"/>
-    <id>https://luoyec.cn/2017/09/12/cjkxmesbj004ih26pvbpwz2bd/</id>
+    <link href="https://luoyec.cn/2017/09/12/cjl3ff83q004mkr6pszovmpsi/"/>
+    <id>https://luoyec.cn/2017/09/12/cjl3ff83q004mkr6pszovmpsi/</id>
     <published>2017-09-12T06:08:14.000Z</published>
     <updated>2017-09-12T06:08:24.000Z</updated>
     
@@ -1974,8 +2005,8 @@
   
   <entry>
     <title>网络基础知识</title>
-    <link href="https://luoyec.cn/2017/09/11/cjkxmesdi008hh26puyndjwgr/"/>
-    <id>https://luoyec.cn/2017/09/11/cjkxmesdi008hh26puyndjwgr/</id>
+    <link href="https://luoyec.cn/2017/09/11/cjl3ff85z008lkr6pgctaxmsf/"/>
+    <id>https://luoyec.cn/2017/09/11/cjl3ff85z008lkr6pgctaxmsf/</id>
     <published>2017-09-10T23:46:16.000Z</published>
     <updated>2017-09-10T23:48:48.000Z</updated>
     
@@ -2002,8 +2033,8 @@
   
   <entry>
     <title>分析算法</title>
-    <link href="https://luoyec.cn/2017/09/06/cjkxmescr0072h26pkf1jrevi/"/>
-    <id>https://luoyec.cn/2017/09/06/cjkxmescr0072h26pkf1jrevi/</id>
+    <link href="https://luoyec.cn/2017/09/06/cjl3ff85a0077kr6p8vti6igv/"/>
+    <id>https://luoyec.cn/2017/09/06/cjl3ff85a0077kr6p8vti6igv/</id>
     <published>2017-09-06T12:04:30.000Z</published>
     <updated>2017-09-06T12:04:42.000Z</updated>
     
@@ -2030,8 +2061,8 @@
   
   <entry>
     <title>异步操作和async函数</title>
-    <link href="https://luoyec.cn/2017/09/03/cjkxmescy007fh26p2zilnari/"/>
-    <id>https://luoyec.cn/2017/09/03/cjkxmescy007fh26p2zilnari/</id>
+    <link href="https://luoyec.cn/2017/09/03/cjl3ff85h007jkr6pprsr26fe/"/>
+    <id>https://luoyec.cn/2017/09/03/cjl3ff85h007jkr6pprsr26fe/</id>
     <published>2017-09-03T15:59:51.000Z</published>
     <updated>2017-09-03T16:03:15.000Z</updated>
     
@@ -2064,8 +2095,8 @@
   
   <entry>
     <title>算法基础-插入排序&amp;&amp;习题2.1-3、2.1-4</title>
-    <link href="https://luoyec.cn/2017/09/02/cjkxmesdf008ah26piywe618x/"/>
-    <id>https://luoyec.cn/2017/09/02/cjkxmesdf008ah26piywe618x/</id>
+    <link href="https://luoyec.cn/2017/09/02/cjl3ff85t0088kr6pphfrag6m/"/>
+    <id>https://luoyec.cn/2017/09/02/cjl3ff85t0088kr6pphfrag6m/</id>
     <published>2017-09-02T07:23:24.000Z</published>
     <updated>2017-09-02T07:26:49.000Z</updated>
     
@@ -2092,8 +2123,8 @@
   
   <entry>
     <title>算法在计算中的作用</title>
-    <link href="https://luoyec.cn/2017/08/30/cjkxmesde0087h26px5b3ga11/"/>
-    <id>https://luoyec.cn/2017/08/30/cjkxmesde0087h26px5b3ga11/</id>
+    <link href="https://luoyec.cn/2017/08/30/cjl3ff85x008ikr6p0932pb52/"/>
+    <id>https://luoyec.cn/2017/08/30/cjl3ff85x008ikr6p0932pb52/</id>
     <published>2017-08-30T15:10:01.000Z</published>
     <updated>2017-08-30T15:10:07.000Z</updated>
     
@@ -2119,8 +2150,8 @@
   
   <entry>
     <title>Egret MVC通用框架HTTP请求实践（GET请求）</title>
-    <link href="https://luoyec.cn/2017/08/29/cjkxmes9t000kh26pajm46e7e/"/>
-    <id>https://luoyec.cn/2017/08/29/cjkxmes9t000kh26pajm46e7e/</id>
+    <link href="https://luoyec.cn/2017/08/29/cjl3ff81t000kkr6p15ir1c69/"/>
+    <id>https://luoyec.cn/2017/08/29/cjl3ff81t000kkr6p15ir1c69/</id>
     <published>2017-08-29T09:31:52.000Z</published>
     <updated>2017-08-29T09:32:12.000Z</updated>
     
@@ -2138,9 +2169,9 @@
       <category term="Egret" scheme="https://luoyec.cn/categories/Egret/"/>
     
     
-      <category term="HTTP" scheme="https://luoyec.cn/tags/HTTP/"/>
-    
       <category term="Egret" scheme="https://luoyec.cn/tags/Egret/"/>
+    
+      <category term="HTTP" scheme="https://luoyec.cn/tags/HTTP/"/>
     
       <category term="MVC" scheme="https://luoyec.cn/tags/MVC/"/>
     
@@ -2148,8 +2179,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（15）</title>
-    <link href="https://luoyec.cn/2017/08/26/cjkxmesbw005bh26pu0iw7o8f/"/>
-    <id>https://luoyec.cn/2017/08/26/cjkxmesbw005bh26pu0iw7o8f/</id>
+    <link href="https://luoyec.cn/2017/08/26/cjl3ff8410056kr6pqyx4o5gm/"/>
+    <id>https://luoyec.cn/2017/08/26/cjl3ff8410056kr6pqyx4o5gm/</id>
     <published>2017-08-26T04:03:04.000Z</published>
     <updated>2017-08-26T04:06:16.000Z</updated>
     
@@ -2178,8 +2209,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（9）</title>
-    <link href="https://luoyec.cn/2017/08/26/cjkxmescb0062h26pa6nrs902/"/>
-    <id>https://luoyec.cn/2017/08/26/cjkxmescb0062h26pa6nrs902/</id>
+    <link href="https://luoyec.cn/2017/08/26/cjl3ff84r0068kr6pnphfwfhy/"/>
+    <id>https://luoyec.cn/2017/08/26/cjl3ff84r0068kr6pnphfwfhy/</id>
     <published>2017-08-26T03:36:02.000Z</published>
     <updated>2017-08-26T04:06:13.000Z</updated>
     
@@ -2206,8 +2237,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（8）</title>
-    <link href="https://luoyec.cn/2017/08/26/cjkxmesc9005yh26poz45ru85/"/>
-    <id>https://luoyec.cn/2017/08/26/cjkxmesc9005yh26poz45ru85/</id>
+    <link href="https://luoyec.cn/2017/08/26/cjl3ff84p0063kr6pwjls80tb/"/>
+    <id>https://luoyec.cn/2017/08/26/cjl3ff84p0063kr6pwjls80tb/</id>
     <published>2017-08-26T03:05:58.000Z</published>
     <updated>2017-08-26T03:06:06.000Z</updated>
     
@@ -2233,8 +2264,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（7）</title>
-    <link href="https://luoyec.cn/2017/08/23/cjkxmesc7005wh26p1y8rqvuu/"/>
-    <id>https://luoyec.cn/2017/08/23/cjkxmesc7005wh26p1y8rqvuu/</id>
+    <link href="https://luoyec.cn/2017/08/23/cjl3ff84n0060kr6pgwmheyn7/"/>
+    <id>https://luoyec.cn/2017/08/23/cjl3ff84n0060kr6pgwmheyn7/</id>
     <published>2017-08-23T14:27:46.000Z</published>
     <updated>2017-08-23T14:27:53.000Z</updated>
     
@@ -2262,8 +2293,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（6）</title>
-    <link href="https://luoyec.cn/2017/08/23/cjkxmesc5005sh26pa4ezqmeo/"/>
-    <id>https://luoyec.cn/2017/08/23/cjkxmesc5005sh26pa4ezqmeo/</id>
+    <link href="https://luoyec.cn/2017/08/23/cjl3ff84k005xkr6pdr0ei7vt/"/>
+    <id>https://luoyec.cn/2017/08/23/cjl3ff84k005xkr6pdr0ei7vt/</id>
     <published>2017-08-23T13:51:17.000Z</published>
     <updated>2017-08-23T13:51:24.000Z</updated>
     
@@ -2290,8 +2321,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）</title>
-    <link href="https://luoyec.cn/2017/08/23/cjkxmesc3005ph26pjykh66zh/"/>
-    <id>https://luoyec.cn/2017/08/23/cjkxmesc3005ph26pjykh66zh/</id>
+    <link href="https://luoyec.cn/2017/08/23/cjl3ff84j005tkr6plhwvz051/"/>
+    <id>https://luoyec.cn/2017/08/23/cjl3ff84j005tkr6plhwvz051/</id>
     <published>2017-08-22T16:31:50.000Z</published>
     <updated>2017-08-22T16:32:02.000Z</updated>
     
@@ -2320,8 +2351,8 @@
   
   <entry>
     <title>Egret 图片缓动动画实现</title>
-    <link href="https://luoyec.cn/2017/08/22/cjkxmes9u000oh26psjkclm1n/"/>
-    <id>https://luoyec.cn/2017/08/22/cjkxmes9u000oh26psjkclm1n/</id>
+    <link href="https://luoyec.cn/2017/08/22/cjl3ff81u000okr6pmvfgqdjl/"/>
+    <id>https://luoyec.cn/2017/08/22/cjl3ff81u000okr6pmvfgqdjl/</id>
     <published>2017-08-22T10:18:36.000Z</published>
     <updated>2017-08-22T10:18:43.000Z</updated>
     
@@ -2349,8 +2380,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（4）</title>
-    <link href="https://luoyec.cn/2017/08/22/cjkxmesc2005kh26ppg8cr3ed/"/>
-    <id>https://luoyec.cn/2017/08/22/cjkxmesc2005kh26ppg8cr3ed/</id>
+    <link href="https://luoyec.cn/2017/08/22/cjl3ff84h005rkr6pku2es87f/"/>
+    <id>https://luoyec.cn/2017/08/22/cjl3ff84h005rkr6pku2es87f/</id>
     <published>2017-08-22T06:27:50.000Z</published>
     <updated>2017-08-22T06:27:54.000Z</updated>
     
@@ -2379,8 +2410,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（3）</title>
-    <link href="https://luoyec.cn/2017/08/21/cjkxmesc0005hh26p1lol8ws6/"/>
-    <id>https://luoyec.cn/2017/08/21/cjkxmesc0005hh26p1lol8ws6/</id>
+    <link href="https://luoyec.cn/2017/08/21/cjl3ff84f005nkr6pvbe0i60g/"/>
+    <id>https://luoyec.cn/2017/08/21/cjl3ff84f005nkr6pvbe0i60g/</id>
     <published>2017-08-21T00:25:09.000Z</published>
     <updated>2017-08-21T00:25:18.000Z</updated>
     
@@ -2406,8 +2437,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）</title>
-    <link href="https://luoyec.cn/2017/08/21/cjkxmesbx005dh26pedzcbh30/"/>
-    <id>https://luoyec.cn/2017/08/21/cjkxmesbx005dh26pedzcbh30/</id>
+    <link href="https://luoyec.cn/2017/08/21/cjl3ff84c005fkr6prpbcezjz/"/>
+    <id>https://luoyec.cn/2017/08/21/cjl3ff84c005fkr6prpbcezjz/</id>
     <published>2017-08-20T23:32:21.000Z</published>
     <updated>2017-08-20T23:32:28.000Z</updated>
     
@@ -2433,8 +2464,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（1）</title>
-    <link href="https://luoyec.cn/2017/08/20/cjkxmescn006vh26p0l14gpgn/"/>
-    <id>https://luoyec.cn/2017/08/20/cjkxmescn006vh26p0l14gpgn/</id>
+    <link href="https://luoyec.cn/2017/08/20/cjl3ff856006zkr6py2trlsx8/"/>
+    <id>https://luoyec.cn/2017/08/20/cjl3ff856006zkr6py2trlsx8/</id>
     <published>2017-08-20T15:50:04.000Z</published>
     <updated>2017-08-20T23:37:13.000Z</updated>
     
@@ -2460,8 +2491,8 @@
   
   <entry>
     <title>mongodb二（命令行操作）</title>
-    <link href="https://luoyec.cn/2017/08/16/cjkxmesbt0055h26p9zcdiub2/"/>
-    <id>https://luoyec.cn/2017/08/16/cjkxmesbt0055h26p9zcdiub2/</id>
+    <link href="https://luoyec.cn/2017/08/16/cjl3ff84b005ckr6pnujlr1hy/"/>
+    <id>https://luoyec.cn/2017/08/16/cjl3ff84b005ckr6pnujlr1hy/</id>
     <published>2017-08-16T13:58:13.000Z</published>
     <updated>2017-08-17T01:42:23.000Z</updated>
     
@@ -2489,8 +2520,8 @@
   
   <entry>
     <title>mongodb一（命令行操作）</title>
-    <link href="https://luoyec.cn/2017/08/16/cjkxmesbr0050h26p4woitgw7/"/>
-    <id>https://luoyec.cn/2017/08/16/cjkxmesbr0050h26p4woitgw7/</id>
+    <link href="https://luoyec.cn/2017/08/16/cjl3ff8440058kr6pga15lt26/"/>
+    <id>https://luoyec.cn/2017/08/16/cjl3ff8440058kr6pga15lt26/</id>
     <published>2017-08-16T13:46:13.000Z</published>
     <updated>2017-08-17T01:42:30.000Z</updated>
     
@@ -2519,8 +2550,8 @@
   
   <entry>
     <title>安卓App内嵌Egret</title>
-    <link href="https://luoyec.cn/2017/08/16/cjkxmescw007ch26pfgh4ytbd/"/>
-    <id>https://luoyec.cn/2017/08/16/cjkxmescw007ch26pfgh4ytbd/</id>
+    <link href="https://luoyec.cn/2017/08/16/cjl3ff85e007dkr6ptffdeg00/"/>
+    <id>https://luoyec.cn/2017/08/16/cjl3ff85e007dkr6ptffdeg00/</id>
     <published>2017-08-16T13:40:34.000Z</published>
     <updated>2017-08-16T13:41:35.000Z</updated>
     
@@ -2549,8 +2580,8 @@
   
   <entry>
     <title>Egret HTTP简单请求</title>
-    <link href="https://luoyec.cn/2017/08/16/cjkxmes9n000fh26p43ga1mph/"/>
-    <id>https://luoyec.cn/2017/08/16/cjkxmes9n000fh26p43ga1mph/</id>
+    <link href="https://luoyec.cn/2017/08/16/cjl3ff81r000jkr6p7u9nh3zn/"/>
+    <id>https://luoyec.cn/2017/08/16/cjl3ff81r000jkr6p7u9nh3zn/</id>
     <published>2017-08-16T03:49:36.000Z</published>
     <updated>2017-08-16T13:41:50.000Z</updated>
     
@@ -2581,8 +2612,8 @@
   
   <entry>
     <title>Egret Loading 页面实现方法</title>
-    <link href="https://luoyec.cn/2017/08/16/cjkxmes9r000jh26pfc0p6xiv/"/>
-    <id>https://luoyec.cn/2017/08/16/cjkxmes9r000jh26pfc0p6xiv/</id>
+    <link href="https://luoyec.cn/2017/08/16/cjl3ff81p000fkr6py3mn4emq/"/>
+    <id>https://luoyec.cn/2017/08/16/cjl3ff81p000fkr6py3mn4emq/</id>
     <published>2017-08-16T03:29:48.000Z</published>
     <updated>2017-08-17T08:59:56.000Z</updated>
     
@@ -2611,8 +2642,8 @@
   
   <entry>
     <title>数组、栈、队列</title>
-    <link href="https://luoyec.cn/2017/08/12/cjkxmesd8007uh26p2m0l64ej/"/>
-    <id>https://luoyec.cn/2017/08/12/cjkxmesd8007uh26p2m0l64ej/</id>
+    <link href="https://luoyec.cn/2017/08/12/cjl3ff85o007ykr6p9e3yvuyn/"/>
+    <id>https://luoyec.cn/2017/08/12/cjl3ff85o007ykr6p9e3yvuyn/</id>
     <published>2017-08-12T09:48:42.000Z</published>
     <updated>2017-08-12T09:49:06.000Z</updated>
     
@@ -2640,8 +2671,8 @@
   
   <entry>
     <title>代码整洁之道四:注释</title>
-    <link href="https://luoyec.cn/2017/08/12/cjkxmesch006jh26pu2i8en2m/"/>
-    <id>https://luoyec.cn/2017/08/12/cjkxmesch006jh26pu2i8en2m/</id>
+    <link href="https://luoyec.cn/2017/08/12/cjl3ff84y006okr6pvzzowrjp/"/>
+    <id>https://luoyec.cn/2017/08/12/cjl3ff84y006okr6pvzzowrjp/</id>
     <published>2017-08-11T17:06:29.000Z</published>
     <updated>2017-08-11T17:07:08.000Z</updated>
     
@@ -2670,8 +2701,8 @@
   
   <entry>
     <title>Git 工作流指南（总结&amp;&amp;实践）</title>
-    <link href="https://luoyec.cn/2017/08/10/cjkxmes9y000xh26pr99izbw1/"/>
-    <id>https://luoyec.cn/2017/08/10/cjkxmes9y000xh26pr99izbw1/</id>
+    <link href="https://luoyec.cn/2017/08/10/cjl3ff81z0010kr6pdamm96bn/"/>
+    <id>https://luoyec.cn/2017/08/10/cjl3ff81z0010kr6pdamm96bn/</id>
     <published>2017-08-10T15:18:21.000Z</published>
     <updated>2017-08-10T15:27:07.000Z</updated>
     
@@ -2701,8 +2732,8 @@
   
   <entry>
     <title>Git基础入门</title>
-    <link href="https://luoyec.cn/2017/08/10/cjkxmesa10012h26peijadhg0/"/>
-    <id>https://luoyec.cn/2017/08/10/cjkxmesa10012h26peijadhg0/</id>
+    <link href="https://luoyec.cn/2017/08/10/cjl3ff8240018kr6pz8jgz8wr/"/>
+    <id>https://luoyec.cn/2017/08/10/cjl3ff8240018kr6pz8jgz8wr/</id>
     <published>2017-08-10T15:13:02.000Z</published>
     <updated>2017-08-10T15:15:06.000Z</updated>
     
@@ -2731,8 +2762,8 @@
   
   <entry>
     <title>Git常见问题</title>
-    <link href="https://luoyec.cn/2017/08/10/cjkxmes9z000zh26pve763ol5/"/>
-    <id>https://luoyec.cn/2017/08/10/cjkxmes9z000zh26pve763ol5/</id>
+    <link href="https://luoyec.cn/2017/08/10/cjl3ff81y000ykr6p33qnrna7/"/>
+    <id>https://luoyec.cn/2017/08/10/cjl3ff81y000ykr6p33qnrna7/</id>
     <published>2017-08-10T15:09:05.000Z</published>
     <updated>2017-08-10T15:16:26.000Z</updated>
     
@@ -2760,8 +2791,8 @@
   
   <entry>
     <title>代码整洁之道三:函数</title>
-    <link href="https://luoyec.cn/2017/08/09/cjkxmesce006dh26pgge6tejg/"/>
-    <id>https://luoyec.cn/2017/08/09/cjkxmesce006dh26pgge6tejg/</id>
+    <link href="https://luoyec.cn/2017/08/09/cjl3ff84v006hkr6p8yl25c3o/"/>
+    <id>https://luoyec.cn/2017/08/09/cjl3ff84v006hkr6p8yl25c3o/</id>
     <published>2017-08-09T15:40:05.000Z</published>
     <updated>2017-08-09T15:41:38.000Z</updated>
     
@@ -2790,8 +2821,8 @@
   
   <entry>
     <title>Express Getting Started实践</title>
-    <link href="https://luoyec.cn/2017/08/09/cjkxmes9v000qh26pqru51zy2/"/>
-    <id>https://luoyec.cn/2017/08/09/cjkxmes9v000qh26pqru51zy2/</id>
+    <link href="https://luoyec.cn/2017/08/09/cjl3ff81w000rkr6p94xh0sae/"/>
+    <id>https://luoyec.cn/2017/08/09/cjl3ff81w000rkr6p94xh0sae/</id>
     <published>2017-08-08T22:43:10.000Z</published>
     <updated>2017-08-09T15:41:27.000Z</updated>
     
@@ -2817,8 +2848,8 @@
   
   <entry>
     <title>socket.io入门实践</title>
-    <link href="https://luoyec.cn/2017/08/09/cjkxmesbu0057h26p6p9bvppf/"/>
-    <id>https://luoyec.cn/2017/08/09/cjkxmesbu0057h26p6p9bvppf/</id>
+    <link href="https://luoyec.cn/2017/08/09/cjl3ff84e005kkr6pazd836tz/"/>
+    <id>https://luoyec.cn/2017/08/09/cjl3ff84e005kkr6pazd836tz/</id>
     <published>2017-08-08T22:39:08.000Z</published>
     <updated>2017-08-09T15:41:26.000Z</updated>
     
@@ -2846,8 +2877,8 @@
   
   <entry>
     <title>代码整洁之道二：有意义的命名</title>
-    <link href="https://luoyec.cn/2017/08/08/cjkxmescg006fh26p5s31hx64/"/>
-    <id>https://luoyec.cn/2017/08/08/cjkxmescg006fh26p5s31hx64/</id>
+    <link href="https://luoyec.cn/2017/08/08/cjl3ff84x006mkr6pd7j1odqh/"/>
+    <id>https://luoyec.cn/2017/08/08/cjl3ff84x006mkr6pd7j1odqh/</id>
     <published>2017-08-08T15:21:20.000Z</published>
     <updated>2017-08-09T15:41:45.000Z</updated>
     
@@ -2875,8 +2906,8 @@
   
   <entry>
     <title>代码整洁之道一:代码整洁</title>
-    <link href="https://luoyec.cn/2017/08/08/cjkxmescc0065h26pwlidkb6y/"/>
-    <id>https://luoyec.cn/2017/08/08/cjkxmescc0065h26pwlidkb6y/</id>
+    <link href="https://luoyec.cn/2017/08/08/cjl3ff84s006akr6p7y58xsbb/"/>
+    <id>https://luoyec.cn/2017/08/08/cjl3ff84s006akr6p7y58xsbb/</id>
     <published>2017-08-08T06:23:46.000Z</published>
     <updated>2017-08-09T15:41:32.000Z</updated>
     
@@ -2904,8 +2935,8 @@
   
   <entry>
     <title>MongoDB及Robo工具安装</title>
-    <link href="https://luoyec.cn/2017/08/05/cjkxmesb3003ih26pxqhti0r7/"/>
-    <id>https://luoyec.cn/2017/08/05/cjkxmesb3003ih26pxqhti0r7/</id>
+    <link href="https://luoyec.cn/2017/08/05/cjl3ff838003kkr6p79lrwhmc/"/>
+    <id>https://luoyec.cn/2017/08/05/cjl3ff838003kkr6p79lrwhmc/</id>
     <published>2017-08-05T02:08:28.000Z</published>
     <updated>2017-08-05T04:25:16.000Z</updated>
     
