@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,模块," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript 模块JavaScript 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 JavaScript 模块 JS 模块发展史JavaScript 模块化七日谈前端模块化开发那点历史AMD, CMD, CommonJS 和 UMD CommonJS 模块系统N">
+<meta name="keywords" content="JavaScript,模块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript模块">
+<meta property="og:url" content="https://luoyec.cn/2017/12/16/cjl7q8a1k001leo6p079md3ys/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="JavaScript 模块JavaScript 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 JavaScript 模块 JS 模块发展史JavaScript 模块化七日谈前端模块化开发那点历史AMD, CMD, CommonJS 和 UMD CommonJS 模块系统N">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-15T17:03:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript模块">
+<meta name="twitter:description" content="JavaScript 模块JavaScript 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 JavaScript 模块 JS 模块发展史JavaScript 模块化七日谈前端模块化开发那点历史AMD, CMD, CommonJS 和 UMD CommonJS 模块系统N">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2017/12/16/cjl7q8a1k001leo6p079md3ys/"/>
+
+
+
+
+
+  <title>JavaScript模块 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/12/16/cjl7q8a1k001leo6p079md3ys/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-16T01:03:11+08:00">
+                2017-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript-模块"><a href="#JavaScript-模块" class="headerlink" title="JavaScript 模块"></a>JavaScript 模块</h1><p><code>JavaScript</code> 模块在平时开发中都会接触到，但缺乏对模块整体理解，本文档试着从前端模块的发展历程作为切入点，以 ‘CommonJS’ 和 ‘ES6’ 模块作为深入学习的方向，深入理解和掌握 <code>JavaScript</code> 模块</p>
+<h2 id="JS-模块发展史"><a href="#JS-模块发展史" class="headerlink" title="JS 模块发展史"></a>JS 模块发展史</h2><p><a href="https://huangxuan.me/js-module-7day/#/" target="_blank" rel="noopener"><code>JavaScript</code> 模块化七日谈</a><br><a href="https://github.com/seajs/seajs/issues/588" target="_blank" rel="noopener">前端模块化开发那点历史</a><br><a href="https://segmentfault.com/a/1190000004873947" target="_blank" rel="noopener"><code>AMD, CMD, CommonJS 和 UMD</code></a></p>
+<h2 id="CommonJS-模块系统"><a href="#CommonJS-模块系统" class="headerlink" title="CommonJS 模块系统"></a>CommonJS 模块系统</h2><p><a href="https://lyctea.github.io/2017/12/09/Node%E6%A8%A1%E5%9D%97/" target="_blank" rel="noopener">Node.js 模块</a></p>
+<p><code>CommonJs</code> 是一个由开源开发者组成的团队，主要围绕 <code>JavaScript</code> 实现一些 <code>API</code> 及开展研发实践。</p>
+<p>该团队提出了一个 <code>avaScript</code> 模块规范。每个文件都可当作一个模块，并且每个文件可以访问两个对象：<code>require</code> 和 <code>export</code>。<code>require</code> 用来接收字符串（模块名），并返回该模块输出的对象。</p>
+<p><code>export</code> 对象用来导出该模块的方法和变量。<code>require</code> 方法返回的就是 <code>export</code> 对象。模块同步加载。服务器端 <code>JavaScript</code> 引擎 <code>Node.js</code> 就是用的这个模块系统。</p>
+<h2 id="异步模块定义（AMD）"><a href="#异步模块定义（AMD）" class="headerlink" title="异步模块定义（AMD）"></a>异步模块定义（AMD）</h2><p><code>AMD</code> 是一个采用异步方式加载依赖模块的模块系统。</p>
+<p>如果模块在不同文件中，它们将采用 <code>XHR</code> 进行加载。某一模块将等其所依赖的模块一一加载后才会被执行。</p>
+<p><code>AMD</code> 模块必须是一个函数，并作为参数传入<code>define</code> 函数中。函数的返回值将传输给所有依赖的模块，所获得返回值又将作为参数传给模块方法。<code>Require.js</code> 库中实现了 <code>AMD</code></p>
+<blockquote>
+<p><code>XHR</code> 英文全名 <code>XmlHttpRequest</code>，中文可以解释为可扩展超文本传输请求。Xml 可扩展标记语言，Http 超文本传输协议，Request 请求。XMLHttpRequest 对象可以在不向服务器提交整个页面的情况下，实现局部更新网页。</p>
+<p><a href="https://baike.baidu.com/item/XMLHTTPRequest" target="_blank" rel="noopener">百度百科：XMLHTTPRequest</a></p>
+</blockquote>
+<h2 id="TypeScript-模块"><a href="#TypeScript-模块" class="headerlink" title="TypeScript 模块"></a>TypeScript 模块</h2><p><code>TypeScript</code>，作为 <code>JavaScript</code> 的超集，也提供了一个模块系统。</p>
+<p>当它被编译时，便开始使用 <code>JavaScript</code> 模块模式。<code>TypeScript</code> 模块使用 <code>module</code> 关键字定义，<code>任何被输出的对象必须使用export</code> 关键字定义。</p>
+<p><code>import</code> 关键字用来将其它模块加载入模块中，并捕捉该模块导出的对象。<code>TypeScript</code> 模块是同步加载的。</p>
+<h2 id="ES6-模块系统"><a href="#ES6-模块系统" class="headerlink" title="ES6 模块系统"></a>ES6 模块系统</h2><p><a href="https://lyctea.github.io/2017/12/16/ES6%20%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F/" target="_blank" rel="noopener">ES6 模块系统</a></p>
+<p><code>ES6</code> 模块系统启发于上述现有模块系统，它具有以下特性：</p>
+<ul>
+<li><p>使用 <code>export</code> 关键词导出对象。这个关键字可以无限次使用</p>
+</li>
+<li><p>使用 <code>import</code> 关键字将其它模块导入某一模块中。它可用来导入任意数量的模块</p>
+</li>
+<li><p>支持模块的异步加载</p>
+</li>
+<li><p>为加载模块提供编程支持</p>
+</li>
+</ul>
+<h2 id="阻塞非阻塞与同步异步"><a href="#阻塞非阻塞与同步异步" class="headerlink" title="阻塞非阻塞与同步异步"></a>阻塞非阻塞与同步异步</h2><p><a href="https://www.zhihu.com/question/19732473/answer/20851256" target="_blank" rel="noopener">怎样理解阻塞非阻塞与同步异步的区别？</a></p>
+<p>“阻塞”与”非阻塞”与”同步”与“异步”不能简单的从字面理解，提供一个从分布式系统角度的回答。</p>
+<h3 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h3><p>同步和异步关注的是消息通信机制 <code>(synchronous communication/ asynchronous communication)</code></p>
+<p>所谓同步，就是在发出一个 _调用_ 时，在没有得到结果之前，该 _调用_ 就不返回。但是一旦调用返回，就得到返回值了。换句话说，就是由 <em>调用者</em> 主动等待这个 _调用_ 的结果。</p>
+<p>而异步则是相反，_调用_ 在发出之后，这个调用就直接返回了，所以没有返回结果。</p>
+<p>换句话说，当一个异步过程调用发出后，调用者不会立刻得到结果。而是在<em>调用</em>发出后，<em>被调用者</em>通过状态、通知来通知调用者，或通过回调函数处理这个调用。</p>
+<p>典型的异步编程模型比如 <code>Node.js</code></p>
+<p>举个通俗的例子：你打电话问书店老板有没有《分布式系统》这本书，如果是同步通信机制，书店老板会说，你稍等，”我查一下”，然后开始查啊查，等查好了（可能是 5 秒，也可能是一天）告诉你结果（返回结果）。</p>
+<p>而异步通信机制，书店老板直接告诉你我查一下啊，查好了打电话给你，然后直接挂电话了（不返回结果）。然后查好了，他会主动打电话给你。在这里老板通过“回电”这种方式来回调。</p>
+<h3 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h3><p>阻塞和非阻塞关注的是程序在等待调用结果（消息，返回值）时的状态。</p>
+<p>阻塞调用是指调用结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会返回。</p>
+<p>非阻塞调用指在不能立刻得到结果之前，该调用不会阻塞当前线程。</p>
+<p>还是上面的例子，你打电话问书店老板有没有《分布式系统》这本书，你如果是阻塞式调用，你会一直把自己“挂起”，直到得到这本书有没有的结果，如果是非阻塞式调用，你不管老板有没有告诉你，你自己先一边去玩了， 当然你也要偶尔过几分钟 check 一下老板有没有返回结果。</p>
+<p>在这里阻塞与非阻塞与是否同步异步无关。跟老板通过什么方式回答你结果无关。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/模块/" rel="tag"># 模块</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/16/cjl7q8a0z000jeo6phggo5f52/" rel="next" title="ES6 模块系统">
+                <i class="fa fa-chevron-left"></i> ES6 模块系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/24/cjl7q8a1z002jeo6pkglkeisf/" rel="prev" title="JavaScript事件处理上">
+                JavaScript事件处理上 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">129</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript-模块"><span class="nav-number">1.</span> <span class="nav-text">JavaScript 模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-模块发展史"><span class="nav-number">1.1.</span> <span class="nav-text">JS 模块发展史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CommonJS-模块系统"><span class="nav-number">1.2.</span> <span class="nav-text">CommonJS 模块系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步模块定义（AMD）"><span class="nav-number">1.3.</span> <span class="nav-text">异步模块定义（AMD）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TypeScript-模块"><span class="nav-number">1.4.</span> <span class="nav-text">TypeScript 模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6-模块系统"><span class="nav-number">1.5.</span> <span class="nav-text">ES6 模块系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻塞非阻塞与同步异步"><span class="nav-number">1.6.</span> <span class="nav-text">阻塞非阻塞与同步异步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#同步与异步"><span class="nav-number">1.6.1.</span> <span class="nav-text">同步与异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞与非阻塞"><span class="nav-number">1.6.2.</span> <span class="nav-text">阻塞与非阻塞</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

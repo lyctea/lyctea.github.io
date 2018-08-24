@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CentOS,MySQL,服务器," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="扩展阅读：How to Install MySQL on CentOS 7云服务器 ECS &amp;gt; 用户指南 &amp;gt; 安全组 &amp;gt; 添加安全组规则MySQL安全配置向导mysql_secure_installation详解centos7 mysql数据库安装和配置 CentOS7 服务器安装 MySQL 😯  本文档是基于非 root 用户的，需要 sudo 前缀以提升权限，如果是 ro">
+<meta name="keywords" content="CentOS,MySQL,服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7 服务器安装 MySQL">
+<meta property="og:url" content="https://luoyec.cn/2018/01/06/cjl7q8a0s0009eo6pvzrnass9/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="扩展阅读：How to Install MySQL on CentOS 7云服务器 ECS &amp;gt; 用户指南 &amp;gt; 安全组 &amp;gt; 添加安全组规则MySQL安全配置向导mysql_secure_installation详解centos7 mysql数据库安装和配置 CentOS7 服务器安装 MySQL 😯  本文档是基于非 root 用户的，需要 sudo 前缀以提升权限，如果是 ro">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515209938448.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515210074360.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515212296430.jpg">
+<meta property="og:updated_time" content="2018-01-06T04:24:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7 服务器安装 MySQL">
+<meta name="twitter:description" content="扩展阅读：How to Install MySQL on CentOS 7云服务器 ECS &amp;gt; 用户指南 &amp;gt; 安全组 &amp;gt; 添加安全组规则MySQL安全配置向导mysql_secure_installation详解centos7 mysql数据库安装和配置 CentOS7 服务器安装 MySQL 😯  本文档是基于非 root 用户的，需要 sudo 前缀以提升权限，如果是 ro">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515209938448.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2018/01/06/cjl7q8a0s0009eo6pvzrnass9/"/>
+
+
+
+
+
+  <title>CentOS7 服务器安装 MySQL | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/01/06/cjl7q8a0s0009eo6pvzrnass9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CentOS7 服务器安装 MySQL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T12:24:04+08:00">
+                2018-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>扩展阅读：<br><a href="https://linode.com/docs/databases/mysql/how-to-install-mysql-on-centos-7/" target="_blank" rel="noopener">How to Install MySQL on CentOS 7</a><br><a href="https://help.aliyun.com/document_detail/25471.html?spm=5176.100241.0.0.50a98379QuiDtB" target="_blank" rel="noopener">云服务器 ECS &gt; 用户指南 &gt; 安全组 &gt; 添加安全组规则</a><br><a href="http://www.jb51.net/article/47727.htm" target="_blank" rel="noopener">MySQL安全配置向导mysql_secure_installation详解</a><br><a href="https://www.cnblogs.com/starof/p/4680083.html" target="_blank" rel="noopener">centos7 mysql数据库安装和配置</a></p>
+<h1 id="CentOS7-服务器安装-MySQL"><a href="#CentOS7-服务器安装-MySQL" class="headerlink" title="CentOS7 服务器安装 MySQL"></a>CentOS7 服务器安装 MySQL</h1><blockquote>
+<p>😯  本文档是基于非 root 用户的，需要 sudo 前缀以提升权限，如果是 root 用户，则可忽略该前缀。<br>使用阿里云ECS，需要配置安全组规则，详见文档具体章节。</p>
+</blockquote>
+<h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p>检查你的主机状态：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[root]#</span> hostname		// 短主机名</span><br><span class="line">iZwz97v8o1cbogw4uplc4dZ</span><br><span class="line"><span class="meta">[root]#</span> hostname -f		// 同时带有主机名和域名的名称</span><br><span class="line">iZwz97v8o1cbogw4uplc4dZ</span><br></pre></td></tr></table></figure>
+<p>更新系统的 <code>yum</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update</span><br></pre></td></tr></table></figure>
+<p>安装 <code>wget</code> ，用以完成 <code>MySQL</code> 安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install wget</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>Yum (全称为：Yellow dog Updater, Modified) 由Duke University团队，修改Yellow Dog
+Linux的Yellow Dog Updater开发而成，是一个基于RPM 包管理的字符前端软件包管理器。能够从指定的服务器自动下载 RPM
+包并且安装，可以处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。被Yellow Dog
+Linux本身，以及Fedora、Red Hat Enterprise Linux采用。</code></p>
+</blockquote>
+<blockquote>
+<p><code>GNU Wget是一个在网络上进行下载的简单而强大的自由软件，其本身也是GNU计划的一部分。它的名字是“World Wide
+Web”和“Get”的结合，同时也隐含了软件的主要功能。目前它支持通过HTTP、HTTPS，以及FTP这三个最常见的TCP/IP协议协议下载。</code></p>
+</blockquote>
+<h2 id="安装-MySQL"><a href="#安装-MySQL" class="headerlink" title="安装 MySQL"></a>安装 MySQL</h2><p>下载和安装仓库，并且使用yum更新它</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</span><br><span class="line"></span><br><span class="line">sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm</span><br><span class="line"></span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
+<p>安装 <code>MySQL</code> 服务，遇到校验时，如果没有错误或匹配错误请选择 <code>y</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install mysql-server		// 安装服务</span><br><span class="line"></span><br><span class="line">sudo systemctl start mysqld 	// 启动服务</span><br></pre></td></tr></table></figure>
+<p><code>MySQL</code> 默认绑定 <code>localhost (127.0.0.1)</code>，了解使用 <code>ssh</code> 连接到数据库的信息。</p>
+<p><a href="https://linode.com/docs/databases/mysql/create-an-ssh-tunnel-for-mysql-remote-access/" target="_blank" rel="noopener">MySQL remote access guide</a></p>
+<blockquote>
+<p>⚠️  <code>MySQL</code> 不建议不设限制地通过公共IP连接，你可以修改配置文件 <code>/etc/my.cnf</code>以更改监听地址，如果决定将MySQL绑定到公共IP，则应该实现只允许特定IP地址的连接的防火墙规则。</p>
+</blockquote>
+<h2 id="安全配置向导-Harden-MySQL-Server"><a href="#安全配置向导-Harden-MySQL-Server" class="headerlink" title="安全配置向导(Harden MySQL Server)"></a>安全配置向导(Harden MySQL Server)</h2><p>运行 <code>mysql_secure_installation</code> 设置默认的 <code>MySQL</code> 安全问题</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>⚠️ 第一次配置时，没有给 <code>root</code> 用户设置密码，直接回车可以设置初始密码。</p>
+</blockquote>
+<p>具体的设置规则：</p>
+<ul>
+<li>为 <code>root</code> 用户设置密码</li>
+<li>删除匿名账号</li>
+<li>取消 <code>root</code> 用户远程登录</li>
+<li>删除 <code>test</code> 库和对 <code>test</code> 库的访问权限</li>
+<li>刷新授权表使修改生效</li>
+</ul>
+<p>可以参考：<a href="http://www.jb51.net/article/47727.htm" target="_blank" rel="noopener">MySQL安全配置向导mysql_secure_installation详解</a></p>
+<h2 id="使用MySQL"><a href="#使用MySQL" class="headerlink" title="使用MySQL"></a>使用MySQL</h2><h3 id="Root-用户登录"><a href="#Root-用户登录" class="headerlink" title="Root 用户登录"></a>Root 用户登录</h3><ul>
+<li><code>root</code> 登录 <code>MySQL</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515209938448.jpg" alt=""></p>
+<ul>
+<li>生成 <code>MySQL</code> 命令提示列表  <code>\h</code><br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515210074360.jpg" alt=""></li>
+</ul>
+<h3 id="创建一个新的-MySQL-用户-和-仓库"><a href="#创建一个新的-MySQL-用户-和-仓库" class="headerlink" title="创建一个新的 MySQL 用户 和 仓库"></a>创建一个新的 MySQL 用户 和 仓库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// testdb 为数据库名</span><br><span class="line">create database testdb; </span><br><span class="line"></span><br><span class="line"> // testuser 用户名；password：密码</span><br><span class="line">create user 'testuser'@'localhost' identified by 'password'; </span><br><span class="line"></span><br><span class="line">// 赋予testuser用户所有权限</span><br><span class="line">grant all on testdb.* to 'testuser' identified by 'password';</span><br></pre></td></tr></table></figure>
+<p>以上命令可以缩短为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create database testdb;</span><br><span class="line"></span><br><span class="line">grant all on testdb.* to 'testuser' identified by 'password';</span><br></pre></td></tr></table></figure>
+<p>完成后退出 <code>MySQL</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+<h3 id="创建一个简单表"><a href="#创建一个简单表" class="headerlink" title="创建一个简单表"></a>创建一个简单表</h3><p>使用之前创建的 <code>testuser</code> 用户登录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u testuser -p</span><br></pre></td></tr></table></figure>
+<p>创建简单的表<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use testdb;</span><br><span class="line"></span><br><span class="line">create table customers (customer_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, first_name TEXT, last_name TEXT);enter code here</span><br></pre></td></tr></table></figure></p>
+<h3 id="重设-ROOT-密码"><a href="#重设-ROOT-密码" class="headerlink" title="重设 ROOT 密码"></a>重设 ROOT 密码</h3><p><code>root</code> 用户登录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+<p>切换到mysql ，重置密码，并且刷新</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line"></span><br><span class="line">update user SET PASSWORD=PASSWORD("password") WHERE USER='root';</span><br><span class="line"></span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p>重启 <code>MySQL</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start mysqld</span><br><span class="line"></span><br><span class="line">// 或者</span><br><span class="line">service mysqld start</span><br></pre></td></tr></table></figure>
+<h2 id="远程连接"><a href="#远程连接" class="headerlink" title="远程连接"></a>远程连接</h2><h3 id="远程连接设置"><a href="#远程连接设置" class="headerlink" title="远程连接设置"></a>远程连接设置</h3><p>把在所有数据库的所有表的所有权限赋值给位于所有 <code>IP</code> 地址的 <code>root</code> 用户。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span> grant all privileges on *.* to root@'%'identified by 'password';</span><br></pre></td></tr></table></figure>
+<p>如果是新用户而不是root，则要先新建用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span>create user 'username'@'%' identified by 'password';</span><br></pre></td></tr></table></figure>
+<p>此时就可以进行远程连接了。</p>
+<h3 id="⚠️-阿里云添加安全组规则"><a href="#⚠️-阿里云添加安全组规则" class="headerlink" title="⚠️ 阿里云添加安全组规则"></a>⚠️ 阿里云添加安全组规则</h3><p><a href="https://help.aliyun.com/document_detail/25471.html?spm=5176.100241.0.0.50a98379QuiDtB" target="_blank" rel="noopener">云服务器 ECS &gt; 用户指南 &gt; 安全组 &gt; 添加安全组规则</a></p>
+<p>常用端口选择 <code>MySQL 3306</code> 授权对象为 <code>0.0.0.0/0</code></p>
+<h3 id="Navicat-连接"><a href="#Navicat-连接" class="headerlink" title="Navicat 连接"></a><code>Navicat</code> 连接</h3><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1515212296430.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CentOS/" rel="tag"># CentOS</a>
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+            <a href="/tags/服务器/" rel="tag"># 服务器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/02/cjl7q8a33004yeo6pjc9wh2bb/" rel="next" title="YEOMAN实践一">
+                <i class="fa fa-chevron-left"></i> YEOMAN实践一
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/06/cjl7q8a0w000eeo6p56pwn4qq/" rel="prev" title="CentOS7 服务器安装 Node.js">
+                CentOS7 服务器安装 Node.js <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">129</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CentOS7-服务器安装-MySQL"><span class="nav-number">1.</span> <span class="nav-text">CentOS7 服务器安装 MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始之前"><span class="nav-number">1.1.</span> <span class="nav-text">开始之前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-MySQL"><span class="nav-number">1.2.</span> <span class="nav-text">安装 MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全配置向导-Harden-MySQL-Server"><span class="nav-number">1.3.</span> <span class="nav-text">安全配置向导(Harden MySQL Server)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用MySQL"><span class="nav-number">1.4.</span> <span class="nav-text">使用MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Root-用户登录"><span class="nav-number">1.4.1.</span> <span class="nav-text">Root 用户登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个新的-MySQL-用户-和-仓库"><span class="nav-number">1.4.2.</span> <span class="nav-text">创建一个新的 MySQL 用户 和 仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个简单表"><span class="nav-number">1.4.3.</span> <span class="nav-text">创建一个简单表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重设-ROOT-密码"><span class="nav-number">1.4.4.</span> <span class="nav-text">重设 ROOT 密码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程连接"><span class="nav-number">1.5.</span> <span class="nav-text">远程连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程连接设置"><span class="nav-number">1.5.1.</span> <span class="nav-text">远程连接设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#⚠️-阿里云添加安全组规则"><span class="nav-number">1.5.2.</span> <span class="nav-text">⚠️ 阿里云添加安全组规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Navicat-连接"><span class="nav-number">1.5.3.</span> <span class="nav-text">Navicat 连接</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

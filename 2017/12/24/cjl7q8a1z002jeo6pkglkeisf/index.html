@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,事件," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript事件处理上客户端 JavaScript 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，Web 浏览器就会产生事件。 如果 JavaScript 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。 术语了解相关的术语，有助于继续深入学习事件和事件处理。  事件类型（event type）">
+<meta name="keywords" content="JavaScript,事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript事件处理上">
+<meta property="og:url" content="https://luoyec.cn/2017/12/24/cjl7q8a1z002jeo6pkglkeisf/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="JavaScript事件处理上客户端 JavaScript 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，Web 浏览器就会产生事件。 如果 JavaScript 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。 术语了解相关的术语，有助于继续深入学习事件和事件处理。  事件类型（event type）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-26T14:33:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript事件处理上">
+<meta name="twitter:description" content="JavaScript事件处理上客户端 JavaScript 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，Web 浏览器就会产生事件。 如果 JavaScript 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。 术语了解相关的术语，有助于继续深入学习事件和事件处理。  事件类型（event type）">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2017/12/24/cjl7q8a1z002jeo6pkglkeisf/"/>
+
+
+
+
+
+  <title>JavaScript事件处理上 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/12/24/cjl7q8a1z002jeo6pkglkeisf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript事件处理上</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T22:54:12+08:00">
+                2017-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript事件处理上"><a href="#JavaScript事件处理上" class="headerlink" title="JavaScript事件处理上"></a>JavaScript事件处理上</h1><p>客户端 <code>JavaScript</code> 程序采用了异步事件驱动编程模型，在这种程序设计风格下，当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，<code>Web</code> 浏览器就会产生事件。</p>
+<p>如果 <code>JavaScript</code> 关注特定类型的时间，那么它可以注册当这类时间发生时要调用的一个或多个函数。</p>
+<h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p>了解相关的术语，有助于继续深入学习事件和事件处理。</p>
+<ul>
+<li><p>事件类型<code>（event type）</code></p>
+<ul>
+<li>是一个用来说明发生什么事件的字符串，有时也被事件名字<code>（event name）</code></li>
+</ul>
+</li>
+<li><p>事件目标<code>（event targe）</code></p>
+<ul>
+<li>是发生的事件或与之相关的对象，当将事件是，必须同时指明类型和目标。</li>
+<li><code>Window、Document、Element</code>是最常见的事件目标</li>
+</ul>
+</li>
+<li><p>事件处理程序<code>（event handler）</code></p>
+<ul>
+<li>事件处理程序<code>（event handler）</code>或事件监听程序<code>（event listener）</code> 是处理响应事件的函数。</li>
+<li>当对象在注册的事件程序被调用时，我们有时会说浏览器“触发”和“派发”了事件</li>
+</ul>
+</li>
+<li><p>事件对象<code>（event object）</code></p>
+<ul>
+<li>事件对象<code>（event object）</code>是与特定事件并且包含有关该事件详细信息的对象。</li>
+<li>事件对象作为参数传递给事件处理程序</li>
+<li>所有的事件对象都有用来指定事件类型的 <code>type</code> 属性和指定事件目标的 <code>targe</code> 属性。</li>
+</ul>
+</li>
+<li><p>事件传播<code>（event propagation）</code></p>
+<ul>
+<li>事件传播<code>（event propagation）</code>是浏览器决定哪个对象触发其事件处理程序的过程。</li>
+<li>当文档元素发生某个类型的事件时，他们会在文档树上向上传播或“冒泡”<code>（bubble）</code></li>
+<li>事件处理程序能通过调用方法或设置事件对象属性来阻止事件传播，这样能停止冒泡并将无法再容器元素上触发的处理程序。</li>
+</ul>
+</li>
+<li><p>事件捕获<code>（event capturing）</code></p>
+<ul>
+<li>是事件传播的另一种形式，在容器元素上注册的特定处理程序有机会在事件传播到真实目标之前拦截（或“捕获”）它</li>
+<li><code>IE8</code> 版本之前不支持事件捕获</li>
+</ul>
+</li>
+<li><p>事件的默认操作</p>
+<ul>
+<li>例如在超链接的点击事件，浏览器的默认操作是按照超链接重新加载页面</li>
+<li>事件处理程序可以通过返回一个适当的值、调用事件对象的某个方法设置事件对象的某个属性来阻止默认操作的发生。</li>
+</ul>
+</li>
+</ul>
+<h2 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h2><p>随着 <code>Web</code> 平台发展到包含更强大的API，事件集合随之越来越大，这些新事件主要有三个来源：</p>
+<ul>
+<li>3级 <code>DOM</code> 事件规范</li>
+<li><code>HTML5</code> 规范衍生规范的大量新API定义的事件</li>
+<li>基于触摸和支持 <code>JavaScript</code> 的移动设备的出现</li>
+</ul>
+<p>事件大致可以分成几类，了解这些分类有助于理解和组织事件列表：</p>
+<ul>
+<li><p>依赖于设备的输入事件</p>
+<ul>
+<li>鼠标和键盘， <code>mousedown、mousemove、mouseup、keydown、keyup</code></li>
+</ul>
+</li>
+<li><p>独立与设备的输入事件</p>
+<ul>
+<li>这些事件没有直接相关的特定输入设备，如 <code>click</code> 事件，可以通过鼠标点击发生也可以通过键盘或者其他设备触发</li>
+</ul>
+</li>
+<li><p>用户界面事件</p>
+<ul>
+<li>用户界面事件，通常出现定义 <code>Web</code> 程序用户界面的 <code>HTML</code> 表单元素上。</li>
+<li>包括文本输入域获取键盘焦点的 <code>focus</code> 事件、用户改变表单元格的 <code>change</code> 事件、表单提交 <code>submit</code> 事件</li>
+</ul>
+</li>
+<li><p>状态变化事件</p>
+<ul>
+<li>不是由于用户活动而是由于网络或浏览器活动出发、用来标识某种声明周期或相关状态的变化</li>
+<li>例如，<code>window</code> 的 <code>onload</code> 事件，<code>loadstart、progress、loadend</code>等 <code>I/O</code> 过程的异步通知</li>
+</ul>
+</li>
+<li><p>特定的 <code>API</code> 事件</p>
+<ul>
+<li><code>HTML5</code> 及相关规范定义的大量 <code>Web API</code> 都有自己的事件类型</li>
+<li>如拖放 <code>API</code>，<code>dragstart、dragenter，&lt;video /&gt;</code> 等</li>
+</ul>
+</li>
+</ul>
+<h3 id="传统事件类型"><a href="#传统事件类型" class="headerlink" title="传统事件类型"></a>传统事件类型</h3><ul>
+<li><p>表单事件</p>
+<ul>
+<li>表单事件是所有事件类型中最稳定且得到最良好支持的那部分</li>
+<li>表单提交和重置，会触发 <code>submit</code> 和 <code>reset</code> 事件</li>
+<li>类按钮元素（如单选、复选）交互时，<code>click</code> 事件</li>
+<li>用户通过文字、选择选项或选择复选框改变表单元素状态时，通常会触发 <code>change</code> 事件</li>
+<li>对于文本输入域，只有当焦点移动到其他元素才会触发 <code>change</code> 事件</li>
+<li>改变表单元素焦点时会触发，<code>focus</code> 和 <code>blur</code> 事件</li>
+<li>通过事件处理程序能取消 <code>submit</code> 和 <code>reset</code> 事件的默认操作</li>
+</ul>
+</li>
+<li><p><code>Window</code> 事件 </p>
+<ul>
+<li><code>Window</code> 事件是指事件的发生于浏览器窗口本身而非窗口中显示的任何特定文档内容相关</li>
+<li><code>load</code> 事件，是当文档和其他所有的外部资源（比如图片）完全加载并显示给用户时才会触发</li>
+<li><code>unload事件</code>，是当用户离开文档转向其他文档是触发它</li>
+<li><code>resize</code>、<code>scroll事件</code>，当用户调整浏览器窗口大小、滚动时会被触发，但其事件对象时非常普通的 <code>Event</code> 对象，没有指定调整大小或发生滚动的详细信息属性</li>
+</ul>
+</li>
+<li><p>鼠标事件</p>
+<ul>
+<li>当用户在文档上移动单击鼠标都会产生鼠标事件，这些事件在鼠标指针所对应的最深嵌套元素上触发， 但他们会冒泡直到文档的最顶层</li>
+<li>事件对象中包含了，鼠标的位置和按键状态</li>
+<li>对于 <code>click</code> 事件， <code>detail</code> 属性制定了其是单击、双击、还是三击</li>
+<li><code>mousemove</code> 事件，当用户移动鼠标时触发，在该事件中，一定不能触发计算密集型任务</li>
+<li><code>mouseover</code> 事件，当用户鼠标指针悬停到新元素上时触发，<code>mouseout</code>，不在悬停在某个对象上时触发</li>
+<li><code>mousewhell</code> 事件，当用户鼠标滚轮时触发</li>
+</ul>
+</li>
+<li><p>键盘事件</p>
+<ul>
+<li>用户每次按下或释放键盘上的按键时都会产生事件</li>
+<li>传递给事件处理程序的对象中有 <code>keyCode</code> 字段 ， 它指定按下或释放的键是哪一个</li>
+<li><code>keydown</code>、<code>keyup</code>、<code>keypress</code> 事件，键盘按下、释放，<code>keypress</code> 按住时可以产生连续多个相同的字符</li>
+</ul>
+</li>
+</ul>
+<h3 id="DOM-事件"><a href="#DOM-事件" class="headerlink" title="DOM 事件"></a><code>DOM</code> 事件</h3><p><em>DOM的分级：根据W3C DOM规范，DOM是HTML与XML的应用编程接口（API），DOM将整个页面映射为一个由层次节点组成的文件。有1级、2级、3级共3个级别。</em></p>
+<h4 id="1级DOM："><a href="#1级DOM：" class="headerlink" title="1级DOM："></a>1级DOM：</h4><p><em>1级DOM在1998年10月份成为W3C的提议，由DOM核心与DOM HTML两个模块组成。DOM核心能映射以XML为基础的文档结构，允许获取和操作文档的任意部分。DOM HTML通过添加HTML专用的对象与函数对DOM核心进行了扩展。</em></p>
+<h4 id="2级DOM"><a href="#2级DOM" class="headerlink" title="2级DOM"></a>2级DOM</h4><p><em>鉴于1级DOM仅以映射文档结构为目标，DOM 2级面向更为宽广。通过对原有DOM的扩展，2级DOM通过对象接口增加了对鼠标和用户界面事件（DHTML长期支持鼠标与用户界面事件）、范围、遍历（重复执行DOM文档）和层叠样式表（CSS）的支持。同时也对DOM 1的核心进行了扩展，从而可支持XML命名空间。</em></p>
+<p>*2级DOM引进了几个新DOM模块来处理新的接口类型：</p>
+<ul>
+<li>DOM视图：描述跟踪一个文档的各种视图（使用CSS样式设计文档前后）的接口；</li>
+<li>DOM事件：描述事件接口；</li>
+<li>DOM样式：描述处理基于CSS样式的接口；</li>
+<li>DOM遍历与范围：描述遍历和操作文档树的接口；*</li>
+</ul>
+<h4 id="3级DOM"><a href="#3级DOM" class="headerlink" title="3级DOM"></a>3级DOM</h4><p><em>3级DOM通过引入统一方式载入和保存文档和文档验证方法对DOM进行进一步扩展，DOM3包含一个名为“DOM载入与保存”的新模块，DOM核心扩展后可支持XML1.0的所有内容，包括XML Infoset、 XPath、和XML Base。</em></p>
+<h4 id="“0级”DOM"><a href="#“0级”DOM" class="headerlink" title="“0级”DOM"></a>“0级”DOM</h4><p><em>当阅读与DOM有关的材料时，可能会遇到参考0级DOM的情况。需要注意的是并没有标准被称为0级DOM，它仅是DOM历史上一个参考点（0级DOM被认为是在Internet Explorer 4.0 与Netscape Navigator4.0支持的最早的DHTML）。</em></p>
+<h3 id="HTML5-事件"><a href="#HTML5-事件" class="headerlink" title="HTML5 事件"></a><code>HTML5</code> 事件</h3><p><code>HTML5</code> 及相关标准定义了大量新的 <code>Web</code> 应用 <code>API</code>，其中许多 <code>API</code> 都定义了事件。</p>
+<ul>
+<li>音频和视频 <code>&lt;audio&gt;</code> 和 <code>&lt;video&gt;</code></li>
+<li>拖放事件</li>
+<li>表单的新特性，表单验证机制，包括验证失败时在表单元素上会触发 <code>invalid</code> 事件</li>
+<li>离线 Web 应用的支持</li>
+<li>许多新的API应用使用 <code>message</code> 事件进行异步通信。跨文档通信 <code>API</code> 允许一台服务器上的文档能通过和另一台服务器上的文档脚本交换消息。</li>
+<li><code>XMLHttpRequest</code> 规范定义了一系列事件来追踪异步的 <code>I/O</code> 进度，<code>loadstart、progress、loadend</code></li>
+</ul>
+<h3 id="触摸屏和移动设备事件"><a href="#触摸屏和移动设备事件" class="headerlink" title="触摸屏和移动设备事件"></a>触摸屏和移动设备事件</h3><p>可以在 <code>Apple</code> <a href="http://developer.apple.com" target="_blank" rel="noopener">开发者中心</a> 查询更多信息</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/事件/" rel="tag"># 事件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/16/cjl7q8a1k001leo6p079md3ys/" rel="next" title="JavaScript模块">
+                <i class="fa fa-chevron-left"></i> JavaScript模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/26/cjl7q8a270032eo6pzr96jnve/" rel="prev" title="JavaScript脚本化文档上">
+                JavaScript脚本化文档上 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">129</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript事件处理上"><span class="nav-number">1.</span> <span class="nav-text">JavaScript事件处理上</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#术语"><span class="nav-number">1.1.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件类型"><span class="nav-number">1.2.</span> <span class="nav-text">事件类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统事件类型"><span class="nav-number">1.2.1.</span> <span class="nav-text">传统事件类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM-事件"><span class="nav-number">1.2.2.</span> <span class="nav-text">DOM 事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1级DOM："><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1级DOM：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2级DOM"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2级DOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3级DOM"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">3级DOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“0级”DOM"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">“0级”DOM</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5-事件"><span class="nav-number">1.2.3.</span> <span class="nav-text">HTML5 事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触摸屏和移动设备事件"><span class="nav-number">1.2.4.</span> <span class="nav-text">触摸屏和移动设备事件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
