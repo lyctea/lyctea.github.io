@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="图解TCP/IP,读书笔记," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="TCP（Transmission Control Protocool）和IP（Internet Protocol）是互联网的众多通信协议中最为著名的。本章介绍TCP/IP 的发展历程及其协议概况。  TCP/IP 出现的背景及其历史从军用技术的应用谈起ARPANET的诞生TCP/IP 的诞生UNIX系统的普及及与互联网的扩张商用互联网服务的启蒙TCP/IP 的标准化 TCP/IP 协议分层模型 硬">
+<meta name="keywords" content="图解TCP&#x2F;IP,读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP&#x2F;IP 基础知识">
+<meta property="og:url" content="https://luoyec.cn/2017/09/12/cjqvy8m63003lkc6pkkyuorzo/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="TCP（Transmission Control Protocool）和IP（Internet Protocol）是互联网的众多通信协议中最为著名的。本章介绍TCP/IP 的发展历程及其协议概况。  TCP/IP 出现的背景及其历史从军用技术的应用谈起ARPANET的诞生TCP/IP 的诞生UNIX系统的普及及与互联网的扩张商用互联网服务的启蒙TCP/IP 的标准化 TCP/IP 协议分层模型 硬">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505087594668.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505179561962.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505179766310.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505195103235.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505195718502.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196194505.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196293863.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196280398.jpg">
+<meta property="og:updated_time" content="2017-09-12T06:08:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TCP&#x2F;IP 基础知识">
+<meta name="twitter:description" content="TCP（Transmission Control Protocool）和IP（Internet Protocol）是互联网的众多通信协议中最为著名的。本章介绍TCP/IP 的发展历程及其协议概况。  TCP/IP 出现的背景及其历史从军用技术的应用谈起ARPANET的诞生TCP/IP 的诞生UNIX系统的普及及与互联网的扩张商用互联网服务的启蒙TCP/IP 的标准化 TCP/IP 协议分层模型 硬">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505087594668.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2017/09/12/cjqvy8m63003lkc6pkkyuorzo/"/>
+
+
+
+
+
+  <title>TCP/IP 基础知识 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/09/12/cjqvy8m63003lkc6pkkyuorzo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TCP/IP 基础知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T14:08:14+08:00">
+                2017-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/图解TCP-IP/" itemprop="url" rel="index">
+                    <span itemprop="name">图解TCP/IP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>TCP（Transmission Control Protocool）和IP（Internet Protocol）是互联网的众多通信协议中最为著名的。本章介绍TCP/IP 的发展历程及其协议概况。</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505087594668.jpg" alt=""></p>
+<h1 id="TCP-IP-出现的背景及其历史"><a href="#TCP-IP-出现的背景及其历史" class="headerlink" title="TCP/IP 出现的背景及其历史"></a>TCP/IP 出现的背景及其历史</h1><h2 id="从军用技术的应用谈起"><a href="#从军用技术的应用谈起" class="headerlink" title="从军用技术的应用谈起"></a>从军用技术的应用谈起</h2><h2 id="ARPANET的诞生"><a href="#ARPANET的诞生" class="headerlink" title="ARPANET的诞生"></a>ARPANET的诞生</h2><h2 id="TCP-IP-的诞生"><a href="#TCP-IP-的诞生" class="headerlink" title="TCP/IP 的诞生"></a>TCP/IP 的诞生</h2><h2 id="UNIX系统的普及及与互联网的扩张"><a href="#UNIX系统的普及及与互联网的扩张" class="headerlink" title="UNIX系统的普及及与互联网的扩张"></a>UNIX系统的普及及与互联网的扩张</h2><h2 id="商用互联网服务的启蒙"><a href="#商用互联网服务的启蒙" class="headerlink" title="商用互联网服务的启蒙"></a>商用互联网服务的启蒙</h2><h1 id="TCP-IP-的标准化"><a href="#TCP-IP-的标准化" class="headerlink" title="TCP/IP 的标准化"></a>TCP/IP 的标准化</h1><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505179561962.jpg" alt=""></p>
+<h1 id="TCP-IP-协议分层模型"><a href="#TCP-IP-协议分层模型" class="headerlink" title="TCP/IP 协议分层模型"></a>TCP/IP 协议分层模型</h1><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505179766310.jpg" alt=""></p>
+<h2 id="硬件（物理层）"><a href="#硬件（物理层）" class="headerlink" title="硬件（物理层）"></a>硬件（物理层）</h2><p>TCP/IP的最底层复杂数据传输的硬件。这种硬件就相当于以太网或电话线等物理层设备。</p>
+<h2 id="网络接口层（数据链路层）"><a href="#网络接口层（数据链路层）" class="headerlink" title="网络接口层（数据链路层）"></a>网络接口层（数据链路层）</h2><p>网络接口层利用以太网中的数据链路层进行通信，因此属于接口层。驱动程序是在操作系统与硬件之间起桥梁作用的软件。</p>
+<h2 id="互联网层（网络层）"><a href="#互联网层（网络层）" class="headerlink" title="互联网层（网络层）"></a>互联网层（网络层）</h2><p>互联网层使用IP协议，它相同于OSI模型中的第三层网络层。IP协议基于IP地址转发分包数据。</p>
+<h3 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h3><p>IP是跨越网络产送数据包，是整个互联网都能收到数据的协议。IP协议使数据能够发送到地球另一端，这期间它使用IP地址作为主机的标识。</p>
+<h3 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h3><p>IP数据包在发送途中一旦发生异常导致无法到底对端目标地址时，需要给发送端一个发生异常的通知。ICMP就是为了一功能而定制的，它有时也被用作诊断网络的健康状况。</p>
+<h3 id="ARP"><a href="#ARP" class="headerlink" title="ARP"></a>ARP</h3><p>从分组数据包IP地址中解析出物理地址（MAC地址）的一种协议。</p>
+<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505195103235.jpg" alt=""><br>传输层最主要的功能就是能够让应用程序之间实现通信。在计算机内部，通过应用程序端口号来区分哪些程序正在进行通信。</p>
+<h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><p>TCP是一种面向有链接的传输层协议，它既可以保证两端通信主机之间的通信可达，还可以正确处理传输过程中丢包、传输顺序乱掉的异常情况。此外TCP还能够有效利用带宽，环节网络拥堵。</p>
+<p>缺点是，为了建立连接和断开连接，需要至少7次的手包和发包，导致网络流量的浪费。这并不适用于视频会议等场合使用。</p>
+<h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><p>它是一种面向无连接的传输层协议。UDP不关注端是否真的收到了传送过去的数据。</p>
+<p>UDP常用于分组数据较少或多播、广播通信以及使用通信等多媒体领域。</p>
+<h2 id="应用层（会话层以上的分层）"><a href="#应用层（会话层以上的分层）" class="headerlink" title="应用层（会话层以上的分层）"></a>应用层（会话层以上的分层）</h2><p>-电子邮件（E-Mail）<br>    SMTP协议</p>
+<ul>
+<li>文件传输（FTP）<br>  在FTP中进行文件传输时会建立两个TCP链接，分别是发送传输请求时所要用到的控制链接与实际传输数据时所要用到的数据连接。</li>
+<li>远程登录（TELNET与SSH）</li>
+<li>网络管理（SNMP）</li>
+</ul>
+<h1 id="TCP-IP-分层模型与通信示例"><a href="#TCP-IP-分层模型与通信示例" class="headerlink" title="TCP/IP 分层模型与通信示例"></a>TCP/IP 分层模型与通信示例</h1><h2 id="数据包首部"><a href="#数据包首部" class="headerlink" title="数据包首部"></a>数据包首部</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505195718502.jpg" alt=""></p>
+<p>每个分层中，都会对所发送的数据附件一个首部，在这个首部中包含了该层必要的信息，如发送目标地址以及协议相关的信息。</p>
+<p>在数据包的首部，明确表明了协议应该如何读取数据，反过来，看到首部，也就能够了解协议必要的信息以及所要处理的内容。</p>
+<h2 id="发送数据包"><a href="#发送数据包" class="headerlink" title="发送数据包"></a>发送数据包</h2><p>以一封邮件的发送为例子：</p>
+<ul>
+<li>应用程序处理：鼠标点击送就开始了TCP/IP的通信了</li>
+<li>TCP模块的处理：TCP根据应用的指示，负责建立连接、发送数据以及断开连接。TCP提供将应用层发来的数据顺利发送至对端的可靠传输</li>
+<li>IP模块的处理：IP将TCP传过来的TCP首部和TCP数据合起来当做自己的数据，并在TCP首部的前端加上自己的IP首部</li>
+<li>网络接口（以太网驱动的处理）：给TP传过来的IP包附加上以太网首部并进行发送处理</li>
+</ul>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196194505.jpg" alt=""></p>
+<h2 id="经过数据链路的包"><a href="#经过数据链路的包" class="headerlink" title="经过数据链路的包"></a>经过数据链路的包</h2><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196293863.jpg" alt=""></p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1505196280398.jpg" alt=""></p>
+<h2 id="数据包的接收处理"><a href="#数据包的接收处理" class="headerlink" title="数据包的接收处理"></a>数据包的接收处理</h2><p>包的接受流程是发送路程逆序过程。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/图解TCP-IP/" rel="tag"># 图解TCP/IP</a>
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/11/cjqvy8m9l007ykc6p0v40jtat/" rel="next" title="网络基础知识">
+                <i class="fa fa-chevron-left"></i> 网络基础知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/15/cjqvy8m8v006xkc6pbxweubsl/" rel="prev" title="数据链路">
+                数据链路 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP-出现的背景及其历史"><span class="nav-number">1.</span> <span class="nav-text">TCP/IP 出现的背景及其历史</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从军用技术的应用谈起"><span class="nav-number">1.1.</span> <span class="nav-text">从军用技术的应用谈起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARPANET的诞生"><span class="nav-number">1.2.</span> <span class="nav-text">ARPANET的诞生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP-的诞生"><span class="nav-number">1.3.</span> <span class="nav-text">TCP/IP 的诞生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNIX系统的普及及与互联网的扩张"><span class="nav-number">1.4.</span> <span class="nav-text">UNIX系统的普及及与互联网的扩张</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#商用互联网服务的启蒙"><span class="nav-number">1.5.</span> <span class="nav-text">商用互联网服务的启蒙</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP-的标准化"><span class="nav-number">2.</span> <span class="nav-text">TCP/IP 的标准化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP-协议分层模型"><span class="nav-number">3.</span> <span class="nav-text">TCP/IP 协议分层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件（物理层）"><span class="nav-number">3.1.</span> <span class="nav-text">硬件（物理层）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络接口层（数据链路层）"><span class="nav-number">3.2.</span> <span class="nav-text">网络接口层（数据链路层）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互联网层（网络层）"><span class="nav-number">3.3.</span> <span class="nav-text">互联网层（网络层）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP"><span class="nav-number">3.3.1.</span> <span class="nav-text">IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ICMP"><span class="nav-number">3.3.2.</span> <span class="nav-text">ICMP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARP"><span class="nav-number">3.3.3.</span> <span class="nav-text">ARP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输层"><span class="nav-number">3.4.</span> <span class="nav-text">传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP"><span class="nav-number">3.4.1.</span> <span class="nav-text">TCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP"><span class="nav-number">3.4.2.</span> <span class="nav-text">UDP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用层（会话层以上的分层）"><span class="nav-number">3.5.</span> <span class="nav-text">应用层（会话层以上的分层）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP-分层模型与通信示例"><span class="nav-number">4.</span> <span class="nav-text">TCP/IP 分层模型与通信示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据包首部"><span class="nav-number">4.1.</span> <span class="nav-text">数据包首部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送数据包"><span class="nav-number">4.2.</span> <span class="nav-text">发送数据包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经过数据链路的包"><span class="nav-number">4.3.</span> <span class="nav-text">经过数据链路的包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据包的接收处理"><span class="nav-number">4.4.</span> <span class="nav-text">数据包的接收处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
