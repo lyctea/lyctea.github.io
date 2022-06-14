@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端工程化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前端性能优化总结 性能优化的指标和工具 渲染优化 资源压缩与合并 构建优化 传输加载优化  性能优化的指标和工具性能优化的指标和工具Created: April 24, 2022 6:07 PM 性能指标，多块才算快性能指标和优化目标 【加载瀑布图】谷歌调试工具 NetWord，Waterfall；TTFB，http请求从发起到返回的时间； 【速度指数】Lighthouse测试网站评分，100满分">
+<meta name="keywords" content="前端工程化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化总结">
+<meta property="og:url" content="https://luoyec.cn/2022/06/14/cl4e1gsrq0088n59eb0e8vksd/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="前端性能优化总结 性能优化的指标和工具 渲染优化 资源压缩与合并 构建优化 传输加载优化  性能优化的指标和工具性能优化的指标和工具Created: April 24, 2022 6:07 PM 性能指标，多块才算快性能指标和优化目标 【加载瀑布图】谷歌调试工具 NetWord，Waterfall；TTFB，http请求从发起到返回的时间； 【速度指数】Lighthouse测试网站评分，100满分">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://luoyec.cn/2022/06/14/cl4e1gsrq0088n59eb0e8vksd/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%9A%84%E6%8C%87%E6%A0%87%E5%92%8C%E5%B7%A5%E5%85%B7%2059954239a81e4b12b79d78c3db6e0d7c/Untitled.png">
+<meta property="og:updated_time" content="2022-06-14T10:45:34.286Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端性能优化总结">
+<meta name="twitter:description" content="前端性能优化总结 性能优化的指标和工具 渲染优化 资源压缩与合并 构建优化 传输加载优化  性能优化的指标和工具性能优化的指标和工具Created: April 24, 2022 6:07 PM 性能指标，多块才算快性能指标和优化目标 【加载瀑布图】谷歌调试工具 NetWord，Waterfall；TTFB，http请求从发起到返回的时间； 【速度指数】Lighthouse测试网站评分，100满分">
+<meta name="twitter:image" content="https://luoyec.cn/2022/06/14/cl4e1gsrq0088n59eb0e8vksd/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%9A%84%E6%8C%87%E6%A0%87%E5%92%8C%E5%B7%A5%E5%85%B7%2059954239a81e4b12b79d78c3db6e0d7c/Untitled.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2022/06/14/cl4e1gsrq0088n59eb0e8vksd/"/>
+
+
+
+
+
+  <title>前端性能优化总结 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2022/06/14/cl4e1gsrq0088n59eb0e8vksd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端性能优化总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-14T18:35:17+08:00">
+                2022-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端工程化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端工程化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前端性能优化总结"><a href="#前端性能优化总结" class="headerlink" title="前端性能优化总结"></a>前端性能优化总结</h1><ul>
+<li>性能优化的指标和工具</li>
+<li>渲染优化</li>
+<li>资源压缩与合并</li>
+<li>构建优化</li>
+<li>传输加载优化</li>
+</ul>
+<h2 id="性能优化的指标和工具"><a href="#性能优化的指标和工具" class="headerlink" title="性能优化的指标和工具"></a>性能优化的指标和工具</h2><h1 id="性能优化的指标和工具-1"><a href="#性能优化的指标和工具-1" class="headerlink" title="性能优化的指标和工具"></a>性能优化的指标和工具</h1><p>Created: April 24, 2022 6:07 PM</p>
+<h2 id="性能指标，多块才算快"><a href="#性能指标，多块才算快" class="headerlink" title="性能指标，多块才算快"></a>性能指标，多块才算快</h2><h3 id="性能指标和优化目标"><a href="#性能指标和优化目标" class="headerlink" title="性能指标和优化目标"></a>性能指标和优化目标</h3><ul>
+<li>【加载瀑布图】谷歌调试工具 NetWord，Waterfall；TTFB，http请求从发起到返回的时间；</li>
+<li>【速度指数】Lighthouse测试网站评分，100满分；</li>
+<li><p>【帧率FPS】查询网站帧率；</p>
+<p>  <img src="%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%9A%84%E6%8C%87%E6%A0%87%E5%92%8C%E5%B7%A5%E5%85%B7%2059954239a81e4b12b79d78c3db6e0d7c/Untitled.png" alt="Untitled"></p>
+</li>
+<li><p>【页面加载时间】异步请求完成时间在一秒钟内，无法完成加loading动画；</p>
+</li>
+<li>【首次渲染】懒加载、预加载优化；</li>
+<li>【交互】交互动作反馈时间足够短；</li>
+</ul>
+<h3 id="RAIL测量模型"><a href="#RAIL测量模型" class="headerlink" title="RAIL测量模型"></a>RAIL测量模型</h3><h3 id="什么是RAIL"><a href="#什么是RAIL" class="headerlink" title="什么是RAIL"></a>什么是RAIL</h3><p><strong>Respose(响应)</strong>：网站给用户的响应体验<br><strong>Animation(动画)</strong>:  网站加的动效给用户的体验<br><strong>Idle(空闲)</strong>: 网站响应时，页面卡顿，主线程繁忙的情况下，要考虑如何加大主线程空闲的时间<br><strong>Load(加载):</strong> 资源加载时，白屏等待时间</p>
+<h3 id="RAIL评估标准"><a href="#RAIL评估标准" class="headerlink" title="RAIL评估标准"></a>RAIL评估标准</h3><p><strong>Respose(响应)</strong>：处理事件应在50ms内完成<br><strong>Animation(动画)</strong>：每10ms产生一帧<br><strong>Idle(空闲)</strong>：尽可能增加空闲时间<br><strong>Load(加载)</strong>：在5s内完成内容加载并可以交互</p>
+<h2 id="利用测量工具和APIs"><a href="#利用测量工具和APIs" class="headerlink" title="利用测量工具和APIs"></a>利用测量工具和APIs</h2><ol>
+<li><p><strong>Chrome DevTools 开发调试、性能评测</strong></p>
+<ol>
+<li>Audit(Lighthouse)</li>
+<li>Throttling调整网络吞吐</li>
+<li>Performance性能分析</li>
+<li>Network网络加载分析</li>
+</ol>
+</li>
+<li><p><strong>Lighthouse 网站整体质量评估</strong></p>
+<ol>
+<li><code>**npm install -g lighthouse lighthouse [https://www.baidu.com](https://www.baidu.com/)**</code></li>
+<li><strong>Chrome DevTools 中使用 lighthouse</strong></li>
+</ol>
+</li>
+<li><p><strong>WebPageTest多测试地点、全面性能报告</strong></p>
+<p> <a href="https://www.webpagetest.org/" target="_blank" rel="noopener">WebPageTest - Website Performance and Optimization Test</a></p>
+<ul>
+<li>waterfall chart 请求瀑布图</li>
+<li>first view 首次访问，<strong>First Byte、Start Render</strong></li>
+<li>repeat view 访问</li>
+<li>如何本地部署<strong>WebpageTest</strong>，docker镜像部署</li>
+</ul>
+</li>
+</ol>
+<h2 id="优化问题，重新测量（迭代-）"><a href="#优化问题，重新测量（迭代-）" class="headerlink" title="优化问题，重新测量（迭代 ）"></a>优化问题，重新测量（迭代 ）</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端工程化/" rel="tag"># 前端工程化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/06/14/cl4e1gssn009yn59enwhoh4x2/" rel="next" title="脚手架的实现原理">
+                <i class="fa fa-chevron-left"></i> 脚手架的实现原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">118</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">148</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端性能优化总结"><span class="nav-number">1.</span> <span class="nav-text">前端性能优化总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#性能优化的指标和工具"><span class="nav-number">1.1.</span> <span class="nav-text">性能优化的指标和工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能优化的指标和工具-1"><span class="nav-number">2.</span> <span class="nav-text">性能优化的指标和工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#性能指标，多块才算快"><span class="nav-number">2.1.</span> <span class="nav-text">性能指标，多块才算快</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能指标和优化目标"><span class="nav-number">2.1.1.</span> <span class="nav-text">性能指标和优化目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RAIL测量模型"><span class="nav-number">2.1.2.</span> <span class="nav-text">RAIL测量模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是RAIL"><span class="nav-number">2.1.3.</span> <span class="nav-text">什么是RAIL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RAIL评估标准"><span class="nav-number">2.1.4.</span> <span class="nav-text">RAIL评估标准</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用测量工具和APIs"><span class="nav-number">2.2.</span> <span class="nav-text">利用测量工具和APIs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化问题，重新测量（迭代-）"><span class="nav-number">2.3.</span> <span class="nav-text">优化问题，重新测量（迭代 ）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
