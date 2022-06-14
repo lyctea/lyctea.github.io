@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue,组件化,patch,异步组件," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Vue 源码解析-组件化Vue 其中一个核心思想是组件化，把页面拆分成多个组件，组件是可复用的 Vue 实例，所以它们与 new Vue 接收相同的选项，例如 data、computed、watch、methods 以及生命周期钩子等。仅有的例外是像 el 这样根实例特有的选项。 createComponent12345var app = new Vue(&amp;#123;  el: &apos;#app&apos;,">
+<meta name="keywords" content="vue,组件化,patch,异步组件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue源码解析-组件化">
+<meta property="og:url" content="https://luoyec.cn/2018/08/22/cl4e49djh005jj19e8p1n104v/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="Vue 源码解析-组件化Vue 其中一个核心思想是组件化，把页面拆分成多个组件，组件是可复用的 Vue 实例，所以它们与 new Vue 接收相同的选项，例如 data、computed、watch、methods 以及生命周期钩子等。仅有的例外是像 el 这样根实例特有的选项。 createComponent12345var app = new Vue(&amp;#123;  el: &apos;#app&apos;,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-22T10:39:39.393Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue源码解析-组件化">
+<meta name="twitter:description" content="Vue 源码解析-组件化Vue 其中一个核心思想是组件化，把页面拆分成多个组件，组件是可复用的 Vue 实例，所以它们与 new Vue 接收相同的选项，例如 data、computed、watch、methods 以及生命周期钩子等。仅有的例外是像 el 这样根实例特有的选项。 createComponent12345var app = new Vue(&amp;#123;  el: &apos;#app&apos;,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2018/08/22/cl4e49djh005jj19e8p1n104v/"/>
+
+
+
+
+
+  <title>Vue源码解析-组件化 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/08/22/cl4e49djh005jj19e8p1n104v/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue源码解析-组件化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T18:39:34+08:00">
+                2018-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue源码解析/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue源码解析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Vue-源码解析-组件化"><a href="#Vue-源码解析-组件化" class="headerlink" title="Vue 源码解析-组件化"></a>Vue 源码解析-组件化</h1><p><code>Vue</code> 其中一个核心思想是组件化，把页面拆分成多个组件，组件是可复用的 <code>Vue</code> 实例，所以它们与 <code>new Vue</code> 接收相同的选项，例如 <code>data</code>、<code>computed</code>、<code>watch</code>、<code>methods</code> 以及生命周期钩子等。仅有的例外是像 <code>el</code> 这样根实例特有的选项。</p>
+<h2 id="createComponent"><a href="#createComponent" class="headerlink" title="createComponent"></a>createComponent</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  <span class="comment">// 这里的 h 是 createElement 方法</span></span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>createComponent</code>最终会调用 <code>_createElement</code> 方法， 通过判断传入的参数是否是组件，而选择使用 <code>createComponent</code> 方法创建一个 <code>VNode</code>。</p>
+<blockquote>
+<p>源码： src/core/vdom/create-component.js</p>
+</blockquote>
+<p>该方法针对组件渲染有三个关键步骤：</p>
+<p><strong>构造子类构造函数</strong><br><code>mergeOptions</code> 方法将 <code>Vue</code> 构造函数的 <code>options</code> 和用户传入的 <code>options</code> 合并到同一层，到 <code>vm.$options</code> 上</p>
+<p><code>Vue.extend</code> 的作用就是将一个纯对象转换成一个继承于 <code>Vue</code> 的构造器 <code>Sub</code> 并返回。<br>并且对 <code>Sub</code> 这个对象做了一些扩展，如扩展 <code>options</code>、全局 <code>API</code> 等；对配置中的 <code>props</code>、 <code>computed</code> 进行初始化工作；最后对 <code>Sub</code> 的构造函数缓存，避免多次 <code>extend</code> 同一个子组件的时候重复执行。</p>
+<p><strong>安装组件的钩子函数</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// install component management hooks onto the placeholder node/ instal</span></span><br><span class="line">installComponentHooks(data);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">installComponentHooks</span>(<span class="params">data: VNodeData</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> hooks = data.hook || (data.hook = &#123;&#125;);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; hooksToMerge.length; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> key = hooksToMerge[i];</span><br><span class="line">    <span class="keyword">const</span> existing = hooks[key];</span><br><span class="line">    <span class="keyword">const</span> toMerge = componentVNodeHooks[key];</span><br><span class="line">    <span class="keyword">if</span> (existing !== toMerge &amp;&amp; !(existing &amp;&amp; existing._merged)) &#123;</span><br><span class="line">      hooks[key] = existing ? mergeHook(toMerge, existing) : toMerge;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将 <code>componentVNodeHooks</code> 的钩子函数合并到 <code>data.hook</code> 中，在 <code>VNode</code> 执行 <code>patch</code> 的过程中执行相关的钩子函数。</p>
+<p><strong>实例化 VNode</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = Ctor.options.name || tag;</span><br><span class="line"><span class="keyword">const</span> vnode = <span class="keyword">new</span> VNode(</span><br><span class="line">  <span class="string">`vue-component-<span class="subst">$&#123;Ctor.cid&#125;</span><span class="subst">$&#123;name ? <span class="string">`-<span class="subst">$&#123;name&#125;</span>`</span> : <span class="string">''</span>&#125;</span>`</span>,</span><br><span class="line">  data,</span><br><span class="line">  <span class="literal">undefined</span>,</span><br><span class="line">  <span class="literal">undefined</span>,</span><br><span class="line">  <span class="literal">undefined</span>,</span><br><span class="line">  context,</span><br><span class="line">  &#123; Ctor, propsData, listeners, tag, children &#125;,</span><br><span class="line">  asyncFactory</span><br><span class="line">);</span><br><span class="line"><span class="keyword">return</span> vnode;</span><br></pre></td></tr></table></figure>
+<p>最后通过 <code>new VNode</code> 实例化一个 <code>VNode</code> 并返回，与普通元素节点不同的是，组件的参数中是没有 <code>children</code> 的，在之后的 <code>patch</code> 过程中有关键性作用。</p>
+<h2 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h2><p>上一节中 <code>createComponent</code> 创建的组件的 <code>VNode</code>，之后会执行 <code>vm._update</code>, 执行 <code>vm.__patch__</code> （包含<code>diff</code>算法）把 <code>VNode</code> 转换成真正的 <code>DOM</code> 节点。</p>
+<p><code>patch</code> 的过程会调用 <code>createElm</code> 创建元素节点</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) &#123;</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>组件的初始化时不传 <code>el</code> 的，因为自己接管了 <code>vm$mount</code>.</p>
+<p>在完成组件的整个 <code>patch</code> 过程后，最后执行 <code>insert(parentElm, vnode.elm, refElm)</code> 完成组件的 <code>DOM</code> 插入，如果组件 <code>patch</code> 过程中又创建了子组件，那么 <code>DOM</code> 的插入顺序是先子后父。</p>
+<h2 id="配置合并"><a href="#配置合并" class="headerlink" title="配置合并"></a>配置合并</h2><p><code>new Vue</code> 通常有两种情况，一种是外部代码中主动调用 <code>new Vue(opitons)</code> 去实例化一个 <code>Vue</code> 对象，另一种是在组件过程中内部通过调用 <code>new Vue(opitons)</code> 实例化子组件。</p>
+<p>无论哪种场景，都会首先执行 <code>merge options</code> 的逻辑。</p>
+<p><strong>外部调用场景</strong></p>
+<p>合并前</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue.mixin(&#123;</span><br><span class="line">  created() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'parent created'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(childComp)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>合并后</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vm.$options = &#123;</span><br><span class="line">  components: &#123;&#125;,</span><br><span class="line">  created: [</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">created</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'parent created'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  directives: &#123;&#125;,</span><br><span class="line">  filters: &#123;&#125;,</span><br><span class="line">  _base: <span class="function"><span class="keyword">function</span> <span class="title">Vue</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;,</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params">h</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>组件场景</strong><br>组件的构造函数是通过 <code>Vue.extend</code> 继承自 <code>Vue</code>。其中最关键的逻辑是，将 <code>Vue.options</code> 和组件定义的对象合并到 <code>Sub.options</code> 中。</p>
+<p>子组件初始化过程通过 <code>initInternalComponent</code> 方式要比外部初始化 <code>Vue</code> 通过 <code>mergeOptions</code> 的过程要快，合并完的结果保留在 <code>vm.$options</code> 中。</p>
+<blockquote>
+<p><code>options</code> 就是 <code>new vue</code> 大括号里的内容<br>使用 <code>mergeOptions</code> 合并配置，在 <code>Vue options</code> 扩展配置，之后执行<code>new Vue()</code></p>
+</blockquote>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p>每个 <code>Vue</code> 实例（<code>new Vue</code>、子组件内部调用的 <code>new Vue</code>）被创建都需要经过一系列初始化过程。其中需要设置数据监听、编译模板、挂载实例到 <code>DOM</code>、在数据更新时更新 <code>DOM</code>。在这个过程中会调用相关的钩子方法。</p>
+<h3 id="callHook"><a href="#callHook" class="headerlink" title="callHook"></a><strong>callHook</strong></h3><p>最终执行生命周期是通过调用 <code>callHook</code> 方法，根据传入的字符串 <code>hook</code>，去拿到 <code>vm.$options[hook]</code> 对应的回调函数数组，然后遍历执行，执行的时候把 <code>vm</code> 作为函数执行的上下文。</p>
+<p>在之前的配置合并中，这些钩子函数都被合并到了 <code>vm.$options</code> 中并且是一个数组。</p>
+<h3 id="调用时机"><a href="#调用时机" class="headerlink" title="调用时机"></a>调用时机</h3><p><strong>beforeCreate &amp; created</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype._init = <span class="function"><span class="keyword">function</span>(<span class="params">options?: Object</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  initLifecycle(vm);</span><br><span class="line">  initEvents(vm);</span><br><span class="line">  initRender(vm);</span><br><span class="line">  callHook(vm, <span class="string">'beforeCreate'</span>);</span><br><span class="line">  initInjections(vm); <span class="comment">// resolve injections before data/props</span></span><br><span class="line">  initState(vm);</span><br><span class="line">  initProvide(vm); <span class="comment">// resolve provide after data/props</span></span><br><span class="line">  callHook(vm, <span class="string">'created'</span>);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>beforeCreate</code> 和 <code>created</code> 的钩子调用是在 <code>initState</code> 的前后，<code>initState</code> 的作用是初始化 <code>props</code>、<code>data</code>、<code>methods</code>、<code>watch</code>、<code>computed</code> 等属性，之后我们会详细分析。那么显然 <code>beforeCreate</code> 的钩子函数中就不能获取到 <code>props</code>、<code>data</code> 中定义的值，也不能调用 <code>methods</code> 中定义的函数。</p>
+<p>这两个方法执行完后，并没有渲染 <code>DOM</code>，此时是不能访问 <code>DOM</code>。 一把来说后端的接口请求，放在这里两个钩子函数中都可以，如果需要访问 <code>props</code>、<code>data</code> 等数据，就需要在 <code>created</code> 中执行了。</p>
+<p><code>vue-router</code> 、 <code>vuex</code> 都混合了 <code>beforeCreatd</code> 钩子函数。</p>
+<p><strong>beforeMount &amp; mounted</strong><br>这一对方法是以 <code>DOM</code> 挂载前后为分界线。</p>
+<p>在执行 <code>vm._render</code> 方法前，执行了 <code>beforeMount</code>， 当在执行完 <code>vm.update</code> 方法后，把 <code>VNode patch</code> 到真是 <code>DOM</code> 后，执行了 <code>mouted</code> 钩子。</p>
+<p><code>mounted</code> 钩子函数的执行顺序也是先子后父。</p>
+<p><strong>beforeUpdate &amp; updated</strong><br><code>beforeUpdate</code> 的执行时机是在渲染 <code>Watcher 的 before</code> 函数中，组件已经 <code>mounted</code> 之后，才会去调用这个钩子函数。</p>
+<p><code>update</code> 的执行时机是在 <code>flushSchedulerQueue</code> 函数调用的时候。</p>
+<p>组件 <code>mount</code> 的过程中，会实例化一个渲染的 <code>Watcher</code> 去监听 <code>vm</code> 上的数据变化重新渲染。</p>
+<p><strong>beforeDestroy &amp; destroyed</strong><br><code>beforeDestroy</code> 和 <code>destroyed</code> 钩子函数的执行时机在组件销毁的阶段</p>
+<p><code>beforeDestroy</code> 钩子函数的执行时机是在 <code>$destroy</code> 函数执行最开始的地方，接着执行了一系列的销毁动作，包括从 <code>parent</code> 的 <code>$children</code> 中删掉自身，删除 <code>watcher</code>，当前渲染的 <code>VNode</code> 执行销毁钩子函数等，执行完毕后再调用 <code>destroy</code> 钩子函数。</p>
+<p>在 <code>$destroy</code> 的执行过程中，它又会执行 <code>vm.__patch__(vm._vnode, null)</code> 触发它子组件的销毁钩子函数，这样一层层的递归调用，所以 <code>destroy</code> 钩子函数执行顺序是先子后父，和 <code>mounted</code> 过程一样。</p>
+<p><strong>activated &amp; deactivated</strong><br><code>activated</code> 和 <code>deactivated</code> 钩子函数是专门为 <code>keep-alive</code> 组件定制的钩子。</p>
+<p><strong>总结</strong><br>在 <code>created</code> 中可以访问到数据，在 <code>mounted</code> 钩子函数中可以访问到 <code>DOM</code>，<code>在destroyed</code> 钩子函数中做定时器销毁</p>
+<h2 id="组件注册"><a href="#组件注册" class="headerlink" title="组件注册"></a>组件注册</h2><p>在 <code>Vue.js</code> 中，除了它内置的组件如 <code>keep-alive</code>、<code>component</code>、<code>transition</code>、<code>transition-group</code> 等，其它用户自定义组件在使用前必须注册。</p>
+<h3 id="全局注册"><a href="#全局注册" class="headerlink" title="全局注册"></a>全局注册</h3><p>可以在任意地方使用，扩展在<code>Vue options</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'my-component'</span>, &#123;</span><br><span class="line">  <span class="comment">// 选项</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="局部注册"><a href="#局部注册" class="headerlink" title="局部注册"></a>局部注册</h3><p>在当前组件内，扩展在 <code>Sub options</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> HelloWorld <span class="keyword">from</span> <span class="string">'./components/HelloWorld'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    HelloWorld</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>局部注册和全局注册不同的是，只有该类型的组件才可以访问局部注册的子组件，而全局注册是扩展到 <code>Vue.options</code> 下，所以在所有组件创建的过程中，都会从全局的 <code>Vue.options.components</code> 扩展到当前组件的 <code>vm.$options.components</code> 下，这就是全局注册的组件能被任意使用的原因。</p>
+<h2 id="异步组件"><a href="#异步组件" class="headerlink" title="异步组件"></a>异步组件</h2><p>开发中，为了减少首屏代码体积，往往把一些非首屏的组件设计成异步组件，按需加载。<br>本质是两次渲染，先渲染成注释节点，在组件加载成功了，在通过 <code>foreceRender</code> 重新渲染。</p>
+<p><strong>普通函数异步组件</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'async-example'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这个特殊的 require 语法告诉 webpack</span></span><br><span class="line">  <span class="comment">// 自动将编译后的代码分割成不同的块，</span></span><br><span class="line">  <span class="comment">// 这些块将通过 Ajax 请求自动下载。</span></span><br><span class="line">  <span class="built_in">require</span>([<span class="string">'./my-async-component'</span>], resolve);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>component</code> 的第二个参数传入的是函数， 普通组件传入的是对象。</p>
+<blockquote>
+<p>⚠️ 在整个异步组件加载过程中是没有数据发生变化的，所以通过执行 <code>$forceUpdate</code> 可以强制组件重新渲染一次。</p>
+</blockquote>
+<p><strong>Promise 异步组件</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(</span><br><span class="line">  <span class="string">'async-webpack-example'</span>,</span><br><span class="line">  <span class="comment">// 这个 `import` 函数会返回一个 `Promise` 对象。</span></span><br><span class="line">  () =&gt; <span class="keyword">import</span>(<span class="string">'./my-async-component'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>判断是否是 <code>Promise</code> 的方法：<code>typeof res.then === &#39;function&#39;</code></p>
+<p><strong>高级异步组件</strong><br>由于异步加载组件需要动态加载 <code>JS</code>，有一定网络延时，而且有加载失败的情况，所以通常我们在开发异步组件相关逻辑的时候需要设计 <code>loading</code> 组件和 <code>error</code> 组件，并在适当的时机渲染它们。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> AsyncComponent = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">  <span class="comment">// 需要加载的组件 (应该是一个 `Promise` 对象)</span></span><br><span class="line">  component: <span class="keyword">import</span>(<span class="string">'./MyComponent.vue'</span>),</span><br><span class="line">  <span class="comment">// 异步组件加载时使用的组件</span></span><br><span class="line">  loading: LoadingComponent,</span><br><span class="line">  <span class="comment">// 加载失败时使用的组件</span></span><br><span class="line">  error: ErrorComponent,</span><br><span class="line">  <span class="comment">// 展示加载时组件的延时时间。默认值是 200 (毫秒)</span></span><br><span class="line">  delay: <span class="number">200</span>,</span><br><span class="line">  <span class="comment">// 如果提供了超时时间且组件加载也超时了，</span></span><br><span class="line">  <span class="comment">// 则使用加载失败时使用的组件。默认值是：`Infinity`</span></span><br><span class="line">  timeout: <span class="number">3000</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/组件化/" rel="tag"># 组件化</a>
+          
+            <a href="/tags/patch/" rel="tag"># patch</a>
+          
+            <a href="/tags/异步组件/" rel="tag"># 异步组件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/21/cl4e49dje005dj19eddecn3xc/" rel="next" title="Vue源码解析-数据驱动">
+                <i class="fa fa-chevron-left"></i> Vue源码解析-数据驱动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/24/cl4e49dj8004zj19eq0cy8wcs/" rel="prev" title="Vue源码解析-响应式原理">
+                Vue源码解析-响应式原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">148</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue-源码解析-组件化"><span class="nav-number">1.</span> <span class="nav-text">Vue 源码解析-组件化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#createComponent"><span class="nav-number">1.1.</span> <span class="nav-text">createComponent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#patch"><span class="nav-number">1.2.</span> <span class="nav-text">patch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置合并"><span class="nav-number">1.3.</span> <span class="nav-text">配置合并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期"><span class="nav-number">1.4.</span> <span class="nav-text">生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#callHook"><span class="nav-number">1.4.1.</span> <span class="nav-text">callHook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用时机"><span class="nav-number">1.4.2.</span> <span class="nav-text">调用时机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件注册"><span class="nav-number">1.5.</span> <span class="nav-text">组件注册</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局注册"><span class="nav-number">1.5.1.</span> <span class="nav-text">全局注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局部注册"><span class="nav-number">1.5.2.</span> <span class="nav-text">局部注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.5.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步组件"><span class="nav-number">1.6.</span> <span class="nav-text">异步组件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
