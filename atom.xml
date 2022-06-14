@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://luoyec.cn/"/>
-  <updated>2022-06-14T11:00:22.897Z</updated>
+  <updated>2022-06-14T11:54:04.983Z</updated>
   <id>https://luoyec.cn/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>前端性能监控</title>
+    <link href="https://luoyec.cn/2022/06/14/cl4e3wln2007xp29e468j1q3j/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e3wln2007xp29e468j1q3j/</id>
+    <published>2022-06-14T11:53:37.926Z</published>
+    <updated>2022-06-14T11:54:04.983Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前端性能监控"><a href="#前端性能监控" class="headerlink" title="前端性能监控"></a>前端性能监控</h1><p>封面: %E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%207.png<br>简介: 前端性能监控原理、落地方案</p><h1 id="性能监控"><a href="#性能监控" class="headerlink" title="性能监控"></a>性能监控</h1><h2 id="阿里前端专家star老师分享"><a href="#阿里前端专家star老师分享" class="headerlink" title="阿里前端专家star老师分享"></a>阿里前端专家star老师分享</h2><p><a href="https://www.bilibili.com/video/BV1rT4y1a7YS?spm_id_from=333.999.0.0" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1rT4y1a7YS?spm_id_from=333.999.0.0</a></p><h3 id="1-性能监控平台架构设计"><a href="#1-性能监控平台架构设计" class="headerlink" title="1. 性能监控平台架构设计"></a>1. 性能监控平台架构设计</h3><p><img src="%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled.png" alt="                                                                **性能采集SDK ⇒ 大数据处理 ⇒ 数据可视化 ⇒ 性能数据预警**"></p><pre><code>**性能采集SDK ⇒ 大数据处理 ⇒ 数据可视化 ⇒ 性能数据预警**</code></pre><h3 id="2-前端性能监控原理"><a href="#2-前端性能监控原理" class="headerlink" title="2. 前端性能监控原理"></a>2. 前端性能监控原理</h3><p><strong>核心API</strong></p><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Navigation_timing_API" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API/Navigation_timing_API</a></p><p>核心API <code>navigation_timing，</code><strong>Navigation Timing API</strong><br> 提供了可用于衡量一个网站性能的数据。与用于相同目的的其他基于JavaScript的机制不同，该API可以提供可以更有用和更准确的端到端延迟数据。</p><p><img src="%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%201.png" alt="                                                   **核心原理：根据Navigation Timing API，可以获取到任意过程的耗时**"></p><pre><code>**核心原理：根据Navigation Timing API，可以获取到任意过程的耗时**</code></pre><p><strong>代码实例</strong></p><p><img src="%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%202.png" alt="                                                                                                     **域名解析耗时**"></p><pre><code>**域名解析耗时**</code></pre><p><strong>精度更高的API</strong></p><p><code>Navigation Timing API</code>只能精确到毫秒级，通过 <code>**window.performance.getEntries()**</code>🔥 获取纳秒级的结果。</p><h3 id="3-性能监控常见指标"><a href="#3-性能监控常见指标" class="headerlink" title="3. 性能监控常见指标"></a>3. 性能监控常见指标</h3><p><a href="https://songyazhao.github.io/2020/11/02/Web%20Performance%E5%B8%B8%E8%A7%81%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" target="_blank" rel="noopener">https://songyazhao.github.io/2020/11/02/Web Performance常见性能指标/</a></p><p><strong>FP（First Paint） 首次绘制</strong></p><p>标记浏览器渲染任何在视觉上不同于导航前屏幕内容之内容的时间点。</p><p><img src="%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%203.png" alt="Untitled"></p><p><strong>FCP（First Contentful Paint）首次内容绘制</strong></p><p>标记浏览器渲染来自 DOM 第一位内容的时间点，该内容可能是文本、图像、SVG 甚至 元素。</p><p><img src="%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%204.png" alt="Untitled"></p><p><strong>LCP（Largest Contentful Paint）最大内容渲染</strong></p><p>衡量viewport内可见的最大内容元素的渲染时间。元素包括img、video、div及其他块级元素。</p><p>LCP的数据会通过PerformanceEntry对象记录, 每次出现更大的内容渲染, 则会产生一个新的PerformanceEntry对象.(2019年11月新增)。</p><p><img src="%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%205.png" alt="Untitled"></p><p><strong>DCL（DomContentloaded）</strong></p><p>当 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，无需等待样式表、图像和子框架的完成加载。</p><p><strong>L（onLoad）</strong></p><p>页面的onLoad时的时间点。当依赖的资源, 全部加载完毕之后才会触发。</p><h3 id="4-更多的性能指标"><a href="#4-更多的性能指标" class="headerlink" title="4. 更多的性能指标"></a>4. 更多的性能指标</h3><p>以上的API只能在 onload 中使用，onload之后无法监控，可以通过 <strong>PerformanceObserver</strong> 监控性能变化指标</p><p><img src="%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%206.png" alt="Untitled"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前端性能监控&quot;&gt;&lt;a href=&quot;#前端性能监控&quot; class=&quot;headerlink&quot; title=&quot;前端性能监控&quot;&gt;&lt;/a&gt;前端性能监控&lt;/h1&gt;&lt;p&gt;封面: %E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8
+      
+    
+    </summary>
+    
+      <category term="前端工程化" scheme="https://luoyec.cn/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    
+      <category term="前端工程化" scheme="https://luoyec.cn/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
     <title>前端性能优化总结</title>
-    <link href="https://luoyec.cn/2022/06/14/cl4e29qfu0084989ecw85zeo1/"/>
-    <id>https://luoyec.cn/2022/06/14/cl4e29qfu0084989ecw85zeo1/</id>
+    <link href="https://luoyec.cn/2022/06/14/cl4e3wln40082p29e56e4usdy/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e3wln40082p29e56e4usdy/</id>
     <published>2022-06-14T10:35:17.163Z</published>
-    <updated>2022-06-14T11:00:22.897Z</updated>
+    <updated>2022-06-14T11:15:30.557Z</updated>
     
     <content type="html"><![CDATA[<h1 id="前端性能优化总结"><a href="#前端性能优化总结" class="headerlink" title="前端性能优化总结"></a>前端性能优化总结</h1><ul><li>性能优化的指标和工具</li><li>渲染优化</li><li>资源压缩与合并</li><li>构建优化</li><li>传输加载优化</li></ul><h1 id="性能优化的指标和工具"><a href="#性能优化的指标和工具" class="headerlink" title="性能优化的指标和工具"></a>性能优化的指标和工具</h1><p>Created: April 24, 2022 6:07 PM</p><h2 id="性能指标，多块才算快"><a href="#性能指标，多块才算快" class="headerlink" title="性能指标，多块才算快"></a>性能指标，多块才算快</h2><h3 id="性能指标和优化目标"><a href="#性能指标和优化目标" class="headerlink" title="性能指标和优化目标"></a>性能指标和优化目标</h3><ul><li>【加载瀑布图】谷歌调试工具 NetWord，Waterfall；TTFB，http请求从发起到返回的时间；</li><li>【速度指数】Lighthouse测试网站评分，100满分；</li><li><p>【帧率FPS】查询网站帧率；</p><p>  <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/592d81ef-2852-446f-893b-213fad813102/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105355Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=7b79821dd585d0600d83b3aefe67dbe6591cf0dd7e02a8a075ec4e7f2c422578&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p></li><li><p>【页面加载时间】异步请求完成时间在一秒钟内，无法完成加loading动画；</p></li><li>【首次渲染】懒加载、预加载优化；</li><li>【交互】交互动作反馈时间足够短；</li></ul><h3 id="RAIL测量模型"><a href="#RAIL测量模型" class="headerlink" title="RAIL测量模型"></a>RAIL测量模型</h3><h3 id="什么是RAIL"><a href="#什么是RAIL" class="headerlink" title="什么是RAIL"></a>什么是RAIL</h3><p><strong>Respose(响应)</strong>：网站给用户的响应体验<br><strong>Animation(动画)</strong>:  网站加的动效给用户的体验<br><strong>Idle(空闲)</strong>: 网站响应时，页面卡顿，主线程繁忙的情况下，要考虑如何加大主线程空闲的时间<br><strong>Load(加载):</strong> 资源加载时，白屏等待时间</p><h3 id="RAIL评估标准"><a href="#RAIL评估标准" class="headerlink" title="RAIL评估标准"></a>RAIL评估标准</h3><p><strong>Respose(响应)</strong>：处理事件应在50ms内完成<br><strong>Animation(动画)</strong>：每10ms产生一帧<br><strong>Idle(空闲)</strong>：尽可能增加空闲时间<br><strong>Load(加载)</strong>：在5s内完成内容加载并可以交互</p><h2 id="利用测量工具和APIs"><a href="#利用测量工具和APIs" class="headerlink" title="利用测量工具和APIs"></a>利用测量工具和APIs</h2><ol><li><p><strong>Chrome DevTools 开发调试、性能评测</strong></p><ol><li>Audit(Lighthouse)</li><li>Throttling调整网络吞吐</li><li>Performance性能分析</li><li>Network网络加载分析</li></ol></li><li><p><strong>Lighthouse 网站整体质量评估</strong></p><ol><li><code>**npm install -g lighthouse lighthouse [https://www.baidu.com](https://www.baidu.com/)**</code></li><li><strong>Chrome DevTools 中使用 lighthouse</strong></li></ol></li><li><p><strong>WebPageTest多测试地点、全面性能报告</strong></p><p> <a href="https://www.webpagetest.org/" target="_blank" rel="noopener">WebPageTest - Website Performance and Optimization Test</a></p><ul><li>waterfall chart 请求瀑布图</li><li>first view 首次访问，<strong>First Byte、Start Render</strong></li><li>repeat view 访问</li><li>如何本地部署<strong>WebpageTest</strong>，docker镜像部署</li></ul></li></ol><h2 id="优化问题，重新测量（迭代-）"><a href="#优化问题，重新测量（迭代-）" class="headerlink" title="优化问题，重新测量（迭代 ）"></a>优化问题，重新测量（迭代 ）</h2><h1 id="渲染优化"><a href="#渲染优化" class="headerlink" title="渲染优化"></a>渲染优化</h1><p>Created: April 24, 2022 6:07 PM</p><p><a href="https://zhuanlan.zhihu.com/p/336765062" target="_blank" rel="noopener">问我Chrome浏览器的渲染原理（6000字长文）</a></p><h2 id="浏览器渲染原理，关键渲染路径"><a href="#浏览器渲染原理，关键渲染路径" class="headerlink" title="浏览器渲染原理，关键渲染路径"></a>浏览器渲染原理，关键渲染路径</h2><p><strong>浏览器的渲染流程</strong></p><p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6d78e3da-fdb5-45d4-a7c1-ee89b523fe79/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105540Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=c5b60b81a4945e80240b01354367c96239dbf07891bf1e68856a09262a2f75df&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p><ol><li>js引起页面变化</li><li>样式修改</li><li>布局，绘制到页面上</li><li>绘制</li><li>合成，多个图层组合</li></ol><p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9b3d40e6-988e-4123-95b6-06017bd56ed5/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105605Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=be6ad7bd5e32a16500c150cd66a40c7f02e1a0b1aaa5dde248c1b6128a4e8f44&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p><h1 id="资源压缩与合并"><a href="#资源压缩与合并" class="headerlink" title="资源压缩与合并"></a>资源压缩与合并</h1><ul><li>减少http请求数量</li><li>减少请求资源的大小<ul><li>html压缩，<code>html-minifier</code> <code>npm</code>工具</li><li>css压缩</li><li>js文件合并</li><li>图片压缩</li><li>字体优化</li></ul></li></ul><h1 id="构建优化"><a href="#构建优化" class="headerlink" title="构建优化"></a>构建优化</h1><p>Created: April 26, 2022 5:59 PM</p><h1 id="webpack4优化"><a href="#webpack4优化" class="headerlink" title="webpack4优化"></a>webpack4优化</h1><h2 id="webpack4的模式"><a href="#webpack4的模式" class="headerlink" title="webpack4的模式"></a>webpack4的模式</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用于开发的配置文件，配置热更新、跨域配置、端口设置等</span></span><br><span class="line"><span class="string">"dev"</span>: <span class="string">"webpack --mode development"</span>,</span><br><span class="line"><span class="comment">// 用于生产的配置文件，配置 js 压缩、代码拆分等</span></span><br><span class="line"><span class="string">"build"</span>: <span class="string">"webpack --mode production"</span></span><br></pre></td></tr></table></figure><h2 id="Tree-shaking"><a href="#Tree-shaking" class="headerlink" title="Tree-shaking"></a>Tree-shaking</h2><ul><li>上下文未用到的代码；</li><li>基于ESM，es6的模块化；</li><li><p>可能会有副作用，不希望被shaking的文件</p>  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line"><span class="string">"slideEffects"</span>: [</span><br><span class="line"><span class="string">"*.css"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></li></ul><ul><li><p>注意babel配置的影响</p>  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// babel预设</span></span><br><span class="line"><span class="string">"@babel/preset-env"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"modules"</span>: <span class="literal">false</span>,</span><br></pre></td></tr></table></figure></li></ul><h2 id="JS压缩"><a href="#JS压缩" class="headerlink" title="JS压缩"></a>JS压缩</h2><ul><li>webpack4后引入 <code>uglifyjs-webpack-plugin</code></li><li>支持ES6替换为 <code>terser-webpack-glugin</code> （效率更好，生产默认，支持es6）</li><li>减小js文件体积</li></ul><h2 id="作用域提升"><a href="#作用域提升" class="headerlink" title="作用域提升"></a>作用域提升</h2><ul><li>生产模式自动启用，代码体积减小</li><li>提高执行效率</li><li>注意babel配置的影响，仅支持esm</li></ul><h2 id="babel7优化配置"><a href="#babel7优化配置" class="headerlink" title="babel7优化配置"></a>babel7优化配置</h2><ul><li><p>在需要的地方引入polyfill</p>  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"presets"</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">"@babel/preset-env"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"targets"</span>: &#123;</span><br><span class="line">          <span class="string">"chrome"</span>: <span class="string">"67"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"useBuiltIns"</span>: <span class="string">"usage"</span>, <span class="comment">// 需要的地方引入polyfill</span></span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p>辅助函数的按需引入, <code>@babel/plugin-transform-runtime</code></p>  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"plugins"</span>: [</span><br><span class="line">    <span class="string">"@babel/plugin-transform-runtime"</span>,</span><br></pre></td></tr></table></figure></li></ul><ul><li><p>设置目标浏览器，</p>  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"presets"</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">"@babel/preset-env"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"targets"</span>: &#123;</span><br><span class="line">          <span class="string">"chrome"</span>: [<span class="string">"&gt;0.25%"</span>] <span class="comment">// 大于使用率0.25的浏览器</span></span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></li></ul><h2 id="提高构建速度"><a href="#提高构建速度" class="headerlink" title="提高构建速度"></a>提高构建速度</h2><ul><li><p>noParse，告诉webpack哪些库不进行解析</p>  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.common</span></span><br><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">    noParse: <span class="regexp">/jquery｜lodash/</span>, <span class="comment">//忽略对部分没采用模块化的文件的递归解析处理</span></span><br></pre></td></tr></table></figure></li></ul><ul><li>DLLPlugin(动态链接库)<ul><li>避免打包时对不变的库重复构建</li><li>提高构建速度</li></ul></li></ul><h2 id="资源压缩"><a href="#资源压缩" class="headerlink" title="资源压缩"></a>资源压缩</h2><ul><li><code>Terser</code>压缩JS</li><li><code>mini-css-extract-plugin</code>压缩css</li><li><code>HtmlWebpackPlugin-minify</code> 压缩HTML</li></ul><h1 id="基于webpack的资源持久化缓存"><a href="#基于webpack的资源持久化缓存" class="headerlink" title="基于webpack的资源持久化缓存"></a>基于webpack的资源持久化缓存</h1><p>缓存资源没有更新，或者更新不及时。访问旧缓存容易导致问题，解决方案是每个打包资源文件有唯一的hash值，做增量式的更新。</p><ul><li>增量式更新</li><li>只有变化的文件hash才会改变</li><li>充分利用浏览器缓存</li></ul><h1 id="检测与分析"><a href="#检测与分析" class="headerlink" title="检测与分析"></a>检测与分析</h1><ul><li><strong>Stats分析与可视化</strong></li></ul><p><a href="https://alexkuz.github.io/webpack-chart/" target="_blank" rel="noopener">Webpack Chart</a></p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Generate stats.json for your project with this command:</span></span><br><span class="line">$ webpack --profile --json &gt; stats.json</span><br></pre></td></tr></table></figure><p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/66227af7-199e-4140-b3e7-26e03e594106/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105746Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=dbed23dc25126fe902afc4c0822c92413073cd82e5a182f669f1b65d7f7bc9e9&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p><ul><li><strong>webpack-bundle-analyzer 进行体积分析</strong></li></ul><p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/24683424-cfe8-418b-a3f4-3e05c3e2946b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105810Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=d372509905148c498ce6d63673ef29afb96f771000e9c197f31d6363ed099824&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p><ul><li><strong>speed-measure-webpack-plugin速度分析</strong></li></ul><p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/857dacb3-2957-4612-8b50-ef2548166ced/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105844Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=3cd8e526dce57fa459a3948ba76ad233a6c712aea19285203268cf20bdf43684&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p><h1 id="React-按需加载"><a href="#React-按需加载" class="headerlink" title="React 按需加载"></a>React 按需加载</h1><ul><li><p><strong>React router基于webpack动态引入</strong></p><p>  <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c152ced0-2561-4694-8ad8-94fae1628018/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105905Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=720497ef8cc68012b70a54999b547236066b0233537be7b8338121bcebc37fb7&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p></li><li><p><strong>使用Reloadable高级组件</strong></p><p>  fallback：在未加载器代替的组件</p><p>  <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3eafedaf-a560-4687-92cb-5a35d980c528/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105919Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=59798a581d891f0e6c116a30f76505e92325123d2a39da0a00d275438f965ce0&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p></li></ul><pre><code># 传输加载优化</code></pre><p>Created: April 27, 2022 10:21 AM</p><h1 id="Gzip压缩"><a href="#Gzip压缩" class="headerlink" title="Gzip压缩"></a>Gzip压缩</h1><ul><li>对传输资源进行体积压缩，高达90%</li><li><p>利用nginx启用 Gzip</p><p>  <img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled.png" alt="Untitled"></p></li></ul><h1 id="启用http-keep-alive"><a href="#启用http-keep-alive" class="headerlink" title="启用http keep-alive"></a>启用http keep-alive</h1><p>http 协议默认开启的 keep-alive</p><p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%201.png" alt="Untitled"></p><h1 id="HTTP缓存"><a href="#HTTP缓存" class="headerlink" title="HTTP缓存"></a>HTTP缓存</h1><p><strong>Nginx配置：</strong></p><p>图片等静态资源，可以更长时间</p><p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%202.png" alt="Untitled"></p><ul><li>Cache-Control/Expires</li><li>Last-Modified + If-Modified-Since</li><li>Etag + If-None-Match</li></ul><h1 id="Service-Workers作用"><a href="#Service-Workers作用" class="headerlink" title="Service Workers作用"></a>Service Workers作用</h1><ul><li>加速重复访问</li><li>离线支持</li></ul><h3 id="service-workers-配置"><a href="#service-workers-配置" class="headerlink" title="service workers 配置"></a>service workers 配置</h3><ul><li>create-react-app自带；</li><li>webpack引入两个插件实现</li></ul><h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ul><li>延长了首屏时间，但页面总加载时间减少；</li><li>兼容性问题；</li><li>只能在localhost或https下使用；</li></ul><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%203.png" alt="Untitled"></p><h1 id="http-2-性能提升"><a href="#http-2-性能提升" class="headerlink" title="http/2 性能提升"></a>http/2 性能提升</h1><ul><li>二进制传输，1.1基于文本，h2是基于二进制编码，提高安全性，头部压缩</li><li>请求响应多路复用；</li><li>Server push，提前将资源推送到浏览器</li></ul><h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><ol><li>先开启https</li></ol><p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%204.png" alt="Untitled"></p><p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%205.png" alt="Untitled"></p><ol><li>开启h2</li></ol><p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%206.png" alt="Untitled"></p><h2 id="h2的多路复用"><a href="#h2的多路复用" class="headerlink" title="h2的多路复用"></a>h2的多路复用</h2><p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%207.png" alt="Untitled"></p><h1 id="SSR的好处"><a href="#SSR的好处" class="headerlink" title="SSR的好处"></a>SSR的好处</h1><ul><li>加速首屏加载速度</li><li>更好的SEO</li></ul><h2 id="基于Next-js实现服务端渲染"><a href="#基于Next-js实现服务端渲染" class="headerlink" title="基于Next.js实现服务端渲染"></a>基于Next.js实现服务端渲染</h2>]]></content>
     
@@ -46,8 +71,8 @@
   
   <entry>
     <title>脚手架的实现原理</title>
-    <link href="https://luoyec.cn/2022/06/14/cl4e29qh000a1989ejmxqlanl/"/>
-    <id>https://luoyec.cn/2022/06/14/cl4e29qh000a1989ejmxqlanl/</id>
+    <link href="https://luoyec.cn/2022/06/14/cl4e3wlo600atp29eh5wswzip/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e3wlo600atp29eh5wswzip/</id>
     <published>2022-06-14T10:20:31.515Z</published>
     <updated>2022-06-14T11:01:29.703Z</updated>
     
@@ -71,8 +96,8 @@
   
   <entry>
     <title>JavaScript 原型、原型链</title>
-    <link href="https://luoyec.cn/2019/03/07/cl4e29qcd001a989e0gqm4kbm/"/>
-    <id>https://luoyec.cn/2019/03/07/cl4e29qcd001a989e0gqm4kbm/</id>
+    <link href="https://luoyec.cn/2019/03/07/cl4e3wljz001lp29e3glvc3rs/"/>
+    <id>https://luoyec.cn/2019/03/07/cl4e3wljz001lp29e3glvc3rs/</id>
     <published>2019-03-07T08:43:57.726Z</published>
     <updated>2019-03-07T08:43:57.726Z</updated>
     
@@ -100,8 +125,8 @@
   
   <entry>
     <title>BFC 原理简介及应用</title>
-    <link href="https://luoyec.cn/2019/03/05/cl4e29qbg0004989eds8jabxc/"/>
-    <id>https://luoyec.cn/2019/03/05/cl4e29qbg0004989eds8jabxc/</id>
+    <link href="https://luoyec.cn/2019/03/05/cl4e3wljb000ep29e3h739zpi/"/>
+    <id>https://luoyec.cn/2019/03/05/cl4e3wljb000ep29e3h739zpi/</id>
     <published>2019-03-05T06:19:16.937Z</published>
     <updated>2019-03-05T06:19:16.938Z</updated>
     
@@ -129,8 +154,8 @@
   
   <entry>
     <title>在 Express 中使用 log4js</title>
-    <link href="https://luoyec.cn/2019/02/28/cl4e29qg2008h989ebgj13wvd/"/>
-    <id>https://luoyec.cn/2019/02/28/cl4e29qg2008h989ebgj13wvd/</id>
+    <link href="https://luoyec.cn/2019/02/28/cl4e3wln8008cp29e40f3ldvl/"/>
+    <id>https://luoyec.cn/2019/02/28/cl4e3wln8008cp29e40f3ldvl/</id>
     <published>2019-02-28T07:45:15.778Z</published>
     <updated>2019-02-28T07:45:15.778Z</updated>
     
@@ -158,8 +183,8 @@
   
   <entry>
     <title>nodejs 调试 (Inspector)</title>
-    <link href="https://luoyec.cn/2019/02/28/cl4e29qer0061989eifj7o3ca/"/>
-    <id>https://luoyec.cn/2019/02/28/cl4e29qer0061989eifj7o3ca/</id>
+    <link href="https://luoyec.cn/2019/02/28/cl4e3wlm60062p29e4ld64siz/"/>
+    <id>https://luoyec.cn/2019/02/28/cl4e3wlm60062p29e4ld64siz/</id>
     <published>2019-02-28T07:40:10.736Z</published>
     <updated>2019-02-28T07:40:10.736Z</updated>
     
@@ -185,8 +210,8 @@
   
   <entry>
     <title>Knex 在 Koa2 中的应用</title>
-    <link href="https://luoyec.cn/2019/01/16/cl4e29qdh003p989e6vra3p9m/"/>
-    <id>https://luoyec.cn/2019/01/16/cl4e29qdh003p989e6vra3p9m/</id>
+    <link href="https://luoyec.cn/2019/01/16/cl4e3wll4003yp29ecvsmy9f8/"/>
+    <id>https://luoyec.cn/2019/01/16/cl4e3wll4003yp29ecvsmy9f8/</id>
     <published>2019-01-16T02:29:51.415Z</published>
     <updated>2019-01-16T02:29:51.415Z</updated>
     
@@ -214,8 +239,8 @@
   
   <entry>
     <title>加盐密码哈希：如何正确使用</title>
-    <link href="https://luoyec.cn/2019/01/14/cl4e29qfw008a989e1zdev25e/"/>
-    <id>https://luoyec.cn/2019/01/14/cl4e29qfw008a989e1zdev25e/</id>
+    <link href="https://luoyec.cn/2019/01/14/cl4e3wlnb008kp29e9vmm2mxn/"/>
+    <id>https://luoyec.cn/2019/01/14/cl4e3wlnb008kp29e9vmm2mxn/</id>
     <published>2019-01-14T06:30:09.730Z</published>
     <updated>2019-01-14T06:30:09.731Z</updated>
     
@@ -243,8 +268,8 @@
   
   <entry>
     <title>把一个 Node.js web 应用程序给 Docker 化</title>
-    <link href="https://luoyec.cn/2019/01/09/cl4e29qgb008v989et3kuggns/"/>
-    <id>https://luoyec.cn/2019/01/09/cl4e29qgb008v989et3kuggns/</id>
+    <link href="https://luoyec.cn/2019/01/09/cl4e3wlnj0095p29epm7ty2m9/"/>
+    <id>https://luoyec.cn/2019/01/09/cl4e3wlnj0095p29epm7ty2m9/</id>
     <published>2019-01-09T09:09:48.235Z</published>
     <updated>2019-01-09T09:09:48.235Z</updated>
     
@@ -270,8 +295,8 @@
   
   <entry>
     <title>使用 StoryBook 搭建 UI 组件库</title>
-    <link href="https://luoyec.cn/2018/10/26/cl4e29qfl007p989er6fh1x7s/"/>
-    <id>https://luoyec.cn/2018/10/26/cl4e29qfl007p989er6fh1x7s/</id>
+    <link href="https://luoyec.cn/2018/10/26/cl4e3wln70088p29ela6y0q2o/"/>
+    <id>https://luoyec.cn/2018/10/26/cl4e3wln70088p29ela6y0q2o/</id>
     <published>2018-10-26T08:49:20.998Z</published>
     <updated>2018-10-26T08:59:12.252Z</updated>
     
@@ -299,8 +324,8 @@
   
   <entry>
     <title>深入了解合并操作(转)</title>
-    <link href="https://luoyec.cn/2018/10/23/cl4e29qgr009n989e2whso2z2/"/>
-    <id>https://luoyec.cn/2018/10/23/cl4e29qgr009n989e2whso2z2/</id>
+    <link href="https://luoyec.cn/2018/10/23/cl4e3wlny00a7p29e5u568sqc/"/>
+    <id>https://luoyec.cn/2018/10/23/cl4e3wlny00a7p29e5u568sqc/</id>
     <published>2018-10-23T06:57:42.774Z</published>
     <updated>2018-10-23T06:57:51.860Z</updated>
     
@@ -329,8 +354,8 @@
   
   <entry>
     <title>XMLHttpRequest</title>
-    <link href="https://luoyec.cn/2018/10/17/cl4e29qee005f989ebotzzchp/"/>
-    <id>https://luoyec.cn/2018/10/17/cl4e29qee005f989ebotzzchp/</id>
+    <link href="https://luoyec.cn/2018/10/17/cl4e3wllx005kp29eo3k4c5c8/"/>
+    <id>https://luoyec.cn/2018/10/17/cl4e3wllx005kp29eo3k4c5c8/</id>
     <published>2018-10-17T08:06:20.966Z</published>
     <updated>2018-10-23T06:59:40.754Z</updated>
     
@@ -355,8 +380,8 @@
   
   <entry>
     <title>Vue源码解析-响应式原理（计算属性、监听属性、组件更新）</title>
-    <link href="https://luoyec.cn/2018/08/24/cl4e29qe90056989eijxpvfge/"/>
-    <id>https://luoyec.cn/2018/08/24/cl4e29qe90056989eijxpvfge/</id>
+    <link href="https://luoyec.cn/2018/08/24/cl4e3wllo0050p29eypyb7b99/"/>
+    <id>https://luoyec.cn/2018/08/24/cl4e3wllo0050p29eypyb7b99/</id>
     <published>2018-08-24T08:20:55.943Z</published>
     <updated>2018-08-24T08:21:01.457Z</updated>
     
@@ -382,8 +407,8 @@
   
   <entry>
     <title>Vue源码解析-响应式原理</title>
-    <link href="https://luoyec.cn/2018/08/24/cl4e29qe70051989eysblt1fn/"/>
-    <id>https://luoyec.cn/2018/08/24/cl4e29qe70051989eysblt1fn/</id>
+    <link href="https://luoyec.cn/2018/08/24/cl4e3wllt005bp29eldcl0pga/"/>
+    <id>https://luoyec.cn/2018/08/24/cl4e3wllt005bp29eldcl0pga/</id>
     <published>2018-08-24T03:55:14.296Z</published>
     <updated>2018-08-24T03:55:32.990Z</updated>
     
@@ -412,8 +437,8 @@
   
   <entry>
     <title>Vue源码解析-组件化</title>
-    <link href="https://luoyec.cn/2018/08/22/cl4e29qed005d989e2e0rttbl/"/>
-    <id>https://luoyec.cn/2018/08/22/cl4e29qed005d989e2e0rttbl/</id>
+    <link href="https://luoyec.cn/2018/08/22/cl4e3wlly005pp29ee1a2jd6m/"/>
+    <id>https://luoyec.cn/2018/08/22/cl4e3wlly005pp29ee1a2jd6m/</id>
     <published>2018-08-22T10:39:34.503Z</published>
     <updated>2018-08-22T10:39:39.393Z</updated>
     
@@ -443,8 +468,8 @@
   
   <entry>
     <title>Vue源码解析-数据驱动</title>
-    <link href="https://luoyec.cn/2018/08/21/cl4e29qeb0059989ev5sgpvne/"/>
-    <id>https://luoyec.cn/2018/08/21/cl4e29qeb0059989ev5sgpvne/</id>
+    <link href="https://luoyec.cn/2018/08/21/cl4e3wllq0055p29ewc0295r0/"/>
+    <id>https://luoyec.cn/2018/08/21/cl4e3wllq0055p29ewc0295r0/</id>
     <published>2018-08-21T08:06:57.691Z</published>
     <updated>2018-08-21T08:07:14.273Z</updated>
     
@@ -474,8 +499,8 @@
   
   <entry>
     <title>Object.defineProperty()</title>
-    <link href="https://luoyec.cn/2018/08/17/cl4e29qdw004g989euw5fwdf4/"/>
-    <id>https://luoyec.cn/2018/08/17/cl4e29qdw004g989euw5fwdf4/</id>
+    <link href="https://luoyec.cn/2018/08/17/cl4e3wlle004hp29easa2usu0/"/>
+    <id>https://luoyec.cn/2018/08/17/cl4e3wlle004hp29easa2usu0/</id>
     <published>2018-08-17T03:11:06.085Z</published>
     <updated>2018-08-17T03:11:12.075Z</updated>
     
@@ -499,8 +524,8 @@
   
   <entry>
     <title>HTML5 语义化最佳实践</title>
-    <link href="https://luoyec.cn/2018/06/26/cl4e29qcb0018989e4y5x7qih/"/>
-    <id>https://luoyec.cn/2018/06/26/cl4e29qcb0018989e4y5x7qih/</id>
+    <link href="https://luoyec.cn/2018/06/26/cl4e3wlju001ep29eb9txnbro/"/>
+    <id>https://luoyec.cn/2018/06/26/cl4e3wlju001ep29eb9txnbro/</id>
     <published>2018-06-26T10:08:24.092Z</published>
     <updated>2018-06-26T10:08:28.891Z</updated>
     
@@ -526,8 +551,8 @@
   
   <entry>
     <title>Nginx 部署静态页面</title>
-    <link href="https://luoyec.cn/2018/06/11/cl4e29qdq0044989ebcezrogq/"/>
-    <id>https://luoyec.cn/2018/06/11/cl4e29qdq0044989ebcezrogq/</id>
+    <link href="https://luoyec.cn/2018/06/11/cl4e3wlla004ap29ehzc34h2n/"/>
+    <id>https://luoyec.cn/2018/06/11/cl4e3wlla004ap29ehzc34h2n/</id>
     <published>2018-06-11T09:14:01.244Z</published>
     <updated>2018-06-11T09:14:07.265Z</updated>
     
@@ -553,8 +578,8 @@
   
   <entry>
     <title>Vue.js 快速入门与专业应用</title>
-    <link href="https://luoyec.cn/2018/05/14/cl4e29qe5004y989ecvk6yphy/"/>
-    <id>https://luoyec.cn/2018/05/14/cl4e29qe5004y989ecvk6yphy/</id>
+    <link href="https://luoyec.cn/2018/05/14/cl4e3wlls0057p29eajic8bt9/"/>
+    <id>https://luoyec.cn/2018/05/14/cl4e3wlls0057p29eajic8bt9/</id>
     <published>2018-05-14T02:03:57.255Z</published>
     <updated>2018-05-14T02:09:43.470Z</updated>
     
@@ -581,8 +606,8 @@
   
   <entry>
     <title>JavaScript 数组去重</title>
-    <link href="https://luoyec.cn/2018/05/06/cl4e29qcm001u989exdplzf8p/"/>
-    <id>https://luoyec.cn/2018/05/06/cl4e29qcm001u989exdplzf8p/</id>
+    <link href="https://luoyec.cn/2018/05/06/cl4e3wlk3001wp29e43xwn4j6/"/>
+    <id>https://luoyec.cn/2018/05/06/cl4e3wlk3001wp29e43xwn4j6/</id>
     <published>2018-05-06T11:50:18.040Z</published>
     <updated>2018-05-06T11:50:23.573Z</updated>
     
@@ -608,8 +633,8 @@
   
   <entry>
     <title>JavaScript排序算法</title>
-    <link href="https://luoyec.cn/2018/05/06/cl4e29qd50033989eh8rspnuk/"/>
-    <id>https://luoyec.cn/2018/05/06/cl4e29qd50033989eh8rspnuk/</id>
+    <link href="https://luoyec.cn/2018/05/06/cl4e3wlkw003hp29et1q0reh0/"/>
+    <id>https://luoyec.cn/2018/05/06/cl4e3wlkw003hp29et1q0reh0/</id>
     <published>2018-05-06T03:59:25.542Z</published>
     <updated>2018-05-06T03:59:37.568Z</updated>
     
@@ -636,8 +661,8 @@
   
   <entry>
     <title>AJAX 工作原理及概述</title>
-    <link href="https://luoyec.cn/2018/05/04/cl4e29qb90002989e6xbvg5yp/"/>
-    <id>https://luoyec.cn/2018/05/04/cl4e29qb90002989e6xbvg5yp/</id>
+    <link href="https://luoyec.cn/2018/05/04/cl4e3wlj7000ap29elp9ukjgy/"/>
+    <id>https://luoyec.cn/2018/05/04/cl4e3wlj7000ap29elp9ukjgy/</id>
     <published>2018-05-04T07:11:14.446Z</published>
     <updated>2018-05-04T07:11:33.599Z</updated>
     
@@ -666,8 +691,8 @@
   
   <entry>
     <title>正则表达式练习题</title>
-    <link href="https://luoyec.cn/2018/05/01/cl4e29qgj009a989er9hwpoqi/"/>
-    <id>https://luoyec.cn/2018/05/01/cl4e29qgj009a989er9hwpoqi/</id>
+    <link href="https://luoyec.cn/2018/05/01/cl4e3wlnp009gp29ea8imgzkb/"/>
+    <id>https://luoyec.cn/2018/05/01/cl4e3wlnp009gp29ea8imgzkb/</id>
     <published>2018-05-01T06:31:39.761Z</published>
     <updated>2018-05-01T06:31:52.739Z</updated>
     
@@ -693,8 +718,8 @@
   
   <entry>
     <title>JavaScript 类的继承</title>
-    <link href="https://luoyec.cn/2018/04/17/cl4e29qcq0025989eoyriixn9/"/>
-    <id>https://luoyec.cn/2018/04/17/cl4e29qcq0025989eoyriixn9/</id>
+    <link href="https://luoyec.cn/2018/04/17/cl4e3wlkc002fp29ef12urpie/"/>
+    <id>https://luoyec.cn/2018/04/17/cl4e3wlkc002fp29ef12urpie/</id>
     <published>2018-04-17T05:16:30.391Z</published>
     <updated>2018-04-17T05:59:53.545Z</updated>
     
@@ -723,8 +748,8 @@
   
   <entry>
     <title>JavaScript 类的封装</title>
-    <link href="https://luoyec.cn/2018/04/15/cl4e29qct002a989e6gw3q5di/"/>
-    <id>https://luoyec.cn/2018/04/15/cl4e29qct002a989e6gw3q5di/</id>
+    <link href="https://luoyec.cn/2018/04/15/cl4e3wlka002cp29exq78648w/"/>
+    <id>https://luoyec.cn/2018/04/15/cl4e3wlka002cp29exq78648w/</id>
     <published>2018-04-15T13:51:01.501Z</published>
     <updated>2018-04-15T13:51:43.000Z</updated>
     
@@ -752,8 +777,8 @@
   
   <entry>
     <title>JavaScript 基本数据类型-对象</title>
-    <link href="https://luoyec.cn/2018/04/15/cl4e29qcl001q989eiy5pu6wf/"/>
-    <id>https://luoyec.cn/2018/04/15/cl4e29qcl001q989eiy5pu6wf/</id>
+    <link href="https://luoyec.cn/2018/04/15/cl4e3wlk0001op29eu4r4wsjy/"/>
+    <id>https://luoyec.cn/2018/04/15/cl4e3wlk0001op29eu4r4wsjy/</id>
     <published>2018-04-14T19:03:40.058Z</published>
     <updated>2018-04-14T19:03:45.105Z</updated>
     
@@ -781,8 +806,8 @@
   
   <entry>
     <title>JavaScript 原型及原型链</title>
-    <link href="https://luoyec.cn/2018/04/14/cl4e29qcg001h989eg6qu80ct/"/>
-    <id>https://luoyec.cn/2018/04/14/cl4e29qcg001h989eg6qu80ct/</id>
+    <link href="https://luoyec.cn/2018/04/14/cl4e3wljy001kp29ef2tlhves/"/>
+    <id>https://luoyec.cn/2018/04/14/cl4e3wljy001kp29ef2tlhves/</id>
     <published>2018-04-14T08:15:53.601Z</published>
     <updated>2018-04-14T10:28:43.620Z</updated>
     
@@ -810,8 +835,8 @@
   
   <entry>
     <title>前端跨域通信原理及示例</title>
-    <link href="https://luoyec.cn/2018/04/14/cl4e29qfv0088989e4op1o2xk/"/>
-    <id>https://luoyec.cn/2018/04/14/cl4e29qfv0088989e4op1o2xk/</id>
+    <link href="https://luoyec.cn/2018/04/14/cl4e3wln60086p29e0b4iwack/"/>
+    <id>https://luoyec.cn/2018/04/14/cl4e3wln60086p29e0b4iwack/</id>
     <published>2018-04-14T04:45:50.875Z</published>
     <updated>2018-04-14T04:46:15.411Z</updated>
     
@@ -838,8 +863,8 @@
   
   <entry>
     <title>XMLHttpRequest请求</title>
-    <link href="https://luoyec.cn/2018/04/13/cl4e29qeh005j989edefbu72w/"/>
-    <id>https://luoyec.cn/2018/04/13/cl4e29qeh005j989edefbu72w/</id>
+    <link href="https://luoyec.cn/2018/04/13/cl4e3wllu005dp29e0syxknm1/"/>
+    <id>https://luoyec.cn/2018/04/13/cl4e3wllu005dp29e0syxknm1/</id>
     <published>2018-04-13T15:38:53.944Z</published>
     <updated>2018-04-13T15:39:14.839Z</updated>
     
@@ -863,8 +888,8 @@
   
   <entry>
     <title>React 服务端渲染理论</title>
-    <link href="https://luoyec.cn/2018/04/05/cl4e29qe3004u989eb07amgna/"/>
-    <id>https://luoyec.cn/2018/04/05/cl4e29qe3004u989eb07amgna/</id>
+    <link href="https://luoyec.cn/2018/04/05/cl4e3wllg004mp29eigu3q9tv/"/>
+    <id>https://luoyec.cn/2018/04/05/cl4e3wllg004mp29eigu3q9tv/</id>
     <published>2018-04-05T07:09:31.232Z</published>
     <updated>2018-04-05T07:09:35.413Z</updated>
     
@@ -892,8 +917,8 @@
   
   <entry>
     <title>JavaScript 正则表达式</title>
-    <link href="https://luoyec.cn/2018/03/31/cl4e29qcp0022989e6g6attej/"/>
-    <id>https://luoyec.cn/2018/03/31/cl4e29qcp0022989e6g6attej/</id>
+    <link href="https://luoyec.cn/2018/03/31/cl4e3wlk50020p29el7sm5w5x/"/>
+    <id>https://luoyec.cn/2018/03/31/cl4e3wlk50020p29el7sm5w5x/</id>
     <published>2018-03-31T03:02:24.965Z</published>
     <updated>2018-03-31T03:03:06.000Z</updated>
     
@@ -921,8 +946,8 @@
   
   <entry>
     <title>浏览器存储、HTTP缓存、SSR</title>
-    <link href="https://luoyec.cn/2018/03/24/cl4e29qgl009d989esilt647f/"/>
-    <id>https://luoyec.cn/2018/03/24/cl4e29qgl009d989esilt647f/</id>
+    <link href="https://luoyec.cn/2018/03/24/cl4e3wlnn009ep29extxuh2tq/"/>
+    <id>https://luoyec.cn/2018/03/24/cl4e3wlnn009ep29extxuh2tq/</id>
     <published>2018-03-24T14:32:19.000Z</published>
     <updated>2018-03-24T14:32:22.000Z</updated>
     
@@ -948,8 +973,8 @@
   
   <entry>
     <title>懒加载与预加载，重绘与回流</title>
-    <link href="https://luoyec.cn/2018/03/24/cl4e29qg8008t989e3m62ins7/"/>
-    <id>https://luoyec.cn/2018/03/24/cl4e29qg8008t989e3m62ins7/</id>
+    <link href="https://luoyec.cn/2018/03/24/cl4e3wlnf008tp29erqt7sok1/"/>
+    <id>https://luoyec.cn/2018/03/24/cl4e3wlnf008tp29erqt7sok1/</id>
     <published>2018-03-23T16:40:34.000Z</published>
     <updated>2018-03-23T16:40:46.000Z</updated>
     
@@ -975,8 +1000,8 @@
   
   <entry>
     <title>资源合并与压缩</title>
-    <link href="https://luoyec.cn/2018/03/23/cl4e29qh700ai989ezv8hwa4n/"/>
-    <id>https://luoyec.cn/2018/03/23/cl4e29qh700ai989ezv8hwa4n/</id>
+    <link href="https://luoyec.cn/2018/03/23/cl4e3wlo000afp29exofuh0lz/"/>
+    <id>https://luoyec.cn/2018/03/23/cl4e3wlo000afp29exofuh0lz/</id>
     <published>2018-03-23T05:31:52.000Z</published>
     <updated>2018-03-23T05:33:26.000Z</updated>
     
@@ -1006,8 +1031,8 @@
   
   <entry>
     <title>JavaScript 迭代器与生成器</title>
-    <link href="https://luoyec.cn/2018/03/21/cl4e29qcv002e989e1wx0tm2e/"/>
-    <id>https://luoyec.cn/2018/03/21/cl4e29qcv002e989e1wx0tm2e/</id>
+    <link href="https://luoyec.cn/2018/03/21/cl4e3wlk60023p29ek3qcuc9e/"/>
+    <id>https://luoyec.cn/2018/03/21/cl4e3wlk60023p29ek3qcuc9e/</id>
     <published>2018-03-21T08:58:44.000Z</published>
     <updated>2018-03-21T08:58:55.000Z</updated>
     
@@ -1035,8 +1060,8 @@
   
   <entry>
     <title>JavaScript 递归上</title>
-    <link href="https://luoyec.cn/2018/03/08/cl4e29qcs0028989epgbtlkke/"/>
-    <id>https://luoyec.cn/2018/03/08/cl4e29qcs0028989epgbtlkke/</id>
+    <link href="https://luoyec.cn/2018/03/08/cl4e3wlk80026p29ebxjjwvlw/"/>
+    <id>https://luoyec.cn/2018/03/08/cl4e3wlk80026p29ebxjjwvlw/</id>
     <published>2018-03-08T01:01:16.000Z</published>
     <updated>2018-03-08T01:01:21.000Z</updated>
     
@@ -1062,8 +1087,8 @@
   
   <entry>
     <title>Jenkins安装及基础配置</title>
-    <link href="https://luoyec.cn/2018/03/07/cl4e29qde003k989etrduifg2/"/>
-    <id>https://luoyec.cn/2018/03/07/cl4e29qde003k989etrduifg2/</id>
+    <link href="https://luoyec.cn/2018/03/07/cl4e3wlku003ep29e2egrhj47/"/>
+    <id>https://luoyec.cn/2018/03/07/cl4e3wlku003ep29e2egrhj47/</id>
     <published>2018-03-07T01:55:41.000Z</published>
     <updated>2018-03-07T01:55:44.000Z</updated>
     
@@ -1090,8 +1115,8 @@
   
   <entry>
     <title>NPM 数组模块学习与使用</title>
-    <link href="https://luoyec.cn/2018/03/05/cl4e29qdn0040989ei0v4kr07/"/>
-    <id>https://luoyec.cn/2018/03/05/cl4e29qdn0040989ei0v4kr07/</id>
+    <link href="https://luoyec.cn/2018/03/05/cl4e3wll2003wp29eysydza56/"/>
+    <id>https://luoyec.cn/2018/03/05/cl4e3wll2003wp29eysydza56/</id>
     <published>2018-03-05T02:36:36.000Z</published>
     <updated>2018-03-05T02:37:17.000Z</updated>
     
@@ -1117,8 +1142,8 @@
   
   <entry>
     <title>Object.assign() 与 扩展操作符（...）</title>
-    <link href="https://luoyec.cn/2018/02/27/cl4e29qdu004d989eixp0oy7t/"/>
-    <id>https://luoyec.cn/2018/02/27/cl4e29qdu004d989eixp0oy7t/</id>
+    <link href="https://luoyec.cn/2018/02/27/cl4e3wll90048p29eqacnds3q/"/>
+    <id>https://luoyec.cn/2018/02/27/cl4e3wll90048p29eqacnds3q/</id>
     <published>2018-02-27T02:49:38.000Z</published>
     <updated>2018-02-27T03:04:15.000Z</updated>
     
@@ -1148,8 +1173,8 @@
   
   <entry>
     <title>Jenkins NodeJS Plugin 插件安装使用</title>
-    <link href="https://luoyec.cn/2018/02/10/cl4e29qd9003c989eyqt50wv2/"/>
-    <id>https://luoyec.cn/2018/02/10/cl4e29qd9003c989eyqt50wv2/</id>
+    <link href="https://luoyec.cn/2018/02/10/cl4e3wlkq0038p29ep3nr4if5/"/>
+    <id>https://luoyec.cn/2018/02/10/cl4e3wlkq0038p29ep3nr4if5/</id>
     <published>2018-02-10T03:33:37.000Z</published>
     <updated>2018-02-10T03:33:40.000Z</updated>
     
@@ -1175,8 +1200,8 @@
   
   <entry>
     <title>Jenkins publish over ssh 插件使用</title>
-    <link href="https://luoyec.cn/2018/02/10/cl4e29qdd003i989ei11viuv9/"/>
-    <id>https://luoyec.cn/2018/02/10/cl4e29qdd003i989ei11viuv9/</id>
+    <link href="https://luoyec.cn/2018/02/10/cl4e3wlks003bp29ehac42sab/"/>
+    <id>https://luoyec.cn/2018/02/10/cl4e3wlks003bp29ehac42sab/</id>
     <published>2018-02-10T03:06:25.000Z</published>
     <updated>2018-02-10T03:07:50.000Z</updated>
     
@@ -1202,8 +1227,8 @@
   
   <entry>
     <title>React 事件处理</title>
-    <link href="https://luoyec.cn/2018/01/28/cl4e29qdy004l989eess2yapw/"/>
-    <id>https://luoyec.cn/2018/01/28/cl4e29qdy004l989eess2yapw/</id>
+    <link href="https://luoyec.cn/2018/01/28/cl4e3wllc004ep29es7dune6s/"/>
+    <id>https://luoyec.cn/2018/01/28/cl4e3wllc004ep29es7dune6s/</id>
     <published>2018-01-27T17:23:29.000Z</published>
     <updated>2018-01-27T17:24:07.000Z</updated>
     
@@ -1232,8 +1257,8 @@
   
   <entry>
     <title>高性能 Webpack3 配置</title>
-    <link href="https://luoyec.cn/2018/01/10/cl4e29qh900aq989eqbtrzoxc/"/>
-    <id>https://luoyec.cn/2018/01/10/cl4e29qh900aq989eqbtrzoxc/</id>
+    <link href="https://luoyec.cn/2018/01/10/cl4e3wlo600aqp29eamiinyh9/"/>
+    <id>https://luoyec.cn/2018/01/10/cl4e3wlo600aqp29eamiinyh9/</id>
     <published>2018-01-09T16:17:00.000Z</published>
     <updated>2018-01-09T16:17:40.000Z</updated>
     
@@ -1257,8 +1282,8 @@
   
   <entry>
     <title>JavaScript脚本化文档下</title>
-    <link href="https://luoyec.cn/2018/01/07/cl4e29qd80039989e7rulmfm9/"/>
-    <id>https://luoyec.cn/2018/01/07/cl4e29qd80039989e7rulmfm9/</id>
+    <link href="https://luoyec.cn/2018/01/07/cl4e3wlkx003kp29ettzhqbpb/"/>
+    <id>https://luoyec.cn/2018/01/07/cl4e3wlkx003kp29ettzhqbpb/</id>
     <published>2018-01-07T14:31:53.000Z</published>
     <updated>2018-01-07T14:32:08.000Z</updated>
     
@@ -1284,8 +1309,8 @@
   
   <entry>
     <title>CentOS7 服务器安装 Node.js</title>
-    <link href="https://luoyec.cn/2018/01/06/cl4e29qc0000l989e8ysg4p1r/"/>
-    <id>https://luoyec.cn/2018/01/06/cl4e29qc0000l989e8ysg4p1r/</id>
+    <link href="https://luoyec.cn/2018/01/06/cl4e3wlj8000bp29emz34ls2r/"/>
+    <id>https://luoyec.cn/2018/01/06/cl4e3wlj8000bp29emz34ls2r/</id>
     <published>2018-01-06T06:51:49.000Z</published>
     <updated>2018-01-06T07:10:08.000Z</updated>
     
@@ -1313,8 +1338,8 @@
   
   <entry>
     <title>CentOS7 服务器安装 MySQL</title>
-    <link href="https://luoyec.cn/2018/01/06/cl4e29qbx000f989evi9hay5x/"/>
-    <id>https://luoyec.cn/2018/01/06/cl4e29qbx000f989evi9hay5x/</id>
+    <link href="https://luoyec.cn/2018/01/06/cl4e3wlj40008p29efz37p4wl/"/>
+    <id>https://luoyec.cn/2018/01/06/cl4e3wlj40008p29efz37p4wl/</id>
     <published>2018-01-06T04:24:04.000Z</published>
     <updated>2018-01-06T04:24:22.000Z</updated>
     
@@ -1342,8 +1367,8 @@
   
   <entry>
     <title>YEOMAN实践一</title>
-    <link href="https://luoyec.cn/2018/01/02/cl4e29qep005y989e8dv9egi7/"/>
-    <id>https://luoyec.cn/2018/01/02/cl4e29qep005y989e8dv9egi7/</id>
+    <link href="https://luoyec.cn/2018/01/02/cl4e3wllw005hp29ertt72xpy/"/>
+    <id>https://luoyec.cn/2018/01/02/cl4e3wllw005hp29ertt72xpy/</id>
     <published>2018-01-02T01:16:45.000Z</published>
     <updated>2018-01-02T01:16:50.000Z</updated>
     
@@ -1370,8 +1395,8 @@
   
   <entry>
     <title>JavaScript事件处理下</title>
-    <link href="https://luoyec.cn/2017/12/26/cl4e29qcz002p989el8ldd6ye/"/>
-    <id>https://luoyec.cn/2017/12/26/cl4e29qcz002p989el8ldd6ye/</id>
+    <link href="https://luoyec.cn/2017/12/26/cl4e3wlkf002np29ep8nnmo8c/"/>
+    <id>https://luoyec.cn/2017/12/26/cl4e3wlkf002np29ep8nnmo8c/</id>
     <published>2017-12-26T14:35:21.000Z</published>
     <updated>2017-12-26T15:35:42.000Z</updated>
     
@@ -1397,8 +1422,8 @@
   
   <entry>
     <title>JavaScript脚本化文档上</title>
-    <link href="https://luoyec.cn/2017/12/26/cl4e29qdb003f989ejhik7ys6/"/>
-    <id>https://luoyec.cn/2017/12/26/cl4e29qdb003f989ejhik7ys6/</id>
+    <link href="https://luoyec.cn/2017/12/26/cl4e3wlko0034p29e1onx0ge8/"/>
+    <id>https://luoyec.cn/2017/12/26/cl4e3wlko0034p29e1onx0ge8/</id>
     <published>2017-12-26T14:28:16.000Z</published>
     <updated>2017-12-26T14:28:31.000Z</updated>
     
@@ -1426,8 +1451,8 @@
   
   <entry>
     <title>JavaScript事件处理上</title>
-    <link href="https://luoyec.cn/2017/12/24/cl4e29qcy002m989e73eqijzu/"/>
-    <id>https://luoyec.cn/2017/12/24/cl4e29qcy002m989e73eqijzu/</id>
+    <link href="https://luoyec.cn/2017/12/24/cl4e3wlke002kp29emvax926m/"/>
+    <id>https://luoyec.cn/2017/12/24/cl4e3wlke002kp29emvax926m/</id>
     <published>2017-12-24T14:54:12.000Z</published>
     <updated>2017-12-26T14:33:08.000Z</updated>
     
@@ -1453,8 +1478,8 @@
   
   <entry>
     <title>JavaScript模块</title>
-    <link href="https://luoyec.cn/2017/12/16/cl4e29qco001y989e3jx4kp1q/"/>
-    <id>https://luoyec.cn/2017/12/16/cl4e29qco001y989e3jx4kp1q/</id>
+    <link href="https://luoyec.cn/2017/12/16/cl4e3wlk2001sp29esmrwg5zb/"/>
+    <id>https://luoyec.cn/2017/12/16/cl4e3wlk2001sp29esmrwg5zb/</id>
     <published>2017-12-15T17:03:11.000Z</published>
     <updated>2017-12-15T17:03:17.000Z</updated>
     
@@ -1480,8 +1505,8 @@
   
   <entry>
     <title>ES6 模块系统</title>
-    <link href="https://luoyec.cn/2017/12/16/cl4e29qbt000b989eusm819uy/"/>
-    <id>https://luoyec.cn/2017/12/16/cl4e29qbt000b989eusm819uy/</id>
+    <link href="https://luoyec.cn/2017/12/16/cl4e3wlje000jp29e1xw6kkou/"/>
+    <id>https://luoyec.cn/2017/12/16/cl4e3wlje000jp29e1xw6kkou/</id>
     <published>2017-12-15T16:56:35.000Z</published>
     <updated>2017-12-15T16:56:42.000Z</updated>
     
@@ -1507,8 +1532,8 @@
   
   <entry>
     <title>MySQL 基础 一</title>
-    <link href="https://luoyec.cn/2017/12/12/cl4e29qdm003x989ejoltuxnz/"/>
-    <id>https://luoyec.cn/2017/12/12/cl4e29qdm003x989ejoltuxnz/</id>
+    <link href="https://luoyec.cn/2017/12/12/cl4e3wlkz003op29ejgxycdrw/"/>
+    <id>https://luoyec.cn/2017/12/12/cl4e3wlkz003op29ejgxycdrw/</id>
     <published>2017-12-11T23:56:10.000Z</published>
     <updated>2017-12-11T23:56:19.000Z</updated>
     
@@ -1536,8 +1561,8 @@
   
   <entry>
     <title>Node.js 模块</title>
-    <link href="https://luoyec.cn/2017/12/09/cl4e29qdr0046989ebnhjh8hr/"/>
-    <id>https://luoyec.cn/2017/12/09/cl4e29qdr0046989ebnhjh8hr/</id>
+    <link href="https://luoyec.cn/2017/12/09/cl4e3wll70044p29eptmsdq7e/"/>
+    <id>https://luoyec.cn/2017/12/09/cl4e3wll70044p29eptmsdq7e/</id>
     <published>2017-12-09T06:40:43.000Z</published>
     <updated>2017-12-09T06:40:47.000Z</updated>
     
@@ -1565,8 +1590,8 @@
   
   <entry>
     <title>React路由过渡动画</title>
-    <link href="https://luoyec.cn/2017/12/04/cl4e29qdz004o989eiztw8jpb/"/>
-    <id>https://luoyec.cn/2017/12/04/cl4e29qdz004o989eiztw8jpb/</id>
+    <link href="https://luoyec.cn/2017/12/04/cl4e3wllk004sp29ez207dqu7/"/>
+    <id>https://luoyec.cn/2017/12/04/cl4e3wllk004sp29ez207dqu7/</id>
     <published>2017-12-04T05:40:18.000Z</published>
     <updated>2017-12-04T05:40:29.000Z</updated>
     
@@ -1593,8 +1618,8 @@
   
   <entry>
     <title>二叉搜索树</title>
-    <link href="https://luoyec.cn/2017/12/04/cl4e29qfa0073989eu8500ssx/"/>
-    <id>https://luoyec.cn/2017/12/04/cl4e29qfa0073989eu8500ssx/</id>
+    <link href="https://luoyec.cn/2017/12/04/cl4e3wlms007ap29e55j6x11k/"/>
+    <id>https://luoyec.cn/2017/12/04/cl4e3wlms007ap29e55j6x11k/</id>
     <published>2017-12-03T19:30:51.000Z</published>
     <updated>2017-12-03T19:31:11.000Z</updated>
     
@@ -1620,8 +1645,8 @@
   
   <entry>
     <title>All About React Router 4</title>
-    <link href="https://luoyec.cn/2017/11/19/cl4e29qbs000a989e5kcgwdvh/"/>
-    <id>https://luoyec.cn/2017/11/19/cl4e29qbs000a989e5kcgwdvh/</id>
+    <link href="https://luoyec.cn/2017/11/19/cl4e3wliv0002p29eoxyepzi2/"/>
+    <id>https://luoyec.cn/2017/11/19/cl4e3wliv0002p29eoxyepzi2/</id>
     <published>2017-11-18T16:08:35.000Z</published>
     <updated>2018-02-27T02:50:05.000Z</updated>
     
@@ -1651,8 +1676,8 @@
   
   <entry>
     <title>Nginx反向代理</title>
-    <link href="https://luoyec.cn/2017/11/18/cl4e29qdt004a989epo41tuoe/"/>
-    <id>https://luoyec.cn/2017/11/18/cl4e29qdt004a989epo41tuoe/</id>
+    <link href="https://luoyec.cn/2017/11/18/cl4e3wll60042p29eipg79q3u/"/>
+    <id>https://luoyec.cn/2017/11/18/cl4e3wll60042p29eipg79q3u/</id>
     <published>2017-11-18T01:46:05.000Z</published>
     <updated>2018-06-11T09:07:45.309Z</updated>
     
@@ -1682,8 +1707,8 @@
   
   <entry>
     <title>Eslint代码检查及格式化</title>
-    <link href="https://luoyec.cn/2017/11/11/cl4e29qc4000w989ehls8g657/"/>
-    <id>https://luoyec.cn/2017/11/11/cl4e29qc4000w989ehls8g657/</id>
+    <link href="https://luoyec.cn/2017/11/11/cl4e3wljj000vp29el55hzas9/"/>
+    <id>https://luoyec.cn/2017/11/11/cl4e3wljj000vp29el55hzas9/</id>
     <published>2017-11-11T15:31:18.000Z</published>
     <updated>2017-11-11T15:31:36.000Z</updated>
     
@@ -1712,8 +1737,8 @@
   
   <entry>
     <title>58脚手架分享讲义</title>
-    <link href="https://luoyec.cn/2017/11/10/cl4e29qbq0008989epgyox1b2/"/>
-    <id>https://luoyec.cn/2017/11/10/cl4e29qbq0008989epgyox1b2/</id>
+    <link href="https://luoyec.cn/2017/11/10/cl4e3wlj00004p29ee55oack6/"/>
+    <id>https://luoyec.cn/2017/11/10/cl4e3wlj00004p29ee55oack6/</id>
     <published>2017-11-09T17:08:09.000Z</published>
     <updated>2017-11-09T17:08:14.000Z</updated>
     
@@ -1742,8 +1767,8 @@
   
   <entry>
     <title>JavaScript:Promise</title>
-    <link href="https://luoyec.cn/2017/11/09/cl4e29qcw002h989eldjtvc43/"/>
-    <id>https://luoyec.cn/2017/11/09/cl4e29qcw002h989eldjtvc43/</id>
+    <link href="https://luoyec.cn/2017/11/09/cl4e3wlk90029p29ev0dc5paf/"/>
+    <id>https://luoyec.cn/2017/11/09/cl4e3wlk90029p29ev0dc5paf/</id>
     <published>2017-11-09T05:28:18.000Z</published>
     <updated>2017-11-09T05:28:26.000Z</updated>
     
@@ -1771,8 +1796,8 @@
   
   <entry>
     <title>2017-10-21表驱动法</title>
-    <link href="https://luoyec.cn/2017/10/23/cl4e29qh200a9989ev7agwv9s/"/>
-    <id>https://luoyec.cn/2017/10/23/cl4e29qh200a9989ev7agwv9s/</id>
+    <link href="https://luoyec.cn/2017/10/23/cl4e3wlnw00a2p29euiar8edu/"/>
+    <id>https://luoyec.cn/2017/10/23/cl4e3wlnw00a2p29euiar8edu/</id>
     <published>2017-10-23T13:51:02.000Z</published>
     <updated>2017-11-09T17:08:20.000Z</updated>
     
@@ -1805,8 +1830,8 @@
   
   <entry>
     <title>JavaScript回调</title>
-    <link href="https://luoyec.cn/2017/10/13/cl4e29qd3002w989e2bapk5az/"/>
-    <id>https://luoyec.cn/2017/10/13/cl4e29qd3002w989e2bapk5az/</id>
+    <link href="https://luoyec.cn/2017/10/13/cl4e3wlkk002wp29elpe0r2fa/"/>
+    <id>https://luoyec.cn/2017/10/13/cl4e3wlkk002wp29elpe0r2fa/</id>
     <published>2017-10-13T12:19:25.000Z</published>
     <updated>2017-10-13T12:19:31.000Z</updated>
     
@@ -1831,8 +1856,8 @@
   
   <entry>
     <title>JavaScript异步：现在与未来</title>
-    <link href="https://luoyec.cn/2017/10/13/cl4e29qd40030989ebreix4y5/"/>
-    <id>https://luoyec.cn/2017/10/13/cl4e29qd40030989ebreix4y5/</id>
+    <link href="https://luoyec.cn/2017/10/13/cl4e3wlki002tp29e1ooo0cxt/"/>
+    <id>https://luoyec.cn/2017/10/13/cl4e3wlki002tp29e1ooo0cxt/</id>
     <published>2017-10-13T11:46:32.000Z</published>
     <updated>2017-10-13T11:46:43.000Z</updated>
     
@@ -1859,8 +1884,8 @@
   
   <entry>
     <title>JavaScript 原生函数</title>
-    <link href="https://luoyec.cn/2017/10/11/cl4e29qci001l989e9x6y7uy0/"/>
-    <id>https://luoyec.cn/2017/10/11/cl4e29qci001l989e9x6y7uy0/</id>
+    <link href="https://luoyec.cn/2017/10/11/cl4e3wljv001gp29ew7m7yn5t/"/>
+    <id>https://luoyec.cn/2017/10/11/cl4e3wljv001gp29ew7m7yn5t/</id>
     <published>2017-10-11T14:50:14.000Z</published>
     <updated>2017-10-11T14:50:56.000Z</updated>
     
@@ -1892,8 +1917,8 @@
   
   <entry>
     <title>JavaScript 值</title>
-    <link href="https://luoyec.cn/2017/10/11/cl4e29qd1002s989en8pnlsyw/"/>
-    <id>https://luoyec.cn/2017/10/11/cl4e29qd1002s989en8pnlsyw/</id>
+    <link href="https://luoyec.cn/2017/10/11/cl4e3wlkh002qp29eu3989faa/"/>
+    <id>https://luoyec.cn/2017/10/11/cl4e3wlkh002qp29eu3989faa/</id>
     <published>2017-10-11T05:17:29.000Z</published>
     <updated>2017-10-11T05:17:48.000Z</updated>
     
@@ -1918,8 +1943,8 @@
   
   <entry>
     <title>JavaScript类型</title>
-    <link href="https://luoyec.cn/2017/10/10/cl4e29qd70036989eptk4xla7/"/>
-    <id>https://luoyec.cn/2017/10/10/cl4e29qd70036989eptk4xla7/</id>
+    <link href="https://luoyec.cn/2017/10/10/cl4e3wlkm0030p29e0w00yd72/"/>
+    <id>https://luoyec.cn/2017/10/10/cl4e3wlkm0030p29e0w00yd72/</id>
     <published>2017-10-10T05:27:27.000Z</published>
     <updated>2017-10-10T05:27:38.000Z</updated>
     
@@ -1944,8 +1969,8 @@
   
   <entry>
     <title>行为委托</title>
-    <link href="https://luoyec.cn/2017/10/08/cl4e29qh100a4989eeblrsjmo/"/>
-    <id>https://luoyec.cn/2017/10/08/cl4e29qh100a4989eeblrsjmo/</id>
+    <link href="https://luoyec.cn/2017/10/08/cl4e3wlnv009zp29euhqg8v7l/"/>
+    <id>https://luoyec.cn/2017/10/08/cl4e3wlnv009zp29euhqg8v7l/</id>
     <published>2017-10-08T07:10:13.000Z</published>
     <updated>2017-10-08T07:10:22.000Z</updated>
     
@@ -1974,8 +1999,8 @@
   
   <entry>
     <title>原型</title>
-    <link href="https://luoyec.cn/2017/10/08/cl4e29qg0008e989e5fgarnjt/"/>
-    <id>https://luoyec.cn/2017/10/08/cl4e29qg0008e989e5fgarnjt/</id>
+    <link href="https://luoyec.cn/2017/10/08/cl4e3wln9008fp29eleqg0x1k/"/>
+    <id>https://luoyec.cn/2017/10/08/cl4e3wln9008fp29eleqg0x1k/</id>
     <published>2017-10-08T06:04:27.000Z</published>
     <updated>2017-10-08T06:04:30.000Z</updated>
     
@@ -2002,8 +2027,8 @@
   
   <entry>
     <title>混合对象“类”</title>
-    <link href="https://luoyec.cn/2017/10/06/cl4e29qgo009g989e7na6nrnr/"/>
-    <id>https://luoyec.cn/2017/10/06/cl4e29qgo009g989e7na6nrnr/</id>
+    <link href="https://luoyec.cn/2017/10/06/cl4e3wlnm009bp29ewidktef9/"/>
+    <id>https://luoyec.cn/2017/10/06/cl4e3wlnm009bp29ewidktef9/</id>
     <published>2017-10-06T15:50:15.000Z</published>
     <updated>2017-10-06T15:50:22.000Z</updated>
     
@@ -2030,8 +2055,8 @@
   
   <entry>
     <title>关于this</title>
-    <link href="https://luoyec.cn/2017/10/06/cl4e29qfn007r989e8byxw0p8/"/>
-    <id>https://luoyec.cn/2017/10/06/cl4e29qfn007r989e8byxw0p8/</id>
+    <link href="https://luoyec.cn/2017/10/06/cl4e3wlmw007np29ewz9m029a/"/>
+    <id>https://luoyec.cn/2017/10/06/cl4e3wlmw007np29ewz9m029a/</id>
     <published>2017-10-06T15:24:44.000Z</published>
     <updated>2017-10-06T15:24:51.000Z</updated>
     
@@ -2060,8 +2085,8 @@
   
   <entry>
     <title>作用域闭包</title>
-    <link href="https://luoyec.cn/2017/10/04/cl4e29qfk007m989elzyi9sma/"/>
-    <id>https://luoyec.cn/2017/10/04/cl4e29qfk007m989elzyi9sma/</id>
+    <link href="https://luoyec.cn/2017/10/04/cl4e3wlmv007kp29e9rq55w7r/"/>
+    <id>https://luoyec.cn/2017/10/04/cl4e3wlmv007kp29e9rq55w7r/</id>
     <published>2017-10-04T03:16:16.000Z</published>
     <updated>2017-10-06T15:29:13.000Z</updated>
     
@@ -2091,8 +2116,8 @@
   
   <entry>
     <title>提升</title>
-    <link href="https://luoyec.cn/2017/10/03/cl4e29qgd008y989ebeh5y9o1/"/>
-    <id>https://luoyec.cn/2017/10/03/cl4e29qgd008y989ebeh5y9o1/</id>
+    <link href="https://luoyec.cn/2017/10/03/cl4e3wlnh0090p29ef689ugjp/"/>
+    <id>https://luoyec.cn/2017/10/03/cl4e3wlnh0090p29ef689ugjp/</id>
     <published>2017-10-03T07:25:48.000Z</published>
     <updated>2017-10-06T15:25:04.000Z</updated>
     
@@ -2119,8 +2144,8 @@
   
   <entry>
     <title>谈项目中如何选择框架和库</title>
-    <link href="https://luoyec.cn/2017/10/03/cl4e29qh500ad989e3ckyah6g/"/>
-    <id>https://luoyec.cn/2017/10/03/cl4e29qh500ad989e3ckyah6g/</id>
+    <link href="https://luoyec.cn/2017/10/03/cl4e3wlo300anp29ernicc6vl/"/>
+    <id>https://luoyec.cn/2017/10/03/cl4e3wlo300anp29ernicc6vl/</id>
     <published>2017-10-03T06:43:25.000Z</published>
     <updated>2017-10-03T06:43:33.000Z</updated>
     
@@ -2146,8 +2171,8 @@
   
   <entry>
     <title>函数作用域和块作用域</title>
-    <link href="https://luoyec.cn/2017/10/03/cl4e29qfq007z989elz5j1tc7/"/>
-    <id>https://luoyec.cn/2017/10/03/cl4e29qfq007z989elz5j1tc7/</id>
+    <link href="https://luoyec.cn/2017/10/03/cl4e3wln30080p29ee27reelp/"/>
+    <id>https://luoyec.cn/2017/10/03/cl4e3wln30080p29ee27reelp/</id>
     <published>2017-10-03T06:02:42.000Z</published>
     <updated>2017-10-03T06:30:43.000Z</updated>
     
@@ -2174,8 +2199,8 @@
   
   <entry>
     <title>词法作用域</title>
-    <link href="https://luoyec.cn/2017/10/03/cl4e29qh300ab989e6wq06lzg/"/>
-    <id>https://luoyec.cn/2017/10/03/cl4e29qh300ab989e6wq06lzg/</id>
+    <link href="https://luoyec.cn/2017/10/03/cl4e3wlnz00aap29eenqwgq70/"/>
+    <id>https://luoyec.cn/2017/10/03/cl4e3wlnz00aap29eenqwgq70/</id>
     <published>2017-10-03T03:39:52.000Z</published>
     <updated>2017-10-03T06:30:58.000Z</updated>
     
@@ -2202,8 +2227,8 @@
   
   <entry>
     <title>作用域是什么</title>
-    <link href="https://luoyec.cn/2017/10/03/cl4e29qfi007j989ef75hrouk/"/>
-    <id>https://luoyec.cn/2017/10/03/cl4e29qfi007j989ef75hrouk/</id>
+    <link href="https://luoyec.cn/2017/10/03/cl4e3wlmu007hp29ehj35dyfj/"/>
+    <id>https://luoyec.cn/2017/10/03/cl4e3wlmu007hp29ehj35dyfj/</id>
     <published>2017-10-03T02:49:13.000Z</published>
     <updated>2017-10-03T06:31:16.000Z</updated>
     
@@ -2232,8 +2257,8 @@
   
   <entry>
     <title>礼物说分享</title>
-    <link href="https://luoyec.cn/2017/09/25/cl4e29qgy009v989eh3awxb6x/"/>
-    <id>https://luoyec.cn/2017/09/25/cl4e29qgy009v989eh3awxb6x/</id>
+    <link href="https://luoyec.cn/2017/09/25/cl4e3wlnt009tp29em09jv2tf/"/>
+    <id>https://luoyec.cn/2017/09/25/cl4e3wlnt009tp29em09jv2tf/</id>
     <published>2017-09-25T03:37:13.000Z</published>
     <updated>2017-10-03T06:42:09.000Z</updated>
     
@@ -2264,8 +2289,8 @@
   
   <entry>
     <title>路由协议与应用协议</title>
-    <link href="https://luoyec.cn/2017/09/19/cl4e29qh800al989edu7365er/"/>
-    <id>https://luoyec.cn/2017/09/19/cl4e29qh800al989edu7365er/</id>
+    <link href="https://luoyec.cn/2017/09/19/cl4e3wlo100aip29eh8m4m1c5/"/>
+    <id>https://luoyec.cn/2017/09/19/cl4e3wlo100aip29eh8m4m1c5/</id>
     <published>2017-09-19T12:51:45.000Z</published>
     <updated>2017-09-19T12:52:25.000Z</updated>
     
@@ -2291,8 +2316,8 @@
   
   <entry>
     <title>TCP与UDP</title>
-    <link href="https://luoyec.cn/2017/09/19/cl4e29qei005m989e4x64ilc4/"/>
-    <id>https://luoyec.cn/2017/09/19/cl4e29qei005m989e4x64ilc4/</id>
+    <link href="https://luoyec.cn/2017/09/19/cl4e3wlln004xp29eiskxvgv7/"/>
+    <id>https://luoyec.cn/2017/09/19/cl4e3wlln004xp29eiskxvgv7/</id>
     <published>2017-09-19T11:53:34.000Z</published>
     <updated>2017-09-19T11:53:51.000Z</updated>
     
@@ -2319,8 +2344,8 @@
   
   <entry>
     <title>IP协议相关技术</title>
-    <link href="https://luoyec.cn/2017/09/18/cl4e29qce001f989eu1jg8z5i/"/>
-    <id>https://luoyec.cn/2017/09/18/cl4e29qce001f989eu1jg8z5i/</id>
+    <link href="https://luoyec.cn/2017/09/18/cl4e3wljr0019p29ex0j4nh8j/"/>
+    <id>https://luoyec.cn/2017/09/18/cl4e3wljr0019p29ex0j4nh8j/</id>
     <published>2017-09-18T12:42:21.000Z</published>
     <updated>2017-09-18T12:42:30.000Z</updated>
     
@@ -2347,8 +2372,8 @@
   
   <entry>
     <title>IP协议</title>
-    <link href="https://luoyec.cn/2017/09/18/cl4e29qcj001n989er2ja7mr0/"/>
-    <id>https://luoyec.cn/2017/09/18/cl4e29qcj001n989er2ja7mr0/</id>
+    <link href="https://luoyec.cn/2017/09/18/cl4e3wljp0017p29eord8sy0o/"/>
+    <id>https://luoyec.cn/2017/09/18/cl4e3wljp0017p29eord8sy0o/</id>
     <published>2017-09-18T12:07:00.000Z</published>
     <updated>2017-09-18T12:07:05.000Z</updated>
     
@@ -2375,8 +2400,8 @@
   
   <entry>
     <title>数据链路</title>
-    <link href="https://luoyec.cn/2017/09/15/cl4e29qgh0096989e0zj77gox/"/>
-    <id>https://luoyec.cn/2017/09/15/cl4e29qgh0096989e0zj77gox/</id>
+    <link href="https://luoyec.cn/2017/09/15/cl4e3wlng008xp29ef7q5dmjy/"/>
+    <id>https://luoyec.cn/2017/09/15/cl4e3wlng008xp29ef7q5dmjy/</id>
     <published>2017-09-15T05:17:56.000Z</published>
     <updated>2017-09-15T05:18:05.000Z</updated>
     
@@ -2402,8 +2427,8 @@
   
   <entry>
     <title>TCP/IP 基础知识</title>
-    <link href="https://luoyec.cn/2017/09/12/cl4e29qe1004s989e7inwcpqy/"/>
-    <id>https://luoyec.cn/2017/09/12/cl4e29qe1004s989e7inwcpqy/</id>
+    <link href="https://luoyec.cn/2017/09/12/cl4e3wlli004pp29evk6qc7wg/"/>
+    <id>https://luoyec.cn/2017/09/12/cl4e3wlli004pp29evk6qc7wg/</id>
     <published>2017-09-12T06:08:14.000Z</published>
     <updated>2017-09-12T06:08:24.000Z</updated>
     
@@ -2430,8 +2455,8 @@
   
   <entry>
     <title>网络基础知识</title>
-    <link href="https://luoyec.cn/2017/09/11/cl4e29qgz009x989ex0sax4by/"/>
-    <id>https://luoyec.cn/2017/09/11/cl4e29qgz009x989ex0sax4by/</id>
+    <link href="https://luoyec.cn/2017/09/11/cl4e3wlnu009vp29eivzr1tyh/"/>
+    <id>https://luoyec.cn/2017/09/11/cl4e3wlnu009vp29eivzr1tyh/</id>
     <published>2017-09-10T23:46:16.000Z</published>
     <updated>2017-09-10T23:48:48.000Z</updated>
     
@@ -2458,8 +2483,8 @@
   
   <entry>
     <title>分析算法</title>
-    <link href="https://luoyec.cn/2017/09/06/cl4e29qfs0082989e9td37501/"/>
-    <id>https://luoyec.cn/2017/09/06/cl4e29qfs0082989e9td37501/</id>
+    <link href="https://luoyec.cn/2017/09/06/cl4e3wln0007tp29eaovd7my9/"/>
+    <id>https://luoyec.cn/2017/09/06/cl4e3wln0007tp29eaovd7my9/</id>
     <published>2017-09-06T12:04:30.000Z</published>
     <updated>2017-09-06T12:04:42.000Z</updated>
     
@@ -2486,8 +2511,8 @@
   
   <entry>
     <title>异步操作和async函数</title>
-    <link href="https://luoyec.cn/2017/09/03/cl4e29qg5008p989ehysnv0x6/"/>
-    <id>https://luoyec.cn/2017/09/03/cl4e29qg5008p989ehysnv0x6/</id>
+    <link href="https://luoyec.cn/2017/09/03/cl4e3wlne008rp29e144afef3/"/>
+    <id>https://luoyec.cn/2017/09/03/cl4e3wlne008rp29e144afef3/</id>
     <published>2017-09-03T15:59:51.000Z</published>
     <updated>2017-09-03T16:03:15.000Z</updated>
     
@@ -2520,8 +2545,8 @@
   
   <entry>
     <title>算法基础-插入排序&amp;&amp;习题2.1-3、2.1-4</title>
-    <link href="https://luoyec.cn/2017/09/02/cl4e29qgs009q989elgr5li7o/"/>
-    <id>https://luoyec.cn/2017/09/02/cl4e29qgs009q989elgr5li7o/</id>
+    <link href="https://luoyec.cn/2017/09/02/cl4e3wlns009op29ewkjru9t0/"/>
+    <id>https://luoyec.cn/2017/09/02/cl4e3wlns009op29ewkjru9t0/</id>
     <published>2017-09-02T07:23:24.000Z</published>
     <updated>2017-09-02T07:26:49.000Z</updated>
     
@@ -2548,8 +2573,8 @@
   
   <entry>
     <title>算法在计算中的作用</title>
-    <link href="https://luoyec.cn/2017/08/30/cl4e29qgp009i989e74x1pjee/"/>
-    <id>https://luoyec.cn/2017/08/30/cl4e29qgp009i989e74x1pjee/</id>
+    <link href="https://luoyec.cn/2017/08/30/cl4e3wlnr009lp29e98ojypzq/"/>
+    <id>https://luoyec.cn/2017/08/30/cl4e3wlnr009lp29e98ojypzq/</id>
     <published>2017-08-30T15:10:01.000Z</published>
     <updated>2017-08-30T15:10:07.000Z</updated>
     
@@ -2575,8 +2600,8 @@
   
   <entry>
     <title>Egret MVC通用框架HTTP请求实践（GET请求）</title>
-    <link href="https://luoyec.cn/2017/08/29/cl4e29qby000j989eqw9wmoa2/"/>
-    <id>https://luoyec.cn/2017/08/29/cl4e29qby000j989eqw9wmoa2/</id>
+    <link href="https://luoyec.cn/2017/08/29/cl4e3wljf000kp29ezlvu3mym/"/>
+    <id>https://luoyec.cn/2017/08/29/cl4e3wljf000kp29ezlvu3mym/</id>
     <published>2017-08-29T09:31:52.000Z</published>
     <updated>2017-08-29T09:32:12.000Z</updated>
     
@@ -2604,8 +2629,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（15）</title>
-    <link href="https://luoyec.cn/2017/08/26/cl4e29qeu0068989eaxg0bxqk/"/>
-    <id>https://luoyec.cn/2017/08/26/cl4e29qeu0068989eaxg0bxqk/</id>
+    <link href="https://luoyec.cn/2017/08/26/cl4e3wlma006ep29ed5v8cirp/"/>
+    <id>https://luoyec.cn/2017/08/26/cl4e3wlma006ep29ed5v8cirp/</id>
     <published>2017-08-26T04:03:04.000Z</published>
     <updated>2017-08-26T04:06:16.000Z</updated>
     
@@ -2634,8 +2659,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（9）</title>
-    <link href="https://luoyec.cn/2017/08/26/cl4e29qf80070989eni89i2bp/"/>
-    <id>https://luoyec.cn/2017/08/26/cl4e29qf80070989eni89i2bp/</id>
+    <link href="https://luoyec.cn/2017/08/26/cl4e3wlmm006yp29eqru8h7m2/"/>
+    <id>https://luoyec.cn/2017/08/26/cl4e3wlmm006yp29eqru8h7m2/</id>
     <published>2017-08-26T03:36:02.000Z</published>
     <updated>2017-08-26T04:06:13.000Z</updated>
     
@@ -2662,8 +2687,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（8）</title>
-    <link href="https://luoyec.cn/2017/08/26/cl4e29qf6006v989edd702605/"/>
-    <id>https://luoyec.cn/2017/08/26/cl4e29qf6006v989edd702605/</id>
+    <link href="https://luoyec.cn/2017/08/26/cl4e3wlmi006tp29etduqfkvs/"/>
+    <id>https://luoyec.cn/2017/08/26/cl4e3wlmi006tp29etduqfkvs/</id>
     <published>2017-08-26T03:05:58.000Z</published>
     <updated>2017-08-26T03:06:06.000Z</updated>
     
@@ -2689,8 +2714,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（7）</title>
-    <link href="https://luoyec.cn/2017/08/23/cl4e29qf5006s989ei0ux5eqk/"/>
-    <id>https://luoyec.cn/2017/08/23/cl4e29qf5006s989ei0ux5eqk/</id>
+    <link href="https://luoyec.cn/2017/08/23/cl4e3wlmh006qp29etq56a46n/"/>
+    <id>https://luoyec.cn/2017/08/23/cl4e3wlmh006qp29etq56a46n/</id>
     <published>2017-08-23T14:27:46.000Z</published>
     <updated>2017-08-23T14:27:53.000Z</updated>
     
@@ -2718,8 +2743,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（6）</title>
-    <link href="https://luoyec.cn/2017/08/23/cl4e29qf3006o989ezxd0thr3/"/>
-    <id>https://luoyec.cn/2017/08/23/cl4e29qf3006o989ezxd0thr3/</id>
+    <link href="https://luoyec.cn/2017/08/23/cl4e3wlmd006kp29e85qi7p21/"/>
+    <id>https://luoyec.cn/2017/08/23/cl4e3wlmd006kp29e85qi7p21/</id>
     <published>2017-08-23T13:51:17.000Z</published>
     <updated>2017-08-23T13:51:24.000Z</updated>
     
@@ -2746,8 +2771,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）</title>
-    <link href="https://luoyec.cn/2017/08/23/cl4e29qf1006m989ez4s8uj5m/"/>
-    <id>https://luoyec.cn/2017/08/23/cl4e29qf1006m989ez4s8uj5m/</id>
+    <link href="https://luoyec.cn/2017/08/23/cl4e3wlmf006mp29eqsyxs96c/"/>
+    <id>https://luoyec.cn/2017/08/23/cl4e3wlmf006mp29eqsyxs96c/</id>
     <published>2017-08-22T16:31:50.000Z</published>
     <updated>2017-08-22T16:32:02.000Z</updated>
     
@@ -2776,8 +2801,8 @@
   
   <entry>
     <title>Egret 图片缓动动画实现</title>
-    <link href="https://luoyec.cn/2017/08/22/cl4e29qc2000r989eschd660i/"/>
-    <id>https://luoyec.cn/2017/08/22/cl4e29qc2000r989eschd660i/</id>
+    <link href="https://luoyec.cn/2017/08/22/cl4e3wlji000qp29e8kjtqkph/"/>
+    <id>https://luoyec.cn/2017/08/22/cl4e3wlji000qp29e8kjtqkph/</id>
     <published>2017-08-22T10:18:36.000Z</published>
     <updated>2017-08-22T10:18:43.000Z</updated>
     
@@ -2805,8 +2830,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（4）</title>
-    <link href="https://luoyec.cn/2017/08/22/cl4e29qez006i989ewa8nvw65/"/>
-    <id>https://luoyec.cn/2017/08/22/cl4e29qez006i989ewa8nvw65/</id>
+    <link href="https://luoyec.cn/2017/08/22/cl4e3wlmb006gp29e5rztk9qb/"/>
+    <id>https://luoyec.cn/2017/08/22/cl4e3wlmb006gp29e5rztk9qb/</id>
     <published>2017-08-22T06:27:50.000Z</published>
     <updated>2017-08-22T06:27:54.000Z</updated>
     
@@ -2835,8 +2860,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（3）</title>
-    <link href="https://luoyec.cn/2017/08/21/cl4e29qey006g989e5b834ahf/"/>
-    <id>https://luoyec.cn/2017/08/21/cl4e29qey006g989e5b834ahf/</id>
+    <link href="https://luoyec.cn/2017/08/21/cl4e3wlm80069p29e06kyc7ee/"/>
+    <id>https://luoyec.cn/2017/08/21/cl4e3wlm80069p29e06kyc7ee/</id>
     <published>2017-08-21T00:25:09.000Z</published>
     <updated>2017-08-21T00:25:18.000Z</updated>
     
@@ -2862,8 +2887,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）</title>
-    <link href="https://luoyec.cn/2017/08/21/cl4e29qew006b989ebei8w5yl/"/>
-    <id>https://luoyec.cn/2017/08/21/cl4e29qew006b989ebei8w5yl/</id>
+    <link href="https://luoyec.cn/2017/08/21/cl4e3wlm70066p29evbnhwta1/"/>
+    <id>https://luoyec.cn/2017/08/21/cl4e3wlm70066p29evbnhwta1/</id>
     <published>2017-08-20T23:32:21.000Z</published>
     <updated>2017-08-20T23:32:28.000Z</updated>
     
@@ -2889,8 +2914,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（1）</title>
-    <link href="https://luoyec.cn/2017/08/20/cl4e29qfo007v989eadkch015/"/>
-    <id>https://luoyec.cn/2017/08/20/cl4e29qfo007v989eadkch015/</id>
+    <link href="https://luoyec.cn/2017/08/20/cl4e3wlmz007pp29ec9k6xvoh/"/>
+    <id>https://luoyec.cn/2017/08/20/cl4e3wlmz007pp29ec9k6xvoh/</id>
     <published>2017-08-20T15:50:04.000Z</published>
     <updated>2017-08-20T23:37:13.000Z</updated>
     
@@ -2916,8 +2941,8 @@
   
   <entry>
     <title>mongodb二（命令行操作）</title>
-    <link href="https://luoyec.cn/2017/08/16/cl4e29qem005u989ef2fc8u04/"/>
-    <id>https://luoyec.cn/2017/08/16/cl4e29qem005u989ef2fc8u04/</id>
+    <link href="https://luoyec.cn/2017/08/16/cl4e3wlm0005sp29esdka6maf/"/>
+    <id>https://luoyec.cn/2017/08/16/cl4e3wlm0005sp29esdka6maf/</id>
     <published>2017-08-16T13:58:13.000Z</published>
     <updated>2017-08-17T01:42:23.000Z</updated>
     
@@ -2945,8 +2970,8 @@
   
   <entry>
     <title>mongodb一（命令行操作）</title>
-    <link href="https://luoyec.cn/2017/08/16/cl4e29qek005r989e40f7pf8c/"/>
-    <id>https://luoyec.cn/2017/08/16/cl4e29qek005r989e40f7pf8c/</id>
+    <link href="https://luoyec.cn/2017/08/16/cl4e3wlm4005xp29eao921cp3/"/>
+    <id>https://luoyec.cn/2017/08/16/cl4e3wlm4005xp29eao921cp3/</id>
     <published>2017-08-16T13:46:13.000Z</published>
     <updated>2017-08-17T01:42:30.000Z</updated>
     
@@ -2975,8 +3000,8 @@
   
   <entry>
     <title>安卓App内嵌Egret</title>
-    <link href="https://luoyec.cn/2017/08/16/cl4e29qg4008m989edmvrrbbc/"/>
-    <id>https://luoyec.cn/2017/08/16/cl4e29qg4008m989edmvrrbbc/</id>
+    <link href="https://luoyec.cn/2017/08/16/cl4e3wlnc008np29e517sgsxb/"/>
+    <id>https://luoyec.cn/2017/08/16/cl4e3wlnc008np29e517sgsxb/</id>
     <published>2017-08-16T13:40:34.000Z</published>
     <updated>2017-08-16T13:41:35.000Z</updated>
     
@@ -3005,8 +3030,8 @@
   
   <entry>
     <title>Egret HTTP简单请求</title>
-    <link href="https://luoyec.cn/2017/08/16/cl4e29qbv000e989e4iay20di/"/>
-    <id>https://luoyec.cn/2017/08/16/cl4e29qbv000e989e4iay20di/</id>
+    <link href="https://luoyec.cn/2017/08/16/cl4e3wljc000fp29e7pl0d8aq/"/>
+    <id>https://luoyec.cn/2017/08/16/cl4e3wljc000fp29e7pl0d8aq/</id>
     <published>2017-08-16T03:49:36.000Z</published>
     <updated>2017-08-16T13:41:50.000Z</updated>
     
@@ -3037,8 +3062,8 @@
   
   <entry>
     <title>Egret Loading 页面实现方法</title>
-    <link href="https://luoyec.cn/2017/08/16/cl4e29qc1000p989e6b6onegl/"/>
-    <id>https://luoyec.cn/2017/08/16/cl4e29qc1000p989e6b6onegl/</id>
+    <link href="https://luoyec.cn/2017/08/16/cl4e3wljh000op29emz3f51fe/"/>
+    <id>https://luoyec.cn/2017/08/16/cl4e3wljh000op29emz3f51fe/</id>
     <published>2017-08-16T03:29:48.000Z</published>
     <updated>2017-08-17T08:59:56.000Z</updated>
     
@@ -3067,8 +3092,8 @@
   
   <entry>
     <title>数组、栈、队列</title>
-    <link href="https://luoyec.cn/2017/08/12/cl4e29qgf0092989eyrs24y0e/"/>
-    <id>https://luoyec.cn/2017/08/12/cl4e29qgf0092989eyrs24y0e/</id>
+    <link href="https://luoyec.cn/2017/08/12/cl4e3wlnk0098p29epzvv8ua9/"/>
+    <id>https://luoyec.cn/2017/08/12/cl4e3wlnk0098p29epzvv8ua9/</id>
     <published>2017-08-12T09:48:42.000Z</published>
     <updated>2017-08-12T09:49:06.000Z</updated>
     
@@ -3096,8 +3121,8 @@
   
   <entry>
     <title>代码整洁之道四:注释</title>
-    <link href="https://luoyec.cn/2017/08/12/cl4e29qfh007f989expqouud5/"/>
-    <id>https://luoyec.cn/2017/08/12/cl4e29qfh007f989expqouud5/</id>
+    <link href="https://luoyec.cn/2017/08/12/cl4e3wlmt007dp29ego22pa4e/"/>
+    <id>https://luoyec.cn/2017/08/12/cl4e3wlmt007dp29ego22pa4e/</id>
     <published>2017-08-11T17:06:29.000Z</published>
     <updated>2017-08-11T17:07:08.000Z</updated>
     
@@ -3126,8 +3151,8 @@
   
   <entry>
     <title>Git 工作流指南（总结&amp;&amp;实践）</title>
-    <link href="https://luoyec.cn/2017/08/10/cl4e29qc60010989ec8r10g10/"/>
-    <id>https://luoyec.cn/2017/08/10/cl4e29qc60010989ec8r10g10/</id>
+    <link href="https://luoyec.cn/2017/08/10/cl4e3wljn0012p29ewpwse9v7/"/>
+    <id>https://luoyec.cn/2017/08/10/cl4e3wljn0012p29ewpwse9v7/</id>
     <published>2017-08-10T15:18:21.000Z</published>
     <updated>2017-08-10T15:27:07.000Z</updated>
     
@@ -3157,8 +3182,8 @@
   
   <entry>
     <title>Git基础入门</title>
-    <link href="https://luoyec.cn/2017/08/10/cl4e29qc90014989ex27rnbop/"/>
-    <id>https://luoyec.cn/2017/08/10/cl4e29qc90014989ex27rnbop/</id>
+    <link href="https://luoyec.cn/2017/08/10/cl4e3wljm000zp29ec0brunt0/"/>
+    <id>https://luoyec.cn/2017/08/10/cl4e3wljm000zp29ec0brunt0/</id>
     <published>2017-08-10T15:13:02.000Z</published>
     <updated>2017-08-10T15:15:06.000Z</updated>
     
@@ -3187,8 +3212,8 @@
   
   <entry>
     <title>Git常见问题</title>
-    <link href="https://luoyec.cn/2017/08/10/cl4e29qc80013989eojitv7kp/"/>
-    <id>https://luoyec.cn/2017/08/10/cl4e29qc80013989eojitv7kp/</id>
+    <link href="https://luoyec.cn/2017/08/10/cl4e3wljo0013p29evkcf1q76/"/>
+    <id>https://luoyec.cn/2017/08/10/cl4e3wljo0013p29evkcf1q76/</id>
     <published>2017-08-10T15:09:05.000Z</published>
     <updated>2017-08-10T15:16:26.000Z</updated>
     
@@ -3216,8 +3241,8 @@
   
   <entry>
     <title>代码整洁之道三:函数</title>
-    <link href="https://luoyec.cn/2017/08/09/cl4e29qfe0079989eyvtv7luj/"/>
-    <id>https://luoyec.cn/2017/08/09/cl4e29qfe0079989eyvtv7luj/</id>
+    <link href="https://luoyec.cn/2017/08/09/cl4e3wlmq0077p29ecrdsx5m7/"/>
+    <id>https://luoyec.cn/2017/08/09/cl4e3wlmq0077p29ecrdsx5m7/</id>
     <published>2017-08-09T15:40:05.000Z</published>
     <updated>2017-08-09T15:41:38.000Z</updated>
     
@@ -3246,8 +3271,8 @@
   
   <entry>
     <title>Express Getting Started实践</title>
-    <link href="https://luoyec.cn/2017/08/09/cl4e29qc5000y989eaqab0dts/"/>
-    <id>https://luoyec.cn/2017/08/09/cl4e29qc5000y989eaqab0dts/</id>
+    <link href="https://luoyec.cn/2017/08/09/cl4e3wljk000xp29e2ysohauy/"/>
+    <id>https://luoyec.cn/2017/08/09/cl4e3wljk000xp29e2ysohauy/</id>
     <published>2017-08-08T22:43:10.000Z</published>
     <updated>2017-08-09T15:41:27.000Z</updated>
     
@@ -3273,8 +3298,8 @@
   
   <entry>
     <title>socket.io入门实践</title>
-    <link href="https://luoyec.cn/2017/08/09/cl4e29qes0063989ex74vg8vu/"/>
-    <id>https://luoyec.cn/2017/08/09/cl4e29qes0063989ex74vg8vu/</id>
+    <link href="https://luoyec.cn/2017/08/09/cl4e3wlm5005zp29evucz2je4/"/>
+    <id>https://luoyec.cn/2017/08/09/cl4e3wlm5005zp29evucz2je4/</id>
     <published>2017-08-08T22:39:08.000Z</published>
     <updated>2017-08-09T15:41:26.000Z</updated>
     
@@ -3302,8 +3327,8 @@
   
   <entry>
     <title>代码整洁之道二：有意义的命名</title>
-    <link href="https://luoyec.cn/2017/08/08/cl4e29qff007c989e8nnxho2u/"/>
-    <id>https://luoyec.cn/2017/08/08/cl4e29qff007c989e8nnxho2u/</id>
+    <link href="https://luoyec.cn/2017/08/08/cl4e3wlmp0075p29ethpsbhwy/"/>
+    <id>https://luoyec.cn/2017/08/08/cl4e3wlmp0075p29ethpsbhwy/</id>
     <published>2017-08-08T15:21:20.000Z</published>
     <updated>2017-08-09T15:41:45.000Z</updated>
     
@@ -3331,8 +3356,8 @@
   
   <entry>
     <title>代码整洁之道一:代码整洁</title>
-    <link href="https://luoyec.cn/2017/08/08/cl4e29qfb0077989enw7htqd9/"/>
-    <id>https://luoyec.cn/2017/08/08/cl4e29qfb0077989enw7htqd9/</id>
+    <link href="https://luoyec.cn/2017/08/08/cl4e3wlmo0071p29e7cteb8dl/"/>
+    <id>https://luoyec.cn/2017/08/08/cl4e3wlmo0071p29e7cteb8dl/</id>
     <published>2017-08-08T06:23:46.000Z</published>
     <updated>2017-08-09T15:41:32.000Z</updated>
     
@@ -3360,8 +3385,8 @@
   
   <entry>
     <title>MongoDB及Robo工具安装</title>
-    <link href="https://luoyec.cn/2017/08/05/cl4e29qdk003s989eje9w1mub/"/>
-    <id>https://luoyec.cn/2017/08/05/cl4e29qdk003s989eje9w1mub/</id>
+    <link href="https://luoyec.cn/2017/08/05/cl4e3wll1003rp29e04o0gsob/"/>
+    <id>https://luoyec.cn/2017/08/05/cl4e3wll1003rp29e04o0gsob/</id>
     <published>2017-08-05T02:08:28.000Z</published>
     <updated>2017-08-05T04:25:16.000Z</updated>
     

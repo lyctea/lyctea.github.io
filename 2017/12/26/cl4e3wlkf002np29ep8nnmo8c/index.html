@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,事件," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript注册事件处理下注册事件处理程序有两种基本方式，第一种是给目标对象或文档元素设置属性。第二种更为通用，是将事件处理程序传递给对象或元素的一个方法。 可以在 JavaScript 代码中设置事件处理程序的对象属性，或对于文档流元素，可以在 HTML 中直接设置相应属性。对于通过方法调用的处理程序注册，有个标准方法 addEventListenter()， IE8 及以前版本的之外都">
+<meta name="keywords" content="JavaScript,事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript事件处理下">
+<meta property="og:url" content="https://luoyec.cn/2017/12/26/cl4e3wlkf002np29ep8nnmo8c/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="JavaScript注册事件处理下注册事件处理程序有两种基本方式，第一种是给目标对象或文档元素设置属性。第二种更为通用，是将事件处理程序传递给对象或元素的一个方法。 可以在 JavaScript 代码中设置事件处理程序的对象属性，或对于文档流元素，可以在 HTML 中直接设置相应属性。对于通过方法调用的处理程序注册，有个标准方法 addEventListenter()， IE8 及以前版本的之外都">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1514131995800.jpg">
+<meta property="og:updated_time" content="2017-12-26T15:35:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript事件处理下">
+<meta name="twitter:description" content="JavaScript注册事件处理下注册事件处理程序有两种基本方式，第一种是给目标对象或文档元素设置属性。第二种更为通用，是将事件处理程序传递给对象或元素的一个方法。 可以在 JavaScript 代码中设置事件处理程序的对象属性，或对于文档流元素，可以在 HTML 中直接设置相应属性。对于通过方法调用的处理程序注册，有个标准方法 addEventListenter()， IE8 及以前版本的之外都">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1514131995800.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2017/12/26/cl4e3wlkf002np29ep8nnmo8c/"/>
+
+
+
+
+
+  <title>JavaScript事件处理下 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/12/26/cl4e3wlkf002np29ep8nnmo8c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript事件处理下</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-26T22:35:21+08:00">
+                2017-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript注册事件处理下"><a href="#JavaScript注册事件处理下" class="headerlink" title="JavaScript注册事件处理下"></a>JavaScript注册事件处理下</h1><p>注册事件处理程序有两种基本方式，第一种是给目标对象或文档元素设置属性。第二种更为通用，是将事件处理程序传递给对象或元素的一个方法。</p>
+<p>可以在 <code>JavaScript</code> 代码中设置事件处理程序的对象属性，或对于文档流元素，可以在 <code>HTML</code> 中直接设置相应属性。对于通过方法调用的处理程序注册，有个标准方法 <code>addEventListenter()</code>， <code>IE8</code> 及以前版本的之外都支持，在   <code>IE9</code> 之前有个另一个方法  <code>attachEvent()</code></p>
+<h2 id="设置-JavaScript-对象属性为事件处理程序"><a href="#设置-JavaScript-对象属性为事件处理程序" class="headerlink" title="设置 JavaScript 对象属性为事件处理程序"></a>设置 JavaScript 对象属性为事件处理程序</h2><p>注册事件处理程序最简单的方式就是通过设置事件目标的属性为所需事件处理程序函数。区分大小写，并且都是小写，如 <code>onclick、onchange、onload、onmouseover</code> 等</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置window 对象的 unload 属性为一个函数</span></span><br><span class="line"><span class="comment">//当文档加载完毕时调用它</span></span><br><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般情况下，所有广泛实现的 <code>Web API</code> 定义的事件都允许通过设置事件处理程序属性来注册事件处理程序。</p>
+<p>缺点是每个事件目标对于每种事件类型将最多只有一个处理程序，如果想要编写能再任意文档中使用的脚本库代码，更好的方式是使用一种不修改或者覆盖任何已有注册事件程序的技术，例如 <code>addEventListenner()</code></p>
+<h2 id="设置-HTML-标签属性为事件处理程序"><a href="#设置-HTML-标签属性为事件处理程序" class="headerlink" title="设置 HTML 标签属性为事件处理程序"></a>设置 HTML 标签属性为事件处理程序</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onclick=<span class="string">"alert('THANK YOU!')"</span>&gt;&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+<p>这里有几个特点：</p>
+<ul>
+<li>属性值是 <code>JavaScript</code> 代码字符串</li>
+<li>这段代码是处理程序函数的主题，而非完整的函数声明</li>
+<li>不应该使用大括号包裹和 <code>function</code> 关键字作为前缀</li>
+<li>多条语句用 <code>;</code> 隔开</li>
+</ul>
+<h2 id="addEventListener"><a href="#addEventListener" class="headerlink" title="addEventListener()"></a>addEventListener()</h2><p>注意前面提到的兼容性问题。</p>
+<p>Window对象、Document 对象和所有文档元素都可以使用 addEventListener()</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target.addEventListener(type, listener[, options]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 改变t2的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">modifyText</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> t2 = <span class="built_in">document</span>.getElementById(<span class="string">"t2"</span>);</span><br><span class="line">  <span class="keyword">if</span> (t2.firstChild.nodeValue == <span class="string">"three"</span>) &#123;</span><br><span class="line">    t2.firstChild.nodeValue = <span class="string">"two"</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    t2.firstChild.nodeValue = <span class="string">"three"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为table添加事件监听器</span></span><br><span class="line"><span class="keyword">var</span> el = <span class="built_in">document</span>.getElementById(<span class="string">"outside"</span>);</span><br><span class="line">el.addEventListener(<span class="string">"click"</span>, modifyText, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="removeEventListener"><a href="#removeEventListener" class="headerlink" title="removeEventListener()"></a>removeEventListener()</h3><p>删除使用 <code>EventTarget.addEventListener()</code> 方法添加的事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">'div'</span>);</span><br><span class="line"><span class="keyword">var</span> listener = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="comment">/* do something here */</span></span><br><span class="line">&#125;;</span><br><span class="line">div.addEventListener(<span class="string">'click'</span>, listener, <span class="literal">false</span>);</span><br><span class="line">div.removeEventListener(<span class="string">'click'</span>, listener, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="attach……Event"><a href="#attach……Event" class="headerlink" title="attach……Event()"></a>attach……Event()</h2><p>这是早期IE浏览器（IE8及早期版本）的一个专有的替代性标准，替代 <code>EventTarget.addEventListener()</code> 方法</p>
+<blockquote>
+<p>⚠️  非标准 该特性是非标准的，请尽量不要在生产环境中使用它！<br>HEXO中不能出现此方法，会报错导致页面无法显示</p>
+</blockquote>
+<ul>
+<li>因为IE 模型不支持事件捕获，所以只有两个参数：事件类型和处理函数</li>
+<li>带on前缀，要给该方法传递 ‘onclick’</li>
+<li>允许相同事件注册多次，也会被调用多次</li>
+</ul>
+<h1 id="事件处理程序的调用"><a href="#事件处理程序的调用" class="headerlink" title="事件处理程序的调用"></a>事件处理程序的调用</h1><p>本节也会说明事件的传播机制，即单个事件如何能在原始目标和文档容器上触发多个处理程序的调用。</p>
+<h2 id="事件处理程序的参数"><a href="#事件处理程序的参数" class="headerlink" title="事件处理程序的参数"></a>事件处理程序的参数</h2><p>通常调用事件处理程序时会把事件对象作为它们的一个参数，提高有关事件的详细信息。</p>
+<p>一个 <code>IE8</code> 以前版本中，获取事件对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handler</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">	event = event || <span class="built_in">window</span>.event;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="事件处理程序的运行环境"><a href="#事件处理程序的运行环境" class="headerlink" title="事件处理程序的运行环境"></a>事件处理程序的运行环境</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">/* 处理程序代码 */</span>&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在事件处理程序中，<code>this</code> 关键字指的是事件目标</li>
+<li>当使用 <code>addEventListener()</code> 注册时，也是一样</li>
+<li>但对于 <code>attachEvent()</code>， <code>this</code> 却是 全局对象 <code>Window</code>，兼容的方法在书中有举例</li>
+</ul>
+<h2 id="事件处理程序返回值"><a href="#事件处理程序返回值" class="headerlink" title="事件处理程序返回值"></a>事件处理程序返回值</h2><p>通常情况下，返回 <code>false</code> 就是告诉浏览器不要执行这个事件相关的默认操作</p>
+<p><code>window.onbeforeunload()</code> : 当浏览器将要跳转到新页面时触发，如果返回一个字符串，那么将会出现在询问用户是否离开当前页面的标准对话框中（有兼容性问题，并不是所有浏览器都可以自定义提示信息，更多是浏览器标准提示）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onbeforeunload = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  e = e || <span class="built_in">window</span>.event;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 兼容IE8和Firefox 4之前的版本</span></span><br><span class="line">  <span class="keyword">if</span> (e) &#123;</span><br><span class="line">    e.returnValue = <span class="string">'关闭提示'</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">'关闭提示'</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1514131995800.jpg" alt=""></p>
+<h2 id="调用顺序"><a href="#调用顺序" class="headerlink" title="调用顺序"></a>调用顺序</h2><ul>
+<li>通过设置对象属性或 <code>HTML</code> 属性注册的处理程序一直优先调用</li>
+<li>使用 <code>addEventListener()</code> 注册的处理程序按照它们的注册顺序调用</li>
+<li>使用 <code>attachEvent()</code> 注册的处理程序可能按照任何顺序调用，所有代码不应该依赖于调用顺序</li>
+</ul>
+<h1 id="事件传播"><a href="#事件传播" class="headerlink" title="事件传播"></a>事件传播</h1><p>当事件目标是 <code>Window</code> 对象或其他一些单独对象（比如 <code>XMLHttpRequest</code> ）时，浏览器简单通过调用对象上适当的处理程序响应事件。</p>
+<p>但当事件目标是文档或文档元素时，情况较为复杂。</p>
+<p>大部分的事件都会“冒泡”到 <code>DOM</code> 树根，层层向上传递，事件冒泡为在大量单独文档元素上注册处理程序提供了代替方案，即在共同的祖先元素上注册一个处理程序来处理所有事件。</p>
+<h2 id="📍-事件传播的三个阶段："><a href="#📍-事件传播的三个阶段：" class="headerlink" title="📍 事件传播的三个阶段："></a>📍 事件传播的三个阶段：</h2><ul>
+<li>第一阶段发生在目标处理程序调用之前，称为 “捕获”阶段，回顾上文 <code>addEventListener()</code> 的第三个参数，注意兼容性问题</li>
+<li>第二阶段是目标对象本身的事件处理程序的调用</li>
+<li>第三阶段是事件冒泡</li>
+</ul>
+<p>事件捕获提供了在事件没有送达目标之前查看他们的机会。能用于程序调试、事件取消技术过滤掉事件从而使目标事件程序绝不会被调用、处理鼠标拖放</p>
+<h1 id="事件取消"><a href="#事件取消" class="headerlink" title="事件取消"></a>事件取消</h1><p>在支持 <code>addEventListener()</code> 的浏览器中，可以通过调用事件对象的 <code>preventDefaultDefault()</code> 方法取消事件的默认操作， <code>IE9</code> 之前，可以通过设置事件对象的 <code>returnValue</code> 属性为 <code>false</code> 达到相同效果。</p>
+<p>在支持 <code>addEventListener()</code> 的浏览器中，<code>stopPropagation()</code> 方法阻止事件的继续传播，<code>IE9</code> 之前， 使用 <code>cancelBubble()</code> </p>
+<h1 id="具体的事件类别"><a href="#具体的事件类别" class="headerlink" title="具体的事件类别"></a>具体的事件类别</h1><p>至此，已经学习了 <code>JavaScript</code> 事件处理的基本原理，针对于具体的事件，请查阅犀牛书相关章节</p>
+<ul>
+<li>文档加载事件</li>
+<li>鼠标事件</li>
+<li>鼠标滚轮事件</li>
+<li>拖放事件</li>
+<li>文本事件</li>
+<li>键盘事件</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/事件/" rel="tag"># 事件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/26/cl4e3wlko0034p29e1onx0ge8/" rel="next" title="JavaScript脚本化文档上">
+                <i class="fa fa-chevron-left"></i> JavaScript脚本化文档上
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/02/cl4e3wllw005hp29ertt72xpy/" rel="prev" title="YEOMAN实践一">
+                YEOMAN实践一 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">148</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript注册事件处理下"><span class="nav-number">1.</span> <span class="nav-text">JavaScript注册事件处理下</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-JavaScript-对象属性为事件处理程序"><span class="nav-number">1.1.</span> <span class="nav-text">设置 JavaScript 对象属性为事件处理程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-HTML-标签属性为事件处理程序"><span class="nav-number">1.2.</span> <span class="nav-text">设置 HTML 标签属性为事件处理程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#addEventListener"><span class="nav-number">1.3.</span> <span class="nav-text">addEventListener()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">1.3.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#removeEventListener"><span class="nav-number">1.3.2.</span> <span class="nav-text">removeEventListener()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#attach……Event"><span class="nav-number">1.4.</span> <span class="nav-text">attach……Event()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件处理程序的调用"><span class="nav-number">2.</span> <span class="nav-text">事件处理程序的调用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#事件处理程序的参数"><span class="nav-number">2.1.</span> <span class="nav-text">事件处理程序的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件处理程序的运行环境"><span class="nav-number">2.2.</span> <span class="nav-text">事件处理程序的运行环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件处理程序返回值"><span class="nav-number">2.3.</span> <span class="nav-text">事件处理程序返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用顺序"><span class="nav-number">2.4.</span> <span class="nav-text">调用顺序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件传播"><span class="nav-number">3.</span> <span class="nav-text">事件传播</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#📍-事件传播的三个阶段："><span class="nav-number">3.1.</span> <span class="nav-text">📍 事件传播的三个阶段：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件取消"><span class="nav-number">4.</span> <span class="nav-text">事件取消</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体的事件类别"><span class="nav-number">5.</span> <span class="nav-text">具体的事件类别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
