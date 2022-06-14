@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="表驱动发,查询表,索引访问,阶梯访问," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="表驱动法是一种编程模式(scheme)–从表里面查找信息而不使用逻辑语句（if和case），事实上，凡是能通过逻辑语句来选择的事物，都可以通过查表来选择。  表驱动法使用总则在适当的环境下，采用表驱动法，所生成的代码会比复杂的逻辑代码更简单、更容易修改，而且效率更高。 使用表驱动法的两个问题 必须要回答的是怎样从表中查询条目的问题？（从表里查询记录的方法：直接访问、索引访问、阶梯访问） 你应该在">
+<meta name="keywords" content="表驱动发,查询表,索引访问,阶梯访问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2017-10-21表驱动法">
+<meta property="og:url" content="https://luoyec.cn/2017/10/23/cl4e20x3o00a5jb9eou78xn6d/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="表驱动法是一种编程模式(scheme)–从表里面查找信息而不使用逻辑语句（if和case），事实上，凡是能通过逻辑语句来选择的事物，都可以通过查表来选择。  表驱动法使用总则在适当的环境下，采用表驱动法，所生成的代码会比复杂的逻辑代码更简单、更容易修改，而且效率更高。 使用表驱动法的两个问题 必须要回答的是怎样从表中查询条目的问题？（从表里查询记录的方法：直接访问、索引访问、阶梯访问） 你应该在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508758356713.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508760643279.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508760709197.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508763048795.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508763108470.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508766120913.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508766253557.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508766278126.jpg">
+<meta property="og:updated_time" content="2017-11-09T17:08:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2017-10-21表驱动法">
+<meta name="twitter:description" content="表驱动法是一种编程模式(scheme)–从表里面查找信息而不使用逻辑语句（if和case），事实上，凡是能通过逻辑语句来选择的事物，都可以通过查表来选择。  表驱动法使用总则在适当的环境下，采用表驱动法，所生成的代码会比复杂的逻辑代码更简单、更容易修改，而且效率更高。 使用表驱动法的两个问题 必须要回答的是怎样从表中查询条目的问题？（从表里查询记录的方法：直接访问、索引访问、阶梯访问） 你应该在">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508758356713.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2017/10/23/cl4e20x3o00a5jb9eou78xn6d/"/>
+
+
+
+
+
+  <title>2017-10-21表驱动法 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/10/23/cl4e20x3o00a5jb9eou78xn6d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2017-10-21表驱动法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T21:51:02+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/代码大全/" itemprop="url" rel="index">
+                    <span itemprop="name">代码大全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>表驱动法是一种编程模式(scheme)–从表里面查找信息而不使用逻辑语句（if和case），事实上，凡是能通过逻辑语句来选择的事物，都可以通过查表来选择。</p>
+</blockquote>
+<h1 id="表驱动法使用总则"><a href="#表驱动法使用总则" class="headerlink" title="表驱动法使用总则"></a>表驱动法使用总则</h1><p>在适当的环境下，采用表驱动法，所生成的代码会比复杂的逻辑代码更简单、更容易修改，而且效率更高。</p>
+<h2 id="使用表驱动法的两个问题"><a href="#使用表驱动法的两个问题" class="headerlink" title="使用表驱动法的两个问题"></a>使用表驱动法的两个问题</h2><ul>
+<li>必须要回答的是怎样从表中查询条目的问题？（从表里查询记录的方法：直接访问、索引访问、阶梯访问）</li>
+<li>你应该在表里存些什么？(数据或者动作)</li>
+</ul>
+<h1 id="直接访问表"><a href="#直接访问表" class="headerlink" title="直接访问表"></a>直接访问表</h1><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508758356713.jpg" alt=""></p>
+<ul>
+<li>计算每个月中的天数，把每个月的天数存在一张表里</li>
+<li>计算保险费率，费率随着年龄、性别、婚姻以及吸烟与否的不同情况而变化。使用逻辑控制结构，代码变得很复杂与繁琐<br>  <img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508760643279.jpg" alt=""><br>  更好的做法是把这些费率存入所有因素索引的数组里<br>  <img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508760709197.jpg" alt=""></li>
+</ul>
+<h2 id="灵活的消息格式"><a href="#灵活的消息格式" class="headerlink" title="灵活的消息格式"></a>灵活的消息格式</h2><p>在基于逻辑的方法中，其消息阅读子程序包含一个循环，用来读入消息、解释其ID，以及根据该ID调用20个子程序中的某一个。<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508763048795.jpg" alt=""></p>
+<p>采用面向对象的方法，那么问题的逻辑可言被隐藏在对象继承结构里，但是基本结构还是同样复杂。<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508763108470.jpg" alt=""></p>
+<p>采用表驱动法：<br>采用此方法，比前面两种都更经济，其中消息的阅读子程序由一个循环组成，该循环复杂读入每一个消息头，对其ID解码，在Message数组中查询其消息描述，然后每次调用同一个子程序来解释该消息。</p>
+<h2 id="构造键值对"><a href="#构造键值对" class="headerlink" title="构造键值对"></a>构造键值对</h2><p>构造键值对的方法：</p>
+<ul>
+<li>复制信息从而能够直接使用键值</li>
+</ul>
+<ul>
+<li>转换键值以使其能够直接使用：用一个函数将age转换成另一个数值</li>
+</ul>
+<ul>
+<li>把键值转换提取成独立的子程序：如果必须构造一些数据来让它们像表键值一样使用，那么就把数据到键值的转换操作提取成独立的子程序。</li>
+</ul>
+<h1 id="索引访问表"><a href="#索引访问表" class="headerlink" title="索引访问表"></a>索引访问表</h1><p>当使用索引的时候，先用一个基本类型从一张索引表中查出一个键值，然后再利用这一键值查出感兴趣的主数据。<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508766120913.jpg" alt=""></p>
+<h1 id="阶梯访问表"><a href="#阶梯访问表" class="headerlink" title="阶梯访问表"></a>阶梯访问表</h1><p>阶梯结构的基本想法是，表中的记录对于不同的数据范围有效，而不是对不同的数据点有效。<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508766253557.jpg" alt=""></p>
+<p>举例，等级区间：<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1508766278126.jpg" alt=""></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><ul>
+<li><p>表提供了一种复杂的逻辑和继承结构的替换方案。如果你发现自己对某个应用程序的逻辑或者继承树关系感到困惑，那么问问自己是否通过一个差选表来加以简化</p>
+</li>
+<li><p>使用表的一项关键决策时决定如果去访问表。你可以采取直接访问、索引访问或者阶梯访问。</p>
+</li>
+<li><p>使用表达另一项关键决策时决定应该把什么内容放入表中。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/表驱动发/" rel="tag"># 表驱动发</a>
+          
+            <a href="/tags/查询表/" rel="tag"># 查询表</a>
+          
+            <a href="/tags/索引访问/" rel="tag"># 索引访问</a>
+          
+            <a href="/tags/阶梯访问/" rel="tag"># 阶梯访问</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/13/cl4e20wzk002ojb9ei6qzriat/" rel="next" title="JavaScript回调">
+                <i class="fa fa-chevron-left"></i> JavaScript回调
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/09/cl4e20wza002ajb9e9cpuhprs/" rel="prev" title="JavaScript:Promise">
+                JavaScript:Promise <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">118</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">148</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#表驱动法使用总则"><span class="nav-number">1.</span> <span class="nav-text">表驱动法使用总则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用表驱动法的两个问题"><span class="nav-number">1.1.</span> <span class="nav-text">使用表驱动法的两个问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#直接访问表"><span class="nav-number">2.</span> <span class="nav-text">直接访问表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#灵活的消息格式"><span class="nav-number">2.1.</span> <span class="nav-text">灵活的消息格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造键值对"><span class="nav-number">2.2.</span> <span class="nav-text">构造键值对</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引访问表"><span class="nav-number">3.</span> <span class="nav-text">索引访问表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#阶梯访问表"><span class="nav-number">4.</span> <span class="nav-text">阶梯访问表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

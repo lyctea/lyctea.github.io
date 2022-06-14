@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="哈希,加盐,安全," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="加盐密码哈希：如何正确使用参考：加盐密码哈希：如何正确使用  ⚠️ 不要自己写加密函数  为什么密码需要进行哈希？hash(&amp;quot;hello&amp;quot;) = 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824 哈希算法是一个单项函数，它可以将任意大小的数据转为定长的“指纹”，并且无法反向计算。数据源修改一点，哈希">
+<meta name="keywords" content="哈希,加盐,安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="加盐密码哈希：如何正确使用">
+<meta property="og:url" content="https://luoyec.cn/2019/01/14/cl4e20x2w008mjb9eeo7dj2dk/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="加盐密码哈希：如何正确使用参考：加盐密码哈希：如何正确使用  ⚠️ 不要自己写加密函数  为什么密码需要进行哈希？hash(&amp;quot;hello&amp;quot;) = 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824 哈希算法是一个单项函数，它可以将任意大小的数据转为定长的“指纹”，并且无法反向计算。数据源修改一点，哈希">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-14T06:30:09.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="加盐密码哈希：如何正确使用">
+<meta name="twitter:description" content="加盐密码哈希：如何正确使用参考：加盐密码哈希：如何正确使用  ⚠️ 不要自己写加密函数  为什么密码需要进行哈希？hash(&amp;quot;hello&amp;quot;) = 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824 哈希算法是一个单项函数，它可以将任意大小的数据转为定长的“指纹”，并且无法反向计算。数据源修改一点，哈希">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2019/01/14/cl4e20x2w008mjb9eeo7dj2dk/"/>
+
+
+
+
+
+  <title>加盐密码哈希：如何正确使用 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2019/01/14/cl4e20x2w008mjb9eeo7dj2dk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">加盐密码哈希：如何正确使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T14:30:09+08:00">
+                2019-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/安全/" itemprop="url" rel="index">
+                    <span itemprop="name">安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="加盐密码哈希：如何正确使用"><a href="#加盐密码哈希：如何正确使用" class="headerlink" title="加盐密码哈希：如何正确使用"></a>加盐密码哈希：如何正确使用</h1><p><a href="http://blog.jobbole.com/61872/" target="_blank" rel="noopener">参考：加盐密码哈希：如何正确使用</a></p>
+<blockquote>
+<p>⚠️ 不要自己写加密函数</p>
+</blockquote>
+<h2 id="为什么密码需要进行哈希？"><a href="#为什么密码需要进行哈希？" class="headerlink" title="为什么密码需要进行哈希？"></a>为什么密码需要进行哈希？</h2><p><code>hash(&quot;hello&quot;) = 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824</code></p>
+<p>哈希算法是一个单项函数，它可以将任意大小的数据转为定长的“指纹”，并且无法反向计算。数据源修改一点，哈希的结果也完全不同。</p>
+<p><strong>基于哈希加密的账户系统，通常的认证流程</strong></p>
+<ul>
+<li>用户注册账号</li>
+<li>密码经过哈希加密存储在数据库中，只要密码被写入磁盘，任何时候都不允许是明文</li>
+<li>当用户登录时，从数据库去除已经加密的密码，和经过哈希的用户输入进行对比</li>
+<li>如果哈希值相同或，用户获得登录权限，否则告知用户输入无效的登录信息</li>
+<li>每当用有用户尝试登录，重复以上两步</li>
+</ul>
+<blockquote>
+<p>✅ 保护密码的哈希函数和数据结构中的哈希函数是不同的，哈希表之类的哈希函数，目的是为了快速查找，而不是高安全性。只有加密的哈希函数才能保护密码安全，例如 <code>SHA256 SHA512 RipeMD WHIRLPOOL</code></p>
+</blockquote>
+<p><strong>如何破解哈希加密</strong></p>
+<ul>
+<li><p>字典攻击</p>
+<p>字典攻击需要使用一个字典文件，它包含单词、短语、常用密码以及其他可能用作密码的字符串。其中每个词都是进过哈希后储存的，用它们和密码哈希比对，如果相同，这个词就是密码。</p>
+</li>
+<li><p>暴力攻击</p>
+<p>暴力攻击会尝试每一个在给定长度下各种字符的组合。这种攻击会消耗大量的计算，也通常是破解哈希加密中效率最低的办法，但是它最终会找到正确的密码。    </p>
+</li>
+</ul>
+<p>我们没有办法阻止字典攻击和暴击攻击，尽管可以降低它们的效率，但那也不是完全阻止。</p>
+<h2 id="加盐"><a href="#加盐" class="headerlink" title="加盐"></a>加盐</h2><p>查表法和彩虹表只有在所有密码都以相同方式进行哈希加密时才有效。如果两个用户密码相同，那么他们密码的哈希值也是相同的。我们可以通过“随机化”哈希来阻止这类攻击，于是当相同的密码被哈希两次之后，得到的值就不相同了。</p>
+<p>比如可以在密码中混入一段“随机”的字符串再进行哈希加密，这个被字符串被称作盐值。<strong>为了校验密码是否正确，我们需要储存盐值</strong>。通常和密码哈希值一起存放在账户数据库中，或者直接存为哈希字符串的一部分。</p>
+<p>盐值并不需要保密，由于随机化了哈希值，查表法、反向查表法和彩虹表都不再有效。攻击者无法确知盐值，于是就不能预先计算出一个查询表或者彩虹表。这样每个用户的密码都混入不同的盐值后再进行哈希，因此反向查表法也变得难以实施。</p>
+<p>⚠️<strong>实现加盐哈希的过程中通常会犯哪些错误</strong></p>
+<ul>
+<li>盐值重复<br>重复的盐值是无用功，因为不变的盐值每次hash的密码还是一样的，因此用户创建账户或每次修改密码时，都应该<strong>重新生成新的盐值进行加密</strong>。</li>
+<li>短盐值<br>如果盐值太短，攻击者可以构造一个查询表包含所有可能的盐值。<br>同样地，用户名也不应该被用作盐值。尽管在一个网站中用户名是唯一的，但是它们是可预测的，并且经常重复用于其他服务中。<br>一个好的做法是使用和哈希函数输出的字符串等长的盐值。</li>
+<li><p>两次哈希和组合哈希</p>
+<p>人们经常不由自主地认为将不同的哈希函数组合起来，结果会更加安全。实际上这样做几乎没有好处，仅仅造成了函数之间互相影响的问题，甚至有时候会变得更加不安全。</p>
+</li>
+<li><p>哈希碰撞</p>
+<p>即使在MD5这样脆弱的哈希函数中找到碰撞也需要耗费大量的计算，因此这样的碰撞“意外地”在实际中出现的可能性是很低的。</p>
+</li>
+</ul>
+<h2 id="正确的使用哈希加密"><a href="#正确的使用哈希加密" class="headerlink" title="正确的使用哈希加密"></a>正确的使用哈希加密</h2><p><strong>基本要素：加盐哈希</strong></p>
+<p>盐值应该使用<strong>基于加密的伪随机数生成器<code>（Cryptographically Secure Pseudo-Random Number Generator – CSPRNG）</code></strong>来生成。</p>
+<p><code>CSPRNG</code> 专门被设计成用于加密，它能提供高度随机和无法预测的随机数。</p>
+<blockquote>
+<p>一个<strong>好的标准</strong>的是：盐值至少和哈希函数的输出一样长；盐值应该被储存和密码哈希一起储存在账户数据表中。</p>
+</blockquote>
+<p><strong>存储密码的步骤</strong></p>
+<ul>
+<li>使用 <code>CSPRNG</code> 生成一个长度足够的盐值</li>
+<li>将盐值混入密码，并使用<strong>标准的</strong>加密哈希函数进行加密，如SHA25</li>
+<li>把哈希值和盐值一起存入数据库中对应此用户的那条记录</li>
+</ul>
+<p><strong>校验密码的步骤</strong></p>
+<ul>
+<li>从数据库中取出用户的密码哈希值和盐值</li>
+<li>将盐值混入用户输入的密码，并且使用相同的哈希函数进行加密</li>
+<li>比较上一步中的结果和数据库中哈希值是否相同</li>
+</ul>
+<p><strong>在Web程序中，永远在服务器端进行哈希加密</strong></p>
+<p>即使在web端进行了加密，也需要在服务端再次加密。</p>
+<p>在web端加密需要注意：</p>
+<ul>
+<li>客户端加密不能代替HTTPS，如果浏览器和服务器之间的连接不是安全的。那么中间人可以修改js代码，删除加密函数，从而获取用户密码。</li>
+<li><p>浏览器可以禁用js，你的程序应该检测JavaScript是否可用，如果答案为否，需要在服务端模拟客户端的加密。</p>
+</li>
+<li><p>客户端哈希同样需要加盐，很显然的办法就是向服务器请求用户的盐值，但是不要这么做。因为这给了坏蛋一个机会，能够在不知道密码的情况下检测用户名是否有效。既然你已经在服务端对密码进行了加盐哈希，那么在客户端把用户名（或邮箱）加上网站特有的字符串（如域名）作为盐值是可行的。</p>
+</li>
+</ul>
+<h2 id="让密码更难破解"><a href="#让密码更难破解" class="headerlink" title="让密码更难破解"></a>让密码更难破解</h2><p><strong>慢哈希函数</strong></p>
+<p>为了降低攻击者的效率，我们可以使用一种叫做<strong>密钥扩展</strong>的技术。这种技术的思想就是把哈希函数变得很慢，于是即使有着超高性能的GPU或定制硬件，字典攻击和暴力攻击也会慢得让攻击者无法接受。最终的目标是把哈希函数的速度降到足以让攻击者望而却步，但造成的延迟又不至于引起用户的注意。</p>
+<p><strong>无法破解的哈希加密：密钥哈希和密码哈希设备</strong></p>
+<p>只要攻击者可以检测对一个密码的猜测是否正确，那么他们就可以进行字典攻击或暴力攻击。因此下一步就是向哈希计算中增加一个<strong>密钥</strong>，只有知道这个密钥的人才能校验密码。有两种办法可以实现：将哈希值加密，比如使用AES算法；将密钥包含到哈希字符串中，比如使用密钥哈希算法<a href="http://en.wikipedia.org/wiki/HMAC" target="_blank" rel="noopener">HMAC</a>。</p>
+<p><strong>当用户忘记密码的时候，怎样进行重置？</strong></p>
+<p>大多数网站为那些忘记密码的用户发送电子邮件进行身份认证。首先，需要随机生成一个一次性的令牌，它直接关联到用户账户，然后将这个令牌混入到一个重置密码的连接中，发送到用户的电子邮箱。最后当用户点击这个包含有效令牌的链接时。提示他们可以重置新的密码。需要确保这个令牌只对一个账号有效，以防止攻击者获取到邮箱令牌后，用来重置其他用户的密码。</p>
+<p>令牌必须在15分钟内使用，并且一旦被使用就立即失效。当用户重新请求令牌时，或用户登录成功时（说明他还记得密码），使原令牌失效也是一个好做法。如果一个令牌始终不过期，那么它一直可以用于入侵用户的帐号。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/哈希/" rel="tag"># 哈希</a>
+          
+            <a href="/tags/加盐/" rel="tag"># 加盐</a>
+          
+            <a href="/tags/安全/" rel="tag"># 安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/09/cl4e20x390097jb9emdorz4ka/" rel="next" title="把一个 Node.js web 应用程序给 Docker 化">
+                <i class="fa fa-chevron-left"></i> 把一个 Node.js web 应用程序给 Docker 化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/16/cl4e20x0c0046jb9ez6rm80dr/" rel="prev" title="Knex 在 Koa2 中的应用">
+                Knex 在 Koa2 中的应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">118</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">148</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#加盐密码哈希：如何正确使用"><span class="nav-number">1.</span> <span class="nav-text">加盐密码哈希：如何正确使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么密码需要进行哈希？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么密码需要进行哈希？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加盐"><span class="nav-number">1.2.</span> <span class="nav-text">加盐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正确的使用哈希加密"><span class="nav-number">1.3.</span> <span class="nav-text">正确的使用哈希加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#让密码更难破解"><span class="nav-number">1.4.</span> <span class="nav-text">让密码更难破解</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

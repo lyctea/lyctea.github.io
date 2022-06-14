@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="读书笔记,面对对象,OO," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="类设计指导原则本章为如何设计健壮的类提供一些建议。 真实世界系统建模面向对象（OO）程序设计的主要目标之一就是以类似于人们真正的思维方式对真实世界的系统建模。设计类就是创建这些模型的面向对象方式。 第一次转向OO开发时，许多人倾向于采用一种结构化的方式思考。由此导致主要的错误之一就是创建的类只包含行为而没有数据。实际上，他们创建的只是结构化模型的一组函数或子例程。 明确公共接口设计类时，最重要的问">
+<meta name="keywords" content="读书笔记,面对对象,OO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）">
+<meta property="og:url" content="https://luoyec.cn/2017/08/23/cl4e20x1s006ijb9efg6aecaz/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="类设计指导原则本章为如何设计健壮的类提供一些建议。 真实世界系统建模面向对象（OO）程序设计的主要目标之一就是以类似于人们真正的思维方式对真实世界的系统建模。设计类就是创建这些模型的面向对象方式。 第一次转向OO开发时，许多人倾向于采用一种结构化的方式思考。由此导致主要的错误之一就是创建的类只包含行为而没有数据。实际上，他们创建的只是结构化模型的一组函数或子例程。 明确公共接口设计类时，最重要的问">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-22T16:32:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）">
+<meta name="twitter:description" content="类设计指导原则本章为如何设计健壮的类提供一些建议。 真实世界系统建模面向对象（OO）程序设计的主要目标之一就是以类似于人们真正的思维方式对真实世界的系统建模。设计类就是创建这些模型的面向对象方式。 第一次转向OO开发时，许多人倾向于采用一种结构化的方式思考。由此导致主要的错误之一就是创建的类只包含行为而没有数据。实际上，他们创建的只是结构化模型的一组函数或子例程。 明确公共接口设计类时，最重要的问">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2017/08/23/cl4e20x1s006ijb9efg6aecaz/"/>
+
+
+
+
+
+  <title>《写给大家看的面向对象编程书》总结&&实践（5） | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/08/23/cl4e20x1s006ijb9efg6aecaz/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《写给大家看的面向对象编程书》总结&&实践（5）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-23T00:31:50+08:00">
+                2017-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="类设计指导原则"><a href="#类设计指导原则" class="headerlink" title="类设计指导原则"></a>类设计指导原则</h2><p>本章为如何设计健壮的类提供一些建议。</p>
+<h2 id="真实世界系统建模"><a href="#真实世界系统建模" class="headerlink" title="真实世界系统建模"></a>真实世界系统建模</h2><p>面向对象（OO）程序设计的主要目标之一就是以类似于人们真正的思维方式对真实世界的系统建模。设计类就是创建这些模型的面向对象方式。</p>
+<p>第一次转向OO开发时，许多人倾向于采用一种结构化的方式思考。由此导致主要的错误之一就是创建的类只包含行为而没有数据。实际上，他们创建的只是结构化模型的一组函数或子例程。</p>
+<h2 id="明确公共接口"><a href="#明确公共接口" class="headerlink" title="明确公共接口"></a>明确公共接口</h2><p>设计类时，最重要的问题可能就是保证公共接口的最小。构建类的根本目的就是提供一些有用而且简洁的功能。</p>
+<h3 id="最小接口"><a href="#最小接口" class="headerlink" title="最小接口"></a>最小接口</h3><p>提供最小接口可以使类尽可能简洁。</p>
+<blockquote>
+<p>扩展接口<br>对于一个特定应用，及时一个类的公共接口还不够，使用对象技术也能很容易的利用继承扩展并调整这个接口。简单来讲，如何设计时考虑到继承，新类可以继承一个原有的类，从而创建一个有扩展接口的新类。</p>
+</blockquote>
+<h3 id="隐藏实现"><a href="#隐藏实现" class="headerlink" title="隐藏实现"></a>隐藏实现</h3><h2 id="设计健壮的构造函数（和析构函数）"><a href="#设计健壮的构造函数（和析构函数）" class="headerlink" title="设计健壮的构造函数（和析构函数）"></a>设计健壮的构造函数（和析构函数）</h2><p>首先，也是最重要的，构造函数应当将对象置于一种安全的初始状态。这包括属性初始化和内存管理等问题。</p>
+<p>析构函数要包含适当的清理功能。</p>
+<blockquote>
+<p>内存泄露<br>如果一个对象未能适当地释放它在对象生存周期中获得的内存，那么只要创建这个对象这个对象的应用还在执行，对于整个操作系统来说这部分内容就丢失了。在极端情况，消耗掉系统所有可用的内存。</p>
+</blockquote>
+<h2 id="在类中设计的错误处理"><a href="#在类中设计的错误处理" class="headerlink" title="在类中设计的错误处理"></a>在类中设计的错误处理</h2><h3 id="对类建立文档以及使用注释"><a href="#对类建立文档以及使用注释" class="headerlink" title="对类建立文档以及使用注释"></a>对类建立文档以及使用注释</h3><blockquote>
+<p>过多的文档<br>要注意，如果注释过多也会有问题，看起来很杂乱，有可能影响建立文档的初衷</p>
+</blockquote>
+<h3 id="构建类要以合作为出发点"><a href="#构建类要以合作为出发点" class="headerlink" title="构建类要以合作为出发点"></a>构建类要以合作为出发点</h3><h2 id="设计时充分考虑重用"><a href="#设计时充分考虑重用" class="headerlink" title="设计时充分考虑重用"></a>设计时充分考虑重用</h2><h2 id="设计时充分考虑到可扩展性"><a href="#设计时充分考虑到可扩展性" class="headerlink" title="设计时充分考虑到可扩展性"></a>设计时充分考虑到可扩展性</h2><p>为一个类增加新特性可能很简单，只需扩展一个现有的类，增加一些新方法，并修改其他方法的行为。不必重写代码。这里使用继承。</p>
+<h3 id="名字要有描述性"><a href="#名字要有描述性" class="headerlink" title="名字要有描述性"></a>名字要有描述性</h3><blockquote>
+<p>好的命名<br>确保坚持一种命名约定很有意义。使名字具有描述性是一个很好的开发实践，这在各种开发泛型中都使用。</p>
+</blockquote>
+<h3 id="抽出不可移植的代码"><a href="#抽出不可移植的代码" class="headerlink" title="抽出不可移植的代码"></a>抽出不可移植的代码</h3><p>将这些不可移植的代码单独放在一个类中，或者至少放在一个方法中。</p>
+<h3 id="提供一种复制和比较对象的方法"><a href="#提供一种复制和比较对象的方法" class="headerlink" title="提供一种复制和比较对象的方法"></a>提供一种复制和比较对象的方法</h3><h3 id="让作用域尽可能小"><a href="#让作用域尽可能小" class="headerlink" title="让作用域尽可能小"></a>让作用域尽可能小</h3><p>这种思想是尽可能将属性和行为置于局部。采用这种方式，维护、测试和扩展类就会容易很多。</p>
+<h3 id="类应当对自己负责"><a href="#类应当对自己负责" class="headerlink" title="类应当对自己负责"></a>类应当对自己负责</h3><p>类的设计原则是：所有对象都应当尽可能自行负责自己的行为。</p>
+<h2 id="设计时充分考虑可维护性"><a href="#设计时充分考虑可维护性" class="headerlink" title="设计时充分考虑可维护性"></a>设计时充分考虑可维护性</h2><p>一个类中的修改不会对其他类产生影响，或者影响尽可能小。</p>
+<blockquote>
+<p>高度耦合的类<br>彼此相当依赖的类被认为是高度耦合（highly coupled）。因此对一个类的修改还要求对另一个类进行修改，这两个类就是高度耦合的。没有这种依赖关系的耦合度很低。</p>
+</blockquote>
+<h3 id="采用迭代"><a href="#采用迭代" class="headerlink" title="采用迭代"></a>采用迭代</h3><p>类设计推荐一种迭代过程，这与提供最小接口的概念恰好一致。</p>
+<h3 id="测试接口"><a href="#测试接口" class="headerlink" title="测试接口"></a>测试接口</h3><h2 id="使对象持久性"><a href="#使对象持久性" class="headerlink" title="使对象持久性"></a>使对象持久性</h2><p>保存对象状态以备以后使用的三种方法：</p>
+<ul>
+<li>平面文件系统：可以通过串行化对象将对象保存在一个平面文件中</li>
+<li>关系数据库：必须使用某种中间件将对象转换成关系模型</li>
+<li>OO数据库：这是保证对象持久化的最合理的做法</li>
+</ul>
+<h3 id="对象串行化和封送"><a href="#对象串行化和封送" class="headerlink" title="对象串行化和封送"></a>对象串行化和封送</h3><p>通过网络发送一个对象，然后在另一端重新合成。这个过程成为串行化（serializing）一个对象。通过网络发送对象的行为称为封送（marshaling）一个对象。</p>
+<p>主要的问题是，串行化和反串行化都必须使用相同的规范。这有些类似于加密算法。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这一章提供了许多指导原则。一类不会独立存在，类必须设计与其他类交互。彼此交互的一组类会作为系统的一部分。最后，再由这些系统为最终用户提供服务。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/面对对象/" rel="tag"># 面对对象</a>
+          
+            <a href="/tags/OO/" rel="tag"># OO</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/22/cl4e20wye000sjb9eyat101r7/" rel="next" title="Egret 图片缓动动画实现">
+                <i class="fa fa-chevron-left"></i> Egret 图片缓动动画实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/23/cl4e20x1u006ljb9e7aocv37m/" rel="prev" title="《写给大家看的面向对象编程书》总结&&实践（6）">
+                《写给大家看的面向对象编程书》总结&&实践（6） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">118</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">148</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类设计指导原则"><span class="nav-number">1.</span> <span class="nav-text">类设计指导原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#真实世界系统建模"><span class="nav-number">2.</span> <span class="nav-text">真实世界系统建模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#明确公共接口"><span class="nav-number">3.</span> <span class="nav-text">明确公共接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最小接口"><span class="nav-number">3.1.</span> <span class="nav-text">最小接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏实现"><span class="nav-number">3.2.</span> <span class="nav-text">隐藏实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计健壮的构造函数（和析构函数）"><span class="nav-number">4.</span> <span class="nav-text">设计健壮的构造函数（和析构函数）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在类中设计的错误处理"><span class="nav-number">5.</span> <span class="nav-text">在类中设计的错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对类建立文档以及使用注释"><span class="nav-number">5.1.</span> <span class="nav-text">对类建立文档以及使用注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建类要以合作为出发点"><span class="nav-number">5.2.</span> <span class="nav-text">构建类要以合作为出发点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计时充分考虑重用"><span class="nav-number">6.</span> <span class="nav-text">设计时充分考虑重用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计时充分考虑到可扩展性"><span class="nav-number">7.</span> <span class="nav-text">设计时充分考虑到可扩展性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#名字要有描述性"><span class="nav-number">7.1.</span> <span class="nav-text">名字要有描述性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽出不可移植的代码"><span class="nav-number">7.2.</span> <span class="nav-text">抽出不可移植的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提供一种复制和比较对象的方法"><span class="nav-number">7.3.</span> <span class="nav-text">提供一种复制和比较对象的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#让作用域尽可能小"><span class="nav-number">7.4.</span> <span class="nav-text">让作用域尽可能小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类应当对自己负责"><span class="nav-number">7.5.</span> <span class="nav-text">类应当对自己负责</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计时充分考虑可维护性"><span class="nav-number">8.</span> <span class="nav-text">设计时充分考虑可维护性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#采用迭代"><span class="nav-number">8.1.</span> <span class="nav-text">采用迭代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试接口"><span class="nav-number">8.2.</span> <span class="nav-text">测试接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使对象持久性"><span class="nav-number">9.</span> <span class="nav-text">使对象持久性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象串行化和封送"><span class="nav-number">9.1.</span> <span class="nav-text">对象串行化和封送</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">10.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
