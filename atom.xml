@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://luoyec.cn/"/>
-  <updated>2022-06-14T12:07:37.798Z</updated>
+  <updated>2022-06-14T12:17:48.399Z</updated>
   <id>https://luoyec.cn/</id>
   
   <author>
@@ -17,9 +17,109 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Vue模板是如何编译的？</title>
+    <link href="https://luoyec.cn/2022/06/14/cl4e4qwit0057ad9e1h1xh27f/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e4qwit0057ad9e1h1xh27f/</id>
+    <published>2022-06-14T12:16:51.059Z</published>
+    <updated>2022-06-14T12:17:48.399Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Vue模板是如何编译的？"><a href="#Vue模板是如何编译的？" class="headerlink" title="Vue模板是如何编译的？"></a>Vue模板是如何编译的？</h1><p>Tags: 编译<br>关键词: 如何得到 render function<br>创建时间: May 31, 2022</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>调用render方法会得到传入的模板(.vue文件)对应的虚拟 <code>DOM</code>，<code>render</code> 方法有两种来源</p><ul><li>第一种经过模板编译后生成 <code>render</code> 函数;</li><li>第二种是我们自己在组件定义了 <code>render</code> 函数，这种方式会跳过模板编译过程;</li></ul><h2 id="模板编译"><a href="#模板编译" class="headerlink" title="模板编译"></a>模板编译</h2><p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/91b722bf-6ffe-46fe-a90f-48da1dd57521/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T121709Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=05e6cd7509fba3fd9d8f3af56d447930c602d67aec09fa482f46d047629a150d&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p><p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2ae2a9e9-6691-4d49-9648-7b6784a96c79/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T121725Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=1649e5b4d3025e94cc54639891cb73687f5e8a4079ea2e8cd3b5785196cfd48b&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="模板编译的结果就是得到render函数"></p><p>模板编译的结果就是得到render函数</p><p><strong>如何将 vue文件的 template 模板编译成浏览器认识的 HTML？</strong></p><ol><li>提取出模板中原生的 HTML 和非原生的 HTML，比如绑定的属性、事件、指令；</li><li>经过一系列处理生成 render 函数；</li><li>render 函数执行将模板内容生成对应的 vnode；</li><li>再经过 patch 过程（diff算法）得到要渲染到视图中的 vnode；</li></ol><p><strong>编译流程，主要有三步：</strong></p><ol><li>模板解析：通过正则等方式将 <code>template</code> 模板里的标签元素、属性、变量等信息，解析成抽象语法树 <code>**AST（parse）**</code>；</li><li>优化：遍历 <code>AST</code> 找出其中的静态节点和静态根节点，并添加标记；（<code>**optimize**</code>）</li><li>代码生成：根据 <code>AST</code> 生成渲染函数 <code>**render</code> （<code>generate</code>）**</li></ol><p><code>**parse(ast) ⇒ optimize(ast) ⇒ generate(code) ⇒ render(code.render)**</code> </p><h2 id="总结🔥"><a href="#总结🔥" class="headerlink" title="总结🔥"></a>总结🔥</h2><p>如果想要将 <code>vue</code> 的模板文件渲染到真实的 <code>html</code>上，需要将模板文件转为<code>vnode</code>，在经过 <code>patch（diff算法）</code>挂载到真实dom；</p><p>如何得到 <code>vnode</code> 呢？需要通过调用 <code>render</code> 方法。</p><p><code>render</code> 有两种，一种是经过 <code>vue</code> 编译器通过模板编译的方式得到，另一种是用户自定义的 <code>render function</code>。</p><p>通过编译得到 <code>render function</code> 的流程：</p><ul><li><code>parse</code> 解析 <code>template</code> 文件，通过正则匹配等方法，得到ast语法树；</li><li><code>optimize</code> 优化 <code>ast</code> 语法树，做静态标记；</li><li><code>generate</code> 代码生成，将 <code>ast</code> 语法树转为 <code>code</code>，其中也得到了<code>render</code> 方法；</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Vue模板是如何编译的？&quot;&gt;&lt;a href=&quot;#Vue模板是如何编译的？&quot; class=&quot;headerlink&quot; title=&quot;Vue模板是如何编译的？&quot;&gt;&lt;/a&gt;Vue模板是如何编译的？&lt;/h1&gt;&lt;p&gt;Tags: 编译&lt;br&gt;关键词: 如何得到 render f
+      
+    
+    </summary>
+    
+      <category term="前端框架" scheme="https://luoyec.cn/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
+    
+    
+      <category term="vue" scheme="https://luoyec.cn/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Typescript类型体操</title>
+    <link href="https://luoyec.cn/2022/06/14/cl4e4qwiv0059ad9e75p7gfw4/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e4qwiv0059ad9e75p7gfw4/</id>
+    <published>2022-06-14T12:15:03.771Z</published>
+    <updated>2022-06-14T12:15:46.947Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="ts类型体操"><a href="#ts类型体操" class="headerlink" title="ts类型体操"></a>ts类型体操</h1><p>Column: March 30, 2022 10:36 AM<br>Status: Yes<br>Tags: ts</p><h2 id="Easy"><a href="#Easy" class="headerlink" title="Easy"></a>Easy</h2><ul><li><p><strong>实现Pick</strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">**从类型 T 中选择出属性 K，构造成一个新的类型，**</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">//========= 实现 =========</span><br><span class="line">type MyPick&lt;T, K extends keyof T&gt; = &#123;</span><br><span class="line">[key in K]: T[key]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//========= 用例 =========</span><br><span class="line">interface Todo &#123;</span><br><span class="line">  title: string</span><br><span class="line">  description: string</span><br><span class="line">  completed: boolean</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type TodoPreview = MyPick&lt;Todo, &apos;title&apos; | &apos;completed&apos;&gt;</span><br><span class="line"></span><br><span class="line">const todo: TodoPreview = &#123;</span><br><span class="line">    title: &apos;Clean room&apos;,</span><br><span class="line">    completed: false,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong>实现 Readonly</strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">该 Readonly 会接收一个 泛型参数，并返回一个完全一样的类型，只是所有属性都会被 readonly 所修饰。</span><br><span class="line">也就是不可以再对该对象的属性赋值。</span><br><span class="line">*/</span><br><span class="line">//========= 实现 =========</span><br><span class="line">type MyReadonly&lt;T&gt; = &#123;</span><br><span class="line">readonly[key in keyof T]: T[key]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//========= 用例 =========</span><br><span class="line">interface Todo &#123;</span><br><span class="line">  title: string</span><br><span class="line">  description: string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const todo: MyReadonly&lt;Todo&gt; = &#123;</span><br><span class="line">  title: &quot;Hey&quot;,</span><br><span class="line">  description: &quot;foobar&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">todo.title = &quot;Hello&quot; // Error: cannot reassign a readonly property</span><br><span class="line">todo.description = &quot;barFoo&quot; // Error: cannot reassign a readonly property</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong>元组转换为对象</strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">传入一个元组类型，将这个元组类型转换为对象类型，这个对象类型的键/值都是从元组中遍历出来。</span><br><span class="line"></span><br><span class="line">// T extends readonly string[], 泛型约束，T 类型限定在 字符串类型的数组</span><br><span class="line">// P in T[number], P 是 数组值的集合，作为 Key，同时也作为值返回</span><br><span class="line">type TupleToObject&lt;T extends readonly string[]&gt; = &#123;</span><br><span class="line">[P in T[number]]: P</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//========= 用例 =========</span><br><span class="line">const tuple = [&apos;tesla&apos;, &apos;model 3&apos;, &apos;model X&apos;, &apos;model Y&apos;] as const</span><br><span class="line"></span><br><span class="line">type result = TupleToObject&lt;typeof tuple&gt; </span><br><span class="line">// expected &#123; tesla: &apos;tesla&apos;, &apos;model 3&apos;: &apos;model 3&apos;, &apos;model X&apos;: &apos;model X&apos;, &apos;model Y&apos;: &apos;model Y&apos;&#125;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong>第一个元素</strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">实现一个通用First&lt;T&gt;，它接受一个数组T并返回它的第一个元素的类型</span><br><span class="line"></span><br><span class="line">// infer 类型占位，定一个元素的类型，具体类型需要在运行时确定</span><br><span class="line">type First&lt;T extends any[]&gt; = T extends [infer R, ...unknown[]] ? R : never</span><br><span class="line"></span><br><span class="line">type arr1 = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br><span class="line">type arr2 = [3, 2, 1]</span><br><span class="line"></span><br><span class="line">type head1 = First&lt;arr1&gt; // expected to be &apos;a&apos;</span><br><span class="line">type head2 = First&lt;arr2&gt; // expected to be 3</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>获取元组长度</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">创建一个通用的Length，接受一个readonly的数组，返回这个数组的长度。</span><br><span class="line"></span><br><span class="line">type Length&lt;T extends readonly unknown[]&gt; = T[&apos;length&apos;]</span><br><span class="line"></span><br><span class="line">type tesla = [&apos;tesla&apos;, &apos;model 3&apos;, &apos;model X&apos;, &apos;model Y&apos;]</span><br><span class="line">type spaceX = [&apos;FALCON 9&apos;, &apos;FALCON HEAVY&apos;, &apos;DRAGON&apos;, &apos;STARSHIP&apos;, &apos;HUMAN SPACEFLIGHT&apos;]</span><br><span class="line"></span><br><span class="line">type teslaLength = Length&lt;tesla&gt; // expected 4</span><br><span class="line">type spaceXLength = Length&lt;spaceX&gt; // expected 5</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong>实现 Excule</strong></p>  <aside><br>  💡 对于联合类型来说会自动分发条件，例如 <code>T extends U ? X : Y</code>, <code>T</code> 可能是 <code>A | B</code> 的联合类型, 那实际情况就变成<code>(A extends U ? X : Y) | (B extends U ? X : Y)</code><br><br>  </aside>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">实现内置的Exclude &lt;T，U&gt;类型，但不能直接使用它本身。从联合类型T中排除U的类型成员，来构造一个新的类型。</span><br><span class="line"></span><br><span class="line">type MyExclude&lt;T, U&gt; = T extends U ? never : T;</span><br><span class="line"></span><br><span class="line">type demo1 = Exclude&lt;string | number | (() =&gt; void), string&gt;  // number | () =&gt; void</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong>Awaited</strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">假如我们有一个 Promise 对象，这个 Promise 对象会返回一个类型。在 TS 中，</span><br><span class="line">我们用 Promise 中的 T 来描述这个 Promise 返回的类型。请你实现一个类型，可以获取这个类型。</span><br><span class="line"></span><br><span class="line">type MyAwaited&lt;T extends Promise&lt;unknown&gt;&gt; = T extends Promise&lt;infer Res&gt; ? Res extends Promise&lt;unknown&gt; ? MyAwaited&lt;Res&gt; : Res : T;</span><br><span class="line">// 或者</span><br><span class="line">type MyAwaited&lt;T&gt; = T extends Promise&lt;infer U&gt; ? MyAwaited&lt;U&gt; : T;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong>If</strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">实现一个 IF 类型，它接收一个条件类型 C ，一个判断为真时的返回类型 T ，以及一个判断为假时的返回类型 F。 </span><br><span class="line">C 只能是 true 或者 false， T 和 F 可以是任意类型。</span><br><span class="line"></span><br><span class="line">type If&lt;C extends boolean, T, F&gt; = C extends true ? T : F</span><br><span class="line"></span><br><span class="line">type A = If&lt;true, &apos;a&apos;, &apos;b&apos;&gt;  // expected to be &apos;a&apos;</span><br><span class="line">type B = If&lt;false, &apos;a&apos;, &apos;b&apos;&gt; // expected to be &apos;b&apos;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Concat</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在类型系统里实现 JavaScript 内置的 Array.concat 方法，这个类型接受两个参数，返回的新数组类型应该按照输入参数从左到右的顺序合并为一个新的数组。</span><br><span class="line"></span><br><span class="line">type Concat&lt;T extends unknown[], U extends unknown[]&gt; = [...T, ...U]</span><br><span class="line"></span><br><span class="line">type Result = Concat&lt;[1], [2]&gt; // expected to be [1, 2]</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Includes</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在类型系统里实现 JavaScript 的 Array.includes 方法，这个类型接受两个参数，返回的类型要么是 true 要么是 false。</span><br><span class="line"></span><br><span class="line">// Equal&lt;U, First&gt; extends true ?  判断 U 和 First是否是相同类型， 如果不是数组移位继续判断</span><br><span class="line">// 用到了递归，遍历完数组还是没找到匹配类型的话，返回false</span><br><span class="line">type Includes&lt;T extends readonly any[], U&gt; = T extends [infer First, ...infer Rest] ? Equal&lt;U, First&gt; extends true ? true : Includes&lt;Rest, U&gt; : false</span><br><span class="line"></span><br><span class="line">type isPillarMen = Includes&lt;[&apos;Kars&apos;, &apos;Esidisi&apos;, &apos;Wamuu&apos;, &apos;Santana&apos;], &apos;Dio&apos;&gt; // expected to be `false`</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong>Push</strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在类型系统里实现通用的 Array.push</span><br><span class="line"></span><br><span class="line">type Push&lt;T extends unknown[], U&gt; = [...T, U]</span><br><span class="line"></span><br><span class="line">type Result = Push&lt;[1, 2], &apos;3&apos;&gt; // [1, 2, &apos;3&apos;]</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong>Unshit</strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">实现类型版本的 Array.unshift。</span><br><span class="line"></span><br><span class="line">type Unshift&lt;T extends unknown[], U&gt; = [U, ...T]</span><br><span class="line"></span><br><span class="line">type Result = Unshift&lt;[1, 2], 0&gt; // [0, 1, 2,]</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Parameters</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">实现内置的 Parameters 类型，获取函数的参数类型</span><br><span class="line"></span><br><span class="line">type MyParameters&lt;T extends (...args: any[]) =&gt; any&gt; = T extends ((...args: infer R) =&gt; any) ? R : never</span><br></pre></td></tr></table></figure></li></ul><h2 id="Middle"><a href="#Middle" class="headerlink" title="Middle"></a>Middle</h2><ul><li><p>获取函数返回类型</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">不使用 ReturnType 实现 TypeScript 的 ReturnType&lt;T&gt; 泛型。</span><br><span class="line"></span><br><span class="line">type MyReturnType&lt;T extends (...args: any[]) =&gt; any&gt; = T extends (...args: any[]) =&gt; infer R ? R : never;</span><br><span class="line"></span><br><span class="line">const fn = (v: boolean) =&gt; &#123;</span><br><span class="line">  if (v)</span><br><span class="line">    return 1</span><br><span class="line">  else</span><br><span class="line">    return 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type a = MyReturnType&lt;typeof fn&gt; // 应推导出 &quot;1 | 2&quot;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>实现 Omit</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">不使用 Omit 实现 TypeScript 的 Omit&lt;T, K&gt; 泛型, Omit 会创建一个省略 K 中字段的 T 对象。</span><br><span class="line"></span><br><span class="line">// K extends keyof T,  从T中取所有key的合集</span><br><span class="line">// Exclude&lt;keyof T, K&gt;, 从T的key的合集中，剔除K</span><br><span class="line">type MyOmit&lt;T, K extends keyof T&gt; = &#123;</span><br><span class="line">  [p in Exclude&lt;keyof T, K&gt;]: T[p]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Todo &#123;</span><br><span class="line">  title: string</span><br><span class="line">  description: string</span><br><span class="line">  completed: boolean</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type TodoPreview = MyOmit&lt;Todo, &apos;description&apos; | &apos;title&apos;&gt;</span><br><span class="line"></span><br><span class="line">const todo: TodoPreview = &#123;</span><br><span class="line">  completed: false,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Readonly 2</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">实现一个通用MyReadonly2&lt;T, K&gt;，它带有两种类型的参数T和K。</span><br><span class="line">K指定应设置为Readonly的T的属性集。如果未提供K，则应使所有属性都变为只读，就像普通的Readonly&lt;T&gt;一样。</span><br><span class="line"></span><br><span class="line">type MyReadonly2&lt;T, K extends keyof T = keyof T&gt; = Omit&lt;T, K&gt; &amp; Readonly&lt;Pick&lt;T, K&gt;&gt;</span><br><span class="line"></span><br><span class="line">interface Todo &#123;</span><br><span class="line">  title: string</span><br><span class="line">  description: string</span><br><span class="line">  completed: boolean</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const todo: MyReadonly2&lt;Todo, &apos;title&apos; | &apos;description&apos;&gt; = &#123;</span><br><span class="line">  title: &quot;Hey&quot;,</span><br><span class="line">  description: &quot;foobar&quot;,</span><br><span class="line">  completed: false,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">todo.title = &quot;Hello&quot; // Error: cannot reassign a readonly property</span><br><span class="line">todo.description = &quot;barFoo&quot; // Error: cannot reassign a readonly property</span><br><span class="line">todo.completed = true // OK</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>深度 Readonly</strong></strong></p><p>  <aside><br>  💡 <code>Record&lt;Keys,Type&gt;</code><br>  构造一个对象类型，其属性<code>key</code>是<code>Keys</code>,属性<code>value</code>是<code>Type</code>。被用于映射一个类型的属性到另一个类型。</aside></p><p>  简单来说，<code>TypeScript</code>中的<code>Record</code>可以实现定义一个对象的 <code>key</code> 和 <code>value</code> 类型，<code>Record</code> 后面的泛型就是对象键和值的类型。</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">interface CatInfo &#123;</span><br><span class="line">  age: number;</span><br><span class="line">  breed: string;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">type CatName = &quot;mincat&quot; | &quot;licat&quot; | &quot;mordred&quot;;</span><br><span class="line"> </span><br><span class="line">const cats: Record&lt;CatName, CatInfo&gt; = &#123;</span><br><span class="line">  mincat: &#123; age: 10, breed: &quot;小猫er&quot; &#125;,</span><br><span class="line">  licat: &#123; age: 5, breed: &quot;李猫er&quot; &#125;,</span><br><span class="line">  mordred: &#123; age: 16, breed: &quot;无名猫er&quot; &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li></ul><pre><code>&lt;/aside&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">实现一个通用的DeepReadonly&lt;T&gt;，它将对象的每个参数及其子对象递归地设为只读。</span><br><span class="line">您可以假设在此挑战中我们仅处理对象。数组，函数，类等都无需考虑。</span><br><span class="line"></span><br><span class="line">// 利用类型递归， Record&lt;string, unkonwn&gt; 判断仍然是对象类型</span><br><span class="line">type DeepReadonly&lt;T&gt; = &#123;</span><br><span class="line">  readonly [P in keyof T]: T[P] extends Record&lt;string, unknown&gt; ? DeepReadonly&lt;T[P]&gt; : T[P]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type X = &#123; </span><br><span class="line">  x: &#123; </span><br><span class="line">    a: 1</span><br><span class="line">    b: &apos;hi&apos;</span><br><span class="line">  &#125;</span><br><span class="line">  y: &apos;hey&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Expected = &#123; </span><br><span class="line">  readonly x: &#123; </span><br><span class="line">    readonly a: 1</span><br><span class="line">    readonly b: &apos;hi&apos;</span><br><span class="line">  &#125;</span><br><span class="line">  readonly y: &apos;hey&apos; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Todo = DeepReadonly&lt;X&gt; // should be same as `Expected`</span><br></pre></td></tr></table></figure></code></pre><ul><li><p><strong><strong>元组转合集</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">实现泛型TupleToUnion&lt;T&gt;，它返回元组所有值的合集。</span><br><span class="line"></span><br><span class="line">// T[number] 获取元组类型的值</span><br><span class="line">type TupleToUnion&lt;T extends readonly unknown[]&gt; = T[number]</span><br><span class="line"></span><br><span class="line">type Arr = [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;]</span><br><span class="line"></span><br><span class="line">type Test = TupleToUnion&lt;Arr&gt; // expected to be &apos;1&apos; | &apos;2&apos; | &apos;3&apos;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>可串联构造器</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">在 JavaScript 中我们很常会使用可串联（Chainable/Pipeline）的函数构造一个对象，但在 TypeScript 中，你能合理的给他附上类型吗？</span><br><span class="line"></span><br><span class="line">在这个挑战中，你可以使用任意你喜欢的方式实现这个类型 - Interface, Type 或 Class 都行。你需要提供两个函数 option(key, value) </span><br><span class="line">和 get()。在 option 中你需要使用提供的 key 和 value 扩展当前的对象类型，通过 get 获取最终结果。</span><br><span class="line"></span><br><span class="line">type Chainable&lt;T = &#123;&#125;&gt; = &#123;</span><br><span class="line">  option&lt;K extends string, V = unknown&gt;(key: K, value: V): Chainable&lt;T &amp; Record&lt;K, V&gt;&gt;  // option 是函数类型</span><br><span class="line">  get(): T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">declare const config: Chainable</span><br><span class="line"></span><br><span class="line">const result = config</span><br><span class="line">  .option(&apos;foo&apos;, 123)</span><br><span class="line">  .option(&apos;name&apos;, &apos;type-challenges&apos;)</span><br><span class="line">  .option(&apos;bar&apos;, &#123; value: &apos;Hello World&apos; &#125;)</span><br><span class="line">  .get()</span><br><span class="line"></span><br><span class="line">// 期望 result 的类型是：</span><br><span class="line">interface Result &#123;</span><br><span class="line">  foo: number</span><br><span class="line">  name: string</span><br><span class="line">  bar: &#123;</span><br><span class="line">    value: string</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>最后一个元素</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">实现一个通用Last&lt;T&gt;，它接受一个数组T并返回其最后一个元素的类型。</span><br><span class="line"></span><br><span class="line">type Last&lt;T extends any[]&gt; = T extends [...any[], infer Last] ? Last : never</span><br><span class="line"></span><br><span class="line">type arr1 = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br><span class="line">type arr2 = [3, 2, 1]</span><br><span class="line"></span><br><span class="line">type tail1 = Last&lt;arr1&gt; // expected to be &apos;c&apos;</span><br><span class="line">type tail2 = Last&lt;arr2&gt; // expected to be 1</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>出堆</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">实现一个通用Pop&lt;T&gt;，它接受一个数组T并返回一个没有最后一个元素的数组。</span><br><span class="line"></span><br><span class="line">type Pop&lt;T extends any[]&gt; = T extends [...infer First, any] ? First : never</span><br><span class="line"></span><br><span class="line">type arr1 = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;]</span><br><span class="line">type arr2 = [3, 2, 1]</span><br><span class="line"></span><br><span class="line">type re1 = Pop&lt;arr1&gt; // expected to be [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br><span class="line">type re2 = Pop&lt;arr2&gt; // expected to be [3, 2]</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Promise.all</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">键入函数PromiseAll，它接受PromiseLike对象数组，返回值应为Promise&lt;T&gt;，其中T是解析的结果数组</span><br><span class="line"></span><br><span class="line">declare function PromiseAll&lt;T extends any[]&gt;(values: readonly [...T]) : Promise&lt;&#123;</span><br><span class="line">  [R in keyof T]: T[R] extends Promise&lt;infer S&gt; ? S : T[R]</span><br><span class="line">&#125;&gt;</span><br><span class="line"></span><br><span class="line">const promise1 = Promise.resolve(3);</span><br><span class="line">const promise2 = 42;</span><br><span class="line">const promise3 = new Promise&lt;string&gt;((resolve, reject) =&gt; &#123;</span><br><span class="line">  setTimeout(resolve, 100, &apos;foo&apos;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// expected to be `Promise&lt;[number, 42, string]&gt;`</span><br><span class="line">const p = Promise.all([promise1, promise2, promise3] as const)</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Type Lookup</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">在此挑战中，我们想通过在联合Cat | Dog中搜索公共type字段来获取相应的类型。换句话说，在以下示例中，</span><br><span class="line">我们期望LookUp&lt;Dog | Cat, &apos;dog&apos;&gt;获得Dog，LookUp&lt;Dog | Cat, &apos;cat&apos;&gt;获得Cat。</span><br><span class="line"></span><br><span class="line">type LookUp&lt;U, T&gt; = U extends &#123;type: T&#125; ? U : never</span><br><span class="line"></span><br><span class="line">interface Cat &#123;</span><br><span class="line">  type: &apos;cat&apos;</span><br><span class="line">  breeds: &apos;Abyssinian&apos; | &apos;Shorthair&apos; | &apos;Curl&apos; | &apos;Bengal&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Dog &#123;</span><br><span class="line">  type: &apos;dog&apos;</span><br><span class="line">  breeds: &apos;Hound&apos; | &apos;Brittany&apos; | &apos;Bulldog&apos; | &apos;Boxer&apos;</span><br><span class="line">  color: &apos;brown&apos; | &apos;white&apos; | &apos;black&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type MyDog = LookUp&lt;Cat | Dog, &apos;dog&apos;&gt; // expected to be `Dog`</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Trim Left</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">实现 TrimLeft&lt;T&gt; ，它接收确定的字符串类型并返回一个新的字符串，其中新返回的字符串删除了原字符串开头的空白字符串。</span><br><span class="line"></span><br><span class="line">type TrimLeft&lt;S extends string&gt; = S extends `$&#123;&apos; &apos; | &apos;\n&apos; | &apos;\t&apos;&#125;$&#123;infer R&#125;` ? TrimLeft&lt;R&gt; : S</span><br><span class="line"></span><br><span class="line">type trimed = TrimLeft&lt;&apos;  Hello World  &apos;&gt; // 应推导出 &apos;Hello World  &apos;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Trim</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Implement Trim&lt;T&gt; which takes an exact string type and returns a new string with the whitespace </span><br><span class="line">from both ends removed.</span><br><span class="line">删除两端的空格</span><br><span class="line"></span><br><span class="line">type Trim&lt;S extends string&gt; = S extends `$&#123;&apos; &apos; | &apos;\n&apos; | &apos;\t&apos;&#125;$&#123;infer L&#125;` ? Trim&lt;L&gt; : S extends `$&#123;infer R&#125;$&#123;&apos; &apos; | &apos;\n&apos; | &apos;\t&apos;&#125;` ? Trim&lt;R&gt; : S</span><br><span class="line"></span><br><span class="line">type trimed = Trim&lt;&apos;  Hello World  &apos;&gt; // expected to be &apos;Hello World&apos;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Capitalize</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">首字母大写，其他部分保持原样</span><br><span class="line">// Uppercase， 将字符串转为大写</span><br><span class="line">type MyCapitalize&lt;S extends string&gt; = S extends `$&#123;infer R&#125;$&#123;infer Rest&#125;` ? `$&#123;Uppercase&lt;R&gt;&#125;$&#123;Rest&#125;` : &apos;&apos;</span><br><span class="line"></span><br><span class="line">type capitalized = Capitalize&lt;&apos;hello world&apos;&gt; // expected to be &apos;Hello world&apos;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Replace</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">实现 Replace&lt;S, From, To&gt; 将字符串 S 中的第一个子字符串 From 替换为 To 。</span><br><span class="line"></span><br><span class="line">type Replace&lt;S extends string, From extends string, To extends string&gt; =</span><br><span class="line">   From extends &apos;&apos; ? S : S extends `$&#123;infer Pre&#125;$&#123;From&#125;$&#123;infer Last&#125;` ? `$&#123;Pre&#125;$&#123;To&#125;$&#123;Last&#125;` : S</span><br><span class="line"></span><br><span class="line">type replaced = Replace&lt;&apos;types are fun!&apos;, &apos;fun&apos;, &apos;awesome&apos;&gt; // 期望是 &apos;types are awesome!&apos;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>ReplaceAll</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">实现 ReplaceAll&lt;S, From, To&gt; 将一个字符串 S 中的所有子字符串 From 替换为 To。</span><br><span class="line"></span><br><span class="line">type ReplaceAll&lt;S extends string, From extends string, To extends string&gt; = From extends &apos;&apos; ? S : S extends `$&#123;infer Pre&#125;$&#123;From&#125;$&#123;infer Last&#125;` ? `$&#123;Pre&#125;$&#123;To&#125;$&#123;ReplaceAll&lt;Last, From, To&gt;&#125;` : S</span><br><span class="line"></span><br><span class="line">type replaced = ReplaceAll&lt;&apos;t y p e s&apos;, &apos; &apos;, &apos;&apos;&gt; // 期望是 &apos;types&apos;</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>追加参数</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">实现一个泛型 AppendArgument&lt;Fn, A&gt;，对于给定的函数类型 Fn，以及一个任意类型 A，返回一个新的函数 G。</span><br><span class="line">G 拥有 Fn 的所有参数并在末尾追加类型为 A 的参数。</span><br><span class="line"></span><br><span class="line">type AppendArgument&lt;Fn, A&gt; = Fn extends (...args: infer P) =&gt; infer Res ? (...args: [...P, A]) =&gt; Res : never</span><br><span class="line"></span><br><span class="line">type Fn = (a: number, b: string) =&gt; number</span><br><span class="line"></span><br><span class="line">type Result = AppendArgument&lt;Fn, boolean&gt; </span><br><span class="line">// 期望是 (a: number, b: string, x: boolean) =&gt; number</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong><del>Permutation（pas）</del></strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">实现将联合类型转换为包含联合排列的数组的排列类型。</span><br><span class="line"></span><br><span class="line">type Permutation&lt;T, U = T&gt; = [T] extends [never] ? [] : (T extends U ? [T, ...Permutation&lt;Exclude&lt;U, T&gt;&gt;] : [])</span><br><span class="line"></span><br><span class="line">type perm = Permutation&lt;&apos;A&apos; | &apos;B&apos; | &apos;C&apos;&gt;; // [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;] | [&apos;A&apos;, &apos;C&apos;, &apos;B&apos;] | [&apos;B&apos;, &apos;A&apos;, &apos;C&apos;] | [&apos;B&apos;, &apos;C&apos;, &apos;A&apos;] | [&apos;C&apos;, &apos;A&apos;, &apos;B&apos;] | [&apos;C&apos;, &apos;B&apos;, &apos;A&apos;]</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Length of String</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">计算字符串文字的长度</span><br><span class="line"></span><br><span class="line">// 先把字符串转换成数组，再取length属性</span><br><span class="line">type StrToArr&lt;S extends string&gt; = S extends `$&#123;infer F&#125;$&#123;infer S&#125;` ? [F, ...StrToArr&lt;S&gt;] : [];</span><br><span class="line">type LengthOfString&lt;S extends string&gt; = S extends string ? StrToArr&lt;S&gt;[&quot;length&quot;] : 0</span><br></pre></td></tr></table></figure></li></ul><ul><li><p><strong><strong>Flatten</strong></strong></p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数组展平</span><br><span class="line"></span><br><span class="line">type flatten = Flatten&lt;[1, 2, [3, 4], [[[5]]]]&gt; // [1, 2, 3, 4, 5]</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;ts类型体操&quot;&gt;&lt;a href=&quot;#ts类型体操&quot; class=&quot;headerlink&quot; title=&quot;ts类型体操&quot;&gt;&lt;/a&gt;ts类型体操&lt;/h1&gt;&lt;p&gt;Column: March 30, 2022 10:36 AM&lt;br&gt;Status: Yes&lt;br&gt;Tags
+      
+    
+    </summary>
+    
+      <category term="Typescript" scheme="https://luoyec.cn/categories/Typescript/"/>
+    
+    
+      <category term="Typescript" scheme="https://luoyec.cn/tags/Typescript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>React Hooks 核心原理与实战</title>
+    <link href="https://luoyec.cn/2022/06/14/cl4e4qwin004nad9elxq1cy7d/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e4qwin004nad9elxq1cy7d/</id>
+    <published>2022-06-14T12:11:36.659Z</published>
+    <updated>2022-06-14T12:13:15.826Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="React-Hooks-核心原理与实战"><a href="#React-Hooks-核心原理与实战" class="headerlink" title="React Hooks 核心原理与实战"></a>React Hooks 核心原理与实战</h1><p>Tags: 前端源码<br>创建时间: May 24, 2022<br>评星: ⭐️⭐️⭐️⭐️⭐️</p><p><a href="https://time.geekbang.org/column/article/379299?cid=100079901" target="_blank" rel="noopener"></a></p><h2 id="03｜内置-Hooks（1）：如何保存组件状态和使用生命周期？"><a href="#03｜内置-Hooks（1）：如何保存组件状态和使用生命周期？" class="headerlink" title="03｜内置 Hooks（1）：如何保存组件状态和使用生命周期？"></a><strong><strong>03｜内置 Hooks（1）：如何保存组件状态和使用生命周期？</strong></strong></h2><h3 id="useState原则"><a href="#useState原则" class="headerlink" title="useState原则"></a>useState原则</h3><p><code>state</code> 中永远不要保存可以通过计算得到的值。</p><h3 id="React-Hooks-四种执行时机"><a href="#React-Hooks-四种执行时机" class="headerlink" title="React Hooks 四种执行时机"></a>React Hooks 四种执行时机</h3><p><strong><code>useEffect</code> 让我们能够在下面四种时机去执行一个回调函数产生副作用：</strong></p><ul><li>每次 <code>render</code> 后执行：不提供第二个依赖项参数。比如<code>useEffect(() =&gt; {})</code></li><li>仅第一次 <code>render</code> 后执行：提供一个空数组作为依赖项。比如<code>useEffect(() =&gt; {}, [])</code></li><li>第一次以及依赖项发生变化后执行：提供依赖项数组。比如<code>useEffect(() =&gt; {}, [deps])</code></li><li>组件 <code>unmount</code> 后执行：返回一个回调函数。比如<code>useEffect() =&gt; { return () =&gt; {} }, [])</code></li></ul><h3 id="Hooks-的使用规则"><a href="#Hooks-的使用规则" class="headerlink" title="Hooks 的使用规则"></a>Hooks 的使用规则</h3><ul><li><p><code>Hooks</code> 只能在函数组件的顶级作用域使用</p><p>  所谓顶层作用域，就是 <code>Hooks</code> 不能在循环、条件判断或者嵌套函数内执行，而必须是在顶层。同时 <code>Hooks</code> 在组件的多次渲染之间，必须按顺序被执行。</p></li><li><p><code>Hooks</code> 只能在函数组件或者其它 <code>Hooks</code> 中使用</p></li></ul><h2 id="04｜内置-Hooks（2）：为什么要避免重复定义回调函数？"><a href="#04｜内置-Hooks（2）：为什么要避免重复定义回调函数？" class="headerlink" title="04｜内置 Hooks（2）：为什么要避免重复定义回调函数？"></a><strong><strong>04｜内置 Hooks（2）：为什么要避免重复定义回调函数？</strong></strong></h2><h3 id="useCallback：缓存回调函数"><a href="#useCallback：缓存回调函数" class="headerlink" title="useCallback：缓存回调函数"></a>useCallback：缓存回调函数</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  **<span class="comment">// handleIncrement是定义在函数内部的，因此在多次渲染之间无法重用，每次都需要重新创建**</span></span><br><span class="line">  <span class="keyword">const</span> handleIncrement = <span class="function"><span class="params">()</span> =&gt;</span> setCount(count + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  **<span class="comment">// 每次创建新函数的方式会让接收事件处理函数的组件，需要重新渲染。**</span></span><br><span class="line">  <span class="keyword">return</span> &lt;button onClick=&#123;handleIncrement&#125;&gt;+&lt;/button&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>接收了 <code>handleIncrement</code> ，并作为一个属性。如果每次都是一个新的，那么这个 <code>React</code> 就会认为这个组件的 <code>props</code> 发生了变化，从而必须重新渲染。因此，我们需要做到的是：只有当 <code>count</code> 发生变化时，我们才需要重新定一个回调函数。而这正是 <code>useCallback</code> 这个 <code>Hook</code> 的作用。</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useCallback &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> handleIncrement = useCallback(</span><br><span class="line">    () =&gt; setCount(count + <span class="number">1</span>),</span><br><span class="line">    [count], <span class="comment">// 只有当 count 发生变化时，才会重新创建回调函数</span></span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> &lt;button onClick=&#123;handleIncrement&#125;&gt;+&lt;/button&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="useMemo：缓存计算的结果"><a href="#useMemo：缓存计算的结果" class="headerlink" title="useMemo：缓存计算的结果"></a>useMemo：缓存计算的结果</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> usersToShow = <span class="literal">null</span>; </span><br><span class="line"><span class="keyword">if</span> (users) &#123; <span class="comment">// 无论组件为何刷新，这里一定会对数组做一次过滤的操作 </span></span><br><span class="line">usersToShow = users.data.filter(<span class="function">(<span class="params">user</span>) =&gt;</span> user.first_name.includes(searchKey), ); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这个场景应该很容易理解：如果某个数据是通过其它数据计算得到的，那么只有当用到的数据，也就是依赖的数据发生变化的时候，才应该需要重新计算。</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="comment">// 使用 userMemo 缓存计算的结果</span></span><br><span class="line"><span class="keyword">const</span> usersToShow = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!users) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> users.data.filter(<span class="function">(<span class="params">user</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> user.first_name.includes(searchKey));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, [users, searchKey]);</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure><p>缓存上一次的计算结果，useMemo 可以避免子组件重复渲染。</p><h3 id="useRef：在多次渲染之间共享数据"><a href="#useRef：在多次渲染之间共享数据" class="headerlink" title="useRef：在多次渲染之间共享数据"></a>useRef：在多次渲染之间共享数据</h3><p><strong>useRef 看作是在函数组件之外创建的一个容器空间，用于共享变量。</strong></p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 定义 timer 这样一个容器用于在跨组件渲染之间保存一个变量</span></span><br><span class="line"><span class="keyword">const</span> timer = useRef(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开始计时的事件处理函数</span></span><br><span class="line"><span class="keyword">const</span> handleStart = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 使用 current 属性设置 ref 的值</span></span><br><span class="line">  timer.current = <span class="built_in">window</span>.setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setTime(<span class="function">(<span class="params">time</span>) =&gt;</span> time + <span class="number">1</span>);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;, []);</span><br></pre></td></tr></table></figure><p><strong>保存某个 DOM 节点的引用</strong></p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TextInputWithFocusButton</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> inputEl = useRef(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> onButtonClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// current 属性指向了真实的 input 这个 DOM 节点，从而可以调用 focus 方法</span></span><br><span class="line">    inputEl.current.focus();</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;input ref=&#123;inputEl&#125; type=<span class="string">"text"</span> /&gt;</span><br><span class="line">      &lt;button onClick=&#123;onButtonClick&#125;&gt;Focus the input&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="useContext：定义全局状态"><a href="#useContext：定义全局状态" class="headerlink" title="useContext：定义全局状态"></a>useContext：定义全局状态</h3><p>要跨层次，或者同层的组件之间要进行数据的共享，React 提供了 Context 这样一个机制，能够让所有在某个组件开始的组件树上创建一个 Context。这样这个组件树上的所有组件，就都能访问和修改这个 Context 了。那么在函数组件里，我们就可以使用 useContext 这样一个 Hook 来管理 Context。</p><h2 id="08｜复杂状态处理：如何保证状态一致性？"><a href="#08｜复杂状态处理：如何保证状态一致性？" class="headerlink" title="08｜复杂状态处理：如何保证状态一致性？"></a><strong><strong>08｜复杂状态处理：如何保证状态一致性？</strong></strong></h2><h3 id="原则一：保证状态最小化"><a href="#原则一：保证状态最小化" class="headerlink" title="原则一：保证状态最小化"></a>原则一：保证状态最小化</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> [searchKey, setSearchKey] = useState(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">**<span class="comment">// 每当 searchKey 或者 data 变化的时候，重新计算最终结果**</span></span><br><span class="line">**<span class="comment">// 利用useMemo缓存计算的值**</span></span><br><span class="line"><span class="keyword">const</span> filtered = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> data.filter(<span class="function">(<span class="params">item</span>) =&gt;</span></span><br><span class="line">    item.title.toLowerCase().includes(searchKey.toLowerCase())</span><br><span class="line">  );</span><br><span class="line">&#125;, [searchKey, data]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#123;filtered.map((item) =&gt; &#123;&#125;) ...</span></span><br></pre></td></tr></table></figure><p>🔥   <strong>核心原则，如果能通过计算得到结果，就不要保存在state中。这样需要手动维护数据一致性，增加复杂度。</strong></p><h3 id="原则二：-避免中间状态，确保唯一数据源"><a href="#原则二：-避免中间状态，确保唯一数据源" class="headerlink" title="原则二： 避免中间状态，确保唯一数据源"></a>原则二： 避免中间状态，确保唯一数据源</h3><h2 id="10｜函数组件设计模式：如何应对复杂条件渲染场景？"><a href="#10｜函数组件设计模式：如何应对复杂条件渲染场景？" class="headerlink" title="10｜函数组件设计模式：如何应对复杂条件渲染场景？"></a><strong><strong>10｜函数组件设计模式：如何应对复杂条件渲染场景？</strong></strong></h2><h3 id="容器模式：实现按条件执行-Hooks"><a href="#容器模式：实现按条件执行-Hooks" class="headerlink" title="容器模式：实现按条件执行 Hooks"></a>容器模式：实现按条件执行 Hooks</h3><p>所谓容器模式，是将判断逻辑放在容器内部，从而避免在判断逻辑中写 <code>hooks</code></p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个容器组件用于封装真正的 UserInfoModal</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">UserInfoModalWrapper</span>(<span class="params">&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">  visible,</span></span></span><br><span class="line"><span class="function"><span class="params">  ...rest, <span class="regexp">//</span> 使用 rest 获取除了 visible 之外的属性</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 如果对话框不显示，则不 render 任何内容</span></span><br><span class="line">  <span class="keyword">if</span> (!visible) <span class="keyword">return</span> <span class="literal">null</span>; </span><br><span class="line">  <span class="comment">// 否则真正执行对话框的组件逻辑</span></span><br><span class="line">  <span class="keyword">return</span> &lt;UserInfoModal visible &#123;...rest&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>同理，在自定义hooks内部，判断是否处理</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useUser</span>(<span class="params">id</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [data, setData] = useState(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> [loading, setLoading] = useState(<span class="literal">false</span>);</span><br><span class="line">  <span class="keyword">const</span> [error, setError] = useState(<span class="literal">null</span>);</span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 当 id 不存在，直接返回，不发送请求</span></span><br><span class="line">    <span class="keyword">if</span> (!id) <span class="keyword">return</span></span><br><span class="line">    <span class="comment">// 获取用户信息的逻辑</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="使用-render-props-模式重用-UI-逻辑"><a href="#使用-render-props-模式重用-UI-逻辑" class="headerlink" title="使用 render props 模式重用 UI 逻辑"></a>使用 render props 模式重用 UI 逻辑</h3><p><code>render props</code> 就是把一个 <code>render</code> 函数作为属性传递给某个组件，由这个组件去执行这个函数从而 <code>render</code> 实际的内容。</p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState, useCallback &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CounterRenderProps</span>(<span class="params">&#123; children &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> increment = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setCount(count + <span class="number">1</span>);</span><br><span class="line">  &#125;, [count]);</span><br><span class="line">  <span class="keyword">const</span> decrement = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setCount(count - <span class="number">1</span>);</span><br><span class="line">  &#125;, [count]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> children(&#123; count, increment, decrement &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CounterRenderPropsExample</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;CounterRenderProps&gt;</span><br><span class="line">      &#123;(&#123; count, increment, decrement &#125;) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">          &lt;div&gt;</span><br><span class="line">            &lt;button onClick=&#123;decrement&#125;&gt;-&lt;/button&gt;</span><br><span class="line">            &lt;span&gt;&#123;count&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">            &lt;button onClick=&#123;increment&#125;&gt;+&lt;/</span>button&gt;</span><br><span class="line">          &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp">      &#125;&#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>CounterRenderProps&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>一个showMore的例子，实现UI的重用</p><p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/21055e63-ba06-4f0a-b7a5-52fe5e653221/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T121226Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=413a2cde08249cf10dec035cbfcfdbbb43ef68c532c217a03d20ef4b38a7d30b&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ListWithMore.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; Popover &#125; <span class="keyword">from</span> <span class="string">"antd"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ListWithMore</span>(<span class="params">&#123; renderItem, data = [], max &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> elements = data.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> renderItem(item, index, data));</span><br><span class="line">  <span class="keyword">const</span> show = elements.slice(<span class="number">0</span>, max);</span><br><span class="line">  <span class="keyword">const</span> hide = elements.slice(max);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;span className=<span class="string">"exp-10-list-with-more"</span>&gt;</span><br><span class="line">      &#123;show&#125;</span><br><span class="line">      &#123;hide.length &gt; <span class="number">0</span> &amp;&amp; (</span><br><span class="line">        &lt;Popover content=&#123;&lt;div style=&#123;&#123; <span class="attr">maxWidth</span>: <span class="number">500</span> &#125;&#125;&gt;&#123;hide&#125;&lt;<span class="regexp">/div&gt;&#125;&gt;</span></span><br><span class="line"><span class="regexp">          &lt;span className="more-items-wrapper"&gt;</span></span><br><span class="line"><span class="regexp">            and&#123;" "&#125;</span></span><br><span class="line"><span class="regexp">            &lt;span className="more-items-trigger"&gt; &#123;hide.length&#125; more...&lt;/</span>span&gt;</span><br><span class="line">          &lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Popover&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ListWithMoreExample.jsx 这里用一个示例数据</span></span><br><span class="line"><span class="keyword">import</span> data <span class="keyword">from</span> <span class="string">'./data'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ListWithMoreExample</span> (<span class="params"></span>) =&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=<span class="string">"exp-10-list-with-more"</span>&gt;</span><br><span class="line">      &lt;h1&gt;User Names&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">      &lt;div className="user-names"&gt;</span></span><br><span class="line"><span class="regexp">        Liked by:&#123;" "&#125;</span></span><br><span class="line"><span class="regexp">        **&lt;ListWithMore**</span></span><br><span class="line"><span class="regexp">          renderItem=&#123;(user) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">            return &lt;span className="user-name"&gt;&#123;user.name&#125;&lt;/</span>span&gt;;</span><br><span class="line">          &#125;&#125;</span><br><span class="line">          data=&#123;data&#125;</span><br><span class="line">          max=&#123;<span class="number">3</span>&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;br /</span>&gt;</span><br><span class="line">      &lt;br /&gt;</span><br><span class="line">      &lt;h1&gt;User List&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">      &lt;div className="user-list"&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div className="user-list-row user-list-row-head"&gt;</span></span><br><span class="line"><span class="regexp">          &lt;span className="user-name-cell"&gt;Name&lt;/</span>span&gt;</span><br><span class="line">          &lt;span&gt;City&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">          &lt;span&gt;Job Title&lt;/</span>span&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        **&lt;ListWithMore**</span></span><br><span class="line"><span class="regexp">          renderItem=&#123;(user) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">            return (</span></span><br><span class="line"><span class="regexp">              &lt;div className="user-list-row"&gt;</span></span><br><span class="line"><span class="regexp">                &lt;span className="user-name-cell"&gt;&#123;user.name&#125;&lt;/</span>span&gt;</span><br><span class="line">                &lt;span&gt;&#123;user.city&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">                &lt;span&gt;&#123;user.job&#125;&lt;/</span>span&gt;</span><br><span class="line">              &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">            );</span></span><br><span class="line"><span class="regexp">          &#125;&#125;</span></span><br><span class="line"><span class="regexp">          data=&#123;data&#125;</span></span><br><span class="line"><span class="regexp">          max=&#123;5&#125;</span></span><br><span class="line"><span class="regexp">        /</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;React-Hooks-核心原理与实战&quot;&gt;&lt;a href=&quot;#React-Hooks-核心原理与实战&quot; class=&quot;headerlink&quot; title=&quot;React Hooks 核心原理与实战&quot;&gt;&lt;/a&gt;React Hooks 核心原理与实战&lt;/h1&gt;&lt;p&gt;Ta
+      
+    
+    </summary>
+    
+      <category term="前端框架" scheme="https://luoyec.cn/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
+    
+    
+      <category term="react" scheme="https://luoyec.cn/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>esbuild-loader加快打包速度</title>
+    <link href="https://luoyec.cn/2022/06/14/cl4e4qwj80061ad9e4g9ilev7/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e4qwj80061ad9e4g9ilev7/</id>
+    <published>2022-06-14T12:09:57.332Z</published>
+    <updated>2022-06-14T12:13:27.949Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="添加esbuild-loader加快打包速度"><a href="#添加esbuild-loader加快打包速度" class="headerlink" title="添加esbuild-loader加快打包速度"></a>添加esbuild-loader加快打包速度</h1><p>Tags: 工程化, 构建优化<br>创建时间: January 14, 2022<br>评星: ⭐️⭐️⭐️⭐️</p><p><a href="https://github.com/privatenumber/esbuild-loader" target="_blank" rel="noopener">https://github.com/privatenumber/esbuild-loader</a></p><p><a href="https://www.npmjs.com/package/unused-webpack-plugin" target="_blank" rel="noopener">unused-webpack-plugin</a></p><p><a href="https://juejin.cn/post/6844904103848443912" target="_blank" rel="noopener">如何使用 splitChunks 精细控制代码分割 - 掘金</a></p><h2 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h2><p><strong>引入<code>esbuild-loader</code>+<code>splitChunks</code>分包</strong></p><h2 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h2><table><thead><tr><th></th><th>webpack4</th><th>webpack4+esbuild-loader</th></tr></thead><tbody><tr><td>yarn run serve</td><td>45 44 47</td><td>38   38  38</td></tr><tr><td>yarn run build</td><td>351 81  80</td><td>115  73  60</td></tr><tr><td>登录页耗时（测试环境）</td><td>5.54  2.84 2.76</td><td></td></tr><tr><td>设备列表页耗时（测试环境）</td><td>6.15 2.28 2.13</td><td></td></tr><tr><td></td><td></td></tr></tbody></table><h2 id="当前三个环境打包体积（优化前）"><a href="#当前三个环境打包体积（优化前）" class="headerlink" title="当前三个环境打包体积（优化前）"></a>当前三个环境打包体积（优化前）</h2><p><img src="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F705b6206-9b05-4501-a5b2-124b3fe887d9%2FUntitled.png?table=block&amp;id=d96877dd-2c14-451a-8388-ba0b8b61e60b&amp;spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&amp;width=2000&amp;userId=&amp;cache=v2" alt="Untitled"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;添加esbuild-loader加快打包速度&quot;&gt;&lt;a href=&quot;#添加esbuild-loader加快打包速度&quot; class=&quot;headerlink&quot; title=&quot;添加esbuild-loader加快打包速度&quot;&gt;&lt;/a&gt;添加esbuild-loader加快打包
+      
+    
+    </summary>
+    
+      <category term="前端工程化" scheme="https://luoyec.cn/categories/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    
+      <category term="构建优化" scheme="https://luoyec.cn/tags/%E6%9E%84%E5%BB%BA%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
     <title>关于Browserlist浏览器支持范围</title>
-    <link href="https://luoyec.cn/2022/06/14/cl4e4dqkd007psm9eizsb55ov/"/>
-    <id>https://luoyec.cn/2022/06/14/cl4e4dqkd007psm9eizsb55ov/</id>
+    <link href="https://luoyec.cn/2022/06/14/cl4e4qwka0086ad9eklv4nhmp/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e4qwka0086ad9eklv4nhmp/</id>
     <published>2022-06-14T12:05:10.295Z</published>
     <updated>2022-06-14T12:07:37.798Z</updated>
     
@@ -43,8 +143,8 @@
   
   <entry>
     <title>前端性能监控</title>
-    <link href="https://luoyec.cn/2022/06/14/cl4e4dqkn0084sm9eb3quvygt/"/>
-    <id>https://luoyec.cn/2022/06/14/cl4e4dqkn0084sm9eb3quvygt/</id>
+    <link href="https://luoyec.cn/2022/06/14/cl4e4qwkj008rad9eftn670bo/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e4qwkj008rad9eftn670bo/</id>
     <published>2022-06-14T11:53:37.926Z</published>
     <updated>2022-06-14T12:04:09.334Z</updated>
     
@@ -68,8 +168,8 @@
   
   <entry>
     <title>前端性能优化总结</title>
-    <link href="https://luoyec.cn/2022/06/14/cl4e4dqko0087sm9e0xj8on0l/"/>
-    <id>https://luoyec.cn/2022/06/14/cl4e4dqko0087sm9e0xj8on0l/</id>
+    <link href="https://luoyec.cn/2022/06/14/cl4e4qwke008iad9efc12uju3/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e4qwke008iad9efc12uju3/</id>
     <published>2022-06-14T10:35:17.163Z</published>
     <updated>2022-06-14T11:15:30.557Z</updated>
     
@@ -96,8 +196,8 @@
   
   <entry>
     <title>脚手架的实现原理</title>
-    <link href="https://luoyec.cn/2022/06/14/cl4e4dqll00a4sm9ezfraujyh/"/>
-    <id>https://luoyec.cn/2022/06/14/cl4e4dqll00a4sm9ezfraujyh/</id>
+    <link href="https://luoyec.cn/2022/06/14/cl4e4qwlu00bcad9erjabavch/"/>
+    <id>https://luoyec.cn/2022/06/14/cl4e4qwlu00bcad9erjabavch/</id>
     <published>2022-06-14T10:20:31.515Z</published>
     <updated>2022-06-14T11:01:29.703Z</updated>
     
@@ -121,8 +221,8 @@
   
   <entry>
     <title>JavaScript 原型、原型链</title>
-    <link href="https://luoyec.cn/2019/03/07/cl4e4dqhg001fsm9e2sf4ecle/"/>
-    <id>https://luoyec.cn/2019/03/07/cl4e4dqhg001fsm9e2sf4ecle/</id>
+    <link href="https://luoyec.cn/2019/03/07/cl4e4qwhd001mad9e7sf6bcp0/"/>
+    <id>https://luoyec.cn/2019/03/07/cl4e4qwhd001mad9e7sf6bcp0/</id>
     <published>2019-03-07T08:43:57.726Z</published>
     <updated>2019-03-07T08:43:57.726Z</updated>
     
@@ -150,8 +250,8 @@
   
   <entry>
     <title>BFC 原理简介及应用</title>
-    <link href="https://luoyec.cn/2019/03/05/cl4e4dqgk0008sm9e4xz12ue3/"/>
-    <id>https://luoyec.cn/2019/03/05/cl4e4dqgk0008sm9e4xz12ue3/</id>
+    <link href="https://luoyec.cn/2019/03/05/cl4e4qwgq000fad9ed8pb3sum/"/>
+    <id>https://luoyec.cn/2019/03/05/cl4e4qwgq000fad9ed8pb3sum/</id>
     <published>2019-03-05T06:19:16.937Z</published>
     <updated>2019-03-05T06:19:16.938Z</updated>
     
@@ -179,8 +279,8 @@
   
   <entry>
     <title>在 Express 中使用 log4js</title>
-    <link href="https://luoyec.cn/2019/02/28/cl4e4dqku008lsm9e4mjlzxl2/"/>
-    <id>https://luoyec.cn/2019/02/28/cl4e4dqku008lsm9e4mjlzxl2/</id>
+    <link href="https://luoyec.cn/2019/02/28/cl4e4qwkk008vad9evd3re9o1/"/>
+    <id>https://luoyec.cn/2019/02/28/cl4e4qwkk008vad9evd3re9o1/</id>
     <published>2019-02-28T07:45:15.778Z</published>
     <updated>2019-02-28T07:45:15.778Z</updated>
     
@@ -208,8 +308,8 @@
   
   <entry>
     <title>nodejs 调试 (Inspector)</title>
-    <link href="https://luoyec.cn/2019/02/28/cl4e4dqjm005ysm9eluolw9sl/"/>
-    <id>https://luoyec.cn/2019/02/28/cl4e4dqjm005ysm9eluolw9sl/</id>
+    <link href="https://luoyec.cn/2019/02/28/cl4e4qwjg006iad9epejg0a25/"/>
+    <id>https://luoyec.cn/2019/02/28/cl4e4qwjg006iad9epejg0a25/</id>
     <published>2019-02-28T07:40:10.736Z</published>
     <updated>2019-02-28T07:40:10.736Z</updated>
     
@@ -235,8 +335,8 @@
   
   <entry>
     <title>Knex 在 Koa2 中的应用</title>
-    <link href="https://luoyec.cn/2019/01/16/cl4e4dqif003jsm9epz3k8dc8/"/>
-    <id>https://luoyec.cn/2019/01/16/cl4e4dqif003jsm9epz3k8dc8/</id>
+    <link href="https://luoyec.cn/2019/01/16/cl4e4qwif0043ad9e2x7a1nv2/"/>
+    <id>https://luoyec.cn/2019/01/16/cl4e4qwif0043ad9e2x7a1nv2/</id>
     <published>2019-01-16T02:29:51.415Z</published>
     <updated>2019-01-16T02:29:51.415Z</updated>
     
@@ -264,8 +364,8 @@
   
   <entry>
     <title>加盐密码哈希：如何正确使用</title>
-    <link href="https://luoyec.cn/2019/01/14/cl4e4dqkr008fsm9erh6y58z4/"/>
-    <id>https://luoyec.cn/2019/01/14/cl4e4dqkr008fsm9erh6y58z4/</id>
+    <link href="https://luoyec.cn/2019/01/14/cl4e4qwkl008zad9el1huq0nd/"/>
+    <id>https://luoyec.cn/2019/01/14/cl4e4qwkl008zad9el1huq0nd/</id>
     <published>2019-01-14T06:30:09.730Z</published>
     <updated>2019-01-14T06:30:09.731Z</updated>
     
@@ -293,8 +393,8 @@
   
   <entry>
     <title>把一个 Node.js web 应用程序给 Docker 化</title>
-    <link href="https://luoyec.cn/2019/01/09/cl4e4dql00090sm9ex1hhly62/"/>
-    <id>https://luoyec.cn/2019/01/09/cl4e4dql00090sm9ex1hhly62/</id>
+    <link href="https://luoyec.cn/2019/01/09/cl4e4qwl2009oad9e02xtmkb2/"/>
+    <id>https://luoyec.cn/2019/01/09/cl4e4qwl2009oad9e02xtmkb2/</id>
     <published>2019-01-09T09:09:48.235Z</published>
     <updated>2019-01-09T09:09:48.235Z</updated>
     
@@ -320,8 +420,8 @@
   
   <entry>
     <title>使用 StoryBook 搭建 UI 组件库</title>
-    <link href="https://luoyec.cn/2018/10/26/cl4e4dqkc007msm9ene6oq452/"/>
-    <id>https://luoyec.cn/2018/10/26/cl4e4dqkc007msm9ene6oq452/</id>
+    <link href="https://luoyec.cn/2018/10/26/cl4e4qwkg008lad9e32jjlt38/"/>
+    <id>https://luoyec.cn/2018/10/26/cl4e4qwkg008lad9e32jjlt38/</id>
     <published>2018-10-26T08:49:20.998Z</published>
     <updated>2018-10-26T08:59:12.252Z</updated>
     
@@ -349,8 +449,8 @@
   
   <entry>
     <title>深入了解合并操作(转)</title>
-    <link href="https://luoyec.cn/2018/10/23/cl4e4dqla009ksm9epd9ty45h/"/>
-    <id>https://luoyec.cn/2018/10/23/cl4e4dqla009ksm9epd9ty45h/</id>
+    <link href="https://luoyec.cn/2018/10/23/cl4e4qwlg00agad9eg4dle1jt/"/>
+    <id>https://luoyec.cn/2018/10/23/cl4e4qwlg00agad9eg4dle1jt/</id>
     <published>2018-10-23T06:57:42.774Z</published>
     <updated>2018-10-23T06:57:51.860Z</updated>
     
@@ -379,8 +479,8 @@
   
   <entry>
     <title>XMLHttpRequest</title>
-    <link href="https://luoyec.cn/2018/10/17/cl4e4dqjc005csm9eixmicq1n/"/>
-    <id>https://luoyec.cn/2018/10/17/cl4e4dqjc005csm9eixmicq1n/</id>
+    <link href="https://luoyec.cn/2018/10/17/cl4e4qwj1005rad9ed8s09nl0/"/>
+    <id>https://luoyec.cn/2018/10/17/cl4e4qwj1005rad9ed8s09nl0/</id>
     <published>2018-10-17T08:06:20.966Z</published>
     <updated>2018-10-23T06:59:40.754Z</updated>
     
@@ -405,8 +505,8 @@
   
   <entry>
     <title>Vue源码解析-响应式原理（计算属性、监听属性、组件更新）</title>
-    <link href="https://luoyec.cn/2018/08/24/cl4e4dqj70053sm9e16pzagn4/"/>
-    <id>https://luoyec.cn/2018/08/24/cl4e4dqj70053sm9e16pzagn4/</id>
+    <link href="https://luoyec.cn/2018/08/24/cl4e4qwj0005mad9en2baiggc/"/>
+    <id>https://luoyec.cn/2018/08/24/cl4e4qwj0005mad9en2baiggc/</id>
     <published>2018-08-24T08:20:55.943Z</published>
     <updated>2018-08-24T08:21:01.457Z</updated>
     
@@ -432,8 +532,8 @@
   
   <entry>
     <title>Vue源码解析-响应式原理</title>
-    <link href="https://luoyec.cn/2018/08/24/cl4e4dqj5004ysm9e9d9n50um/"/>
-    <id>https://luoyec.cn/2018/08/24/cl4e4dqj5004ysm9e9d9n50um/</id>
+    <link href="https://luoyec.cn/2018/08/24/cl4e4qwiw005dad9efbwq1n09/"/>
+    <id>https://luoyec.cn/2018/08/24/cl4e4qwiw005dad9efbwq1n09/</id>
     <published>2018-08-24T03:55:14.296Z</published>
     <updated>2018-08-24T03:55:32.990Z</updated>
     
@@ -462,8 +562,8 @@
   
   <entry>
     <title>Vue源码解析-组件化</title>
-    <link href="https://luoyec.cn/2018/08/22/cl4e4dqjb005asm9eybomr0ci/"/>
-    <id>https://luoyec.cn/2018/08/22/cl4e4dqjb005asm9eybomr0ci/</id>
+    <link href="https://luoyec.cn/2018/08/22/cl4e4qwj4005uad9ef62nuzoj/"/>
+    <id>https://luoyec.cn/2018/08/22/cl4e4qwj4005uad9ef62nuzoj/</id>
     <published>2018-08-22T10:39:34.503Z</published>
     <updated>2018-08-22T10:39:39.393Z</updated>
     
@@ -493,8 +593,8 @@
   
   <entry>
     <title>Vue源码解析-数据驱动</title>
-    <link href="https://luoyec.cn/2018/08/21/cl4e4dqj90056sm9elhm4zjxr/"/>
-    <id>https://luoyec.cn/2018/08/21/cl4e4dqj90056sm9elhm4zjxr/</id>
+    <link href="https://luoyec.cn/2018/08/21/cl4e4qwiz005jad9eer68hio3/"/>
+    <id>https://luoyec.cn/2018/08/21/cl4e4qwiz005jad9eer68hio3/</id>
     <published>2018-08-21T08:06:57.691Z</published>
     <updated>2018-08-21T08:07:14.273Z</updated>
     
@@ -524,8 +624,8 @@
   
   <entry>
     <title>Object.defineProperty()</title>
-    <link href="https://luoyec.cn/2018/08/17/cl4e4dqiq0049sm9ej2oehg7u/"/>
-    <id>https://luoyec.cn/2018/08/17/cl4e4dqiq0049sm9ej2oehg7u/</id>
+    <link href="https://luoyec.cn/2018/08/17/cl4e4qwij004cad9eevey65tw/"/>
+    <id>https://luoyec.cn/2018/08/17/cl4e4qwij004cad9eevey65tw/</id>
     <published>2018-08-17T03:11:06.085Z</published>
     <updated>2018-08-17T03:11:12.075Z</updated>
     
@@ -549,8 +649,8 @@
   
   <entry>
     <title>HTML5 语义化最佳实践</title>
-    <link href="https://luoyec.cn/2018/06/26/cl4e4dqh70011sm9ehif0q0g2/"/>
-    <id>https://luoyec.cn/2018/06/26/cl4e4dqh70011sm9ehif0q0g2/</id>
+    <link href="https://luoyec.cn/2018/06/26/cl4e4qwh9001had9egov8mcob/"/>
+    <id>https://luoyec.cn/2018/06/26/cl4e4qwh9001had9egov8mcob/</id>
     <published>2018-06-26T10:08:24.092Z</published>
     <updated>2018-06-26T10:08:28.891Z</updated>
     
@@ -576,8 +676,8 @@
   
   <entry>
     <title>Nginx 部署静态页面</title>
-    <link href="https://luoyec.cn/2018/06/11/cl4e4dqik003vsm9e2ja7q7s4/"/>
-    <id>https://luoyec.cn/2018/06/11/cl4e4dqik003vsm9e2ja7q7s4/</id>
+    <link href="https://luoyec.cn/2018/06/11/cl4e4qwig0046ad9en3bzxn4d/"/>
+    <id>https://luoyec.cn/2018/06/11/cl4e4qwig0046ad9en3bzxn4d/</id>
     <published>2018-06-11T09:14:01.244Z</published>
     <updated>2018-06-11T09:14:07.265Z</updated>
     
@@ -603,8 +703,8 @@
   
   <entry>
     <title>Vue.js 快速入门与专业应用</title>
-    <link href="https://luoyec.cn/2018/05/14/cl4e4dqj3004vsm9ex0agzmzv/"/>
-    <id>https://luoyec.cn/2018/05/14/cl4e4dqj3004vsm9ex0agzmzv/</id>
+    <link href="https://luoyec.cn/2018/05/14/cl4e4qwix005fad9ekoh457g0/"/>
+    <id>https://luoyec.cn/2018/05/14/cl4e4qwix005fad9ekoh457g0/</id>
     <published>2018-05-14T02:03:57.255Z</published>
     <updated>2018-05-14T02:09:43.470Z</updated>
     
@@ -631,8 +731,8 @@
   
   <entry>
     <title>JavaScript 数组去重</title>
-    <link href="https://luoyec.cn/2018/05/06/cl4e4dqhl001nsm9eyyaihlwt/"/>
-    <id>https://luoyec.cn/2018/05/06/cl4e4dqhl001nsm9eyyaihlwt/</id>
+    <link href="https://luoyec.cn/2018/05/06/cl4e4qwhg001tad9eqi7rbhzz/"/>
+    <id>https://luoyec.cn/2018/05/06/cl4e4qwhg001tad9eqi7rbhzz/</id>
     <published>2018-05-06T11:50:18.040Z</published>
     <updated>2018-05-06T11:50:23.573Z</updated>
     
@@ -658,8 +758,8 @@
   
   <entry>
     <title>JavaScript排序算法</title>
-    <link href="https://luoyec.cn/2018/05/06/cl4e4dqi5002vsm9euqvtpbdr/"/>
-    <id>https://luoyec.cn/2018/05/06/cl4e4dqi5002vsm9euqvtpbdr/</id>
+    <link href="https://luoyec.cn/2018/05/06/cl4e4qwi7003oad9ek03t675h/"/>
+    <id>https://luoyec.cn/2018/05/06/cl4e4qwi7003oad9ek03t675h/</id>
     <published>2018-05-06T03:59:25.542Z</published>
     <updated>2018-05-06T03:59:37.568Z</updated>
     
@@ -686,8 +786,8 @@
   
   <entry>
     <title>AJAX 工作原理及概述</title>
-    <link href="https://luoyec.cn/2018/05/04/cl4e4dqgj0007sm9emon6m5j1/"/>
-    <id>https://luoyec.cn/2018/05/04/cl4e4dqgj0007sm9emon6m5j1/</id>
+    <link href="https://luoyec.cn/2018/05/04/cl4e4qwgk0008ad9eyrsaiul3/"/>
+    <id>https://luoyec.cn/2018/05/04/cl4e4qwgk0008ad9eyrsaiul3/</id>
     <published>2018-05-04T07:11:14.446Z</published>
     <updated>2018-05-04T07:11:33.599Z</updated>
     
@@ -716,8 +816,8 @@
   
   <entry>
     <title>正则表达式练习题</title>
-    <link href="https://luoyec.cn/2018/05/01/cl4e4dql6009esm9en1pu6p5z/"/>
-    <id>https://luoyec.cn/2018/05/01/cl4e4dql6009esm9en1pu6p5z/</id>
+    <link href="https://luoyec.cn/2018/05/01/cl4e4qwla00a2ad9e4y85mcxx/"/>
+    <id>https://luoyec.cn/2018/05/01/cl4e4qwla00a2ad9e4y85mcxx/</id>
     <published>2018-05-01T06:31:39.761Z</published>
     <updated>2018-05-01T06:31:52.739Z</updated>
     
@@ -743,8 +843,8 @@
   
   <entry>
     <title>JavaScript 类的继承</title>
-    <link href="https://luoyec.cn/2018/04/17/cl4e4dqhu0025sm9eg1ewegq7/"/>
-    <id>https://luoyec.cn/2018/04/17/cl4e4dqhu0025sm9eg1ewegq7/</id>
+    <link href="https://luoyec.cn/2018/04/17/cl4e4qwhl0027ad9e4ug6xun8/"/>
+    <id>https://luoyec.cn/2018/04/17/cl4e4qwhl0027ad9e4ug6xun8/</id>
     <published>2018-04-17T05:16:30.391Z</published>
     <updated>2018-04-17T05:59:53.545Z</updated>
     
@@ -773,8 +873,8 @@
   
   <entry>
     <title>JavaScript 类的封装</title>
-    <link href="https://luoyec.cn/2018/04/15/cl4e4dqht0022sm9e322t2en8/"/>
-    <id>https://luoyec.cn/2018/04/15/cl4e4dqht0022sm9e322t2en8/</id>
+    <link href="https://luoyec.cn/2018/04/15/cl4e4qwhj0024ad9eg2u7ogls/"/>
+    <id>https://luoyec.cn/2018/04/15/cl4e4qwhj0024ad9eg2u7ogls/</id>
     <published>2018-04-15T13:51:01.501Z</published>
     <updated>2018-04-15T13:51:43.000Z</updated>
     
@@ -802,8 +902,8 @@
   
   <entry>
     <title>JavaScript 基本数据类型-对象</title>
-    <link href="https://luoyec.cn/2018/04/15/cl4e4dqhn001rsm9ennv3kc1n/"/>
-    <id>https://luoyec.cn/2018/04/15/cl4e4dqhn001rsm9ennv3kc1n/</id>
+    <link href="https://luoyec.cn/2018/04/15/cl4e4qwhe001pad9ep3kr8n8a/"/>
+    <id>https://luoyec.cn/2018/04/15/cl4e4qwhe001pad9ep3kr8n8a/</id>
     <published>2018-04-14T19:03:40.058Z</published>
     <updated>2018-04-14T19:03:45.105Z</updated>
     
@@ -831,8 +931,8 @@
   
   <entry>
     <title>JavaScript 原型及原型链</title>
-    <link href="https://luoyec.cn/2018/04/14/cl4e4dqhi001jsm9eq9419eul/"/>
-    <id>https://luoyec.cn/2018/04/14/cl4e4dqhi001jsm9eq9419eul/</id>
+    <link href="https://luoyec.cn/2018/04/14/cl4e4qwhc001lad9e2i4f5fre/"/>
+    <id>https://luoyec.cn/2018/04/14/cl4e4qwhc001lad9e2i4f5fre/</id>
     <published>2018-04-14T08:15:53.601Z</published>
     <updated>2018-04-14T10:28:43.620Z</updated>
     
@@ -860,8 +960,8 @@
   
   <entry>
     <title>前端跨域通信原理及示例</title>
-    <link href="https://luoyec.cn/2018/04/14/cl4e4dqkq008csm9en6go6al6/"/>
-    <id>https://luoyec.cn/2018/04/14/cl4e4dqkq008csm9en6go6al6/</id>
+    <link href="https://luoyec.cn/2018/04/14/cl4e4qwkh008oad9eujhihsd4/"/>
+    <id>https://luoyec.cn/2018/04/14/cl4e4qwkh008oad9eujhihsd4/</id>
     <published>2018-04-14T04:45:50.875Z</published>
     <updated>2018-04-14T04:46:15.411Z</updated>
     
@@ -888,8 +988,8 @@
   
   <entry>
     <title>XMLHttpRequest请求</title>
-    <link href="https://luoyec.cn/2018/04/13/cl4e4dqjd005gsm9e38t2g8xi/"/>
-    <id>https://luoyec.cn/2018/04/13/cl4e4dqjd005gsm9e38t2g8xi/</id>
+    <link href="https://luoyec.cn/2018/04/13/cl4e4qwja0063ad9eouqlgar0/"/>
+    <id>https://luoyec.cn/2018/04/13/cl4e4qwja0063ad9eouqlgar0/</id>
     <published>2018-04-13T15:38:53.944Z</published>
     <updated>2018-04-13T15:39:14.839Z</updated>
     
@@ -913,8 +1013,8 @@
   
   <entry>
     <title>React 服务端渲染理论</title>
-    <link href="https://luoyec.cn/2018/04/05/cl4e4dqit004gsm9eoy22omb8/"/>
-    <id>https://luoyec.cn/2018/04/05/cl4e4dqit004gsm9eoy22omb8/</id>
+    <link href="https://luoyec.cn/2018/04/05/cl4e4qwis0052ad9e271i10zk/"/>
+    <id>https://luoyec.cn/2018/04/05/cl4e4qwis0052ad9e271i10zk/</id>
     <published>2018-04-05T07:09:31.232Z</published>
     <updated>2018-04-05T07:09:35.413Z</updated>
     
@@ -942,8 +1042,8 @@
   
   <entry>
     <title>JavaScript 正则表达式</title>
-    <link href="https://luoyec.cn/2018/03/31/cl4e4dqhr001zsm9e7ses38bw/"/>
-    <id>https://luoyec.cn/2018/03/31/cl4e4dqhr001zsm9e7ses38bw/</id>
+    <link href="https://luoyec.cn/2018/03/31/cl4e4qwhn002dad9e8dei8v1o/"/>
+    <id>https://luoyec.cn/2018/03/31/cl4e4qwhn002dad9e8dei8v1o/</id>
     <published>2018-03-31T03:02:24.965Z</published>
     <updated>2018-03-31T03:03:06.000Z</updated>
     
@@ -971,8 +1071,8 @@
   
   <entry>
     <title>浏览器存储、HTTP缓存、SSR</title>
-    <link href="https://luoyec.cn/2018/03/24/cl4e4dql8009gsm9efsq5fp4l/"/>
-    <id>https://luoyec.cn/2018/03/24/cl4e4dql8009gsm9efsq5fp4l/</id>
+    <link href="https://luoyec.cn/2018/03/24/cl4e4qwl6009uad9exijs93x6/"/>
+    <id>https://luoyec.cn/2018/03/24/cl4e4qwl6009uad9exijs93x6/</id>
     <published>2018-03-24T14:32:19.000Z</published>
     <updated>2018-03-24T14:32:22.000Z</updated>
     
@@ -998,8 +1098,8 @@
   
   <entry>
     <title>懒加载与预加载，重绘与回流</title>
-    <link href="https://luoyec.cn/2018/03/24/cl4e4dqky008wsm9e1fql4z5v/"/>
-    <id>https://luoyec.cn/2018/03/24/cl4e4dqky008wsm9e1fql4z5v/</id>
+    <link href="https://luoyec.cn/2018/03/24/cl4e4qwkx009bad9e5p0hzk38/"/>
+    <id>https://luoyec.cn/2018/03/24/cl4e4qwkx009bad9e5p0hzk38/</id>
     <published>2018-03-23T16:40:34.000Z</published>
     <updated>2018-03-23T16:40:46.000Z</updated>
     
@@ -1025,8 +1125,8 @@
   
   <entry>
     <title>资源合并与压缩</title>
-    <link href="https://luoyec.cn/2018/03/23/cl4e4dqlt00aosm9e9y1423dt/"/>
-    <id>https://luoyec.cn/2018/03/23/cl4e4dqlt00aosm9e9y1423dt/</id>
+    <link href="https://luoyec.cn/2018/03/23/cl4e4qwlp00azad9eoh6rimyv/"/>
+    <id>https://luoyec.cn/2018/03/23/cl4e4qwlp00azad9eoh6rimyv/</id>
     <published>2018-03-23T05:31:52.000Z</published>
     <updated>2018-03-23T05:33:26.000Z</updated>
     
@@ -1056,8 +1156,8 @@
   
   <entry>
     <title>JavaScript 迭代器与生成器</title>
-    <link href="https://luoyec.cn/2018/03/21/cl4e4dqj0004qsm9ehmsog33l/"/>
-    <id>https://luoyec.cn/2018/03/21/cl4e4dqj0004qsm9ehmsog33l/</id>
+    <link href="https://luoyec.cn/2018/03/21/cl4e4qwhi0021ad9eho9szj9b/"/>
+    <id>https://luoyec.cn/2018/03/21/cl4e4qwhi0021ad9eho9szj9b/</id>
     <published>2018-03-21T08:58:44.000Z</published>
     <updated>2018-03-21T08:58:55.000Z</updated>
     
@@ -1085,8 +1185,8 @@
   
   <entry>
     <title>JavaScript 递归上</title>
-    <link href="https://luoyec.cn/2018/03/08/cl4e4dqhv0028sm9e3z28xfkb/"/>
-    <id>https://luoyec.cn/2018/03/08/cl4e4dqhv0028sm9e3z28xfkb/</id>
+    <link href="https://luoyec.cn/2018/03/08/cl4e4qwhm0029ad9etcibjvdi/"/>
+    <id>https://luoyec.cn/2018/03/08/cl4e4qwhm0029ad9etcibjvdi/</id>
     <published>2018-03-08T01:01:16.000Z</published>
     <updated>2018-03-08T01:01:21.000Z</updated>
     
@@ -1112,8 +1212,8 @@
   
   <entry>
     <title>Jenkins安装及基础配置</title>
-    <link href="https://luoyec.cn/2018/03/07/cl4e4dqie003gsm9e23t56uyo/"/>
-    <id>https://luoyec.cn/2018/03/07/cl4e4dqie003gsm9e23t56uyo/</id>
+    <link href="https://luoyec.cn/2018/03/07/cl4e4qwi4003iad9eot5tk7hk/"/>
+    <id>https://luoyec.cn/2018/03/07/cl4e4qwi4003iad9eot5tk7hk/</id>
     <published>2018-03-07T01:55:41.000Z</published>
     <updated>2018-03-07T01:55:44.000Z</updated>
     
@@ -1140,8 +1240,8 @@
   
   <entry>
     <title>NPM 数组模块学习与使用</title>
-    <link href="https://luoyec.cn/2018/03/05/cl4e4dqjg005osm9e2mvjw6zn/"/>
-    <id>https://luoyec.cn/2018/03/05/cl4e4dqjg005osm9e2mvjw6zn/</id>
+    <link href="https://luoyec.cn/2018/03/05/cl4e4qwib003vad9ehzwjbuo1/"/>
+    <id>https://luoyec.cn/2018/03/05/cl4e4qwib003vad9ehzwjbuo1/</id>
     <published>2018-03-05T02:36:36.000Z</published>
     <updated>2018-03-05T02:37:17.000Z</updated>
     
@@ -1167,8 +1267,8 @@
   
   <entry>
     <title>Object.assign() 与 扩展操作符（...）</title>
-    <link href="https://luoyec.cn/2018/02/27/cl4e4dqip0045sm9ejbruvwh1/"/>
-    <id>https://luoyec.cn/2018/02/27/cl4e4dqip0045sm9ejbruvwh1/</id>
+    <link href="https://luoyec.cn/2018/02/27/cl4e4qwio004rad9ezsxopmvm/"/>
+    <id>https://luoyec.cn/2018/02/27/cl4e4qwio004rad9ezsxopmvm/</id>
     <published>2018-02-27T02:49:38.000Z</published>
     <updated>2018-02-27T03:04:15.000Z</updated>
     
@@ -1198,8 +1298,8 @@
   
   <entry>
     <title>Jenkins NodeJS Plugin 插件安装使用</title>
-    <link href="https://luoyec.cn/2018/02/10/cl4e4dqib003asm9eukiple27/"/>
-    <id>https://luoyec.cn/2018/02/10/cl4e4dqib003asm9eukiple27/</id>
+    <link href="https://luoyec.cn/2018/02/10/cl4e4qwi00039ad9elh587o5o/"/>
+    <id>https://luoyec.cn/2018/02/10/cl4e4qwi00039ad9elh587o5o/</id>
     <published>2018-02-10T03:33:37.000Z</published>
     <updated>2018-02-10T03:33:40.000Z</updated>
     
@@ -1225,8 +1325,8 @@
   
   <entry>
     <title>Jenkins publish over ssh 插件使用</title>
-    <link href="https://luoyec.cn/2018/02/10/cl4e4dqid003dsm9e42y32qqx/"/>
-    <id>https://luoyec.cn/2018/02/10/cl4e4dqid003dsm9e42y32qqx/</id>
+    <link href="https://luoyec.cn/2018/02/10/cl4e4qwi2003cad9ewpomhdsi/"/>
+    <id>https://luoyec.cn/2018/02/10/cl4e4qwi2003cad9ewpomhdsi/</id>
     <published>2018-02-10T03:06:25.000Z</published>
     <updated>2018-02-10T03:07:50.000Z</updated>
     
@@ -1252,8 +1352,8 @@
   
   <entry>
     <title>React 事件处理</title>
-    <link href="https://luoyec.cn/2018/01/28/cl4e4dqir004bsm9ec2jji6yt/"/>
-    <id>https://luoyec.cn/2018/01/28/cl4e4dqir004bsm9ec2jji6yt/</id>
+    <link href="https://luoyec.cn/2018/01/28/cl4e4qwik004gad9egttw8etj/"/>
+    <id>https://luoyec.cn/2018/01/28/cl4e4qwik004gad9egttw8etj/</id>
     <published>2018-01-27T17:23:29.000Z</published>
     <updated>2018-01-27T17:24:07.000Z</updated>
     
@@ -1282,8 +1382,8 @@
   
   <entry>
     <title>高性能 Webpack3 配置</title>
-    <link href="https://luoyec.cn/2018/01/10/cl4e4dqlw00avsm9ewrmgd61e/"/>
-    <id>https://luoyec.cn/2018/01/10/cl4e4dqlw00avsm9ewrmgd61e/</id>
+    <link href="https://luoyec.cn/2018/01/10/cl4e4qwlt00b7ad9ezvt3j8wf/"/>
+    <id>https://luoyec.cn/2018/01/10/cl4e4qwlt00b7ad9ezvt3j8wf/</id>
     <published>2018-01-09T16:17:00.000Z</published>
     <updated>2018-01-09T16:17:40.000Z</updated>
     
@@ -1307,8 +1407,8 @@
   
   <entry>
     <title>JavaScript脚本化文档下</title>
-    <link href="https://luoyec.cn/2018/01/07/cl4e4dqi90036sm9e51hlz46k/"/>
-    <id>https://luoyec.cn/2018/01/07/cl4e4dqi90036sm9e51hlz46k/</id>
+    <link href="https://luoyec.cn/2018/01/07/cl4e4qwi3003fad9e3xxnjey4/"/>
+    <id>https://luoyec.cn/2018/01/07/cl4e4qwi3003fad9e3xxnjey4/</id>
     <published>2018-01-07T14:31:53.000Z</published>
     <updated>2018-01-07T14:32:08.000Z</updated>
     
@@ -1334,8 +1434,8 @@
   
   <entry>
     <title>CentOS7 服务器安装 Node.js</title>
-    <link href="https://luoyec.cn/2018/01/06/cl4e4dqgo000csm9etlxoswg6/"/>
-    <id>https://luoyec.cn/2018/01/06/cl4e4dqgo000csm9etlxoswg6/</id>
+    <link href="https://luoyec.cn/2018/01/06/cl4e4qwgn000bad9eemykm4en/"/>
+    <id>https://luoyec.cn/2018/01/06/cl4e4qwgn000bad9eemykm4en/</id>
     <published>2018-01-06T06:51:49.000Z</published>
     <updated>2018-01-06T07:10:08.000Z</updated>
     
@@ -1363,8 +1463,8 @@
   
   <entry>
     <title>CentOS7 服务器安装 MySQL</title>
-    <link href="https://luoyec.cn/2018/01/06/cl4e4dqgl0009sm9ekojy7t3k/"/>
-    <id>https://luoyec.cn/2018/01/06/cl4e4dqgl0009sm9ekojy7t3k/</id>
+    <link href="https://luoyec.cn/2018/01/06/cl4e4qwgm000aad9e8h016wtf/"/>
+    <id>https://luoyec.cn/2018/01/06/cl4e4qwgm000aad9e8h016wtf/</id>
     <published>2018-01-06T04:24:04.000Z</published>
     <updated>2018-01-06T04:24:22.000Z</updated>
     
@@ -1392,8 +1492,8 @@
   
   <entry>
     <title>YEOMAN实践一</title>
-    <link href="https://luoyec.cn/2018/01/02/cl4e4dqje005jsm9ebo3zxim2/"/>
-    <id>https://luoyec.cn/2018/01/02/cl4e4dqje005jsm9ebo3zxim2/</id>
+    <link href="https://luoyec.cn/2018/01/02/cl4e4qwj7005zad9efssztyf6/"/>
+    <id>https://luoyec.cn/2018/01/02/cl4e4qwj7005zad9efssztyf6/</id>
     <published>2018-01-02T01:16:45.000Z</published>
     <updated>2018-01-02T01:16:50.000Z</updated>
     
@@ -1420,8 +1520,8 @@
   
   <entry>
     <title>JavaScript事件处理下</title>
-    <link href="https://luoyec.cn/2017/12/26/cl4e4dqhz002ism9enl5lv50m/"/>
-    <id>https://luoyec.cn/2017/12/26/cl4e4dqhz002ism9enl5lv50m/</id>
+    <link href="https://luoyec.cn/2017/12/26/cl4e4qwhr002oad9emgcfyx37/"/>
+    <id>https://luoyec.cn/2017/12/26/cl4e4qwhr002oad9emgcfyx37/</id>
     <published>2017-12-26T14:35:21.000Z</published>
     <updated>2017-12-26T15:35:42.000Z</updated>
     
@@ -1447,8 +1547,8 @@
   
   <entry>
     <title>JavaScript脚本化文档上</title>
-    <link href="https://luoyec.cn/2017/12/26/cl4e4dqi80032sm9eqr0o2q7y/"/>
-    <id>https://luoyec.cn/2017/12/26/cl4e4dqi80032sm9eqr0o2q7y/</id>
+    <link href="https://luoyec.cn/2017/12/26/cl4e4qwhz0035ad9eellelyv6/"/>
+    <id>https://luoyec.cn/2017/12/26/cl4e4qwhz0035ad9eellelyv6/</id>
     <published>2017-12-26T14:28:16.000Z</published>
     <updated>2017-12-26T14:28:31.000Z</updated>
     
@@ -1476,8 +1576,8 @@
   
   <entry>
     <title>JavaScript事件处理上</title>
-    <link href="https://luoyec.cn/2017/12/24/cl4e4dqhy002esm9ehs4lkgdh/"/>
-    <id>https://luoyec.cn/2017/12/24/cl4e4dqhy002esm9ehs4lkgdh/</id>
+    <link href="https://luoyec.cn/2017/12/24/cl4e4qwhq002lad9ei6bw5dv7/"/>
+    <id>https://luoyec.cn/2017/12/24/cl4e4qwhq002lad9ei6bw5dv7/</id>
     <published>2017-12-24T14:54:12.000Z</published>
     <updated>2017-12-26T14:33:08.000Z</updated>
     
@@ -1503,8 +1603,8 @@
   
   <entry>
     <title>JavaScript模块</title>
-    <link href="https://luoyec.cn/2017/12/16/cl4e4dqhp001vsm9e742wo12q/"/>
-    <id>https://luoyec.cn/2017/12/16/cl4e4dqhp001vsm9e742wo12q/</id>
+    <link href="https://luoyec.cn/2017/12/16/cl4e4qwhh001xad9eo7lpksne/"/>
+    <id>https://luoyec.cn/2017/12/16/cl4e4qwhh001xad9eo7lpksne/</id>
     <published>2017-12-15T17:03:11.000Z</published>
     <updated>2017-12-15T17:03:17.000Z</updated>
     
@@ -1530,8 +1630,8 @@
   
   <entry>
     <title>ES6 模块系统</title>
-    <link href="https://luoyec.cn/2017/12/16/cl4e4dqgt000dsm9eu3lwckui/"/>
-    <id>https://luoyec.cn/2017/12/16/cl4e4dqgt000dsm9eu3lwckui/</id>
+    <link href="https://luoyec.cn/2017/12/16/cl4e4qwgr000jad9el12zz09b/"/>
+    <id>https://luoyec.cn/2017/12/16/cl4e4qwgr000jad9el12zz09b/</id>
     <published>2017-12-15T16:56:35.000Z</published>
     <updated>2017-12-15T16:56:42.000Z</updated>
     
@@ -1557,8 +1657,8 @@
   
   <entry>
     <title>MySQL 基础 一</title>
-    <link href="https://luoyec.cn/2017/12/12/cl4e4dqii003rsm9ep24gi23r/"/>
-    <id>https://luoyec.cn/2017/12/12/cl4e4dqii003rsm9ep24gi23r/</id>
+    <link href="https://luoyec.cn/2017/12/12/cl4e4qwi8003qad9e1digqb84/"/>
+    <id>https://luoyec.cn/2017/12/12/cl4e4qwi8003qad9e1digqb84/</id>
     <published>2017-12-11T23:56:10.000Z</published>
     <updated>2017-12-11T23:56:19.000Z</updated>
     
@@ -1586,8 +1686,8 @@
   
   <entry>
     <title>Node.js 模块</title>
-    <link href="https://luoyec.cn/2017/12/09/cl4e4dqin0042sm9eay0qkviu/"/>
-    <id>https://luoyec.cn/2017/12/09/cl4e4dqin0042sm9eay0qkviu/</id>
+    <link href="https://luoyec.cn/2017/12/09/cl4e4qwii004aad9er92gpta2/"/>
+    <id>https://luoyec.cn/2017/12/09/cl4e4qwii004aad9er92gpta2/</id>
     <published>2017-12-09T06:40:43.000Z</published>
     <updated>2017-12-09T06:40:47.000Z</updated>
     
@@ -1615,8 +1715,8 @@
   
   <entry>
     <title>React路由过渡动画</title>
-    <link href="https://luoyec.cn/2017/12/04/cl4e4dqiu004ism9ecbuu18tw/"/>
-    <id>https://luoyec.cn/2017/12/04/cl4e4dqiu004ism9ecbuu18tw/</id>
+    <link href="https://luoyec.cn/2017/12/04/cl4e4qwir004zad9ed0nxy9fl/"/>
+    <id>https://luoyec.cn/2017/12/04/cl4e4qwir004zad9ed0nxy9fl/</id>
     <published>2017-12-04T05:40:18.000Z</published>
     <updated>2017-12-04T05:40:29.000Z</updated>
     
@@ -1643,8 +1743,8 @@
   
   <entry>
     <title>二叉搜索树</title>
-    <link href="https://luoyec.cn/2017/12/04/cl4e4dqk10070sm9evgiqd3w7/"/>
-    <id>https://luoyec.cn/2017/12/04/cl4e4dqk10070sm9evgiqd3w7/</id>
+    <link href="https://luoyec.cn/2017/12/04/cl4e4qwjy007mad9elg6rev26/"/>
+    <id>https://luoyec.cn/2017/12/04/cl4e4qwjy007mad9elg6rev26/</id>
     <published>2017-12-03T19:30:51.000Z</published>
     <updated>2017-12-03T19:31:11.000Z</updated>
     
@@ -1670,8 +1770,8 @@
   
   <entry>
     <title>All About React Router 4</title>
-    <link href="https://luoyec.cn/2017/11/19/cl4e4dqge0004sm9eqmmhbgj0/"/>
-    <id>https://luoyec.cn/2017/11/19/cl4e4dqge0004sm9eqmmhbgj0/</id>
+    <link href="https://luoyec.cn/2017/11/19/cl4e4qwga0004ad9etjn7p2od/"/>
+    <id>https://luoyec.cn/2017/11/19/cl4e4qwga0004ad9etjn7p2od/</id>
     <published>2017-11-18T16:08:35.000Z</published>
     <updated>2018-02-27T02:50:05.000Z</updated>
     
@@ -1701,8 +1801,8 @@
   
   <entry>
     <title>Nginx反向代理</title>
-    <link href="https://luoyec.cn/2017/11/18/cl4e4dqim003xsm9e4jwrzbjf/"/>
-    <id>https://luoyec.cn/2017/11/18/cl4e4dqim003xsm9e4jwrzbjf/</id>
+    <link href="https://luoyec.cn/2017/11/18/cl4e4qwid003yad9e42yayliy/"/>
+    <id>https://luoyec.cn/2017/11/18/cl4e4qwid003yad9e42yayliy/</id>
     <published>2017-11-18T01:46:05.000Z</published>
     <updated>2018-06-11T09:07:45.309Z</updated>
     
@@ -1732,8 +1832,8 @@
   
   <entry>
     <title>Eslint代码检查及格式化</title>
-    <link href="https://luoyec.cn/2017/11/11/cl4e4dqh1000tsm9e0ljmx8yh/"/>
-    <id>https://luoyec.cn/2017/11/11/cl4e4dqh1000tsm9e0ljmx8yh/</id>
+    <link href="https://luoyec.cn/2017/11/11/cl4e4qwh00010ad9ebrdhwszw/"/>
+    <id>https://luoyec.cn/2017/11/11/cl4e4qwh00010ad9ebrdhwszw/</id>
     <published>2017-11-11T15:31:18.000Z</published>
     <updated>2017-11-11T15:31:36.000Z</updated>
     
@@ -1762,8 +1862,8 @@
   
   <entry>
     <title>58脚手架分享讲义</title>
-    <link href="https://luoyec.cn/2017/11/10/cl4e4dqga0002sm9e3ycx2im8/"/>
-    <id>https://luoyec.cn/2017/11/10/cl4e4dqga0002sm9e3ycx2im8/</id>
+    <link href="https://luoyec.cn/2017/11/10/cl4e4qwg60002ad9e0cjkr8f1/"/>
+    <id>https://luoyec.cn/2017/11/10/cl4e4qwg60002ad9e0cjkr8f1/</id>
     <published>2017-11-09T17:08:09.000Z</published>
     <updated>2017-11-09T17:08:14.000Z</updated>
     
@@ -1792,8 +1892,8 @@
   
   <entry>
     <title>JavaScript:Promise</title>
-    <link href="https://luoyec.cn/2017/11/09/cl4e4dqhw002bsm9e9yh6g9ai/"/>
-    <id>https://luoyec.cn/2017/11/09/cl4e4dqhw002bsm9e9yh6g9ai/</id>
+    <link href="https://luoyec.cn/2017/11/09/cl4e4qwho002gad9esb315tlf/"/>
+    <id>https://luoyec.cn/2017/11/09/cl4e4qwho002gad9esb315tlf/</id>
     <published>2017-11-09T05:28:18.000Z</published>
     <updated>2017-11-09T05:28:26.000Z</updated>
     
@@ -1821,8 +1921,8 @@
   
   <entry>
     <title>2017-10-21表驱动法</title>
-    <link href="https://luoyec.cn/2017/10/23/cl4e4dqlp00acsm9ettt71f6q/"/>
-    <id>https://luoyec.cn/2017/10/23/cl4e4dqlp00acsm9ettt71f6q/</id>
+    <link href="https://luoyec.cn/2017/10/23/cl4e4qwln00awad9eq3d1f43x/"/>
+    <id>https://luoyec.cn/2017/10/23/cl4e4qwln00awad9eq3d1f43x/</id>
     <published>2017-10-23T13:51:02.000Z</published>
     <updated>2017-11-09T17:08:20.000Z</updated>
     
@@ -1855,8 +1955,8 @@
   
   <entry>
     <title>JavaScript回调</title>
-    <link href="https://luoyec.cn/2017/10/13/cl4e4dqi2002psm9ezx8308a5/"/>
-    <id>https://luoyec.cn/2017/10/13/cl4e4dqi2002psm9ezx8308a5/</id>
+    <link href="https://luoyec.cn/2017/10/13/cl4e4qwht002rad9emid8cgze/"/>
+    <id>https://luoyec.cn/2017/10/13/cl4e4qwht002rad9emid8cgze/</id>
     <published>2017-10-13T12:19:25.000Z</published>
     <updated>2017-10-13T12:19:31.000Z</updated>
     
@@ -1881,8 +1981,8 @@
   
   <entry>
     <title>JavaScript异步：现在与未来</title>
-    <link href="https://luoyec.cn/2017/10/13/cl4e4dqi3002ssm9e382hy9qo/"/>
-    <id>https://luoyec.cn/2017/10/13/cl4e4dqi3002ssm9e382hy9qo/</id>
+    <link href="https://luoyec.cn/2017/10/13/cl4e4qwhw002xad9ejkt90lql/"/>
+    <id>https://luoyec.cn/2017/10/13/cl4e4qwhw002xad9ejkt90lql/</id>
     <published>2017-10-13T11:46:32.000Z</published>
     <updated>2017-10-13T11:46:43.000Z</updated>
     
@@ -1909,8 +2009,8 @@
   
   <entry>
     <title>JavaScript 原生函数</title>
-    <link href="https://luoyec.cn/2017/10/11/cl4e4dqhj001ksm9e0i3prz6a/"/>
-    <id>https://luoyec.cn/2017/10/11/cl4e4dqhj001ksm9e0i3prz6a/</id>
+    <link href="https://luoyec.cn/2017/10/11/cl4e4qwh8001fad9ea4zuwzsp/"/>
+    <id>https://luoyec.cn/2017/10/11/cl4e4qwh8001fad9ea4zuwzsp/</id>
     <published>2017-10-11T14:50:14.000Z</published>
     <updated>2017-10-11T14:50:56.000Z</updated>
     
@@ -1942,8 +2042,8 @@
   
   <entry>
     <title>JavaScript 值</title>
-    <link href="https://luoyec.cn/2017/10/11/cl4e4dqi1002msm9ea58lk2so/"/>
-    <id>https://luoyec.cn/2017/10/11/cl4e4dqi1002msm9ea58lk2so/</id>
+    <link href="https://luoyec.cn/2017/10/11/cl4e4qwhv002uad9epab0e1x0/"/>
+    <id>https://luoyec.cn/2017/10/11/cl4e4qwhv002uad9epab0e1x0/</id>
     <published>2017-10-11T05:17:29.000Z</published>
     <updated>2017-10-11T05:17:48.000Z</updated>
     
@@ -1968,8 +2068,8 @@
   
   <entry>
     <title>JavaScript类型</title>
-    <link href="https://luoyec.cn/2017/10/10/cl4e4dqi6002ysm9eddug0s97/"/>
-    <id>https://luoyec.cn/2017/10/10/cl4e4dqi6002ysm9eddug0s97/</id>
+    <link href="https://luoyec.cn/2017/10/10/cl4e4qwhx0031ad9epvaguqov/"/>
+    <id>https://luoyec.cn/2017/10/10/cl4e4qwhx0031ad9epvaguqov/</id>
     <published>2017-10-10T05:27:27.000Z</published>
     <updated>2017-10-10T05:27:38.000Z</updated>
     
@@ -1994,8 +2094,8 @@
   
   <entry>
     <title>行为委托</title>
-    <link href="https://luoyec.cn/2017/10/08/cl4e4dqlm00a8sm9euzz0bsqx/"/>
-    <id>https://luoyec.cn/2017/10/08/cl4e4dqlm00a8sm9euzz0bsqx/</id>
+    <link href="https://luoyec.cn/2017/10/08/cl4e4qwlm00asad9efnbi7y62/"/>
+    <id>https://luoyec.cn/2017/10/08/cl4e4qwlm00asad9efnbi7y62/</id>
     <published>2017-10-08T07:10:13.000Z</published>
     <updated>2017-10-08T07:10:22.000Z</updated>
     
@@ -2024,8 +2124,8 @@
   
   <entry>
     <title>原型</title>
-    <link href="https://luoyec.cn/2017/10/08/cl4e4dqkt008jsm9ewy3flt8v/"/>
-    <id>https://luoyec.cn/2017/10/08/cl4e4dqkt008jsm9ewy3flt8v/</id>
+    <link href="https://luoyec.cn/2017/10/08/cl4e4qwkw0099ad9eyt4ym3nn/"/>
+    <id>https://luoyec.cn/2017/10/08/cl4e4qwkw0099ad9eyt4ym3nn/</id>
     <published>2017-10-08T06:04:27.000Z</published>
     <updated>2017-10-08T06:04:30.000Z</updated>
     
@@ -2052,8 +2152,8 @@
   
   <entry>
     <title>混合对象“类”</title>
-    <link href="https://luoyec.cn/2017/10/06/cl4e4dqlb009msm9e647nd8uq/"/>
-    <id>https://luoyec.cn/2017/10/06/cl4e4dqlb009msm9e647nd8uq/</id>
+    <link href="https://luoyec.cn/2017/10/06/cl4e4qwl8009xad9ent3ji0bt/"/>
+    <id>https://luoyec.cn/2017/10/06/cl4e4qwl8009xad9ent3ji0bt/</id>
     <published>2017-10-06T15:50:15.000Z</published>
     <updated>2017-10-06T15:50:22.000Z</updated>
     
@@ -2080,8 +2180,8 @@
   
   <entry>
     <title>关于this</title>
-    <link href="https://luoyec.cn/2017/10/06/cl4e4dqke007ssm9epq9l7jbv/"/>
-    <id>https://luoyec.cn/2017/10/06/cl4e4dqke007ssm9epq9l7jbv/</id>
+    <link href="https://luoyec.cn/2017/10/06/cl4e4qwk70080ad9e247gpcnm/"/>
+    <id>https://luoyec.cn/2017/10/06/cl4e4qwk70080ad9e247gpcnm/</id>
     <published>2017-10-06T15:24:44.000Z</published>
     <updated>2017-10-06T15:24:51.000Z</updated>
     
@@ -2110,8 +2210,8 @@
   
   <entry>
     <title>作用域闭包</title>
-    <link href="https://luoyec.cn/2017/10/04/cl4e4dqkb007ism9e64j0bjuy/"/>
-    <id>https://luoyec.cn/2017/10/04/cl4e4dqkb007ism9e64j0bjuy/</id>
+    <link href="https://luoyec.cn/2017/10/04/cl4e4qwk1007tad9ecfdua8um/"/>
+    <id>https://luoyec.cn/2017/10/04/cl4e4qwk1007tad9ecfdua8um/</id>
     <published>2017-10-04T03:16:16.000Z</published>
     <updated>2017-10-06T15:29:13.000Z</updated>
     
@@ -2141,8 +2241,8 @@
   
   <entry>
     <title>提升</title>
-    <link href="https://luoyec.cn/2017/10/03/cl4e4dql10093sm9eunmwy44w/"/>
-    <id>https://luoyec.cn/2017/10/03/cl4e4dql10093sm9eunmwy44w/</id>
+    <link href="https://luoyec.cn/2017/10/03/cl4e4qwl0009gad9elhpyvj12/"/>
+    <id>https://luoyec.cn/2017/10/03/cl4e4qwl0009gad9elhpyvj12/</id>
     <published>2017-10-03T07:25:48.000Z</published>
     <updated>2017-10-06T15:25:04.000Z</updated>
     
@@ -2169,8 +2269,8 @@
   
   <entry>
     <title>谈项目中如何选择框架和库</title>
-    <link href="https://luoyec.cn/2017/10/03/cl4e4dqls00aksm9eeneasgq5/"/>
-    <id>https://luoyec.cn/2017/10/03/cl4e4dqls00aksm9eeneasgq5/</id>
+    <link href="https://luoyec.cn/2017/10/03/cl4e4qwll00aqad9ep1hdhz5x/"/>
+    <id>https://luoyec.cn/2017/10/03/cl4e4qwll00aqad9ep1hdhz5x/</id>
     <published>2017-10-03T06:43:25.000Z</published>
     <updated>2017-10-03T06:43:33.000Z</updated>
     
@@ -2196,8 +2296,8 @@
   
   <entry>
     <title>函数作用域和块作用域</title>
-    <link href="https://luoyec.cn/2017/10/03/cl4e4dqkh007ysm9eidz7jwwu/"/>
-    <id>https://luoyec.cn/2017/10/03/cl4e4dqkh007ysm9eidz7jwwu/</id>
+    <link href="https://luoyec.cn/2017/10/03/cl4e4qwkd008ead9ezktb84z2/"/>
+    <id>https://luoyec.cn/2017/10/03/cl4e4qwkd008ead9ezktb84z2/</id>
     <published>2017-10-03T06:02:42.000Z</published>
     <updated>2017-10-03T06:30:43.000Z</updated>
     
@@ -2224,8 +2324,8 @@
   
   <entry>
     <title>词法作用域</title>
-    <link href="https://luoyec.cn/2017/10/03/cl4e4dqlq00agsm9ejxrsb2tk/"/>
-    <id>https://luoyec.cn/2017/10/03/cl4e4dqlq00agsm9ejxrsb2tk/</id>
+    <link href="https://luoyec.cn/2017/10/03/cl4e4qwlk00anad9e8pm7inq4/"/>
+    <id>https://luoyec.cn/2017/10/03/cl4e4qwlk00anad9e8pm7inq4/</id>
     <published>2017-10-03T03:39:52.000Z</published>
     <updated>2017-10-03T06:30:58.000Z</updated>
     
@@ -2252,8 +2352,8 @@
   
   <entry>
     <title>作用域是什么</title>
-    <link href="https://luoyec.cn/2017/10/03/cl4e4dqka007gsm9eiofrq1cb/"/>
-    <id>https://luoyec.cn/2017/10/03/cl4e4dqka007gsm9eiofrq1cb/</id>
+    <link href="https://luoyec.cn/2017/10/03/cl4e4qwk0007rad9eduifqirs/"/>
+    <id>https://luoyec.cn/2017/10/03/cl4e4qwk0007rad9eduifqirs/</id>
     <published>2017-10-03T02:49:13.000Z</published>
     <updated>2017-10-03T06:31:16.000Z</updated>
     
@@ -2282,8 +2382,8 @@
   
   <entry>
     <title>礼物说分享</title>
-    <link href="https://luoyec.cn/2017/09/25/cl4e4dqlh009ysm9ersbduaop/"/>
-    <id>https://luoyec.cn/2017/09/25/cl4e4dqlh009ysm9ersbduaop/</id>
+    <link href="https://luoyec.cn/2017/09/25/cl4e4qwlc00a8ad9e9cji0xo1/"/>
+    <id>https://luoyec.cn/2017/09/25/cl4e4qwlc00a8ad9e9cji0xo1/</id>
     <published>2017-09-25T03:37:13.000Z</published>
     <updated>2017-10-03T06:42:09.000Z</updated>
     
@@ -2314,8 +2414,8 @@
   
   <entry>
     <title>路由协议与应用协议</title>
-    <link href="https://luoyec.cn/2017/09/19/cl4e4dqlu00arsm9evbrqfjtk/"/>
-    <id>https://luoyec.cn/2017/09/19/cl4e4dqlu00arsm9evbrqfjtk/</id>
+    <link href="https://luoyec.cn/2017/09/19/cl4e4qwls00b4ad9eyq6yjkf9/"/>
+    <id>https://luoyec.cn/2017/09/19/cl4e4qwls00b4ad9eyq6yjkf9/</id>
     <published>2017-09-19T12:51:45.000Z</published>
     <updated>2017-09-19T12:52:25.000Z</updated>
     
@@ -2341,8 +2441,8 @@
   
   <entry>
     <title>TCP与UDP</title>
-    <link href="https://luoyec.cn/2017/09/19/cl4e4dqiy004osm9emqvu1psm/"/>
-    <id>https://luoyec.cn/2017/09/19/cl4e4dqiy004osm9emqvu1psm/</id>
+    <link href="https://luoyec.cn/2017/09/19/cl4e4qwip004uad9elpdjckdd/"/>
+    <id>https://luoyec.cn/2017/09/19/cl4e4qwip004uad9elpdjckdd/</id>
     <published>2017-09-19T11:53:34.000Z</published>
     <updated>2017-09-19T11:53:51.000Z</updated>
     
@@ -2369,8 +2469,8 @@
   
   <entry>
     <title>IP协议相关技术</title>
-    <link href="https://luoyec.cn/2017/09/18/cl4e4dqhd0017sm9eegpkds35/"/>
-    <id>https://luoyec.cn/2017/09/18/cl4e4dqhd0017sm9eegpkds35/</id>
+    <link href="https://luoyec.cn/2017/09/18/cl4e4qwh5001aad9e8legnyh2/"/>
+    <id>https://luoyec.cn/2017/09/18/cl4e4qwh5001aad9e8legnyh2/</id>
     <published>2017-09-18T12:42:21.000Z</published>
     <updated>2017-09-18T12:42:30.000Z</updated>
     
@@ -2397,8 +2497,8 @@
   
   <entry>
     <title>IP协议</title>
-    <link href="https://luoyec.cn/2017/09/18/cl4e4dqhe001csm9epyboonmb/"/>
-    <id>https://luoyec.cn/2017/09/18/cl4e4dqhe001csm9epyboonmb/</id>
+    <link href="https://luoyec.cn/2017/09/18/cl4e4qwh40018ad9e1v3c22az/"/>
+    <id>https://luoyec.cn/2017/09/18/cl4e4qwh40018ad9e1v3c22az/</id>
     <published>2017-09-18T12:07:00.000Z</published>
     <updated>2017-09-18T12:07:05.000Z</updated>
     
@@ -2425,8 +2525,8 @@
   
   <entry>
     <title>数据链路</title>
-    <link href="https://luoyec.cn/2017/09/15/cl4e4dql40099sm9e5t1opfq6/"/>
-    <id>https://luoyec.cn/2017/09/15/cl4e4dql40099sm9e5t1opfq6/</id>
+    <link href="https://luoyec.cn/2017/09/15/cl4e4qwl1009jad9evt2v47p4/"/>
+    <id>https://luoyec.cn/2017/09/15/cl4e4qwl1009jad9evt2v47p4/</id>
     <published>2017-09-15T05:17:56.000Z</published>
     <updated>2017-09-15T05:18:05.000Z</updated>
     
@@ -2452,8 +2552,8 @@
   
   <entry>
     <title>TCP/IP 基础知识</title>
-    <link href="https://luoyec.cn/2017/09/12/cl4e4dqix004msm9ehcz6bll8/"/>
-    <id>https://luoyec.cn/2017/09/12/cl4e4dqix004msm9ehcz6bll8/</id>
+    <link href="https://luoyec.cn/2017/09/12/cl4e4qwil004jad9ex644g33w/"/>
+    <id>https://luoyec.cn/2017/09/12/cl4e4qwil004jad9ex644g33w/</id>
     <published>2017-09-12T06:08:14.000Z</published>
     <updated>2017-09-12T06:08:24.000Z</updated>
     
@@ -2480,8 +2580,8 @@
   
   <entry>
     <title>网络基础知识</title>
-    <link href="https://luoyec.cn/2017/09/11/cl4e4dqlk00a1sm9ezpwb4d8k/"/>
-    <id>https://luoyec.cn/2017/09/11/cl4e4dqlk00a1sm9ezpwb4d8k/</id>
+    <link href="https://luoyec.cn/2017/09/11/cl4e4qwle00abad9ey946bnvh/"/>
+    <id>https://luoyec.cn/2017/09/11/cl4e4qwle00abad9ey946bnvh/</id>
     <published>2017-09-10T23:46:16.000Z</published>
     <updated>2017-09-10T23:48:48.000Z</updated>
     
@@ -2508,8 +2608,8 @@
   
   <entry>
     <title>分析算法</title>
-    <link href="https://luoyec.cn/2017/09/06/cl4e4dqki0080sm9enq971zha/"/>
-    <id>https://luoyec.cn/2017/09/06/cl4e4dqki0080sm9enq971zha/</id>
+    <link href="https://luoyec.cn/2017/09/06/cl4e4qwkc008aad9elmhuiywg/"/>
+    <id>https://luoyec.cn/2017/09/06/cl4e4qwkc008aad9elmhuiywg/</id>
     <published>2017-09-06T12:04:30.000Z</published>
     <updated>2017-09-06T12:04:42.000Z</updated>
     
@@ -2536,8 +2636,8 @@
   
   <entry>
     <title>异步操作和async函数</title>
-    <link href="https://luoyec.cn/2017/09/03/cl4e4dqkx008ssm9e4u9p8udm/"/>
-    <id>https://luoyec.cn/2017/09/03/cl4e4dqkx008ssm9e4u9p8udm/</id>
+    <link href="https://luoyec.cn/2017/09/03/cl4e4qwkt0093ad9e4a72pztq/"/>
+    <id>https://luoyec.cn/2017/09/03/cl4e4qwkt0093ad9e4a72pztq/</id>
     <published>2017-09-03T15:59:51.000Z</published>
     <updated>2017-09-03T16:03:15.000Z</updated>
     
@@ -2570,8 +2670,8 @@
   
   <entry>
     <title>算法基础-插入排序&amp;&amp;习题2.1-3、2.1-4</title>
-    <link href="https://luoyec.cn/2017/09/02/cl4e4dqld009tsm9ewsriwf93/"/>
-    <id>https://luoyec.cn/2017/09/02/cl4e4dqld009tsm9ewsriwf93/</id>
+    <link href="https://luoyec.cn/2017/09/02/cl4e4qwli00ajad9ey7qk8d7j/"/>
+    <id>https://luoyec.cn/2017/09/02/cl4e4qwli00ajad9ey7qk8d7j/</id>
     <published>2017-09-02T07:23:24.000Z</published>
     <updated>2017-09-02T07:26:49.000Z</updated>
     
@@ -2598,8 +2698,8 @@
   
   <entry>
     <title>算法在计算中的作用</title>
-    <link href="https://luoyec.cn/2017/08/30/cl4e4dqlc009qsm9eiah1h3l3/"/>
-    <id>https://luoyec.cn/2017/08/30/cl4e4dqlc009qsm9eiah1h3l3/</id>
+    <link href="https://luoyec.cn/2017/08/30/cl4e4qwlb00a4ad9eg166qlar/"/>
+    <id>https://luoyec.cn/2017/08/30/cl4e4qwlb00a4ad9eg166qlar/</id>
     <published>2017-08-30T15:10:01.000Z</published>
     <updated>2017-08-30T15:10:07.000Z</updated>
     
@@ -2625,8 +2725,8 @@
   
   <entry>
     <title>Egret MVC通用框架HTTP请求实践（GET请求）</title>
-    <link href="https://luoyec.cn/2017/08/29/cl4e4dqgz000msm9e2rkpdnpk/"/>
-    <id>https://luoyec.cn/2017/08/29/cl4e4dqgz000msm9e2rkpdnpk/</id>
+    <link href="https://luoyec.cn/2017/08/29/cl4e4qwgt000kad9e9cwfr0im/"/>
+    <id>https://luoyec.cn/2017/08/29/cl4e4qwgt000kad9e9cwfr0im/</id>
     <published>2017-08-29T09:31:52.000Z</published>
     <updated>2017-08-29T09:32:12.000Z</updated>
     
@@ -2654,8 +2754,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（15）</title>
-    <link href="https://luoyec.cn/2017/08/26/cl4e4dqjn0061sm9ef24v9w7q/"/>
-    <id>https://luoyec.cn/2017/08/26/cl4e4dqjn0061sm9ef24v9w7q/</id>
+    <link href="https://luoyec.cn/2017/08/26/cl4e4qwji006mad9eqls60qup/"/>
+    <id>https://luoyec.cn/2017/08/26/cl4e4qwji006mad9eqls60qup/</id>
     <published>2017-08-26T04:03:04.000Z</published>
     <updated>2017-08-26T04:06:16.000Z</updated>
     
@@ -2684,8 +2784,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（9）</title>
-    <link href="https://luoyec.cn/2017/08/26/cl4e4dqk0006xsm9eup7ocyq7/"/>
-    <id>https://luoyec.cn/2017/08/26/cl4e4dqk0006xsm9eup7ocyq7/</id>
+    <link href="https://luoyec.cn/2017/08/26/cl4e4qwjt007ead9efk4ctywo/"/>
+    <id>https://luoyec.cn/2017/08/26/cl4e4qwjt007ead9efk4ctywo/</id>
     <published>2017-08-26T03:36:02.000Z</published>
     <updated>2017-08-26T04:06:13.000Z</updated>
     
@@ -2712,8 +2812,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（8）</title>
-    <link href="https://luoyec.cn/2017/08/26/cl4e4dqjz006ssm9eq5r4j7lk/"/>
-    <id>https://luoyec.cn/2017/08/26/cl4e4dqjz006ssm9eq5r4j7lk/</id>
+    <link href="https://luoyec.cn/2017/08/26/cl4e4qwjp0073ad9ejvgakuvi/"/>
+    <id>https://luoyec.cn/2017/08/26/cl4e4qwjp0073ad9ejvgakuvi/</id>
     <published>2017-08-26T03:05:58.000Z</published>
     <updated>2017-08-26T03:06:06.000Z</updated>
     
@@ -2739,8 +2839,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（7）</title>
-    <link href="https://luoyec.cn/2017/08/23/cl4e4dqjy006psm9ejrs5h84x/"/>
-    <id>https://luoyec.cn/2017/08/23/cl4e4dqjy006psm9ejrs5h84x/</id>
+    <link href="https://luoyec.cn/2017/08/23/cl4e4qwjq0076ad9elw6m5d0l/"/>
+    <id>https://luoyec.cn/2017/08/23/cl4e4qwjq0076ad9elw6m5d0l/</id>
     <published>2017-08-23T14:27:46.000Z</published>
     <updated>2017-08-23T14:27:53.000Z</updated>
     
@@ -2768,8 +2868,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（6）</title>
-    <link href="https://luoyec.cn/2017/08/23/cl4e4dqjv006lsm9ebp5rh9e9/"/>
-    <id>https://luoyec.cn/2017/08/23/cl4e4dqjv006lsm9ebp5rh9e9/</id>
+    <link href="https://luoyec.cn/2017/08/23/cl4e4qwjs007aad9e7e6zccxq/"/>
+    <id>https://luoyec.cn/2017/08/23/cl4e4qwjs007aad9e7e6zccxq/</id>
     <published>2017-08-23T13:51:17.000Z</published>
     <updated>2017-08-23T13:51:24.000Z</updated>
     
@@ -2796,8 +2896,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（5）</title>
-    <link href="https://luoyec.cn/2017/08/23/cl4e4dqju006jsm9e6eyzxb3b/"/>
-    <id>https://luoyec.cn/2017/08/23/cl4e4dqju006jsm9e6eyzxb3b/</id>
+    <link href="https://luoyec.cn/2017/08/23/cl4e4qwjn0070ad9e2jf781ye/"/>
+    <id>https://luoyec.cn/2017/08/23/cl4e4qwjn0070ad9e2jf781ye/</id>
     <published>2017-08-22T16:31:50.000Z</published>
     <updated>2017-08-22T16:32:02.000Z</updated>
     
@@ -2826,8 +2926,8 @@
   
   <entry>
     <title>Egret 图片缓动动画实现</title>
-    <link href="https://luoyec.cn/2017/08/22/cl4e4dqh0000osm9e4osbdy21/"/>
-    <id>https://luoyec.cn/2017/08/22/cl4e4dqh0000osm9e4osbdy21/</id>
+    <link href="https://luoyec.cn/2017/08/22/cl4e4qwgv000qad9et3jyai0i/"/>
+    <id>https://luoyec.cn/2017/08/22/cl4e4qwgv000qad9et3jyai0i/</id>
     <published>2017-08-22T10:18:36.000Z</published>
     <updated>2017-08-22T10:18:43.000Z</updated>
     
@@ -2855,8 +2955,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（4）</title>
-    <link href="https://luoyec.cn/2017/08/22/cl4e4dqjt006fsm9ea08ins1o/"/>
-    <id>https://luoyec.cn/2017/08/22/cl4e4dqjt006fsm9ea08ins1o/</id>
+    <link href="https://luoyec.cn/2017/08/22/cl4e4qwjl006sad9edmh6mbiy/"/>
+    <id>https://luoyec.cn/2017/08/22/cl4e4qwjl006sad9edmh6mbiy/</id>
     <published>2017-08-22T06:27:50.000Z</published>
     <updated>2017-08-22T06:27:54.000Z</updated>
     
@@ -2885,8 +2985,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（3）</title>
-    <link href="https://luoyec.cn/2017/08/21/cl4e4dqjs006dsm9eksssncx8/"/>
-    <id>https://luoyec.cn/2017/08/21/cl4e4dqjs006dsm9eksssncx8/</id>
+    <link href="https://luoyec.cn/2017/08/21/cl4e4qwjm006vad9ec767gmwq/"/>
+    <id>https://luoyec.cn/2017/08/21/cl4e4qwjm006vad9ec767gmwq/</id>
     <published>2017-08-21T00:25:09.000Z</published>
     <updated>2017-08-21T00:25:18.000Z</updated>
     
@@ -2912,8 +3012,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（2）</title>
-    <link href="https://luoyec.cn/2017/08/21/cl4e4dqjq0068sm9eypofwcd6/"/>
-    <id>https://luoyec.cn/2017/08/21/cl4e4dqjq0068sm9eypofwcd6/</id>
+    <link href="https://luoyec.cn/2017/08/21/cl4e4qwjj006oad9e2clu50ah/"/>
+    <id>https://luoyec.cn/2017/08/21/cl4e4qwjj006oad9e2clu50ah/</id>
     <published>2017-08-20T23:32:21.000Z</published>
     <updated>2017-08-20T23:32:28.000Z</updated>
     
@@ -2939,8 +3039,8 @@
   
   <entry>
     <title>《写给大家看的面向对象编程书》总结&amp;&amp;实践（1）</title>
-    <link href="https://luoyec.cn/2017/08/20/cl4e4dqkg007usm9et58z532u/"/>
-    <id>https://luoyec.cn/2017/08/20/cl4e4dqkg007usm9et58z532u/</id>
+    <link href="https://luoyec.cn/2017/08/20/cl4e4qwk80083ad9e96327xq4/"/>
+    <id>https://luoyec.cn/2017/08/20/cl4e4qwk80083ad9e96327xq4/</id>
     <published>2017-08-20T15:50:04.000Z</published>
     <updated>2017-08-20T23:37:13.000Z</updated>
     
@@ -2966,8 +3066,8 @@
   
   <entry>
     <title>mongodb二（命令行操作）</title>
-    <link href="https://luoyec.cn/2017/08/16/cl4e4dqjk005vsm9ew6rouiy9/"/>
-    <id>https://luoyec.cn/2017/08/16/cl4e4dqjk005vsm9ew6rouiy9/</id>
+    <link href="https://luoyec.cn/2017/08/16/cl4e4qwjc0068ad9eqiqy3fit/"/>
+    <id>https://luoyec.cn/2017/08/16/cl4e4qwjc0068ad9eqiqy3fit/</id>
     <published>2017-08-16T13:58:13.000Z</published>
     <updated>2017-08-17T01:42:23.000Z</updated>
     
@@ -2995,8 +3095,8 @@
   
   <entry>
     <title>mongodb一（命令行操作）</title>
-    <link href="https://luoyec.cn/2017/08/16/cl4e4dqjh005rsm9eeey4broh/"/>
-    <id>https://luoyec.cn/2017/08/16/cl4e4dqjh005rsm9eeey4broh/</id>
+    <link href="https://luoyec.cn/2017/08/16/cl4e4qwjf006gad9enbc2z8wj/"/>
+    <id>https://luoyec.cn/2017/08/16/cl4e4qwjf006gad9enbc2z8wj/</id>
     <published>2017-08-16T13:46:13.000Z</published>
     <updated>2017-08-17T01:42:30.000Z</updated>
     
@@ -3025,8 +3125,8 @@
   
   <entry>
     <title>安卓App内嵌Egret</title>
-    <link href="https://luoyec.cn/2017/08/16/cl4e4dqkw008psm9ejktahz17/"/>
-    <id>https://luoyec.cn/2017/08/16/cl4e4dqkw008psm9ejktahz17/</id>
+    <link href="https://luoyec.cn/2017/08/16/cl4e4qwku0096ad9eqqdj3qs7/"/>
+    <id>https://luoyec.cn/2017/08/16/cl4e4qwku0096ad9eqqdj3qs7/</id>
     <published>2017-08-16T13:40:34.000Z</published>
     <updated>2017-08-16T13:41:35.000Z</updated>
     
@@ -3055,8 +3155,8 @@
   
   <entry>
     <title>Egret HTTP简单请求</title>
-    <link href="https://luoyec.cn/2017/08/16/cl4e4dqgw000hsm9exuilg7md/"/>
-    <id>https://luoyec.cn/2017/08/16/cl4e4dqgw000hsm9exuilg7md/</id>
+    <link href="https://luoyec.cn/2017/08/16/cl4e4qwgp000ead9e5fykn8tt/"/>
+    <id>https://luoyec.cn/2017/08/16/cl4e4qwgp000ead9e5fykn8tt/</id>
     <published>2017-08-16T03:49:36.000Z</published>
     <updated>2017-08-16T13:41:50.000Z</updated>
     
@@ -3087,8 +3187,8 @@
   
   <entry>
     <title>Egret Loading 页面实现方法</title>
-    <link href="https://luoyec.cn/2017/08/16/cl4e4dqgx000ism9ehjlni9pf/"/>
-    <id>https://luoyec.cn/2017/08/16/cl4e4dqgx000ism9ehjlni9pf/</id>
+    <link href="https://luoyec.cn/2017/08/16/cl4e4qwgu000oad9ernyxqs0j/"/>
+    <id>https://luoyec.cn/2017/08/16/cl4e4qwgu000oad9ernyxqs0j/</id>
     <published>2017-08-16T03:29:48.000Z</published>
     <updated>2017-08-17T08:59:56.000Z</updated>
     
@@ -3117,8 +3217,8 @@
   
   <entry>
     <title>数组、栈、队列</title>
-    <link href="https://luoyec.cn/2017/08/12/cl4e4dql20096sm9ewar690u4/"/>
-    <id>https://luoyec.cn/2017/08/12/cl4e4dql20096sm9ewar690u4/</id>
+    <link href="https://luoyec.cn/2017/08/12/cl4e4qwl3009qad9e0dppct3t/"/>
+    <id>https://luoyec.cn/2017/08/12/cl4e4qwl3009qad9e0dppct3t/</id>
     <published>2017-08-12T09:48:42.000Z</published>
     <updated>2017-08-12T09:49:06.000Z</updated>
     
@@ -3146,8 +3246,8 @@
   
   <entry>
     <title>代码整洁之道四:注释</title>
-    <link href="https://luoyec.cn/2017/08/12/cl4e4dqk9007dsm9estoho7np/"/>
-    <id>https://luoyec.cn/2017/08/12/cl4e4dqk9007dsm9estoho7np/</id>
+    <link href="https://luoyec.cn/2017/08/12/cl4e4qwjz007oad9edhljj7p4/"/>
+    <id>https://luoyec.cn/2017/08/12/cl4e4qwjz007oad9edhljj7p4/</id>
     <published>2017-08-11T17:06:29.000Z</published>
     <updated>2017-08-11T17:07:08.000Z</updated>
     
@@ -3176,8 +3276,8 @@
   
   <entry>
     <title>Git 工作流指南（总结&amp;&amp;实践）</title>
-    <link href="https://luoyec.cn/2017/08/10/cl4e4dqh4000xsm9eubn5ndg6/"/>
-    <id>https://luoyec.cn/2017/08/10/cl4e4dqh4000xsm9eubn5ndg6/</id>
+    <link href="https://luoyec.cn/2017/08/10/cl4e4qwh20013ad9e2gx7d6qx/"/>
+    <id>https://luoyec.cn/2017/08/10/cl4e4qwh20013ad9e2gx7d6qx/</id>
     <published>2017-08-10T15:18:21.000Z</published>
     <updated>2017-08-10T15:27:07.000Z</updated>
     
@@ -3207,8 +3307,8 @@
   
   <entry>
     <title>Git基础入门</title>
-    <link href="https://luoyec.cn/2017/08/10/cl4e4dqh50010sm9e6pphnqxo/"/>
-    <id>https://luoyec.cn/2017/08/10/cl4e4dqh50010sm9e6pphnqxo/</id>
+    <link href="https://luoyec.cn/2017/08/10/cl4e4qwgz000yad9enbiz1745/"/>
+    <id>https://luoyec.cn/2017/08/10/cl4e4qwgz000yad9enbiz1745/</id>
     <published>2017-08-10T15:13:02.000Z</published>
     <updated>2017-08-10T15:15:06.000Z</updated>
     
@@ -3237,8 +3337,8 @@
   
   <entry>
     <title>Git常见问题</title>
-    <link href="https://luoyec.cn/2017/08/10/cl4e4dqhb0015sm9efai0v0di/"/>
-    <id>https://luoyec.cn/2017/08/10/cl4e4dqhb0015sm9efai0v0di/</id>
+    <link href="https://luoyec.cn/2017/08/10/cl4e4qwh30014ad9eywbil2z6/"/>
+    <id>https://luoyec.cn/2017/08/10/cl4e4qwh30014ad9eywbil2z6/</id>
     <published>2017-08-10T15:09:05.000Z</published>
     <updated>2017-08-10T15:16:26.000Z</updated>
     
@@ -3266,8 +3366,8 @@
   
   <entry>
     <title>代码整洁之道三:函数</title>
-    <link href="https://luoyec.cn/2017/08/09/cl4e4dqk50076sm9eg2o1ysk4/"/>
-    <id>https://luoyec.cn/2017/08/09/cl4e4dqk50076sm9eg2o1ysk4/</id>
+    <link href="https://luoyec.cn/2017/08/09/cl4e4qwk6007xad9e6e5ynfkj/"/>
+    <id>https://luoyec.cn/2017/08/09/cl4e4qwk6007xad9e6e5ynfkj/</id>
     <published>2017-08-09T15:40:05.000Z</published>
     <updated>2017-08-09T15:41:38.000Z</updated>
     
@@ -3296,8 +3396,8 @@
   
   <entry>
     <title>Express Getting Started实践</title>
-    <link href="https://luoyec.cn/2017/08/09/cl4e4dqh2000vsm9ea0wm06bp/"/>
-    <id>https://luoyec.cn/2017/08/09/cl4e4dqh2000vsm9ea0wm06bp/</id>
+    <link href="https://luoyec.cn/2017/08/09/cl4e4qwgy000vad9eau8h1gr8/"/>
+    <id>https://luoyec.cn/2017/08/09/cl4e4qwgy000vad9eau8h1gr8/</id>
     <published>2017-08-08T22:43:10.000Z</published>
     <updated>2017-08-09T15:41:27.000Z</updated>
     
@@ -3323,8 +3423,8 @@
   
   <entry>
     <title>socket.io入门实践</title>
-    <link href="https://luoyec.cn/2017/08/09/cl4e4dqjp0065sm9eokijriyk/"/>
-    <id>https://luoyec.cn/2017/08/09/cl4e4dqjp0065sm9eokijriyk/</id>
+    <link href="https://luoyec.cn/2017/08/09/cl4e4qwje006bad9ec2t4fgpf/"/>
+    <id>https://luoyec.cn/2017/08/09/cl4e4qwje006bad9ec2t4fgpf/</id>
     <published>2017-08-08T22:39:08.000Z</published>
     <updated>2017-08-09T15:41:26.000Z</updated>
     
@@ -3352,8 +3452,8 @@
   
   <entry>
     <title>代码整洁之道二：有意义的命名</title>
-    <link href="https://luoyec.cn/2017/08/08/cl4e4dqk7007asm9e6sptdgi3/"/>
-    <id>https://luoyec.cn/2017/08/08/cl4e4dqk7007asm9e6sptdgi3/</id>
+    <link href="https://luoyec.cn/2017/08/08/cl4e4qwjx007kad9ee8b55t5s/"/>
+    <id>https://luoyec.cn/2017/08/08/cl4e4qwjx007kad9ee8b55t5s/</id>
     <published>2017-08-08T15:21:20.000Z</published>
     <updated>2017-08-09T15:41:45.000Z</updated>
     
@@ -3381,8 +3481,8 @@
   
   <entry>
     <title>代码整洁之道一:代码整洁</title>
-    <link href="https://luoyec.cn/2017/08/08/cl4e4dqk40073sm9e32mywr7q/"/>
-    <id>https://luoyec.cn/2017/08/08/cl4e4dqk40073sm9e32mywr7q/</id>
+    <link href="https://luoyec.cn/2017/08/08/cl4e4qwjw007had9exezii9zd/"/>
+    <id>https://luoyec.cn/2017/08/08/cl4e4qwjw007had9exezii9zd/</id>
     <published>2017-08-08T06:23:46.000Z</published>
     <updated>2017-08-09T15:41:32.000Z</updated>
     
@@ -3410,8 +3510,8 @@
   
   <entry>
     <title>MongoDB及Robo工具安装</title>
-    <link href="https://luoyec.cn/2017/08/05/cl4e4dqih003nsm9exjbyrhqy/"/>
-    <id>https://luoyec.cn/2017/08/05/cl4e4dqih003nsm9exjbyrhqy/</id>
+    <link href="https://luoyec.cn/2017/08/05/cl4e4qwi5003lad9eb6in5pzj/"/>
+    <id>https://luoyec.cn/2017/08/05/cl4e4qwi5003lad9eb6in5pzj/</id>
     <published>2017-08-05T02:08:28.000Z</published>
     <updated>2017-08-05T04:25:16.000Z</updated>
     

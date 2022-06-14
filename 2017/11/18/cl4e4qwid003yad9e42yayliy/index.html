@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Nginx,反向代理,跨域," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="参考资源： Nginx 从听说到学会 Mac Nginx 安装（Brew） 用 nginx 的反向代理机制解决前端跨域问题 什么是 Nginx ==Nginx== 是一款轻量级的 ==Web== 服务器/反向代理服务器及电子邮件 ==（IMAP/POP3）== 代理服务器，并在一个 ==BSD-like == 协议下发行。其特点是占有内存少，并发能力强，事实上 ==nginx== 的并发能力确实在">
+<meta name="keywords" content="Nginx,反向代理,跨域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx反向代理">
+<meta property="og:url" content="https://luoyec.cn/2017/11/18/cl4e4qwid003yad9e42yayliy/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="参考资源： Nginx 从听说到学会 Mac Nginx 安装（Brew） 用 nginx 的反向代理机制解决前端跨域问题 什么是 Nginx ==Nginx== 是一款轻量级的 ==Web== 服务器/反向代理服务器及电子邮件 ==（IMAP/POP3）== 代理服务器，并在一个 ==BSD-like == 协议下发行。其特点是占有内存少，并发能力强，事实上 ==nginx== 的并发能力确实在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1510929883976.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1510961386869.jpg">
+<meta property="og:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1510968845375.jpg">
+<meta property="og:updated_time" content="2018-06-11T09:07:45.309Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx反向代理">
+<meta name="twitter:description" content="参考资源： Nginx 从听说到学会 Mac Nginx 安装（Brew） 用 nginx 的反向代理机制解决前端跨域问题 什么是 Nginx ==Nginx== 是一款轻量级的 ==Web== 服务器/反向代理服务器及电子邮件 ==（IMAP/POP3）== 代理服务器，并在一个 ==BSD-like == 协议下发行。其特点是占有内存少，并发能力强，事实上 ==nginx== 的并发能力确实在">
+<meta name="twitter:image" content="http://oudfgqwcq.bkt.clouddn.com/lyctea/1510929883976.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2017/11/18/cl4e4qwid003yad9e42yayliy/"/>
+
+
+
+
+
+  <title>Nginx反向代理 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2017/11/18/cl4e4qwid003yad9e42yayliy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Nginx反向代理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-18T09:46:05+08:00">
+                2017-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工程化/" itemprop="url" rel="index">
+                    <span itemprop="name">工程化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考资源：</p>
+<p><a href="http://www.jianshu.com/p/630e2e1ca57f" target="_blank" rel="noopener">Nginx 从听说到学会</a></p>
+<p><a href="http://www.jianshu.com/p/cc65354a0874" target="_blank" rel="noopener">Mac Nginx 安装（Brew）</a></p>
+<p><a href="http://www.cnblogs.com/gabrielchen/p/5066120.html" target="_blank" rel="noopener">用 nginx 的反向代理机制解决前端跨域问题</a></p>
+<h2 id="什么是-Nginx"><a href="#什么是-Nginx" class="headerlink" title="什么是 Nginx"></a>什么是 Nginx</h2><blockquote>
+<p>==Nginx== 是一款轻量级的 ==Web== 服务器/反向代理服务器及电子邮件 ==（IMAP/POP3）== 代理服务器，并在一个 ==BSD-like == 协议下发行。<br>其特点是占有内存少，并发能力强，事实上 ==nginx== 的并发能力确实在同类型的网页服务器中表现较好，中国大陆使用 ==nginx== 网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。<br>——百度词条</p>
+</blockquote>
+<ul>
+<li><p>Nginx 使用基于事件驱动架构，使得其可以支持数以百万级别的 TCP 连接</p>
+</li>
+<li><p>高度的模块化和自由软件许可证是的第三方模块层出不穷</p>
+</li>
+<li><p>Nginx 是一个跨平台服务器，可以运行在 Linux, FreeBSD, Solaris, AIX, Mac OS, Windows 等操作系统上</p>
+</li>
+<li><p>这些优秀的设计带来的极大的稳定性。</p>
+</li>
+</ul>
+<h2 id="Web-服务器"><a href="#Web-服务器" class="headerlink" title="Web 服务器"></a>Web 服务器</h2><h3 id="lighttpd"><a href="#lighttpd" class="headerlink" title="lighttpd"></a>lighttpd</h3><blockquote>
+<p>Lighttpd 是一个具有非常低的内存开销，cpu 占用率低，效能好，以及丰富的模块等特点。lighttpd 是众多 OpenSource 轻量级的 web<br>server 中较为优秀的一个。支持 FastCGI, CGI, Auth, 输出压缩(output compress), URL 重写,<br>Alias 等重要功能。</p>
+</blockquote>
+<blockquote>
+<p>Lighttpd 使用 fastcgi 方式运行 PHP,它会使用很少的 PHP 进程响应很大的并发量。</p>
+</blockquote>
+<blockquote>
+<p>Fastcgi 的优点在于：</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>从稳定性上看, fastcgi 是以独立的进程池运行来 cgi,单独一个进程死掉,系统可以很轻易的丢弃,然后重新分配新的进程来运行逻辑.</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>从安全性上看, fastcgi 和宿主的 server 完全独立, fastcgi 怎么 down 也不会把 server 搞垮,</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>从性能上看, fastcgi 把动态逻辑的处理从 server 中分离出来, 大负荷的 IO 处理还是留给宿主 server, 这样宿主 server 可以一心一意作 IO,对于一个普通的动态网页来说, 逻辑处理可能只有一小部分,<br>大量的图片等静态 IO 处理完全不需要逻辑程序的参与</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>从扩展性上讲, fastcgi 是一个中立的技术标准, 完全可以支持任何语言写的处理程序 php,Java,Python</li>
+</ul>
+</blockquote>
+<h3 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h3><blockquote>
+<p>apache 是世界排名第一的 web 服务器, 根据 netcraft 所作的调查,世界上百分之五十以上的 web 服务器在使用 apache.</p>
+</blockquote>
+<blockquote>
+<p>1995 年 4 月, 最早的 apache(0.6.2 版)由 apache group 公布发行. apache group<br>是一个完全通过 internet 进行运作的非盈利机构, 由它来决定 apache web 服务器的标准发行版中应该包含哪些内容.<br>准许任何人修改隐错, 提供新的特征和将它移植到新的平台上, 以及其它的工作. 当新的代码被提交给 apache group 时,<br>该团体审核它的具体内容, 进行测试 如果认为满意, 该代码就会被集成到 apache 的主要发行版中。</p>
+</blockquote>
+<blockquote>
+<p>apache 的特性:</p>
+</blockquote>
+<blockquote>
+<p>几乎可以运行在所有的计算机平台上<br>支持最新的 http/1.1 协议 简单而且强有力的基于文件的配置(httpd.conf)<br>支持通用网关接口(cgi)<br>支持虚拟主机<br>支持 http 认证<br>集成 perl<br>集成的代理服务器<br>可以通过 web 浏览器监视服务器的状态,<br>可以自定义日志<br>支持服务器端包含命令(ssi)<br>支持安全 socket 层(ssl)<br>具有用户会话过程的跟踪能力<br>支持 fastcgi<br>支持 Java</p>
+</blockquote>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><blockquote>
+<p>Nginx 是俄罗斯人编写的十分轻量级的 HTTP 服务器,Nginx，它的发音为“engine X”，<br>是一个高性能的 HTTP 和反向代理服务器，同时也是一个 IMAP/POP3/SMTP 代理服务器．Nginx 是由俄罗斯人 Igor<br>Sysoev 为俄罗斯访问量第二的 Rambler.ru 站点开发.</p>
+</blockquote>
+<blockquote>
+<p>Nginx 以事件驱动的方式编写，所以有非常好的性能，同时也是一个非常高效的反向代理、负载平衡。其拥有匹配<br>Lighttpd 的性能，同时还没有 Lighttpd 的内存泄漏问题，而且 Lighttpd 的 mod_proxy 也有一些问题并且很久没有更新。但是 Nginx 并不支持 cgi 方式运行，原因是可以减少因此带来的一些程序上的漏洞。所以必须使用 FastCGI 方式来执行 PHP 程序。</p>
+</blockquote>
+<blockquote>
+<p>nginx 做为 HTTP 服务器，有以下几项基本特性：</p>
+</blockquote>
+<blockquote>
+<p>处理静态文件，索引文件以及自动索引；打开文件描述符缓冲 无缓存的反向代理加速，简单的负载均衡和容错 FastCGI，简单的负载均衡和容错<br>模块化的结构。包括 gzipping, byte ranges, chunked responses,以及<br>SSI-filter 等 filter。如果由 FastCGI 或其它代理服务器处理单页中存在的多个 SSI，则这项处理可以并行运行，而不需要相互等待。<br>Nginx 专为性能优化而开发，性能是其最重要的考量,实现上非常注重效率。它支持内核 Poll 模型，能经受高负载的考验,有报告表明能支持高达<br>50,000 个并发连接数。</p>
+</blockquote>
+<blockquote>
+<p>Nginx 具有很高的稳定性。其它 HTTP 服务器，当遇到访问的峰值，或者有人恶意发起慢速连接时，也很可能会导致服务器物理内存耗尽频繁交换，失去响应，只能重启服务器。例如当前 apache 一旦上到 200 个以上进程，web 响应速度就明显非常缓慢了。而 Nginx 采取了分阶段资源分配技术，使得它的 CPU 与内存占用率非常低。nginx 官方表示保持 10,000 个没有活动的连接，它只占 2.5M 内存，所以类似 DOS 这样的攻击对 nginx 来说基本上是毫无用处的。就稳定性而言,nginx 比 lighthttpd 更胜一筹。</p>
+</blockquote>
+<blockquote>
+<p>Nginx 支持热部署。它的启动特别容易,<br>并且几乎可以做到 7X24 不间断运行，即使运行数个月也不需要重新启动。你还能够在不间断服务的情况下，对软件版本进行进行升级。</p>
+</blockquote>
+<h3 id="三种服务器比较"><a href="#三种服务器比较" class="headerlink" title="三种服务器比较"></a>三种服务器比较</h3><p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1510929883976.jpg" alt=""></p>
+<h2 id="Nginx-安装"><a href="#Nginx-安装" class="headerlink" title="Nginx 安装"></a>Nginx 安装</h2><p><a href="http://www.jianshu.com/p/cc65354a0874" target="_blank" rel="noopener">Mac Nginx 安装（Brew）</a></p>
+<h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a><code>Homebrew</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> man brew</span><br></pre></td></tr></table></figure>
+<p>安装 <code>Homebrew</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span><br></pre></td></tr></table></figure>
+<p>卸载</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"</span><br></pre></td></tr></table></figure>
+<p>其他常用命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">localhost:~ wany$ brew --version  (查看当前电脑所安装的brew版本)</span><br><span class="line"></span><br><span class="line">localhost:~ wany$ brew update (更新电脑中的brew版本)</span><br></pre></td></tr></table></figure>
+<p>通过 <code>brew</code> 安装 <code>Nginx</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo /usr/local/sbin/nginx</span><br></pre></td></tr></table></figure>
+<p>注意事项：<br>安装 <code>nignx, brew</code> 所安装的软件都保存在 <code>:/usr/local/Cellar/</code><br><code>nginx</code> 配置文件保存到了：<code>/usr/local/etc/nginx/nginx.conf</code></p>
+<p>建立软连接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ln -s /usr/local/bin/nginx  /usr/local/bin/nginx</span><br></pre></td></tr></table></figure>
+<p>启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo nginx</span><br></pre></td></tr></table></figure>
+<p>重启</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo nginx -s reload</span><br></pre></td></tr></table></figure>
+<h2 id="Nginx-反向代理"><a href="#Nginx-反向代理" class="headerlink" title="Nginx 反向代理"></a>Nginx 反向代理</h2><p><a href="http://www.cnblogs.com/gabrielchen/p/5066120.html" target="_blank" rel="noopener">用 nginx 的反向代理机制解决前端跨域问题</a></p>
+<h3 id="什么是跨域以及产生的原因"><a href="#什么是跨域以及产生的原因" class="headerlink" title="什么是跨域以及产生的原因"></a>什么是跨域以及产生的原因</h3><p>跨域是指 a 页面想获取 b 页面资源，如果 a、b 页面的协议、域名、端口、子域名不同，或是 a 页面为 ip 地址，b 页面为域名地址，所进行的访问行动都是跨域的，而浏览器为了安全问题一般都限制了跨域访问，也就是不允许跨域请求资源。</p>
+<p>跨域情况如下：<br><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1510961386869.jpg" alt=""></p>
+<h3 id="跨域常见的解决方法"><a href="#跨域常见的解决方法" class="headerlink" title="跨域常见的解决方法"></a>跨域常见的解决方法</h3><p>目前来讲没有不依靠服务器端来跨域请求资源的技术</p>
+<ul>
+<li><p>1.jsonp 需要目标服务器配合一个 callback 函数。</p>
+</li>
+<li><p>2.window.name+iframe 需要目标服务器响应 window.name。</p>
+</li>
+<li><p>3.window.location.hash+iframe 同样需要目标服务器作处理。</p>
+</li>
+<li><p>4.html5 的 postMessage+ifrme 这个也是需要目标服务器或者说是目标页面写一个 postMessage，主要侧重于前端通讯。</p>
+</li>
+<li><p>5.CORS 需要服务器设置 header ：Access-Control-Allow-Origin。</p>
+</li>
+<li><p>6.nginx 反向代理 这个方法一般很少有人提及，但是他可以不用目标服务器配合，不过需要你搭建一个中转 nginx 服务器，用于转发请求。</p>
+</li>
+</ul>
+<h3 id="Nginx-反向代理解决跨域"><a href="#Nginx-反向代理解决跨域" class="headerlink" title="Nginx 反向代理解决跨域"></a>Nginx 反向代理解决跨域</h3><p>修改配置文件：</p>
+<p>路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">luoyecs-iMac:nginx luoyec$ pwd</span><br><span class="line">/usr/local/etc/nginx</span><br></pre></td></tr></table></figure>
+<p>修改 <code>nginx.conf</code></p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">listen </span>      <span class="string">9000;</span>		<span class="comment">#监听9000端口号，</span></span><br><span class="line">     <span class="string">server_name </span> <span class="string">localhost;</span>	<span class="comment">#当前服务器域名，一般是开发者本地电脑</span></span><br><span class="line"></span><br><span class="line">     <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">     <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">     <span class="string">location </span>/ &#123;</span><br><span class="line">        <span class="comment"># root   html;	# 根路径</span></span><br><span class="line">        <span class="comment"># index  index.html index.htm; #根路径下的入口文件</span></span><br><span class="line">      <span class="string">proxy_pass </span><span class="string">http:</span>//<span class="string">localhost:3000;</span></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="string">location </span>/<span class="string">mobile/</span> &#123;	<span class="comment"># 注意这里可以写正则表达式，（匹配规则，用于拦截请求，匹配任何以 /proxy/html/开头的地址，匹配符合以后，停止往下搜索正则）</span></span><br><span class="line">         <span class="string">rewrite </span>^/<span class="string">mobild/</span>(.*)$ /$1 <span class="string">break;</span> <span class="comment">#代表重写拦截进来的请求，并且只能对域名后边的除去传递的参数外的字符串起作用，例如www.c.com/proxy/html/api/msg?method=1&amp;para=2重写。只对/proxy/html/api/msg重写。</span></span><br><span class="line">         <span class="string">proxy_pass </span><span class="string">http:</span>//<span class="string">www.</span><span class="string">daolimen.</span><span class="string">com;</span> <span class="comment"># 既是把请求代理到其他主机</span></span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+<p>重启 nginx</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo nginx -s reload</span><br></pre></td></tr></table></figure>
+<p>在浏览器中访问：<br><code>http://localhost:9000/</code></p>
+<h3 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h3><p>首先找到 nginx.conf 或者 nginx.conf.default 或者是 default 里面的这部份</p>
+<p><img src="http://oudfgqwcq.bkt.clouddn.com/lyctea/1510968845375.jpg" alt=""></p>
+<p>其中 server 代表启动的一个服务，location 是一个定位规则。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location /｛   #所有以/开头的地址，实际上是所有请求</span><br><span class="line"></span><br><span class="line">root  <span class="selector-tag">html</span>     ＃去请求../html文件夹里的文件,其中..的路径在nginx里面有定义，安装的时候会有默认路</span><br><span class="line"></span><br><span class="line">index  index<span class="selector-class">.html</span> index<span class="selector-class">.htm</span>  ＃首页响应地址</span><br></pre></td></tr></table></figure>
+<p>从上面可以看出 location 是 nginx 用来路由的入口，所以我们接下来要在 location 里面完成我们的反向代理。</p>
+<p>假如我们我们是 <a href="http://www.a.com/html/msg.html" target="_blank" rel="noopener">www.a.com/html/msg.html</a> 想请求 <a href="http://www.b.com/api/?method=1&amp;para=2；" target="_blank" rel="noopener">www.b.com/api/?method=1&amp;para=2；</a></p>
+<p>我们的 ajax：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="string">'http://www.b.com/api/msg?method=1&amp;para=2'</span>；</span><br><span class="line">	&lt;br&gt;$.ajax(&#123;</span><br><span class="line">	type: <span class="string">"GET"</span>,</span><br><span class="line">	url:url,</span><br><span class="line">	success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;..&#125;,</span><br><span class="line">	....</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上面的请求必然会遇到跨域问题，这时我们需要修改一下我们的请求 url，让请求发在 nginx 的一个 url 下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var url = &apos;http://www.b.com/api/msg?method=1&amp;para=2&apos;；</span><br><span class="line">var proxyurl ＝ &apos;msg?method=1&amp;para=2&apos;；</span><br><span class="line">//假如实际地址是 www.c.com/proxy/html/api/msg?method=1&amp;para=2; www.c.com是nginx主机地址</span><br><span class="line"> $.ajax(&#123;</span><br><span class="line">type: &quot;GET&quot;,</span><br><span class="line">url:proxyurl,</span><br><span class="line">success: function(res)&#123;..&#125;,</span><br><span class="line">....</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>再在刚才的路径中匹配到这个请求，我们在 location 下面再添加一个 location。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location ^~/proxy/html/&#123;</span><br><span class="line">rewrite ^/proxy/html/(.*)$ /$1 break;</span><br><span class="line">proxy_pass http://www.b.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下做一个解释：</p>
+<ul>
+<li><code>&#39;^~ /proxy/html/ &#39;</code></li>
+</ul>
+<p>就像上面说的一样是一个匹配规则，用于拦截请求，匹配任何以 /proxy/html/开头的地址，匹配符合以后，停止往下搜索正则。</p>
+<ul>
+<li><code>rewrite ^/proxy/html/(.*)$ /$1 break;</code></li>
+</ul>
+<p>代表重写拦截进来的请求，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 <a href="http://www.c.com/proxy/html/api/msg?method=1&amp;para=2" target="_blank" rel="noopener">www.c.com/proxy/html/api/msg?method=1&amp;para=2</a> 重写。只对/proxy/html/api/msg 重写。</p>
+<p>rewrite 后面的参数是一个简单的正则 ^/proxy/html/(.*)$ ,$1 代表正则中的第一个(),$2 代表第二个()的值,以此类推。</p>
+<p>break 代表匹配一个之后停止匹配。</p>
+<ul>
+<li>proxy_pass</li>
+</ul>
+<pre><code>既是把请求代理到其他主机，其中 http://www.b.com/ 写法和 http://www.b.com写法的区别如下:
+</code></pre><p>不带/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location /html/</span><br><span class="line">&#123;</span><br><span class="line">　　proxy_pass http://b.com:8300;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>带/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location /html/</span><br><span class="line">&#123;</span><br><span class="line">    proxy_pass http://b.com:8300/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面两种配置，区别只在于 proxy_pass 转发的路径后是否带 “/”。</p>
+<p>针对情况 1，如果访问 url = <a href="http://server/html/test.jsp，则被nginx代理后，请求路径会便问http://proxy_pass/html/test.jsp，将test/" target="_blank" rel="noopener">http://server/html/test.jsp，则被nginx代理后，请求路径会便问http://proxy_pass/html/test.jsp，将test/</a> 作为根路径，请求 test/路径下的资源。</p>
+<p>针对情况 2，如果访问 url = <a href="http://server/html/test.jsp，则被nginx代理后，请求路径会变为" target="_blank" rel="noopener">http://server/html/test.jsp，则被nginx代理后，请求路径会变为</a> <a href="http://proxy_pass/test.jsp，直接访问server的根资源。" target="_blank" rel="noopener">http://proxy_pass/test.jsp，直接访问server的根资源。</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+            <a href="/tags/反向代理/" rel="tag"># 反向代理</a>
+          
+            <a href="/tags/跨域/" rel="tag"># 跨域</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/11/cl4e4qwh00010ad9ebrdhwszw/" rel="next" title="Eslint代码检查及格式化">
+                <i class="fa fa-chevron-left"></i> Eslint代码检查及格式化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/19/cl4e4qwga0004ad9etjn7p2od/" rel="prev" title="All About React Router 4">
+                All About React Router 4 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">151</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-Nginx"><span class="nav-number">1.</span> <span class="nav-text">什么是 Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-服务器"><span class="nav-number">2.</span> <span class="nav-text">Web 服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lighttpd"><span class="nav-number">2.1.</span> <span class="nav-text">lighttpd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache"><span class="nav-number">2.2.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx"><span class="nav-number">2.3.</span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种服务器比较"><span class="nav-number">2.4.</span> <span class="nav-text">三种服务器比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-安装"><span class="nav-number">3.</span> <span class="nav-text">Nginx 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Homebrew"><span class="nav-number">3.1.</span> <span class="nav-text">Homebrew</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-反向代理"><span class="nav-number">4.</span> <span class="nav-text">Nginx 反向代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是跨域以及产生的原因"><span class="nav-number">4.1.</span> <span class="nav-text">什么是跨域以及产生的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域常见的解决方法"><span class="nav-number">4.2.</span> <span class="nav-text">跨域常见的解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-反向代理解决跨域"><span class="nav-number">4.3.</span> <span class="nav-text">Nginx 反向代理解决跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置说明"><span class="nav-number">4.4.</span> <span class="nav-text">配置说明</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

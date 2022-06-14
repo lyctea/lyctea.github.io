@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Vue模板是如何编译的？Tags: 编译关键词: 如何得到 render function创建时间: May 31, 2022 123new Vue(&amp;#123;	render: h =&amp;gt; h(App)&amp;#125;) 调用render方法会得到传入的模板(.vue文件)对应的虚拟 DOM，render 方法有两种来源  第一种经过模板编译后生成 render 函数; 第二种是我们自己在组件定">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue模板是如何编译的？">
+<meta property="og:url" content="https://luoyec.cn/2022/06/14/cl4e4qwit0057ad9e1h1xh27f/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="Vue模板是如何编译的？Tags: 编译关键词: 如何得到 render function创建时间: May 31, 2022 123new Vue(&amp;#123;	render: h =&amp;gt; h(App)&amp;#125;) 调用render方法会得到传入的模板(.vue文件)对应的虚拟 DOM，render 方法有两种来源  第一种经过模板编译后生成 render 函数; 第二种是我们自己在组件定">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/91b722bf-6ffe-46fe-a90f-48da1dd57521/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T121709Z&X-Amz-Expires=86400&X-Amz-Signature=05e6cd7509fba3fd9d8f3af56d447930c602d67aec09fa482f46d047629a150d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2ae2a9e9-6691-4d49-9648-7b6784a96c79/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T121725Z&X-Amz-Expires=86400&X-Amz-Signature=1649e5b4d3025e94cc54639891cb73687f5e8a4079ea2e8cd3b5785196cfd48b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:updated_time" content="2022-06-14T12:17:48.399Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue模板是如何编译的？">
+<meta name="twitter:description" content="Vue模板是如何编译的？Tags: 编译关键词: 如何得到 render function创建时间: May 31, 2022 123new Vue(&amp;#123;	render: h =&amp;gt; h(App)&amp;#125;) 调用render方法会得到传入的模板(.vue文件)对应的虚拟 DOM，render 方法有两种来源  第一种经过模板编译后生成 render 函数; 第二种是我们自己在组件定">
+<meta name="twitter:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/91b722bf-6ffe-46fe-a90f-48da1dd57521/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T121709Z&X-Amz-Expires=86400&X-Amz-Signature=05e6cd7509fba3fd9d8f3af56d447930c602d67aec09fa482f46d047629a150d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2022/06/14/cl4e4qwit0057ad9e1h1xh27f/"/>
+
+
+
+
+
+  <title>Vue模板是如何编译的？ | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2022/06/14/cl4e4qwit0057ad9e1h1xh27f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue模板是如何编译的？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-14T20:16:51+08:00">
+                2022-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端框架/" itemprop="url" rel="index">
+                    <span itemprop="name">前端框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Vue模板是如何编译的？"><a href="#Vue模板是如何编译的？" class="headerlink" title="Vue模板是如何编译的？"></a>Vue模板是如何编译的？</h1><p>Tags: 编译<br>关键词: 如何得到 render function<br>创建时间: May 31, 2022</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>调用render方法会得到传入的模板(.vue文件)对应的虚拟 <code>DOM</code>，<code>render</code> 方法有两种来源</p>
+<ul>
+<li>第一种经过模板编译后生成 <code>render</code> 函数;</li>
+<li>第二种是我们自己在组件定义了 <code>render</code> 函数，这种方式会跳过模板编译过程;</li>
+</ul>
+<h2 id="模板编译"><a href="#模板编译" class="headerlink" title="模板编译"></a>模板编译</h2><p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/91b722bf-6ffe-46fe-a90f-48da1dd57521/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T121709Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=05e6cd7509fba3fd9d8f3af56d447930c602d67aec09fa482f46d047629a150d&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+<p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2ae2a9e9-6691-4d49-9648-7b6784a96c79/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T121725Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=1649e5b4d3025e94cc54639891cb73687f5e8a4079ea2e8cd3b5785196cfd48b&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="模板编译的结果就是得到render函数"></p>
+<p>模板编译的结果就是得到render函数</p>
+<p><strong>如何将 vue文件的 template 模板编译成浏览器认识的 HTML？</strong></p>
+<ol>
+<li>提取出模板中原生的 HTML 和非原生的 HTML，比如绑定的属性、事件、指令；</li>
+<li>经过一系列处理生成 render 函数；</li>
+<li>render 函数执行将模板内容生成对应的 vnode；</li>
+<li>再经过 patch 过程（diff算法）得到要渲染到视图中的 vnode；</li>
+</ol>
+<p><strong>编译流程，主要有三步：</strong></p>
+<ol>
+<li>模板解析：通过正则等方式将 <code>template</code> 模板里的标签元素、属性、变量等信息，解析成抽象语法树 <code>**AST（parse）**</code>；</li>
+<li>优化：遍历 <code>AST</code> 找出其中的静态节点和静态根节点，并添加标记；（<code>**optimize**</code>）</li>
+<li>代码生成：根据 <code>AST</code> 生成渲染函数 <code>**render</code> （<code>generate</code>）**</li>
+</ol>
+<p><code>**parse(ast) ⇒ optimize(ast) ⇒ generate(code) ⇒ render(code.render)**</code> </p>
+<h2 id="总结🔥"><a href="#总结🔥" class="headerlink" title="总结🔥"></a>总结🔥</h2><p>如果想要将 <code>vue</code> 的模板文件渲染到真实的 <code>html</code>上，需要将模板文件转为<code>vnode</code>，在经过 <code>patch（diff算法）</code>挂载到真实dom；</p>
+<p>如何得到 <code>vnode</code> 呢？需要通过调用 <code>render</code> 方法。</p>
+<p><code>render</code> 有两种，一种是经过 <code>vue</code> 编译器通过模板编译的方式得到，另一种是用户自定义的 <code>render function</code>。</p>
+<p>通过编译得到 <code>render function</code> 的流程：</p>
+<ul>
+<li><code>parse</code> 解析 <code>template</code> 文件，通过正则匹配等方法，得到ast语法树；</li>
+<li><code>optimize</code> 优化 <code>ast</code> 语法树，做静态标记；</li>
+<li><code>generate</code> 代码生成，将 <code>ast</code> 语法树转为 <code>code</code>，其中也得到了<code>render</code> 方法；</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/06/14/cl4e4qwiv0059ad9e75p7gfw4/" rel="next" title="Typescript类型体操">
+                <i class="fa fa-chevron-left"></i> Typescript类型体操
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">151</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue模板是如何编译的？"><span class="nav-number">1.</span> <span class="nav-text">Vue模板是如何编译的？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模板编译"><span class="nav-number">1.1.</span> <span class="nav-text">模板编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结🔥"><span class="nav-number">1.2.</span> <span class="nav-text">总结🔥</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

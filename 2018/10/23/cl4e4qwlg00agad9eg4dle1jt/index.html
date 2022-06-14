@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git,rebase,merge," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="原文 要点：  合并的发生了什么 rebase 合并 rebase 合并的缺点（修改了历史）  深入了解合并操作(转)在你进入 rebase 这个主题前，我们有必要来再次探讨一下更多关于合并操作的细节。当 Git 执行一个合并时，它实际上会查找三个提交：  (1)共同的原始提交如果你在项目中查看两个分支的历史，它们总是会出自于一次共同的提交，那么在当时的时间点上，这两个分支还是拥有相同的内容。之后">
+<meta name="keywords" content="git,rebase,merge">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入了解合并操作(转)">
+<meta property="og:url" content="https://luoyec.cn/2018/10/23/cl4e4qwlg00agad9eg4dle1jt/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="原文 要点：  合并的发生了什么 rebase 合并 rebase 合并的缺点（修改了历史）  深入了解合并操作(转)在你进入 rebase 这个主题前，我们有必要来再次探讨一下更多关于合并操作的细节。当 Git 执行一个合并时，它实际上会查找三个提交：  (1)共同的原始提交如果你在项目中查看两个分支的历史，它们总是会出自于一次共同的提交，那么在当时的时间点上，这两个分支还是拥有相同的内容。之后">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/starting-situation-fast-forward.gif">
+<meta property="og:image" content="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/end-situation-fast-forward.gif">
+<meta property="og:image" content="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/starting-situation-merge-commit.gif">
+<meta property="og:image" content="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/end-situation-merge-commit.gif">
+<meta property="og:image" content="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/end-situation-rebase.gif">
+<meta property="og:image" content="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/starting-situation-rebase.gif">
+<meta property="og:image" content="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/rebase-step-1.gif">
+<meta property="og:image" content="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/rebase-step-2.gif">
+<meta property="og:image" content="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/rebase-step-3.gif">
+<meta property="og:updated_time" content="2018-10-23T06:57:51.860Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入了解合并操作(转)">
+<meta name="twitter:description" content="原文 要点：  合并的发生了什么 rebase 合并 rebase 合并的缺点（修改了历史）  深入了解合并操作(转)在你进入 rebase 这个主题前，我们有必要来再次探讨一下更多关于合并操作的细节。当 Git 执行一个合并时，它实际上会查找三个提交：  (1)共同的原始提交如果你在项目中查看两个分支的历史，它们总是会出自于一次共同的提交，那么在当时的时间点上，这两个分支还是拥有相同的内容。之后">
+<meta name="twitter:image" content="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/starting-situation-fast-forward.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2018/10/23/cl4e4qwlg00agad9eg4dle1jt/"/>
+
+
+
+
+
+  <title>深入了解合并操作(转) | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/10/23/cl4e4qwlg00agad9eg4dle1jt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深入了解合并操作(转)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-23T14:57:42+08:00">
+                2018-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vuegit/" itemprop="url" rel="index">
+                    <span itemprop="name">Vuegit</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/rebase" target="_blank" rel="noopener">原文</a></p>
+<p>要点：</p>
+<ul>
+<li>合并的发生了什么</li>
+<li>rebase 合并</li>
+<li>rebase 合并的缺点（修改了历史）</li>
+</ul>
+<h2 id="深入了解合并操作-转"><a href="#深入了解合并操作-转" class="headerlink" title="深入了解合并操作(转)"></a>深入了解合并操作(转)</h2><p>在你进入 rebase 这个主题前，我们有必要来再次探讨一下更多关于合并操作的细节。当 Git 执行一个合并时，它实际上会查找三个提交：</p>
+<ul>
+<li>(1)共同的原始提交<br>如果你在项目中查看两个分支的历史，它们总是会出自于一次共同的提交，那么在当时的时间点上，这两个分支还是拥有相同的内容。之后它们就开始有了差别。</li>
+<li>(2) + (3) 两个分支的最终点<br>合并操作的目的就是把两个分支的最新状态结合起来。因此他们各自的最新版本是有特殊含义的。</li>
+</ul>
+<p>结合这三个提交后得到的结果就是我们整合的目标。</p>
+<h2 id="快进或合并提交"><a href="#快进或合并提交" class="headerlink" title="快进或合并提交"></a>快进或合并提交</h2><p>一种最简单的情况是，在其中的一个分支上没有任何一个新的改动提交发生。那么在它之前的最后一次提交就仍然还是那个共同的原始提交。</p>
+<p><img src="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/starting-situation-fast-forward.gif" alt="img"></p>
+<p>在这种情况下，执行整合操作就非常简单了。 Git 仅仅需要添加所有那些在另外一个分支上的新提交就可以了。在 Git 中，这种最简单的整合操作我们称之为 “快进（fast-forward）”合并。之后两个分支就拥有了完全相同的历史。</p>
+<p><img src="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/end-situation-fast-forward.gif" alt="img"></p>
+<p>但是在大多数情况下，两个分支都会有自己不同的发展轨迹。</p>
+<p><img src="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/starting-situation-merge-commit.gif" alt="img"></p>
+<p>为了完成整合，Git 会需要创建一个新的提交来含括它们之间的差异，这就是整合提交（merge commit）。</p>
+<p><img src="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/end-situation-merge-commit.gif" alt="img"></p>
+<h2 id="手工提交与合并提交"><a href="#手工提交与合并提交" class="headerlink" title="手工提交与合并提交"></a>手工提交与合并提交</h2><p>通常情况下，提交都是由手工精心创建的。这样也就能更好地保证一次提交只涉及一个关联改动，并且能更好地注释这个提交。</p>
+<p>一个合并提交就不同了，它不是由开发人员手动创建的，而是由 Git 自动生成的。它也不涉及一个关联改动，其目的只是连接两个分支，就像节点一样。如果之后想要了解某个合并操作，你只需要查看这两个分支的历史记录和它们相应的提交树（version tree）。</p>
+<h2 id="Rebase-整合"><a href="#Rebase-整合" class="headerlink" title="Rebase 整合"></a>Rebase 整合</h2><p>有些人并不喜欢使用这种自动合并提交。相反，他们希望项目拥有一个单一的历史发展轨迹。比如一条直线。在历史纪录上没有迹象表明在某些时间它被分成过多个分支。</p>
+<p><img src="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/end-situation-rebase.gif" alt="img"></p>
+<p>现在就让我们一步一步地了解一下 rebase 操作吧！仍然来使用前面的例子：我们想合并分支 B 到 分支 A 中，但是这次使用 rebase 操作。</p>
+<p><img src="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/starting-situation-rebase.gif" alt="img"></p>
+<p>使用下面这个非常的简单的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase branch-B</span><br></pre></td></tr></table></figure>
+<p>首先，Git 会 “撤销” 所有在分支 A 上的那些在与分支 B 的共同提交之后发生的提交。当然，Git 不会真的放弃这些提交，其实你可以把这些撤销的提交想像成 “<em>被暂时地存储</em>” 到另外的一个地方去了。</p>
+<p><img src="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/rebase-step-1.gif" alt="img"></p>
+<p>接下来它会整合那些在分支 B（这个我们想要整合的分支）上的还未整合的提交到分支 A 中。在这个时间点，这两个分支看起来会是一模一样的。</p>
+<p><img src="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/rebase-step-2.gif" alt="img"></p>
+<p>最后，那些在分支 A 的新的提交（也就是第一步中自动撤销掉的那些提交）会被重新应用到这个分支上，但是在不同的位置上，在那些从分支 B 被整合过来的提交之后，它们就被 <em>re-based</em> 了。<br>整个项目开发轨迹看起来就像发生在一条直线上。相对于一个合并提交，rebase 包括了所有的组合变化，最原始的提交结构会被保留下来。</p>
+<p><img src="https://www.git-tower.com/learn/content/01-git/01-ebook/cn/01-command-line/05-advanced-topics/04-rebase/rebase-step-3.gif" alt="img"></p>
+<h2 id="Rebase-存在的陷阱"><a href="#Rebase-存在的陷阱" class="headerlink" title="Rebase 存在的陷阱"></a>Rebase 存在的陷阱</h2><p>当然，使用 rebase 操作不会是永远一帆风顺的。很有可能会搬起石头砸自己的脚，因此你不能忽视一个重要的事实：<strong>rebase 会改写历史记录</strong>。</p>
+<p>你有可能已经注意到了，在被 rebase 操作之后的版本中，提交 “C3*” 存在一个新添加的星号。这是因为，尽管这个提交的内容和 “C3” 完全一样，但是它实际上是一个不同的提交。这样做的原因是，它现在有一个新的源提交 C4（在最初创建 C3 时的源提交是 C1）。</p>
+<p>一个提交仅仅包括很少的属性，比如作者，日期，变动和谁是它的父提交。如果改变其中任何一个信息，就必须创建一个全新的提交。当然，新的提交也会拥有一个新的 hash ID 。</p>
+<p>如果还仅仅只是操作那些尚未发布的提交，重写历史记录本身也没有什么很大的问题。但是如果你重写了已经发布到公共服务器上的提交历史，这样做就非常危险了。其他的开发人员可能这时已经在最原始的提交 C3 上开始工作，并使它成为了一些新提交中不可或缺的部分，而现在你却把 C3 的改动设置到了另一个时间点（就是那个新的 C3*）。除此之外，通过rebase 操作，这个原始的 C3 还被删除掉了，这将是非常可怕的……</p>
+<p>因此你应该只使用 rebase 来清理你的本地工作，千万不要尝试着对那些已经被发布的提交进行这个操作。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+            <a href="/tags/rebase/" rel="tag"># rebase</a>
+          
+            <a href="/tags/merge/" rel="tag"># merge</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/17/cl4e4qwj1005rad9ed8s09nl0/" rel="next" title="XMLHttpRequest">
+                <i class="fa fa-chevron-left"></i> XMLHttpRequest
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/26/cl4e4qwkg008lad9e32jjlt38/" rel="prev" title="使用 StoryBook 搭建 UI 组件库">
+                使用 StoryBook 搭建 UI 组件库 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">151</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#深入了解合并操作-转"><span class="nav-number">1.</span> <span class="nav-text">深入了解合并操作(转)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快进或合并提交"><span class="nav-number">2.</span> <span class="nav-text">快进或合并提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手工提交与合并提交"><span class="nav-number">3.</span> <span class="nav-text">手工提交与合并提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rebase-整合"><span class="nav-number">4.</span> <span class="nav-text">Rebase 整合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rebase-存在的陷阱"><span class="nav-number">5.</span> <span class="nav-text">Rebase 存在的陷阱</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
