@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端工程化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前端性能监控封面: %E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%207.png简介: 前端性能监控原理、落地方案 性能监控阿里前端专家star老师分享https://www.bilibili.com/video/BV1rT4y1a7YS?spm_">
+<meta name="keywords" content="前端工程化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能监控">
+<meta property="og:url" content="https://luoyec.cn/2022/06/14/cl4e4dqkn0084sm9eb3quvygt/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="前端性能监控封面: %E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%207.png简介: 前端性能监控原理、落地方案 性能监控阿里前端专家star老师分享https://www.bilibili.com/video/BV1rT4y1a7YS?spm_">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd858c23a-c2b2-4f01-8938-7149a0c93c2b%2FUntitled.png?table=block&id=85db83fd-863b-462d-9386-a935991bd7d5&spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&width=2000&userId=&cache=v2">
+<meta property="og:image" content="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fcbf858b4-fb06-4334-afb4-60efa31da537%2FUntitled.png?table=block&id=13ab2004-e1ae-4bba-be05-d5a5083d61b3&spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&width=2000&userId=&cache=v2">
+<meta property="og:image" content="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd814c01c-eee5-47cb-bd1f-dfaf38d99b04%2FUntitled.png?table=block&id=0211a0ce-e1b2-4415-9bcb-5d4c3e4b2439&spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&width=2000&userId=&cache=v2">
+<meta property="og:image" content="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F378c9712-c94d-4e34-a9a7-192abb4735aa%2FUntitled.png?table=block&id=533e523d-ce33-411c-ab97-9b3c101de8ad&spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&width=2000&userId=&cache=v2">
+<meta property="og:image" content="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F26e3b103-8b73-4943-9fe6-5a47ad4a2c73%2FUntitled.png?table=block&id=aec9f5e5-959a-447b-931f-f8ab5ef76347&spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&width=2000&userId=&cache=v2">
+<meta property="og:image" content="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe9569e68-fbde-4397-abfa-c822680a0487%2FUntitled.png?table=block&id=4e581192-f8bf-4c47-8e7c-3ca3ef48a815&spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&width=2000&userId=&cache=v2">
+<meta property="og:image" content="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F576bad0e-e0cb-45ba-a91f-a5b8741ad2df%2FUntitled.png?table=block&id=3056067c-4668-45b9-9f34-68caa88a579b&spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&width=2000&userId=&cache=v2">
+<meta property="og:updated_time" content="2022-06-14T12:04:09.334Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端性能监控">
+<meta name="twitter:description" content="前端性能监控封面: %E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%207.png简介: 前端性能监控原理、落地方案 性能监控阿里前端专家star老师分享https://www.bilibili.com/video/BV1rT4y1a7YS?spm_">
+<meta name="twitter:image" content="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd858c23a-c2b2-4f01-8938-7149a0c93c2b%2FUntitled.png?table=block&id=85db83fd-863b-462d-9386-a935991bd7d5&spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&width=2000&userId=&cache=v2">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2022/06/14/cl4e4dqkn0084sm9eb3quvygt/"/>
+
+
+
+
+
+  <title>前端性能监控 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2022/06/14/cl4e4dqkn0084sm9eb3quvygt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端性能监控</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-14T19:53:37+08:00">
+                2022-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端工程化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端工程化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前端性能监控"><a href="#前端性能监控" class="headerlink" title="前端性能监控"></a>前端性能监控</h1><p>封面: %E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%2085db83fd863b462d9386a935991bd7d5/Untitled%207.png<br>简介: 前端性能监控原理、落地方案</p>
+<h1 id="性能监控"><a href="#性能监控" class="headerlink" title="性能监控"></a>性能监控</h1><h2 id="阿里前端专家star老师分享"><a href="#阿里前端专家star老师分享" class="headerlink" title="阿里前端专家star老师分享"></a>阿里前端专家star老师分享</h2><p><a href="https://www.bilibili.com/video/BV1rT4y1a7YS?spm_id_from=333.999.0.0" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1rT4y1a7YS?spm_id_from=333.999.0.0</a></p>
+<h3 id="1-性能监控平台架构设计"><a href="#1-性能监控平台架构设计" class="headerlink" title="1. 性能监控平台架构设计"></a>1. 性能监控平台架构设计</h3><p><img src="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd858c23a-c2b2-4f01-8938-7149a0c93c2b%2FUntitled.png?table=block&amp;id=85db83fd-863b-462d-9386-a935991bd7d5&amp;spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&amp;width=2000&amp;userId=&amp;cache=v2" alt="                                                                **性能采集SDK ⇒ 大数据处理 ⇒ 数据可视化 ⇒ 性能数据预警**"></p>
+<pre><code>**性能采集SDK ⇒ 大数据处理 ⇒ 数据可视化 ⇒ 性能数据预警**
+</code></pre><h3 id="2-前端性能监控原理"><a href="#2-前端性能监控原理" class="headerlink" title="2. 前端性能监控原理"></a>2. 前端性能监控原理</h3><p><strong>核心API</strong></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Navigation_timing_API" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API/Navigation_timing_API</a></p>
+<p>核心API <code>navigation_timing，</code><strong>Navigation Timing API</strong><br> 提供了可用于衡量一个网站性能的数据。与用于相同目的的其他基于JavaScript的机制不同，该API可以提供可以更有用和更准确的端到端延迟数据。</p>
+<p><img src="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fcbf858b4-fb06-4334-afb4-60efa31da537%2FUntitled.png?table=block&amp;id=13ab2004-e1ae-4bba-be05-d5a5083d61b3&amp;spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&amp;width=2000&amp;userId=&amp;cache=v2" alt="                                                   **核心原理：根据Navigation Timing API，可以获取到任意过程的耗时**"></p>
+<pre><code>**核心原理：根据Navigation Timing API，可以获取到任意过程的耗时**
+</code></pre><p><strong>代码实例</strong></p>
+<p><img src="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd814c01c-eee5-47cb-bd1f-dfaf38d99b04%2FUntitled.png?table=block&amp;id=0211a0ce-e1b2-4415-9bcb-5d4c3e4b2439&amp;spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&amp;width=2000&amp;userId=&amp;cache=v2" alt="                                                                                                     **域名解析耗时**"></p>
+<pre><code>**域名解析耗时**
+</code></pre><p><strong>精度更高的API</strong></p>
+<p><code>Navigation Timing API</code>只能精确到毫秒级，通过 <code>**window.performance.getEntries()**</code>🔥 获取纳秒级的结果。</p>
+<h3 id="3-性能监控常见指标"><a href="#3-性能监控常见指标" class="headerlink" title="3. 性能监控常见指标"></a>3. 性能监控常见指标</h3><p><a href="https://songyazhao.github.io/2020/11/02/Web%20Performance%E5%B8%B8%E8%A7%81%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" target="_blank" rel="noopener">https://songyazhao.github.io/2020/11/02/Web Performance常见性能指标/</a></p>
+<p><strong>FP（First Paint） 首次绘制</strong></p>
+<p>标记浏览器渲染任何在视觉上不同于导航前屏幕内容之内容的时间点。</p>
+<p><img src="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F378c9712-c94d-4e34-a9a7-192abb4735aa%2FUntitled.png?table=block&amp;id=533e523d-ce33-411c-ab97-9b3c101de8ad&amp;spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&amp;width=2000&amp;userId=&amp;cache=v2" alt="Untitled"></p>
+<p><strong>FCP（First Contentful Paint）首次内容绘制</strong></p>
+<p>标记浏览器渲染来自 DOM 第一位内容的时间点，该内容可能是文本、图像、SVG 甚至 元素。</p>
+<p><img src="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F26e3b103-8b73-4943-9fe6-5a47ad4a2c73%2FUntitled.png?table=block&amp;id=aec9f5e5-959a-447b-931f-f8ab5ef76347&amp;spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&amp;width=2000&amp;userId=&amp;cache=v2" alt="Untitled"></p>
+<p><strong>LCP（Largest Contentful Paint）最大内容渲染</strong></p>
+<p>衡量viewport内可见的最大内容元素的渲染时间。元素包括img、video、div及其他块级元素。</p>
+<p>LCP的数据会通过PerformanceEntry对象记录, 每次出现更大的内容渲染, 则会产生一个新的PerformanceEntry对象.(2019年11月新增)。</p>
+<p><img src="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe9569e68-fbde-4397-abfa-c822680a0487%2FUntitled.png?table=block&amp;id=4e581192-f8bf-4c47-8e7c-3ca3ef48a815&amp;spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&amp;width=2000&amp;userId=&amp;cache=v2" alt="Untitled"></p>
+<p><strong>DCL（DomContentloaded）</strong></p>
+<p>当 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，无需等待样式表、图像和子框架的完成加载。</p>
+<p><strong>L（onLoad）</strong></p>
+<p>页面的onLoad时的时间点。当依赖的资源, 全部加载完毕之后才会触发。</p>
+<h3 id="4-更多的性能指标"><a href="#4-更多的性能指标" class="headerlink" title="4. 更多的性能指标"></a>4. 更多的性能指标</h3><p>以上的API只能在 onload 中使用，onload之后无法监控，可以通过 <strong>PerformanceObserver</strong> 监控性能变化指标</p>
+<p><img src="https://brief-frown-260.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F576bad0e-e0cb-45ba-a91f-a5b8741ad2df%2FUntitled.png?table=block&amp;id=3056067c-4668-45b9-9f34-68caa88a579b&amp;spaceId=62e2f6f5-822b-4b67-bdf7-20b7c9e7b3db&amp;width=2000&amp;userId=&amp;cache=v2" alt="Untitled"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端工程化/" rel="tag"># 前端工程化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/06/14/cl4e4dqko0087sm9e0xj8on0l/" rel="next" title="前端性能优化总结">
+                <i class="fa fa-chevron-left"></i> 前端性能优化总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/06/14/cl4e4dqkd007psm9eizsb55ov/" rel="prev" title="关于Browserlist浏览器支持范围">
+                关于Browserlist浏览器支持范围 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">120</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">149</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端性能监控"><span class="nav-number">1.</span> <span class="nav-text">前端性能监控</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能监控"><span class="nav-number">2.</span> <span class="nav-text">性能监控</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#阿里前端专家star老师分享"><span class="nav-number">2.1.</span> <span class="nav-text">阿里前端专家star老师分享</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-性能监控平台架构设计"><span class="nav-number">2.1.1.</span> <span class="nav-text">1. 性能监控平台架构设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-前端性能监控原理"><span class="nav-number">2.1.2.</span> <span class="nav-text">2. 前端性能监控原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-性能监控常见指标"><span class="nav-number">2.1.3.</span> <span class="nav-text">3. 性能监控常见指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-更多的性能指标"><span class="nav-number">2.1.4.</span> <span class="nav-text">4. 更多的性能指标</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
