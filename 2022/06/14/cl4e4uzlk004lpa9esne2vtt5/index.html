@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="react," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="React Hooks 核心原理与实战Tags: 前端源码创建时间: May 24, 2022评星: ⭐️⭐️⭐️⭐️⭐️  03｜内置 Hooks（1）：如何保存组件状态和使用生命周期？useState原则state 中永远不要保存可以通过计算得到的值。 React Hooks 四种执行时机useEffect 让我们能够在下面四种时机去执行一个回调函数产生副作用：  每次 render 后执行：">
+<meta name="keywords" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Hooks 核心原理与实战">
+<meta property="og:url" content="https://luoyec.cn/2022/06/14/cl4e4uzlk004lpa9esne2vtt5/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="React Hooks 核心原理与实战Tags: 前端源码创建时间: May 24, 2022评星: ⭐️⭐️⭐️⭐️⭐️  03｜内置 Hooks（1）：如何保存组件状态和使用生命周期？useState原则state 中永远不要保存可以通过计算得到的值。 React Hooks 四种执行时机useEffect 让我们能够在下面四种时机去执行一个回调函数产生副作用：  每次 render 后执行：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/21055e63-ba06-4f0a-b7a5-52fe5e653221/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T121226Z&X-Amz-Expires=86400&X-Amz-Signature=413a2cde08249cf10dec035cbfcfdbbb43ef68c532c217a03d20ef4b38a7d30b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:updated_time" content="2022-06-14T12:13:15.826Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Hooks 核心原理与实战">
+<meta name="twitter:description" content="React Hooks 核心原理与实战Tags: 前端源码创建时间: May 24, 2022评星: ⭐️⭐️⭐️⭐️⭐️  03｜内置 Hooks（1）：如何保存组件状态和使用生命周期？useState原则state 中永远不要保存可以通过计算得到的值。 React Hooks 四种执行时机useEffect 让我们能够在下面四种时机去执行一个回调函数产生副作用：  每次 render 后执行：">
+<meta name="twitter:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/21055e63-ba06-4f0a-b7a5-52fe5e653221/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T121226Z&X-Amz-Expires=86400&X-Amz-Signature=413a2cde08249cf10dec035cbfcfdbbb43ef68c532c217a03d20ef4b38a7d30b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2022/06/14/cl4e4uzlk004lpa9esne2vtt5/"/>
+
+
+
+
+
+  <title>React Hooks 核心原理与实战 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2022/06/14/cl4e4uzlk004lpa9esne2vtt5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React Hooks 核心原理与实战</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-14T20:11:36+08:00">
+                2022-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端框架/" itemprop="url" rel="index">
+                    <span itemprop="name">前端框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="React-Hooks-核心原理与实战"><a href="#React-Hooks-核心原理与实战" class="headerlink" title="React Hooks 核心原理与实战"></a>React Hooks 核心原理与实战</h1><p>Tags: 前端源码<br>创建时间: May 24, 2022<br>评星: ⭐️⭐️⭐️⭐️⭐️</p>
+<p><a href="https://time.geekbang.org/column/article/379299?cid=100079901" target="_blank" rel="noopener"></a></p>
+<h2 id="03｜内置-Hooks（1）：如何保存组件状态和使用生命周期？"><a href="#03｜内置-Hooks（1）：如何保存组件状态和使用生命周期？" class="headerlink" title="03｜内置 Hooks（1）：如何保存组件状态和使用生命周期？"></a><strong><strong>03｜内置 Hooks（1）：如何保存组件状态和使用生命周期？</strong></strong></h2><h3 id="useState原则"><a href="#useState原则" class="headerlink" title="useState原则"></a>useState原则</h3><p><code>state</code> 中永远不要保存可以通过计算得到的值。</p>
+<h3 id="React-Hooks-四种执行时机"><a href="#React-Hooks-四种执行时机" class="headerlink" title="React Hooks 四种执行时机"></a>React Hooks 四种执行时机</h3><p><strong><code>useEffect</code> 让我们能够在下面四种时机去执行一个回调函数产生副作用：</strong></p>
+<ul>
+<li>每次 <code>render</code> 后执行：不提供第二个依赖项参数。比如<code>useEffect(() =&gt; {})</code></li>
+<li>仅第一次 <code>render</code> 后执行：提供一个空数组作为依赖项。比如<code>useEffect(() =&gt; {}, [])</code></li>
+<li>第一次以及依赖项发生变化后执行：提供依赖项数组。比如<code>useEffect(() =&gt; {}, [deps])</code></li>
+<li>组件 <code>unmount</code> 后执行：返回一个回调函数。比如<code>useEffect() =&gt; { return () =&gt; {} }, [])</code></li>
+</ul>
+<h3 id="Hooks-的使用规则"><a href="#Hooks-的使用规则" class="headerlink" title="Hooks 的使用规则"></a>Hooks 的使用规则</h3><ul>
+<li><p><code>Hooks</code> 只能在函数组件的顶级作用域使用</p>
+<p>  所谓顶层作用域，就是 <code>Hooks</code> 不能在循环、条件判断或者嵌套函数内执行，而必须是在顶层。同时 <code>Hooks</code> 在组件的多次渲染之间，必须按顺序被执行。</p>
+</li>
+<li><p><code>Hooks</code> 只能在函数组件或者其它 <code>Hooks</code> 中使用</p>
+</li>
+</ul>
+<h2 id="04｜内置-Hooks（2）：为什么要避免重复定义回调函数？"><a href="#04｜内置-Hooks（2）：为什么要避免重复定义回调函数？" class="headerlink" title="04｜内置 Hooks（2）：为什么要避免重复定义回调函数？"></a><strong><strong>04｜内置 Hooks（2）：为什么要避免重复定义回调函数？</strong></strong></h2><h3 id="useCallback：缓存回调函数"><a href="#useCallback：缓存回调函数" class="headerlink" title="useCallback：缓存回调函数"></a>useCallback：缓存回调函数</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  **<span class="comment">// handleIncrement是定义在函数内部的，因此在多次渲染之间无法重用，每次都需要重新创建**</span></span><br><span class="line">  <span class="keyword">const</span> handleIncrement = <span class="function"><span class="params">()</span> =&gt;</span> setCount(count + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  **<span class="comment">// 每次创建新函数的方式会让接收事件处理函数的组件，需要重新渲染。**</span></span><br><span class="line">  <span class="keyword">return</span> &lt;button onClick=&#123;handleIncrement&#125;&gt;+&lt;/button&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接收了 <code>handleIncrement</code> ，并作为一个属性。如果每次都是一个新的，那么这个 <code>React</code> 就会认为这个组件的 <code>props</code> 发生了变化，从而必须重新渲染。因此，我们需要做到的是：只有当 <code>count</code> 发生变化时，我们才需要重新定一个回调函数。而这正是 <code>useCallback</code> 这个 <code>Hook</code> 的作用。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useCallback &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> handleIncrement = useCallback(</span><br><span class="line">    () =&gt; setCount(count + <span class="number">1</span>),</span><br><span class="line">    [count], <span class="comment">// 只有当 count 发生变化时，才会重新创建回调函数</span></span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> &lt;button onClick=&#123;handleIncrement&#125;&gt;+&lt;/button&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="useMemo：缓存计算的结果"><a href="#useMemo：缓存计算的结果" class="headerlink" title="useMemo：缓存计算的结果"></a>useMemo：缓存计算的结果</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> usersToShow = <span class="literal">null</span>; </span><br><span class="line"><span class="keyword">if</span> (users) &#123; <span class="comment">// 无论组件为何刷新，这里一定会对数组做一次过滤的操作 </span></span><br><span class="line">	usersToShow = users.data.filter(<span class="function">(<span class="params">user</span>) =&gt;</span> user.first_name.includes(searchKey), ); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个场景应该很容易理解：如果某个数据是通过其它数据计算得到的，那么只有当用到的数据，也就是依赖的数据发生变化的时候，才应该需要重新计算。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="comment">// 使用 userMemo 缓存计算的结果</span></span><br><span class="line"><span class="keyword">const</span> usersToShow = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!users) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> users.data.filter(<span class="function">(<span class="params">user</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> user.first_name.includes(searchKey));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, [users, searchKey]);</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+<p>缓存上一次的计算结果，useMemo 可以避免子组件重复渲染。</p>
+<h3 id="useRef：在多次渲染之间共享数据"><a href="#useRef：在多次渲染之间共享数据" class="headerlink" title="useRef：在多次渲染之间共享数据"></a>useRef：在多次渲染之间共享数据</h3><p><strong>useRef 看作是在函数组件之外创建的一个容器空间，用于共享变量。</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 定义 timer 这样一个容器用于在跨组件渲染之间保存一个变量</span></span><br><span class="line"><span class="keyword">const</span> timer = useRef(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开始计时的事件处理函数</span></span><br><span class="line"><span class="keyword">const</span> handleStart = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 使用 current 属性设置 ref 的值</span></span><br><span class="line">  timer.current = <span class="built_in">window</span>.setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setTime(<span class="function">(<span class="params">time</span>) =&gt;</span> time + <span class="number">1</span>);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;, []);</span><br></pre></td></tr></table></figure>
+<p><strong>保存某个 DOM 节点的引用</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TextInputWithFocusButton</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> inputEl = useRef(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> onButtonClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// current 属性指向了真实的 input 这个 DOM 节点，从而可以调用 focus 方法</span></span><br><span class="line">    inputEl.current.focus();</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;input ref=&#123;inputEl&#125; type=<span class="string">"text"</span> /&gt;</span><br><span class="line">      &lt;button onClick=&#123;onButtonClick&#125;&gt;Focus the input&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="useContext：定义全局状态"><a href="#useContext：定义全局状态" class="headerlink" title="useContext：定义全局状态"></a>useContext：定义全局状态</h3><p>要跨层次，或者同层的组件之间要进行数据的共享，React 提供了 Context 这样一个机制，能够让所有在某个组件开始的组件树上创建一个 Context。这样这个组件树上的所有组件，就都能访问和修改这个 Context 了。那么在函数组件里，我们就可以使用 useContext 这样一个 Hook 来管理 Context。</p>
+<h2 id="08｜复杂状态处理：如何保证状态一致性？"><a href="#08｜复杂状态处理：如何保证状态一致性？" class="headerlink" title="08｜复杂状态处理：如何保证状态一致性？"></a><strong><strong>08｜复杂状态处理：如何保证状态一致性？</strong></strong></h2><h3 id="原则一：保证状态最小化"><a href="#原则一：保证状态最小化" class="headerlink" title="原则一：保证状态最小化"></a>原则一：保证状态最小化</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> [searchKey, setSearchKey] = useState(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">**<span class="comment">// 每当 searchKey 或者 data 变化的时候，重新计算最终结果**</span></span><br><span class="line">**<span class="comment">// 利用useMemo缓存计算的值**</span></span><br><span class="line"><span class="keyword">const</span> filtered = useMemo(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> data.filter(<span class="function">(<span class="params">item</span>) =&gt;</span></span><br><span class="line">    item.title.toLowerCase().includes(searchKey.toLowerCase())</span><br><span class="line">  );</span><br><span class="line">&#125;, [searchKey, data]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#123;filtered.map((item) =&gt; &#123;&#125;) ...</span></span><br></pre></td></tr></table></figure>
+<p>🔥   <strong>核心原则，如果能通过计算得到结果，就不要保存在state中。这样需要手动维护数据一致性，增加复杂度。</strong></p>
+<h3 id="原则二：-避免中间状态，确保唯一数据源"><a href="#原则二：-避免中间状态，确保唯一数据源" class="headerlink" title="原则二： 避免中间状态，确保唯一数据源"></a>原则二： 避免中间状态，确保唯一数据源</h3><h2 id="10｜函数组件设计模式：如何应对复杂条件渲染场景？"><a href="#10｜函数组件设计模式：如何应对复杂条件渲染场景？" class="headerlink" title="10｜函数组件设计模式：如何应对复杂条件渲染场景？"></a><strong><strong>10｜函数组件设计模式：如何应对复杂条件渲染场景？</strong></strong></h2><h3 id="容器模式：实现按条件执行-Hooks"><a href="#容器模式：实现按条件执行-Hooks" class="headerlink" title="容器模式：实现按条件执行 Hooks"></a>容器模式：实现按条件执行 Hooks</h3><p>所谓容器模式，是将判断逻辑放在容器内部，从而避免在判断逻辑中写 <code>hooks</code></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个容器组件用于封装真正的 UserInfoModal</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">UserInfoModalWrapper</span>(<span class="params">&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">  visible,</span></span></span><br><span class="line"><span class="function"><span class="params">  ...rest, <span class="regexp">//</span> 使用 rest 获取除了 visible 之外的属性</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 如果对话框不显示，则不 render 任何内容</span></span><br><span class="line">  <span class="keyword">if</span> (!visible) <span class="keyword">return</span> <span class="literal">null</span>; </span><br><span class="line">  <span class="comment">// 否则真正执行对话框的组件逻辑</span></span><br><span class="line">  <span class="keyword">return</span> &lt;UserInfoModal visible &#123;...rest&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同理，在自定义hooks内部，判断是否处理</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useUser</span>(<span class="params">id</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [data, setData] = useState(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> [loading, setLoading] = useState(<span class="literal">false</span>);</span><br><span class="line">  <span class="keyword">const</span> [error, setError] = useState(<span class="literal">null</span>);</span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 当 id 不存在，直接返回，不发送请求</span></span><br><span class="line">    <span class="keyword">if</span> (!id) <span class="keyword">return</span></span><br><span class="line">    <span class="comment">// 获取用户信息的逻辑</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用-render-props-模式重用-UI-逻辑"><a href="#使用-render-props-模式重用-UI-逻辑" class="headerlink" title="使用 render props 模式重用 UI 逻辑"></a>使用 render props 模式重用 UI 逻辑</h3><p><code>render props</code> 就是把一个 <code>render</code> 函数作为属性传递给某个组件，由这个组件去执行这个函数从而 <code>render</code> 实际的内容。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState, useCallback &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CounterRenderProps</span>(<span class="params">&#123; children &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> increment = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setCount(count + <span class="number">1</span>);</span><br><span class="line">  &#125;, [count]);</span><br><span class="line">  <span class="keyword">const</span> decrement = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setCount(count - <span class="number">1</span>);</span><br><span class="line">  &#125;, [count]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> children(&#123; count, increment, decrement &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CounterRenderPropsExample</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;CounterRenderProps&gt;</span><br><span class="line">      &#123;(&#123; count, increment, decrement &#125;) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">          &lt;div&gt;</span><br><span class="line">            &lt;button onClick=&#123;decrement&#125;&gt;-&lt;/button&gt;</span><br><span class="line">            &lt;span&gt;&#123;count&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">            &lt;button onClick=&#123;increment&#125;&gt;+&lt;/</span>button&gt;</span><br><span class="line">          &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp">      &#125;&#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>CounterRenderProps&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个showMore的例子，实现UI的重用</p>
+<p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/21055e63-ba06-4f0a-b7a5-52fe5e653221/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T121226Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=413a2cde08249cf10dec035cbfcfdbbb43ef68c532c217a03d20ef4b38a7d30b&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ListWithMore.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; Popover &#125; <span class="keyword">from</span> <span class="string">"antd"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ListWithMore</span>(<span class="params">&#123; renderItem, data = [], max &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> elements = data.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> renderItem(item, index, data));</span><br><span class="line">  <span class="keyword">const</span> show = elements.slice(<span class="number">0</span>, max);</span><br><span class="line">  <span class="keyword">const</span> hide = elements.slice(max);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;span className=<span class="string">"exp-10-list-with-more"</span>&gt;</span><br><span class="line">      &#123;show&#125;</span><br><span class="line">      &#123;hide.length &gt; <span class="number">0</span> &amp;&amp; (</span><br><span class="line">        &lt;Popover content=&#123;&lt;div style=&#123;&#123; <span class="attr">maxWidth</span>: <span class="number">500</span> &#125;&#125;&gt;&#123;hide&#125;&lt;<span class="regexp">/div&gt;&#125;&gt;</span></span><br><span class="line"><span class="regexp">          &lt;span className="more-items-wrapper"&gt;</span></span><br><span class="line"><span class="regexp">            and&#123;" "&#125;</span></span><br><span class="line"><span class="regexp">            &lt;span className="more-items-trigger"&gt; &#123;hide.length&#125; more...&lt;/</span>span&gt;</span><br><span class="line">          &lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Popover&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ListWithMoreExample.jsx 这里用一个示例数据</span></span><br><span class="line"><span class="keyword">import</span> data <span class="keyword">from</span> <span class="string">'./data'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ListWithMoreExample</span> (<span class="params"></span>) =&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=<span class="string">"exp-10-list-with-more"</span>&gt;</span><br><span class="line">      &lt;h1&gt;User Names&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">      &lt;div className="user-names"&gt;</span></span><br><span class="line"><span class="regexp">        Liked by:&#123;" "&#125;</span></span><br><span class="line"><span class="regexp">        **&lt;ListWithMore**</span></span><br><span class="line"><span class="regexp">          renderItem=&#123;(user) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">            return &lt;span className="user-name"&gt;&#123;user.name&#125;&lt;/</span>span&gt;;</span><br><span class="line">          &#125;&#125;</span><br><span class="line">          data=&#123;data&#125;</span><br><span class="line">          max=&#123;<span class="number">3</span>&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;br /</span>&gt;</span><br><span class="line">      &lt;br /&gt;</span><br><span class="line">      &lt;h1&gt;User List&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">      &lt;div className="user-list"&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div className="user-list-row user-list-row-head"&gt;</span></span><br><span class="line"><span class="regexp">          &lt;span className="user-name-cell"&gt;Name&lt;/</span>span&gt;</span><br><span class="line">          &lt;span&gt;City&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">          &lt;span&gt;Job Title&lt;/</span>span&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        **&lt;ListWithMore**</span></span><br><span class="line"><span class="regexp">          renderItem=&#123;(user) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">            return (</span></span><br><span class="line"><span class="regexp">              &lt;div className="user-list-row"&gt;</span></span><br><span class="line"><span class="regexp">                &lt;span className="user-name-cell"&gt;&#123;user.name&#125;&lt;/</span>span&gt;</span><br><span class="line">                &lt;span&gt;&#123;user.city&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">                &lt;span&gt;&#123;user.job&#125;&lt;/</span>span&gt;</span><br><span class="line">              &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">            );</span></span><br><span class="line"><span class="regexp">          &#125;&#125;</span></span><br><span class="line"><span class="regexp">          data=&#123;data&#125;</span></span><br><span class="line"><span class="regexp">          max=&#123;5&#125;</span></span><br><span class="line"><span class="regexp">        /</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/06/14/cl4e4uzmc0064pa9e6o1ivuod/" rel="next" title="esbuild-loader加快打包速度">
+                <i class="fa fa-chevron-left"></i> esbuild-loader加快打包速度
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/06/14/cl4e4uzly0058pa9ejkgj6oj5/" rel="prev" title="Typescript类型体操">
+                Typescript类型体操 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">151</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-Hooks-核心原理与实战"><span class="nav-number">1.</span> <span class="nav-text">React Hooks 核心原理与实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#03｜内置-Hooks（1）：如何保存组件状态和使用生命周期？"><span class="nav-number">1.1.</span> <span class="nav-text">03｜内置 Hooks（1）：如何保存组件状态和使用生命周期？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#useState原则"><span class="nav-number">1.1.1.</span> <span class="nav-text">useState原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Hooks-四种执行时机"><span class="nav-number">1.1.2.</span> <span class="nav-text">React Hooks 四种执行时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hooks-的使用规则"><span class="nav-number">1.1.3.</span> <span class="nav-text">Hooks 的使用规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#04｜内置-Hooks（2）：为什么要避免重复定义回调函数？"><span class="nav-number">1.2.</span> <span class="nav-text">04｜内置 Hooks（2）：为什么要避免重复定义回调函数？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#useCallback：缓存回调函数"><span class="nav-number">1.2.1.</span> <span class="nav-text">useCallback：缓存回调函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useMemo：缓存计算的结果"><span class="nav-number">1.2.2.</span> <span class="nav-text">useMemo：缓存计算的结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useRef：在多次渲染之间共享数据"><span class="nav-number">1.2.3.</span> <span class="nav-text">useRef：在多次渲染之间共享数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useContext：定义全局状态"><span class="nav-number">1.2.4.</span> <span class="nav-text">useContext：定义全局状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#08｜复杂状态处理：如何保证状态一致性？"><span class="nav-number">1.3.</span> <span class="nav-text">08｜复杂状态处理：如何保证状态一致性？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原则一：保证状态最小化"><span class="nav-number">1.3.1.</span> <span class="nav-text">原则一：保证状态最小化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原则二：-避免中间状态，确保唯一数据源"><span class="nav-number">1.3.2.</span> <span class="nav-text">原则二： 避免中间状态，确保唯一数据源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10｜函数组件设计模式：如何应对复杂条件渲染场景？"><span class="nav-number">1.4.</span> <span class="nav-text">10｜函数组件设计模式：如何应对复杂条件渲染场景？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#容器模式：实现按条件执行-Hooks"><span class="nav-number">1.4.1.</span> <span class="nav-text">容器模式：实现按条件执行 Hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-render-props-模式重用-UI-逻辑"><span class="nav-number">1.4.2.</span> <span class="nav-text">使用 render props 模式重用 UI 逻辑</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
