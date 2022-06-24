@@ -264,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/08/22/cl4e4uzm5005qpa9eeqwwvzv0/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/08/24/cl4s3b5lj0057kz9etmyjv3rs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
@@ -283,7 +283,316 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/22/cl4e4uzm5005qpa9eeqwwvzv0/" itemprop="url">Vue源码解析-组件化</a></h1>
+                <a class="post-title-link" href="/2018/08/24/cl4s3b5lj0057kz9etmyjv3rs/" itemprop="url">Vue源码解析-响应式原理（计算属性、监听属性、组件更新）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-24T16:20:55+08:00">
+                2018-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue源码解析/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue源码解析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Vue源码解析-响应式原理（计算属性、监听属性、组件更新）计算属性&amp;&amp;监听属性
+了解计算属性实现原理
+了解监听属性实现原理和几种配置
+了解各自的适用场景
+
+计算属性实现原理
+ 类型：{ [key: string]: Function | { get: Function, set: F
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/24/cl4s3b5lj0057kz9etmyjv3rs/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/08/24/cl4s3b5li0055kz9e4m3pcxeo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/24/cl4s3b5li0055kz9e4m3pcxeo/" itemprop="url">Vue源码解析-响应式原理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-24T11:55:14+08:00">
+                2018-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue源码解析/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue源码解析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Vue源码解析-响应式原理原理图：
+
+数据变化到 DOM 变化，前端开发工作
+
+数据渲染到界面
+处理用户交互
+
+响应式对象Vue.js 实现响应式的核心是利用了 ES5 的 Object.defineProperty，这也是为什么 Vue.js 不能兼容 IE8 及以下浏览器的原因，Object.d
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/24/cl4s3b5li0055kz9e4m3pcxeo/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/08/22/cl4s3b5ln005hkz9enm8ty4gx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/22/cl4s3b5ln005hkz9enm8ty4gx/" itemprop="url">Vue源码解析-组件化</a></h1>
         
 
         <div class="post-meta">
@@ -362,7 +671,7 @@ createCom
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/22/cl4e4uzm5005qpa9eeqwwvzv0/#more" rel="contents">
+            <a class="btn" href="/2018/08/22/cl4s3b5ln005hkz9enm8ty4gx/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -413,7 +722,7 @@ createCom
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/08/21/cl4e4uzm4005mpa9elf0vlmh8/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/08/21/cl4s3b5ll005dkz9eusmh0hn2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
@@ -432,7 +741,7 @@ createCom
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/21/cl4e4uzm4005mpa9elf0vlmh8/" itemprop="url">Vue源码解析-数据驱动</a></h1>
+                <a class="post-title-link" href="/2018/08/21/cl4s3b5ll005dkz9eusmh0hn2/" itemprop="url">Vue源码解析-数据驱动</a></h1>
         
 
         <div class="post-meta">
@@ -511,7 +820,7 @@ Vue源码解析-数据驱动Introduction现代前端框架抛弃里如使用 JQu
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/21/cl4e4uzm4005mpa9elf0vlmh8/#more" rel="contents">
+            <a class="btn" href="/2018/08/21/cl4s3b5ll005dkz9eusmh0hn2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -562,7 +871,7 @@ Vue源码解析-数据驱动Introduction现代前端框架抛弃里如使用 JQu
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/08/17/cl4e4uzlh004fpa9ee934xyfy/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/08/17/cl4s3b5l30049kz9eeglncid1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
@@ -581,7 +890,7 @@ Vue源码解析-数据驱动Introduction现代前端框架抛弃里如使用 JQu
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/17/cl4e4uzlh004fpa9ee934xyfy/" itemprop="url">Object.defineProperty()</a></h1>
+                <a class="post-title-link" href="/2018/08/17/cl4s3b5l30049kz9eeglncid1/" itemprop="url">Object.defineProperty()</a></h1>
         
 
         <div class="post-meta">
@@ -661,7 +970,7 @@ Object.defineProperty()方法会直接在一个对象上定义一个新属性，
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/17/cl4e4uzlh004fpa9ee934xyfy/#more" rel="contents">
+            <a class="btn" href="/2018/08/17/cl4s3b5l30049kz9eeglncid1/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -712,7 +1021,7 @@ Object.defineProperty()方法会直接在一个对象上定义一个新属性，
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/06/26/cl4e4uzk10013pa9eqegxk0jn/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/06/26/cl4s3b5jp001hkz9euymvnxeb/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
@@ -731,7 +1040,7 @@ Object.defineProperty()方法会直接在一个对象上定义一个新属性，
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/26/cl4e4uzk10013pa9eqegxk0jn/" itemprop="url">HTML5 语义化最佳实践</a></h1>
+                <a class="post-title-link" href="/2018/06/26/cl4s3b5jp001hkz9euymvnxeb/" itemprop="url">HTML5 语义化最佳实践</a></h1>
         
 
         <div class="post-meta">
@@ -815,7 +1124,7 @@ HTML5 语义化最佳实践最佳实践
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/26/cl4e4uzk10013pa9eqegxk0jn/#more" rel="contents">
+            <a class="btn" href="/2018/06/26/cl4s3b5jp001hkz9euymvnxeb/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -866,7 +1175,7 @@ HTML5 语义化最佳实践最佳实践
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/06/11/cl4e4uzlc0043pa9eb48jx4ed/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/06/11/cl4s3b5l00043kz9emmqo4vfn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
@@ -885,7 +1194,7 @@ HTML5 语义化最佳实践最佳实践
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/11/cl4e4uzlc0043pa9eb48jx4ed/" itemprop="url">Nginx 部署静态页面</a></h1>
+                <a class="post-title-link" href="/2018/06/11/cl4s3b5l00043kz9emmqo4vfn/" itemprop="url">Nginx 部署静态页面</a></h1>
         
 
         <div class="post-meta">
@@ -965,7 +1274,7 @@ HTML5 语义化最佳实践最佳实践
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/06/11/cl4e4uzlc0043pa9eb48jx4ed/#more" rel="contents">
+            <a class="btn" href="/2018/06/11/cl4s3b5l00043kz9emmqo4vfn/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1016,7 +1325,7 @@ HTML5 语义化最佳实践最佳实践
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/05/14/cl4e4uzlw0055pa9eng1kx4jk/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/05/14/cl4s3b5lf004ykz9e2o8d5zns/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
@@ -1035,7 +1344,7 @@ HTML5 语义化最佳实践最佳实践
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/14/cl4e4uzlw0055pa9eng1kx4jk/" itemprop="url">Vue.js 快速入门与专业应用</a></h1>
+                <a class="post-title-link" href="/2018/05/14/cl4s3b5lf004ykz9e2o8d5zns/" itemprop="url">Vue.js 快速入门与专业应用</a></h1>
         
 
         <div class="post-meta">
@@ -1114,7 +1423,7 @@ Vue.js 快速入门与专业应用Vue.js 简介Vue.js 的组件化理念和 Reac
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/14/cl4e4uzlw0055pa9eng1kx4jk/#more" rel="contents">
+            <a class="btn" href="/2018/05/14/cl4s3b5lf004ykz9e2o8d5zns/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1165,7 +1474,7 @@ Vue.js 快速入门与专业应用Vue.js 简介Vue.js 的组件化理念和 Reac
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/05/06/cl4e4uzkd001qpa9eh6duyzs0/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/05/06/cl4s3b5jq001lkz9eraa2k2bk/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
@@ -1184,7 +1493,7 @@ Vue.js 快速入门与专业应用Vue.js 简介Vue.js 的组件化理念和 Reac
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/06/cl4e4uzkd001qpa9eh6duyzs0/" itemprop="url">JavaScript 数组去重</a></h1>
+                <a class="post-title-link" href="/2018/05/06/cl4s3b5jq001lkz9eraa2k2bk/" itemprop="url">JavaScript 数组去重</a></h1>
         
 
         <div class="post-meta">
@@ -1264,7 +1573,7 @@ Vue.js 快速入门与专业应用Vue.js 简介Vue.js 的组件化理念和 Reac
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/06/cl4e4uzkd001qpa9eh6duyzs0/#more" rel="contents">
+            <a class="btn" href="/2018/05/06/cl4s3b5jq001lkz9eraa2k2bk/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1315,7 +1624,7 @@ Vue.js 快速入门与专业应用Vue.js 简介Vue.js 的组件化理念和 Reac
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/05/06/cl4e4uzkw0030pa9efc4ysq04/">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/05/06/cl4s3b5kz003zkz9egedoyzbl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luoyecong">
@@ -1334,7 +1643,7 @@ Vue.js 快速入门与专业应用Vue.js 简介Vue.js 的组件化理念和 Reac
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/06/cl4e4uzkw0030pa9efc4ysq04/" itemprop="url">JavaScript排序算法</a></h1>
+                <a class="post-title-link" href="/2018/05/06/cl4s3b5kz003zkz9egedoyzbl/" itemprop="url">JavaScript排序算法</a></h1>
         
 
         <div class="post-meta">
@@ -1414,309 +1723,7 @@ JavaScript 排序算法排序算法的核心思想是对一组数据按照一定
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/06/cl4e4uzkw0030pa9efc4ysq04/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/05/04/cl4e4uzjc0002pa9e2kfe12xr/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="luoyecong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Aries 网络日志">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/04/cl4e4uzjc0002pa9e2kfe12xr/" itemprop="url">AJAX 工作原理及概述</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-04T15:11:14+08:00">
-                2018-05-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          参考： 你真的会使用 XMLHttpRequest 吗？
-AJAX 工作原理及概述AJAX 使用 XMLHttpRequest 对象与服务器通信，它可以使用 JSON、XML、HTML和文本等多种格式发送和接受。AJAX 最吸引人的是它的异步特性，也就是说可以在不重新刷新页面的情况下雨服务器通信，交
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/04/cl4e4uzjc0002pa9e2kfe12xr/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2018/05/01/cl4e4uznw00a3pa9ebip0kzd2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="luoyecong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Aries 网络日志">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/01/cl4e4uznw00a3pa9ebip0kzd2/" itemprop="url">正则表达式练习题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-01T14:31:39+08:00">
-                2018-05-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          资源：HackerRank 正则练习Regexper 正则可视化面试中会遇到的正则题
-正则表达式练习题匹配连续出现的四组以 . 连接的字符串题目：abc.dss.sds.wer
-答案：/^(.{3}\.){3}.{3}$/g 或者 ^(...\.){3}...$
-
-^ 以什么作为开头
-$ 以什么作为
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/01/cl4e4uznw00a3pa9ebip0kzd2/#more" rel="contents">
+            <a class="btn" href="/2018/05/06/cl4s3b5kz003zkz9egedoyzbl/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1804,7 +1811,7 @@ $ 以什么作为
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">126</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1815,7 +1822,7 @@ $ 以什么作为
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1826,7 +1833,7 @@ $ 以什么作为
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">151</span>
+                  <span class="site-state-item-count">152</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
