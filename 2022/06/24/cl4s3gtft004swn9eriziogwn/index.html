@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="react," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="React技术解密Tags: 前端源码创建时间: April 18, 2022评星: ⭐️⭐️⭐️⭐️⭐️ React技术揭秘 通过手写一个玩具react带你了解整个react流程原理_哔哩哔哩_bilibili React 哲学 - React 问题列表：  老的react架构，新的react架构？ Fiber实现原理&amp;amp;工作原理？ Hooks的理念？ Hooks的简单实现？  React">
+<meta name="keywords" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React技术揭秘">
+<meta property="og:url" content="https://luoyec.cn/2022/06/24/cl4s3gtft004swn9eriziogwn/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="React技术解密Tags: 前端源码创建时间: April 18, 2022评星: ⭐️⭐️⭐️⭐️⭐️ React技术揭秘 通过手写一个玩具react带你了解整个react流程原理_哔哩哔哩_bilibili React 哲学 - React 问题列表：  老的react架构，新的react架构？ Fiber实现原理&amp;amp;工作原理？ Hooks的理念？ Hooks的简单实现？  React">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2466d5f4-1419-4aab-a5e2-e440dd522384/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220624T064948Z&X-Amz-Expires=86400&X-Amz-Signature=4009be7646d41f166e0ceeb760a58376bd017e8179742ace28ab37796a6eec2f&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a3fdb11b-80de-4c13-833b-2514494b7b49/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220624T065012Z&X-Amz-Expires=86400&X-Amz-Signature=6d6860010044951118d4994d46861a28427fec7ba55c345741a7c93f7e6d9ef4&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:updated_time" content="2022-06-24T06:50:45.828Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React技术揭秘">
+<meta name="twitter:description" content="React技术解密Tags: 前端源码创建时间: April 18, 2022评星: ⭐️⭐️⭐️⭐️⭐️ React技术揭秘 通过手写一个玩具react带你了解整个react流程原理_哔哩哔哩_bilibili React 哲学 - React 问题列表：  老的react架构，新的react架构？ Fiber实现原理&amp;amp;工作原理？ Hooks的理念？ Hooks的简单实现？  React">
+<meta name="twitter:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2466d5f4-1419-4aab-a5e2-e440dd522384/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220624T064948Z&X-Amz-Expires=86400&X-Amz-Signature=4009be7646d41f166e0ceeb760a58376bd017e8179742ace28ab37796a6eec2f&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2022/06/24/cl4s3gtft004swn9eriziogwn/"/>
+
+
+
+
+
+  <title>React技术揭秘 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2022/06/24/cl4s3gtft004swn9eriziogwn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React技术揭秘</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-24T14:49:01+08:00">
+                2022-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端框架/" itemprop="url" rel="index">
+                    <span itemprop="name">前端框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="React技术解密"><a href="#React技术解密" class="headerlink" title="React技术解密"></a>React技术解密</h1><p>Tags: 前端源码<br>创建时间: April 18, 2022<br>评星: ⭐️⭐️⭐️⭐️⭐️</p>
+<p><a href="https://react.iamkasong.com/#%E5%AF%BC%E5%AD%A6%E8%A7%86%E9%A2%91" target="_blank" rel="noopener">React技术揭秘</a></p>
+<p><a href="https://www.bilibili.com/video/BV1FZ4y1U7uS?spm_id_from=333.337.search-card.all.click" target="_blank" rel="noopener">通过手写一个玩具react带你了解整个react流程原理_哔哩哔哩_bilibili</a></p>
+<p><a href="https://zh-hans.reactjs.org/docs/thinking-in-react.html" target="_blank" rel="noopener">React 哲学 - React</a></p>
+<p><strong>问题列表：</strong></p>
+<ol>
+<li>老的react架构，新的react架构？</li>
+<li>Fiber实现原理&amp;工作原理？</li>
+<li>Hooks的理念？</li>
+<li>Hooks的简单实现？</li>
+</ol>
+<h2 id="React理念"><a href="#React理念" class="headerlink" title="React理念"></a>React理念</h2><p><strong>官方定义：</strong>我们认为，<strong>React</strong> 是用 JavaScript 构建快速响应的大型 Web 应用程序的首选方式。它在 Facebook 和 Instagram 上表现优秀。</p>
+<p>制约快速响应的因素？</p>
+<ul>
+<li>大量计算引起的<strong>CPU瓶颈</strong>；</li>
+<li>大量网络请求，等待数据返回而阻塞页面引起的<strong>IO瓶颈</strong>；</li>
+</ul>
+<p><strong>React如何解决上述两个瓶颈？</strong></p>
+<ul>
+<li>实现了<strong>时间切片</strong>，将同步的更新变为可中断的异步更新。<strong>GUI渲染线程</strong>与<strong>JS线程</strong>是互斥的。所以JS脚本执行和浏览器布局、绘制不能同时执行。当JS执行时间过长，大于16ms时，将咩有时间执行页面布局和样式绘制了，结果就是掉帧卡顿。</li>
+<li><strong><a href="https://zh-hans.reactjs.org/docs/concurrent-mode-intro.html#putting-research-into-production" target="_blank" rel="noopener">将人机交互研究的结果整合到真实的 UI 中 (opens new window)</a></strong></li>
+</ul>
+<h2 id="React15架构"><a href="#React15架构" class="headerlink" title="React15架构"></a>React15架构</h2><p>React15架构可以分为两层</p>
+<ul>
+<li><strong>Reconciler（</strong>协调器<strong>）</strong>：负责找出变化的组件<ul>
+<li>setState、forceUpdate、render等API触发更新</li>
+<li>调用函数组件、或class组件的<code>render</code>方法，将返回的JSX转化为虚拟DOM</li>
+<li>将虚拟DOM和上次更新时的虚拟DOM对比</li>
+<li>通过对比找出本次更新中变化的虚拟DOM</li>
+<li>通知<strong>Renderer</strong>将变化的虚拟DOM渲染到页面上</li>
+</ul>
+</li>
+<li><strong>Reander（</strong>渲染器<strong>）</strong>：负责将变化的组件渲染到页面上<ul>
+<li>将变化的组件渲染在当前宿主环境</li>
+</ul>
+</li>
+</ul>
+<p><strong>架构缺点：</strong></p>
+<p>由于递归执行，所以更新一旦开始，中途就无法中断。当层级很深时，递归更新时间超过了16ms，用户交互就会卡顿。</p>
+<h2 id="React16架构"><a href="#React16架构" class="headerlink" title="React16架构"></a>React16架构</h2><p>React16架构可以分为三层：</p>
+<ul>
+<li>Scheduler（调度器）—— 调度任务的优先级，高优任务优先进入<strong>Reconciler</strong><ul>
+<li>浏览器有剩余时间时，进行任务调度</li>
+</ul>
+</li>
+<li>Reconciler（协调器）—— 负责找出变化的组件<ul>
+<li>当Scheduler将任务交给Reconciler后，Reconciler会为变化的虚拟DOM打上代表增/删/更新的标</li>
+<li>整个Scheduler与Reconciler的工作都在内存中进行。只有当所有组件都完成Reconciler的工作，才会统一交给Renderer。</li>
+</ul>
+</li>
+<li><p>Renderer（渲染器）—— 负责将变化的组件渲染到页面上</p>
+<ul>
+<li><p>根据协调器上虚拟DOM的标记，同步的执行对应DOM操作</p>
+<p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2466d5f4-1419-4aab-a5e2-e440dd522384/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220624T064948Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=4009be7646d41f166e0ceeb760a58376bd017e8179742ace28ab37796a6eec2f&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Fiber架构"><a href="#Fiber架构" class="headerlink" title="Fiber架构"></a>Fiber架构</h2><p><strong>代数效应：</strong></p>
+<p>将副作用从函数中分离，使函数关注点保持纯粹。对于类似useState、useReducer、useRef这样的Hook，我们不需要关注FunctionComponent的state在Hook中是如何保存的，React会为我们处理。</p>
+<p><strong>Fiber的三层含义：</strong></p>
+<ul>
+<li>之前React15的协调器(Reconciler)采用递归的方式执行，React16的协调器基于<strong>Fiber节点</strong>实现，被称为<strong>Fiber Reconciler</strong></li>
+<li>作为静态数据结构，每个Fiber节点对应一个React element</li>
+<li>作为动态工作单元，每个Fiber街电保存本次更新中组件改变的状态、增删改的信息</li>
+</ul>
+<p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a3fdb11b-80de-4c13-833b-2514494b7b49/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220624T065012Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=6d6860010044951118d4994d46861a28427fec7ba55c345741a7c93f7e6d9ef4&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Fiber树结构"></p>
+<p>Fiber树结构</p>
+<p><strong>如何理解Fiber双缓存树？</strong></p>
+<p>所谓缓存，跳过绘制帧过程中，清除当前帧的动作，而是用新的帧直接替换当前帧。避免出现白屏的情况。</p>
+<p>这种在内存中构建并直接替换的技术叫“双缓存”。</p>
+<h2 id="Diff算法"><a href="#Diff算法" class="headerlink" title="Diff算法"></a>Diff算法</h2><p>为了降低算法复杂度，React的diff会预设三个限制：</p>
+<ul>
+<li>只对同级元素进行Diff。如果一个DOM节点在前后两次更新中跨越了层级，那么React不会尝试复用他。</li>
+<li>两个不同类型的元素会产生出不同的树。如果元素由div变为p，React会销毁div及其子孙节点，并新建p及其子孙节点。</li>
+<li>开发者可以通过 key prop来暗示哪些子元素在不同的渲染下能保持稳定。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/06/24/cl4s3gtii009qwn9e833zkxkr/" rel="next" title="微前端(qiankun)解决方案">
+                <i class="fa fa-chevron-left"></i> 微前端(qiankun)解决方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">152</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React技术解密"><span class="nav-number">1.</span> <span class="nav-text">React技术解密</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#React理念"><span class="nav-number">1.1.</span> <span class="nav-text">React理念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React15架构"><span class="nav-number">1.2.</span> <span class="nav-text">React15架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React16架构"><span class="nav-number">1.3.</span> <span class="nav-text">React16架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fiber架构"><span class="nav-number">1.4.</span> <span class="nav-text">Fiber架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Diff算法"><span class="nav-number">1.5.</span> <span class="nav-text">Diff算法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

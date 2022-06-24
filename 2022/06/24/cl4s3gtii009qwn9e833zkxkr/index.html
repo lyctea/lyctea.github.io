@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="微前端," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="手写 qiankun 微前端框架手写 qiankun 微前端框架_哔哩哔哩_bilibili why微前端？为什么要使用微前端架构？多人协同开发，解决巨石应用。 把庞大应用分块处理，划分为多个子应用，子应用技术栈无关，独立部署。多个子应用聚合在一起，看起来就是一个完整的应用，用户无感知。 在开发层面来说，不限制技术栈，可以多团队采用不同的技术栈开发，也适合进行渐进式重构升级。 微前端原理核心逻辑规">
+<meta name="keywords" content="微前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微前端(qiankun)解决方案">
+<meta property="og:url" content="https://luoyec.cn/2022/06/24/cl4s3gtii009qwn9e833zkxkr/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="手写 qiankun 微前端框架手写 qiankun 微前端框架_哔哩哔哩_bilibili why微前端？为什么要使用微前端架构？多人协同开发，解决巨石应用。 把庞大应用分块处理，划分为多个子应用，子应用技术栈无关，独立部署。多个子应用聚合在一起，看起来就是一个完整的应用，用户无感知。 在开发层面来说，不限制技术栈，可以多团队采用不同的技术栈开发，也适合进行渐进式重构升级。 微前端原理核心逻辑规">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3728515f-32d9-4bd1-b67f-7cf9b1b7e9c2/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220624T064425Z&X-Amz-Expires=86400&X-Amz-Signature=f92c708f365f319c688393d3d4aa4a954e3e37e4b2b063a88fbfe91f081950f0&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3f955cab-b66b-42eb-82cd-2f01d12f521b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220624T064453Z&X-Amz-Expires=86400&X-Amz-Signature=a978823453520f7e5e4f29af2018436585b760e23887ea84b0f980ee66e6218a&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b9f9c767-b89b-4191-8014-90a211b0c7d7/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220624T064600Z&X-Amz-Expires=86400&X-Amz-Signature=b4de5f61f63446bcde81cb5e930376e16c719628865edbcf278130a013bba2ed&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:updated_time" content="2022-06-24T06:46:11.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微前端(qiankun)解决方案">
+<meta name="twitter:description" content="手写 qiankun 微前端框架手写 qiankun 微前端框架_哔哩哔哩_bilibili why微前端？为什么要使用微前端架构？多人协同开发，解决巨石应用。 把庞大应用分块处理，划分为多个子应用，子应用技术栈无关，独立部署。多个子应用聚合在一起，看起来就是一个完整的应用，用户无感知。 在开发层面来说，不限制技术栈，可以多团队采用不同的技术栈开发，也适合进行渐进式重构升级。 微前端原理核心逻辑规">
+<meta name="twitter:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3728515f-32d9-4bd1-b67f-7cf9b1b7e9c2/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220624T064425Z&X-Amz-Expires=86400&X-Amz-Signature=f92c708f365f319c688393d3d4aa4a954e3e37e4b2b063a88fbfe91f081950f0&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2022/06/24/cl4s3gtii009qwn9e833zkxkr/"/>
+
+
+
+
+
+  <title>微前端(qiankun)解决方案 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2022/06/24/cl4s3gtii009qwn9e833zkxkr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微前端(qiankun)解决方案</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-24T14:15:10+08:00">
+                2022-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端架构/" itemprop="url" rel="index">
+                    <span itemprop="name">前端架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="手写-qiankun-微前端框架"><a href="#手写-qiankun-微前端框架" class="headerlink" title="手写 qiankun 微前端框架"></a>手写 qiankun 微前端框架</h1><p><a href="https://www.bilibili.com/video/BV1H34y117fe?spm_id_from=333.337.search-card.all.click" target="_blank" rel="noopener">手写 qiankun 微前端框架_哔哩哔哩_bilibili</a></p>
+<h1 id="why微前端？"><a href="#why微前端？" class="headerlink" title="why微前端？"></a>why微前端？</h1><h2 id="为什么要使用微前端架构？"><a href="#为什么要使用微前端架构？" class="headerlink" title="为什么要使用微前端架构？"></a><strong>为什么要使用微前端架构？</strong></h2><p>多人协同开发，解决巨石应用。</p>
+<p>把庞大应用分块处理，划分为多个子应用，子应用技术栈无关，独立部署。多个子应用聚合在一起，看起来就是一个完整的应用，用户无感知。</p>
+<p>在开发层面来说，不限制技术栈，可以多团队采用不同的技术栈开发，也适合进行渐进式重构升级。</p>
+<h2 id="微前端原理"><a href="#微前端原理" class="headerlink" title="微前端原理"></a>微前端原理</h2><h3 id="核心逻辑"><a href="#核心逻辑" class="headerlink" title="核心逻辑"></a><strong>核心逻辑</strong></h3><p>规则匹配 ⇒ 获取资源 ⇒ 渲染到容器</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注册子应用，微前端运行原理和 SPA单页应用非常相似，SPA注册路由与注册子应用概念类似。</span></span><br><span class="line">registerMicroApps([</span><br><span class="line">	  <span class="comment">// 当匹配到 activeRule 的时候，请求获取 entry 资源，渲染到 container 中</span></span><br><span class="line">		&#123;</span><br><span class="line">			name: <span class="string">'app-react'</span>,</span><br><span class="line">			entry: <span class="string">'//localhost:9001'</span> <span class="comment">// 子应用的 HTML 入口</span></span><br><span class="line">      container: <span class="string">'#subapp-container'</span>, <span class="comment">// 渲染到哪里</span></span><br><span class="line">			activeRule: <span class="string">'/subapp/app-react'</span> <span class="comment">// 路由匹配规则</span></span><br><span class="line">		&#125;</span><br><span class="line">	]	</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="主子应用出口"><a href="#主子应用出口" class="headerlink" title="主子应用出口"></a><strong>主子应用出口</strong></h3><p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3728515f-32d9-4bd1-b67f-7cf9b1b7e9c2/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220624T064425Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=f92c708f365f319c688393d3d4aa4a954e3e37e4b2b063a88fbfe91f081950f0&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="主子应用有不同的接入口"></p>
+<p>主子应用有不同的接入口</p>
+<h3 id="子应用如何接入主应用？"><a href="#子应用如何接入主应用？" class="headerlink" title="子应用如何接入主应用？"></a><strong>子应用如何接入主应用？</strong></h3><ol>
+<li><p><strong>导出三个必要的生命周期钩子函数</strong></p>
+<ol>
+<li><code>bootstrap</code> 渲染之前，做一些初始化</li>
+<li><code>mount</code> 渲染函数， 一般挂载到 子应用入口 =&gt; #app 节点上</li>
+<li><p><code>unmount</code> 卸载函数，清理工作；</p>
+<p>注意：生命周期函数必须返回 Promise </p>
+</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">bootstrap</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'[vue] vue app bootstraped'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">mount</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'[vue] props from main framework'</span>, props);</span><br><span class="line">  storeTest(props);</span><br><span class="line">  render(props); <span class="comment">// new vue 实例。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">unmount</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  instance.$destroy();</span><br><span class="line">  instance.$el.innerHTML = <span class="string">''</span>;</span><br><span class="line">  instance = <span class="literal">null</span>; <span class="comment">//清空实例，垃圾回收</span></span><br><span class="line">  router = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p><strong>子应用也可以独立运行</strong></p>
+<p> 通过qiankun提供的全局变量判断，此时挂载到的节点是 body ⇒ #app</p>
+<p> <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3f955cab-b66b-42eb-82cd-2f01d12f521b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220624T064453Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=a978823453520f7e5e4f29af2018436585b760e23887ea84b0f980ee66e6218a&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+</li>
+<li><p><strong>子应用的配置</strong></p>
+<ol>
+<li><p>子应用应允许跨域，允许 <strong>CORS</strong> 跨域</p>
+ <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line">devServer: &#123;</span><br><span class="line">    headers: &#123;</span><br><span class="line">      <span class="string">'Access-Control-Allow-Origin'</span>: <span class="string">'*'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code>2. 子应用必须打包出一个库文件，文件格式必须是umd
+
+    主应用需要加载子应用资源，子应用js要在主应用运行，必须要得兼容模块格式为umd
+
+    &lt;aside&gt;
+    💡 [*UMD](https://link.zhihu.com/?target=https%3A//github.com/umdjs/umd)  — 另外一个模块化系统，建议作为通用的模块化系统，它与 AMD 和 CommonJS 都是兼容的。*
+
+    &lt;/aside&gt;
+
+    <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">configureWebpack: &#123;</span><br><span class="line">    output: &#123;</span><br><span class="line">      <span class="comment">// 把子应用打包成 umd 库格式</span></span><br><span class="line">      library: <span class="string">`<span class="subst">$&#123;name&#125;</span>-[name]`</span>,</span><br><span class="line">      libraryTarget: <span class="string">'umd'</span>,</span><br><span class="line">      jsonpFunction: <span class="string">`webpackJsonp_<span class="subst">$&#123;name&#125;</span>`</span>, <span class="comment">// jsonp的方式加载子应用资源</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+
+    ![**umd.js 兼容CommonJs、ADM模块规范，如果都不匹配，挂载到window全局对象上**](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9b75797a-173f-46c1-b247-dc678c488932/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220624T064536Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=8695db39a224f753eab5f1e657bc93851c9761d1c3532c8e0df909f0e826af76&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject)
+
+    **umd.js 兼容CommonJs、ADM模块规范，如果都不匹配，挂载到window全局对象上**
+
+    ![**通过window对象可以获取到子应用的生命周期方法；**](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/314da44f-fbe7-465f-8f99-2abff8ecb44a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220624T064517Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=a577f36c99bde81f446626783cb713979af5710ae0357753f2a33401dd77e411&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject)
+
+    **通过window对象可以获取到子应用的生命周期方法；**
+</code></pre><h1 id="手写qiankun源码"><a href="#手写qiankun源码" class="headerlink" title="手写qiankun源码"></a>手写qiankun源码</h1><p><a href="https://github.com/lyctea/qiankun-demo" target="_blank" rel="noopener">https://github.com/lyctea/qiankun-demo</a></p>
+<p>css沙箱</p>
+<ul>
+<li>showdom</li>
+<li>样式范围前缀</li>
+</ul>
+<p>javascript 沙箱</p>
+<p>微前端部署</p>
+<p>微前端通信原理</p>
+<h1 id="了解微前端基本基础运作机制及实现原理"><a href="#了解微前端基本基础运作机制及实现原理" class="headerlink" title="了解微前端基本基础运作机制及实现原理"></a>了解微前端基本基础运作机制及实现原理</h1><p>1、注册子应用</p>
+<p>2、监听路由变化</p>
+<p>3、匹配子应用</p>
+<p>4、加载子应用</p>
+<p>5、渲染子应用</p>
+<p>实现基本的子应用渲染  待完成 css沙箱。js沙箱，数据监听</p>
+<h2 id="一、注册子路由"><a href="#一、注册子路由" class="headerlink" title="一、注册子路由"></a>一、注册子路由</h2><p>1、注册子应用的入口路由，容器、及匹配路由来获取</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">interface app &#123;</span><br><span class="line">  name:string,</span><br><span class="line">  entry:string,</span><br><span class="line">  container: string,</span><br><span class="line">  activeRule:string</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getApp = <span class="function"><span class="params">()</span>=&gt;</span>_app</span><br><span class="line"><span class="comment">// 注册子应用 保存在缓存里方便调用</span></span><br><span class="line"><span class="keyword">let</span> _app: app[]=[]</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> registerMicroApps = <span class="function">(<span class="params">app: app[]</span>) =&gt;</span> &#123;</span><br><span class="line">  _app = app</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> start = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"><span class="comment">//重写监听路由</span></span><br><span class="line">  rewriteRouter();</span><br><span class="line"><span class="comment">// 通过路由变化 匹配子路加载及渲染</span></span><br><span class="line">  handleRouter();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="二、监听路由变化"><a href="#二、监听路由变化" class="headerlink" title="二、监听路由变化"></a>二、监听路由变化</h2><p>1、hash路由：window.onhashchage</p>
+<p>2、history路由： history.go history.back history.forward 使用window.onpopstate,</p>
+<p>pushState, replaceState 使用函数重写来进行，监听劫持</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; handleRouter &#125; <span class="keyword">from</span> <span class="string">'./handle-router'</span>;</span><br><span class="line"><span class="comment">//上一个路由地址</span></span><br><span class="line"><span class="keyword">let</span> prevRouter = <span class="string">''</span>;</span><br><span class="line"><span class="comment">//下一个路由地址</span></span><br><span class="line"><span class="keyword">let</span> nextRouter = <span class="built_in">window</span>.location.pathname;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getPrevRouter = <span class="function"><span class="params">()</span> =&gt;</span> prevRouter;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getNextRouter = <span class="function"><span class="params">()</span> =&gt;</span> nextRouter;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> rewriteRouter = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//通过addEventListener追加监听，不能直接重写，防止其他地方调用</span></span><br><span class="line">  <span class="built_in">window</span>.addEventListener?.(<span class="string">'popstate'</span>, () =&gt; &#123;</span><br><span class="line">    prevRouter = nextRouter;</span><br><span class="line">    nextRouter = <span class="built_in">window</span>.location.pathname;</span><br><span class="line">    handleRouter();</span><br><span class="line">    <span class="comment">//跳转完成后执行 所以无法通过window.location.pathname拿到上一个路由</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 通过重写监听pushState, replaceState</span></span><br><span class="line">  <span class="keyword">const</span> rwaPushState = <span class="built_in">window</span>.history.replaceState;</span><br><span class="line">  <span class="built_in">window</span>.history.pushState = <span class="function">(<span class="params">args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//before</span></span><br><span class="line">    prevRouter = <span class="built_in">window</span>.location.pathname;</span><br><span class="line">    rwaPushState.apply(<span class="built_in">window</span>.history, args);</span><br><span class="line">    nextRouter = <span class="built_in">window</span>.location.pathname;</span><br><span class="line">    <span class="comment">//after</span></span><br><span class="line">    handleRouter();</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">const</span> rwaReplaceState = <span class="built_in">window</span>.history.replaceState;</span><br><span class="line">  <span class="built_in">window</span>.history.replaceState = <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//before</span></span><br><span class="line">    prevRouter = <span class="built_in">window</span>.location.pathname;</span><br><span class="line">    rwaReplaceState.apply(<span class="built_in">window</span>.history, args);</span><br><span class="line">    <span class="comment">//after</span></span><br><span class="line">    nextRouter = <span class="built_in">window</span>.location.pathname;</span><br><span class="line">    handleRouter();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="三、匹配子应用"><a href="#三、匹配子应用" class="headerlink" title="三、匹配子应用"></a>三、匹配子应用</h2><p>1、获取当前路由路径 window.location.pathname，获取注册应用</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; getApp &#125; <span class="keyword">from</span> <span class="string">'.'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getPrevRouter, getNextRouter &#125; <span class="keyword">from</span> <span class="string">'./rewrite-router'</span>;</span><br><span class="line">interface app &#123;</span><br><span class="line">  name: string;</span><br><span class="line">  entry: string;</span><br><span class="line">  container: string;</span><br><span class="line">  activeRule: string;</span><br><span class="line">  bootstrap?: <span class="built_in">Function</span>;</span><br><span class="line">  mount?: <span class="built_in">Function</span>;</span><br><span class="line">  unmount?: <span class="built_in">Function</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> handleRouter = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> apps = getApp();</span><br><span class="line">  <span class="comment">//卸载上一个应用</span></span><br><span class="line">  <span class="keyword">const</span> prevApp = apps.find(<span class="function">(<span class="params">item</span>) =&gt;</span> getPrevRouter().startsWith(item.activeRule));</span><br><span class="line">  <span class="keyword">if</span> (prevApp) &#123;</span><br><span class="line">    <span class="keyword">await</span> unmount(prevApp);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> app = apps.find(<span class="function">(<span class="params">item</span>) =&gt;</span> getNextRouter().startsWith(item.activeRule));</span><br><span class="line">  <span class="keyword">if</span> (!app) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> container = <span class="built_in">document</span>.querySelector(app.container);</span><br><span class="line">  <span class="comment">//浏览器处于安全考虑  innerHtml 中的script标签不会加载</span></span><br><span class="line">  <span class="comment">//if (container) container.innerHTML = html;</span></span><br><span class="line">  <span class="keyword">const</span> &#123; template, execScript &#125; = <span class="keyword">await</span> htmlEntry(app.entry);</span><br><span class="line">  container?.append(template);</span><br><span class="line">  <span class="comment">//配置全局变量 让应用正确渲染到指定的容器中</span></span><br><span class="line">  (<span class="built_in">window</span> <span class="keyword">as</span> any).__POWERED_BY_QIANKUN__ = <span class="literal">true</span>;</span><br><span class="line">  (<span class="built_in">window</span> <span class="keyword">as</span> any).__INJECTED_PUBLIC_PATH_BY_QIANKUN__ = app.entry + <span class="string">'/'</span>;</span><br><span class="line">   <span class="comment">//执行子应用中的js脚本 通过模拟的commonJs环境 获取对象</span></span><br><span class="line">  <span class="keyword">const</span> appExports: any = <span class="keyword">await</span> execScript();</span><br><span class="line">  app.bootstrap = appExports.bootstrap;</span><br><span class="line">  app.mount = appExports.mount;</span><br><span class="line">  app.unmount = appExports.unmount;</span><br><span class="line">  <span class="comment">//执行子应用生命周期</span></span><br><span class="line">  <span class="keyword">await</span> bootstrap(app);</span><br><span class="line">  <span class="keyword">await</span> mount(app);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">bootstrap</span>(<span class="params">app: app</span>) </span>&#123;</span><br><span class="line">  app.bootstrap &amp;&amp; (<span class="keyword">await</span> app.bootstrap());</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">mount</span>(<span class="params">app: app</span>) </span>&#123;</span><br><span class="line">  app.mount &amp;&amp;</span><br><span class="line">    (<span class="keyword">await</span> app.mount(&#123;</span><br><span class="line">      container: <span class="built_in">document</span>.querySelector(app.container),</span><br><span class="line">    &#125;));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">unmount</span>(<span class="params">app: app</span>) </span>&#123;</span><br><span class="line">  app.unmount &amp;&amp; (<span class="keyword">await</span> app.unmount());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四-、加载子应用资源"><a href="#四-、加载子应用资源" class="headerlink" title="四 、加载子应用资源"></a>四 、加载子应用资源</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> htmlEntry = <span class="keyword">async</span> (url) =&gt; &#123;</span><br><span class="line">  <span class="comment">//手动执行获取的script标签</span></span><br><span class="line">  <span class="comment">//通过请求获取应用的 html css js</span></span><br><span class="line">  <span class="keyword">const</span> html: string = <span class="keyword">await</span> fetch(url).then(<span class="function">(<span class="params">res</span>) =&gt;</span> res.text());</span><br><span class="line">  <span class="keyword">const</span> template = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">  template.innerHTML = html;</span><br><span class="line">  <span class="comment">//获取所有的script标签</span></span><br><span class="line">  <span class="keyword">const</span> scripts = template.querySelectorAll(<span class="string">'script'</span>);</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getExternalScript</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.all(</span><br><span class="line">      <span class="built_in">Array</span>.from(scripts).map(<span class="function">(<span class="params">script</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> src = script.getAttribute(<span class="string">'src'</span>);</span><br><span class="line">        <span class="keyword">if</span> (!src) &#123;</span><br><span class="line">          <span class="comment">//是否是内联</span></span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(script.innerHTML);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">//是否是本地资源 如果是本店则加上应用域名</span></span><br><span class="line">          src = src.startsWith(<span class="string">'http'</span>) ? src : <span class="string">`<span class="subst">$&#123;url&#125;</span><span class="subst">$&#123;src&#125;</span>`</span>;</span><br><span class="line">          <span class="keyword">return</span> fetch(src).then(<span class="function">(<span class="params">res</span>) =&gt;</span> res.text());</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">execScript</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> scripts = <span class="keyword">await</span> getExternalScript();</span><br><span class="line">    <span class="comment">//手动构造commonjs 环境</span></span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">module</span> = &#123; <span class="attr">exports</span>: &#123;&#125; &#125;;</span><br><span class="line">    <span class="keyword">const</span> exports = <span class="built_in">module</span>.exports;</span><br><span class="line">    <span class="comment">//eval执行代码可以访问上下文</span></span><br><span class="line">    scripts.forEach(<span class="function">(<span class="params">code</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">eval</span>(code);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//不够灵活</span></span><br><span class="line">    <span class="comment">//return window['vue']</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    template,</span><br><span class="line">    getExternalScript,</span><br><span class="line">    execScript,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="五-、渲染子应用"><a href="#五-、渲染子应用" class="headerlink" title="五 、渲染子应用"></a>五 、渲染子应用</h2><p>1、子应用打包模式为umd,在执行完后将结果挂载到window上</p>
+<p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b9f9c767-b89b-4191-8014-90a211b0c7d7/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220624%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220624T064600Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=b4de5f61f63446bcde81cb5e930376e16c719628865edbcf278130a013bba2ed&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+<p>2、更灵活的获取子应用对象 手动构造一个common js环境让子应用挂载</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">execScript</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> scripts = <span class="keyword">await</span> getExternalScript();</span><br><span class="line">    <span class="comment">//手动构造commonjs 环境</span></span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">module</span> = &#123; <span class="attr">exports</span>: &#123;&#125; &#125;;</span><br><span class="line">    <span class="keyword">const</span> exports = <span class="built_in">module</span>.exports;</span><br><span class="line">    <span class="comment">//eval执行代码可以访问上下文</span></span><br><span class="line">    scripts.forEach(<span class="function">(<span class="params">code</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">eval</span>(code);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//不够灵活</span></span><br><span class="line">    <span class="comment">//return window['vue']</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/微前端/" rel="tag"># 微前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/06/24/cl4s3gtig009lwn9ebjzpd3b3/" rel="next" title="微前端(qiankun)解决方案">
+                <i class="fa fa-chevron-left"></i> 微前端(qiankun)解决方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/06/24/cl4s3gtft004swn9eriziogwn/" rel="prev" title="React技术揭秘">
+                React技术揭秘 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">152</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#手写-qiankun-微前端框架"><span class="nav-number">1.</span> <span class="nav-text">手写 qiankun 微前端框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#why微前端？"><span class="nav-number">2.</span> <span class="nav-text">why微前端？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用微前端架构？"><span class="nav-number">2.1.</span> <span class="nav-text">为什么要使用微前端架构？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微前端原理"><span class="nav-number">2.2.</span> <span class="nav-text">微前端原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#核心逻辑"><span class="nav-number">2.2.1.</span> <span class="nav-text">核心逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主子应用出口"><span class="nav-number">2.2.2.</span> <span class="nav-text">主子应用出口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子应用如何接入主应用？"><span class="nav-number">2.2.3.</span> <span class="nav-text">子应用如何接入主应用？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手写qiankun源码"><span class="nav-number">3.</span> <span class="nav-text">手写qiankun源码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#了解微前端基本基础运作机制及实现原理"><span class="nav-number">4.</span> <span class="nav-text">了解微前端基本基础运作机制及实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、注册子路由"><span class="nav-number">4.1.</span> <span class="nav-text">一、注册子路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、监听路由变化"><span class="nav-number">4.2.</span> <span class="nav-text">二、监听路由变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、匹配子应用"><span class="nav-number">4.3.</span> <span class="nav-text">三、匹配子应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-、加载子应用资源"><span class="nav-number">4.4.</span> <span class="nav-text">四 、加载子应用资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-、渲染子应用"><span class="nav-number">4.5.</span> <span class="nav-text">五 、渲染子应用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

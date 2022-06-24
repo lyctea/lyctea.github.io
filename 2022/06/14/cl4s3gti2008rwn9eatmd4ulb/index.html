@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端工程化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Aries 网络日志" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前端性能优化总结 性能优化的指标和工具 渲染优化 资源压缩与合并 构建优化 传输加载优化  性能优化的指标和工具Created: April 24, 2022 6:07 PM 性能指标，多块才算快性能指标和优化目标 【加载瀑布图】谷歌调试工具 NetWord，Waterfall；TTFB，http请求从发起到返回的时间； 【速度指数】Lighthouse测试网站评分，100满分； 【帧率FPS】查">
+<meta name="keywords" content="前端工程化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化总结">
+<meta property="og:url" content="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/index.html">
+<meta property="og:site_name" content="Aries 网络日志">
+<meta property="og:description" content="前端性能优化总结 性能优化的指标和工具 渲染优化 资源压缩与合并 构建优化 传输加载优化  性能优化的指标和工具Created: April 24, 2022 6:07 PM 性能指标，多块才算快性能指标和优化目标 【加载瀑布图】谷歌调试工具 NetWord，Waterfall；TTFB，http请求从发起到返回的时间； 【速度指数】Lighthouse测试网站评分，100满分； 【帧率FPS】查">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/592d81ef-2852-446f-893b-213fad813102/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T105355Z&X-Amz-Expires=86400&X-Amz-Signature=7b79821dd585d0600d83b3aefe67dbe6591cf0dd7e02a8a075ec4e7f2c422578&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6d78e3da-fdb5-45d4-a7c1-ee89b523fe79/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T105540Z&X-Amz-Expires=86400&X-Amz-Signature=c5b60b81a4945e80240b01354367c96239dbf07891bf1e68856a09262a2f75df&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9b3d40e6-988e-4123-95b6-06017bd56ed5/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T105605Z&X-Amz-Expires=86400&X-Amz-Signature=be6ad7bd5e32a16500c150cd66a40c7f02e1a0b1aaa5dde248c1b6128a4e8f44&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/66227af7-199e-4140-b3e7-26e03e594106/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T105746Z&X-Amz-Expires=86400&X-Amz-Signature=dbed23dc25126fe902afc4c0822c92413073cd82e5a182f669f1b65d7f7bc9e9&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/24683424-cfe8-418b-a3f4-3e05c3e2946b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T105810Z&X-Amz-Expires=86400&X-Amz-Signature=d372509905148c498ce6d63673ef29afb96f771000e9c197f31d6363ed099824&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/857dacb3-2957-4612-8b50-ef2548166ced/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T105844Z&X-Amz-Expires=86400&X-Amz-Signature=3cd8e526dce57fa459a3948ba76ad233a6c712aea19285203268cf20bdf43684&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c152ced0-2561-4694-8ad8-94fae1628018/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T105905Z&X-Amz-Expires=86400&X-Amz-Signature=720497ef8cc68012b70a54999b547236066b0233537be7b8338121bcebc37fb7&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3eafedaf-a560-4687-92cb-5a35d980c528/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T105919Z&X-Amz-Expires=86400&X-Amz-Signature=59798a581d891f0e6c116a30f76505e92325123d2a39da0a00d275438f965ce0&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<meta property="og:image" content="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled.png">
+<meta property="og:image" content="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%201.png">
+<meta property="og:image" content="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%202.png">
+<meta property="og:image" content="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%203.png">
+<meta property="og:image" content="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%204.png">
+<meta property="og:image" content="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%205.png">
+<meta property="og:image" content="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%206.png">
+<meta property="og:image" content="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%207.png">
+<meta property="og:updated_time" content="2022-06-14T11:15:30.557Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端性能优化总结">
+<meta name="twitter:description" content="前端性能优化总结 性能优化的指标和工具 渲染优化 资源压缩与合并 构建优化 传输加载优化  性能优化的指标和工具Created: April 24, 2022 6:07 PM 性能指标，多块才算快性能指标和优化目标 【加载瀑布图】谷歌调试工具 NetWord，Waterfall；TTFB，http请求从发起到返回的时间； 【速度指数】Lighthouse测试网站评分，100满分； 【帧率FPS】查">
+<meta name="twitter:image" content="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/592d81ef-2852-446f-893b-213fad813102/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220614T105355Z&X-Amz-Expires=86400&X-Amz-Signature=7b79821dd585d0600d83b3aefe67dbe6591cf0dd7e02a8a075ec4e7f2c422578&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/"/>
+
+
+
+
+
+  <title>前端性能优化总结 | Aries 网络日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Aries 网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luoyec.cn/2022/06/14/cl4s3gti2008rwn9eatmd4ulb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luoyecong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aries 网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端性能优化总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-14T18:35:17+08:00">
+                2022-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端工程化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端工程化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前端性能优化总结"><a href="#前端性能优化总结" class="headerlink" title="前端性能优化总结"></a>前端性能优化总结</h1><ul>
+<li>性能优化的指标和工具</li>
+<li>渲染优化</li>
+<li>资源压缩与合并</li>
+<li>构建优化</li>
+<li>传输加载优化</li>
+</ul>
+<h1 id="性能优化的指标和工具"><a href="#性能优化的指标和工具" class="headerlink" title="性能优化的指标和工具"></a>性能优化的指标和工具</h1><p>Created: April 24, 2022 6:07 PM</p>
+<h2 id="性能指标，多块才算快"><a href="#性能指标，多块才算快" class="headerlink" title="性能指标，多块才算快"></a>性能指标，多块才算快</h2><h3 id="性能指标和优化目标"><a href="#性能指标和优化目标" class="headerlink" title="性能指标和优化目标"></a>性能指标和优化目标</h3><ul>
+<li>【加载瀑布图】谷歌调试工具 NetWord，Waterfall；TTFB，http请求从发起到返回的时间；</li>
+<li>【速度指数】Lighthouse测试网站评分，100满分；</li>
+<li><p>【帧率FPS】查询网站帧率；</p>
+<p>  <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/592d81ef-2852-446f-893b-213fad813102/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105355Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=7b79821dd585d0600d83b3aefe67dbe6591cf0dd7e02a8a075ec4e7f2c422578&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+</li>
+<li><p>【页面加载时间】异步请求完成时间在一秒钟内，无法完成加loading动画；</p>
+</li>
+<li>【首次渲染】懒加载、预加载优化；</li>
+<li>【交互】交互动作反馈时间足够短；</li>
+</ul>
+<h3 id="RAIL测量模型"><a href="#RAIL测量模型" class="headerlink" title="RAIL测量模型"></a>RAIL测量模型</h3><h3 id="什么是RAIL"><a href="#什么是RAIL" class="headerlink" title="什么是RAIL"></a>什么是RAIL</h3><p><strong>Respose(响应)</strong>：网站给用户的响应体验<br><strong>Animation(动画)</strong>:  网站加的动效给用户的体验<br><strong>Idle(空闲)</strong>: 网站响应时，页面卡顿，主线程繁忙的情况下，要考虑如何加大主线程空闲的时间<br><strong>Load(加载):</strong> 资源加载时，白屏等待时间</p>
+<h3 id="RAIL评估标准"><a href="#RAIL评估标准" class="headerlink" title="RAIL评估标准"></a>RAIL评估标准</h3><p><strong>Respose(响应)</strong>：处理事件应在50ms内完成<br><strong>Animation(动画)</strong>：每10ms产生一帧<br><strong>Idle(空闲)</strong>：尽可能增加空闲时间<br><strong>Load(加载)</strong>：在5s内完成内容加载并可以交互</p>
+<h2 id="利用测量工具和APIs"><a href="#利用测量工具和APIs" class="headerlink" title="利用测量工具和APIs"></a>利用测量工具和APIs</h2><ol>
+<li><p><strong>Chrome DevTools 开发调试、性能评测</strong></p>
+<ol>
+<li>Audit(Lighthouse)</li>
+<li>Throttling调整网络吞吐</li>
+<li>Performance性能分析</li>
+<li>Network网络加载分析</li>
+</ol>
+</li>
+<li><p><strong>Lighthouse 网站整体质量评估</strong></p>
+<ol>
+<li><code>**npm install -g lighthouse lighthouse [https://www.baidu.com](https://www.baidu.com/)**</code></li>
+<li><strong>Chrome DevTools 中使用 lighthouse</strong></li>
+</ol>
+</li>
+<li><p><strong>WebPageTest多测试地点、全面性能报告</strong></p>
+<p> <a href="https://www.webpagetest.org/" target="_blank" rel="noopener">WebPageTest - Website Performance and Optimization Test</a></p>
+<ul>
+<li>waterfall chart 请求瀑布图</li>
+<li>first view 首次访问，<strong>First Byte、Start Render</strong></li>
+<li>repeat view 访问</li>
+<li>如何本地部署<strong>WebpageTest</strong>，docker镜像部署</li>
+</ul>
+</li>
+</ol>
+<h2 id="优化问题，重新测量（迭代-）"><a href="#优化问题，重新测量（迭代-）" class="headerlink" title="优化问题，重新测量（迭代 ）"></a>优化问题，重新测量（迭代 ）</h2><h1 id="渲染优化"><a href="#渲染优化" class="headerlink" title="渲染优化"></a>渲染优化</h1><p>Created: April 24, 2022 6:07 PM</p>
+<p><a href="https://zhuanlan.zhihu.com/p/336765062" target="_blank" rel="noopener">问我Chrome浏览器的渲染原理（6000字长文）</a></p>
+<h2 id="浏览器渲染原理，关键渲染路径"><a href="#浏览器渲染原理，关键渲染路径" class="headerlink" title="浏览器渲染原理，关键渲染路径"></a>浏览器渲染原理，关键渲染路径</h2><p><strong>浏览器的渲染流程</strong></p>
+<p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6d78e3da-fdb5-45d4-a7c1-ee89b523fe79/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105540Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=c5b60b81a4945e80240b01354367c96239dbf07891bf1e68856a09262a2f75df&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+<ol>
+<li>js引起页面变化</li>
+<li>样式修改</li>
+<li>布局，绘制到页面上</li>
+<li>绘制</li>
+<li>合成，多个图层组合</li>
+</ol>
+<p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9b3d40e6-988e-4123-95b6-06017bd56ed5/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105605Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=be6ad7bd5e32a16500c150cd66a40c7f02e1a0b1aaa5dde248c1b6128a4e8f44&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+<h1 id="资源压缩与合并"><a href="#资源压缩与合并" class="headerlink" title="资源压缩与合并"></a>资源压缩与合并</h1><ul>
+<li>减少http请求数量</li>
+<li>减少请求资源的大小<ul>
+<li>html压缩，<code>html-minifier</code> <code>npm</code>工具</li>
+<li>css压缩</li>
+<li>js文件合并</li>
+<li>图片压缩</li>
+<li>字体优化</li>
+</ul>
+</li>
+</ul>
+<h1 id="构建优化"><a href="#构建优化" class="headerlink" title="构建优化"></a>构建优化</h1><p>Created: April 26, 2022 5:59 PM</p>
+<h1 id="webpack4优化"><a href="#webpack4优化" class="headerlink" title="webpack4优化"></a>webpack4优化</h1><h2 id="webpack4的模式"><a href="#webpack4的模式" class="headerlink" title="webpack4的模式"></a>webpack4的模式</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用于开发的配置文件，配置热更新、跨域配置、端口设置等</span></span><br><span class="line"><span class="string">"dev"</span>: <span class="string">"webpack --mode development"</span>,</span><br><span class="line"><span class="comment">// 用于生产的配置文件，配置 js 压缩、代码拆分等</span></span><br><span class="line"><span class="string">"build"</span>: <span class="string">"webpack --mode production"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Tree-shaking"><a href="#Tree-shaking" class="headerlink" title="Tree-shaking"></a>Tree-shaking</h2><ul>
+<li>上下文未用到的代码；</li>
+<li>基于ESM，es6的模块化；</li>
+<li><p>可能会有副作用，不希望被shaking的文件</p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line"><span class="string">"slideEffects"</span>: [</span><br><span class="line">	<span class="string">"*.css"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>注意babel配置的影响</p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// babel预设</span></span><br><span class="line"><span class="string">"@babel/preset-env"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"modules"</span>: <span class="literal">false</span>,</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="JS压缩"><a href="#JS压缩" class="headerlink" title="JS压缩"></a>JS压缩</h2><ul>
+<li>webpack4后引入 <code>uglifyjs-webpack-plugin</code></li>
+<li>支持ES6替换为 <code>terser-webpack-glugin</code> （效率更好，生产默认，支持es6）</li>
+<li>减小js文件体积</li>
+</ul>
+<h2 id="作用域提升"><a href="#作用域提升" class="headerlink" title="作用域提升"></a>作用域提升</h2><ul>
+<li>生产模式自动启用，代码体积减小</li>
+<li>提高执行效率</li>
+<li>注意babel配置的影响，仅支持esm</li>
+</ul>
+<h2 id="babel7优化配置"><a href="#babel7优化配置" class="headerlink" title="babel7优化配置"></a>babel7优化配置</h2><ul>
+<li><p>在需要的地方引入polyfill</p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"presets"</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">"@babel/preset-env"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"targets"</span>: &#123;</span><br><span class="line">          <span class="string">"chrome"</span>: <span class="string">"67"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"useBuiltIns"</span>: <span class="string">"usage"</span>, <span class="comment">// 需要的地方引入polyfill</span></span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>辅助函数的按需引入, <code>@babel/plugin-transform-runtime</code></p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"plugins"</span>: [</span><br><span class="line">    <span class="string">"@babel/plugin-transform-runtime"</span>,</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>设置目标浏览器，</p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"presets"</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">"@babel/preset-env"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"targets"</span>: &#123;</span><br><span class="line">          <span class="string">"chrome"</span>: [<span class="string">"&gt;0.25%"</span>] <span class="comment">// 大于使用率0.25的浏览器</span></span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="提高构建速度"><a href="#提高构建速度" class="headerlink" title="提高构建速度"></a>提高构建速度</h2><ul>
+<li><p>noParse，告诉webpack哪些库不进行解析</p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.common</span></span><br><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">    noParse: <span class="regexp">/jquery｜lodash/</span>, <span class="comment">//忽略对部分没采用模块化的文件的递归解析处理</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>DLLPlugin(动态链接库)<ul>
+<li>避免打包时对不变的库重复构建</li>
+<li>提高构建速度</li>
+</ul>
+</li>
+</ul>
+<h2 id="资源压缩"><a href="#资源压缩" class="headerlink" title="资源压缩"></a>资源压缩</h2><ul>
+<li><code>Terser</code>压缩JS</li>
+<li><code>mini-css-extract-plugin</code>压缩css</li>
+<li><code>HtmlWebpackPlugin-minify</code> 压缩HTML</li>
+</ul>
+<h1 id="基于webpack的资源持久化缓存"><a href="#基于webpack的资源持久化缓存" class="headerlink" title="基于webpack的资源持久化缓存"></a>基于webpack的资源持久化缓存</h1><p>缓存资源没有更新，或者更新不及时。访问旧缓存容易导致问题，解决方案是每个打包资源文件有唯一的hash值，做增量式的更新。</p>
+<ul>
+<li>增量式更新</li>
+<li>只有变化的文件hash才会改变</li>
+<li>充分利用浏览器缓存</li>
+</ul>
+<h1 id="检测与分析"><a href="#检测与分析" class="headerlink" title="检测与分析"></a>检测与分析</h1><ul>
+<li><strong>Stats分析与可视化</strong></li>
+</ul>
+<p><a href="https://alexkuz.github.io/webpack-chart/" target="_blank" rel="noopener">Webpack Chart</a></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Generate stats.json for your project with this command:</span></span><br><span class="line">$ webpack --profile --json &gt; stats.json</span><br></pre></td></tr></table></figure>
+<p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/66227af7-199e-4140-b3e7-26e03e594106/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105746Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=dbed23dc25126fe902afc4c0822c92413073cd82e5a182f669f1b65d7f7bc9e9&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+<ul>
+<li><strong>webpack-bundle-analyzer 进行体积分析</strong></li>
+</ul>
+<p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/24683424-cfe8-418b-a3f4-3e05c3e2946b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105810Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=d372509905148c498ce6d63673ef29afb96f771000e9c197f31d6363ed099824&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+<ul>
+<li><strong>speed-measure-webpack-plugin速度分析</strong></li>
+</ul>
+<p><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/857dacb3-2957-4612-8b50-ef2548166ced/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105844Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=3cd8e526dce57fa459a3948ba76ad233a6c712aea19285203268cf20bdf43684&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+<h1 id="React-按需加载"><a href="#React-按需加载" class="headerlink" title="React 按需加载"></a>React 按需加载</h1><ul>
+<li><p><strong>React router基于webpack动态引入</strong></p>
+<p>  <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c152ced0-2561-4694-8ad8-94fae1628018/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105905Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=720497ef8cc68012b70a54999b547236066b0233537be7b8338121bcebc37fb7&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+</li>
+<li><p><strong>使用Reloadable高级组件</strong></p>
+<p>  fallback：在未加载器代替的组件</p>
+<p>  <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3eafedaf-a560-4687-92cb-5a35d980c528/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220614%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20220614T105919Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=59798a581d891f0e6c116a30f76505e92325123d2a39da0a00d275438f965ce0&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22&amp;x-id=GetObject" alt="Untitled"></p>
+</li>
+</ul>
+<pre><code># 传输加载优化
+</code></pre><p>Created: April 27, 2022 10:21 AM</p>
+<h1 id="Gzip压缩"><a href="#Gzip压缩" class="headerlink" title="Gzip压缩"></a>Gzip压缩</h1><ul>
+<li>对传输资源进行体积压缩，高达90%</li>
+<li><p>利用nginx启用 Gzip</p>
+<p>  <img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled.png" alt="Untitled"></p>
+</li>
+</ul>
+<h1 id="启用http-keep-alive"><a href="#启用http-keep-alive" class="headerlink" title="启用http keep-alive"></a>启用http keep-alive</h1><p>http 协议默认开启的 keep-alive</p>
+<p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%201.png" alt="Untitled"></p>
+<h1 id="HTTP缓存"><a href="#HTTP缓存" class="headerlink" title="HTTP缓存"></a>HTTP缓存</h1><p><strong>Nginx配置：</strong></p>
+<p>图片等静态资源，可以更长时间</p>
+<p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%202.png" alt="Untitled"></p>
+<ul>
+<li>Cache-Control/Expires</li>
+<li>Last-Modified + If-Modified-Since</li>
+<li>Etag + If-None-Match</li>
+</ul>
+<h1 id="Service-Workers作用"><a href="#Service-Workers作用" class="headerlink" title="Service Workers作用"></a>Service Workers作用</h1><ul>
+<li>加速重复访问</li>
+<li>离线支持</li>
+</ul>
+<h3 id="service-workers-配置"><a href="#service-workers-配置" class="headerlink" title="service workers 配置"></a>service workers 配置</h3><ul>
+<li>create-react-app自带；</li>
+<li>webpack引入两个插件实现</li>
+</ul>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ul>
+<li>延长了首屏时间，但页面总加载时间减少；</li>
+<li>兼容性问题；</li>
+<li>只能在localhost或https下使用；</li>
+</ul>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%203.png" alt="Untitled"></p>
+<h1 id="http-2-性能提升"><a href="#http-2-性能提升" class="headerlink" title="http/2 性能提升"></a>http/2 性能提升</h1><ul>
+<li>二进制传输，1.1基于文本，h2是基于二进制编码，提高安全性，头部压缩</li>
+<li>请求响应多路复用；</li>
+<li>Server push，提前将资源推送到浏览器</li>
+</ul>
+<h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><ol>
+<li>先开启https</li>
+</ol>
+<p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%204.png" alt="Untitled"></p>
+<p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%205.png" alt="Untitled"></p>
+<ol>
+<li>开启h2</li>
+</ol>
+<p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%206.png" alt="Untitled"></p>
+<h2 id="h2的多路复用"><a href="#h2的多路复用" class="headerlink" title="h2的多路复用"></a>h2的多路复用</h2><p><img src="%E4%BC%A0%E8%BE%93%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96%201b32b3437a524e61902442a068c38a41/Untitled%207.png" alt="Untitled"></p>
+<h1 id="SSR的好处"><a href="#SSR的好处" class="headerlink" title="SSR的好处"></a>SSR的好处</h1><ul>
+<li>加速首屏加载速度</li>
+<li>更好的SEO</li>
+</ul>
+<h2 id="基于Next-js实现服务端渲染"><a href="#基于Next-js实现服务端渲染" class="headerlink" title="基于Next.js实现服务端渲染"></a>基于Next.js实现服务端渲染</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端工程化/" rel="tag"># 前端工程化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/06/14/cl4s3gtj300bewn9etfyz0m4a/" rel="next" title="脚手架的实现原理">
+                <i class="fa fa-chevron-left"></i> 脚手架的实现原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/06/14/cl4s3gti3008uwn9e7e6sift6/" rel="prev" title="前端性能监控">
+                前端性能监控 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">luoyecong</p>
+              <p class="site-description motion-element" itemprop="description">Hope is a good thing, maybe the best of things, and no good thing ever dies.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">152</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端性能优化总结"><span class="nav-number">1.</span> <span class="nav-text">前端性能优化总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能优化的指标和工具"><span class="nav-number">2.</span> <span class="nav-text">性能优化的指标和工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#性能指标，多块才算快"><span class="nav-number">2.1.</span> <span class="nav-text">性能指标，多块才算快</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能指标和优化目标"><span class="nav-number">2.1.1.</span> <span class="nav-text">性能指标和优化目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RAIL测量模型"><span class="nav-number">2.1.2.</span> <span class="nav-text">RAIL测量模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是RAIL"><span class="nav-number">2.1.3.</span> <span class="nav-text">什么是RAIL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RAIL评估标准"><span class="nav-number">2.1.4.</span> <span class="nav-text">RAIL评估标准</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用测量工具和APIs"><span class="nav-number">2.2.</span> <span class="nav-text">利用测量工具和APIs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化问题，重新测量（迭代-）"><span class="nav-number">2.3.</span> <span class="nav-text">优化问题，重新测量（迭代 ）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#渲染优化"><span class="nav-number">3.</span> <span class="nav-text">渲染优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器渲染原理，关键渲染路径"><span class="nav-number">3.1.</span> <span class="nav-text">浏览器渲染原理，关键渲染路径</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#资源压缩与合并"><span class="nav-number">4.</span> <span class="nav-text">资源压缩与合并</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建优化"><span class="nav-number">5.</span> <span class="nav-text">构建优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack4优化"><span class="nav-number">6.</span> <span class="nav-text">webpack4优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack4的模式"><span class="nav-number">6.1.</span> <span class="nav-text">webpack4的模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tree-shaking"><span class="nav-number">6.2.</span> <span class="nav-text">Tree-shaking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS压缩"><span class="nav-number">6.3.</span> <span class="nav-text">JS压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域提升"><span class="nav-number">6.4.</span> <span class="nav-text">作用域提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#babel7优化配置"><span class="nav-number">6.5.</span> <span class="nav-text">babel7优化配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提高构建速度"><span class="nav-number">6.6.</span> <span class="nav-text">提高构建速度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源压缩"><span class="nav-number">6.7.</span> <span class="nav-text">资源压缩</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于webpack的资源持久化缓存"><span class="nav-number">7.</span> <span class="nav-text">基于webpack的资源持久化缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测与分析"><span class="nav-number">8.</span> <span class="nav-text">检测与分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#React-按需加载"><span class="nav-number">9.</span> <span class="nav-text">React 按需加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Gzip压缩"><span class="nav-number">10.</span> <span class="nav-text">Gzip压缩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启用http-keep-alive"><span class="nav-number">11.</span> <span class="nav-text">启用http keep-alive</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP缓存"><span class="nav-number">12.</span> <span class="nav-text">HTTP缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service-Workers作用"><span class="nav-number">13.</span> <span class="nav-text">Service Workers作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#service-workers-配置"><span class="nav-number">13.0.1.</span> <span class="nav-text">service workers 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意点"><span class="nav-number">13.0.2.</span> <span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">13.0.3.</span> <span class="nav-text">原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-2-性能提升"><span class="nav-number">14.</span> <span class="nav-text">http/2 性能提升</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx配置"><span class="nav-number">14.0.1.</span> <span class="nav-text">nginx配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#h2的多路复用"><span class="nav-number">14.1.</span> <span class="nav-text">h2的多路复用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSR的好处"><span class="nav-number">15.</span> <span class="nav-text">SSR的好处</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于Next-js实现服务端渲染"><span class="nav-number">15.1.</span> <span class="nav-text">基于Next.js实现服务端渲染</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luoyecong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
